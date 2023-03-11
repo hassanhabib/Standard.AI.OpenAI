@@ -46,6 +46,11 @@ var githubPipeline = new GithubPipeline
                     }
                 },
 
+                new RestoreTask
+                {
+                    Name = "Restoring Packages"
+                },
+
                 new DotNetBuildTask
                 {
                     Name = "Building Solution"
