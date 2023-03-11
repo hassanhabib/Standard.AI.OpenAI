@@ -1,0 +1,25 @@
+name: OpenAI.NET Build
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Pulling Code
+      uses: actions/checkout@v2
+    - name: Installing .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.201
+        include-prerelease: false
+    - name: Restoring Packages
+      run: dotnet restore
+    - name: Building Solution
+      run: dotnet build --no-restore
+    - name: Running Tests
+      run: dotnet test --no-build --verbosity normal
