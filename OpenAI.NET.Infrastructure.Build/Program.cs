@@ -8,32 +8,38 @@ using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
 
-var adoNetClient = new ADotNetClient();
-
-var githubPipeline = new GithubPipeline
+namespace OpenAI.NET.Infrastructure.Build
 {
-    Name = "OpenAI.NET Build",
-
-    OnEvents = new Events
+    internal class Program
     {
-        Push = new PushEvent
+        private static void Main(string[] args)
         {
-            Branches = new string[] { "main" }
-        },
+            var adoNetClient = new ADotNetClient();
 
-        PullRequest = new PullRequestEvent
-        {
-            Branches = new string[] { "main" }
-        }
-    },
+            var githubPipeline = new GithubPipeline
+            {
+                Name = "OpenAI.NET Build",
 
-    Jobs = new Jobs
-    {
-        Build = new BuildJob
-        {
-            RunsOn = BuildMachines.WindowsLatest,
+                OnEvents = new Events
+                {
+                    Push = new PushEvent
+                    {
+                        Branches = new string[] { "main" }
+                    },
 
-            Steps = new List<GithubTask>
+                    PullRequest = new PullRequestEvent
+                    {
+                        Branches = new string[] { "main" }
+                    }
+                },
+
+                Jobs = new Jobs
+                {
+                    Build = new BuildJob
+                    {
+                        RunsOn = BuildMachines.WindowsLatest,
+
+                        Steps = new List<GithubTask>
             {
                 new CheckoutTaskV2
                 {
@@ -65,10 +71,13 @@ var githubPipeline = new GithubPipeline
                     Name = "Running Tests"
                 }
             }
+                    }
+                }
+            };
+
+            adoNetClient.SerializeAndWriteToFile(
+                adoPipeline: githubPipeline,
+                path: "../../../../.github/workflows/dotnet.yml");
         }
     }
-};
-
-adoNetClient.SerializeAndWriteToFile(
-    adoPipeline: githubPipeline,
-    path: "../../../../.github/workflows/dotnet.yml");
+}
