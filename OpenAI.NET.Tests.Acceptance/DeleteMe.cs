@@ -4,7 +4,7 @@
 
 using Xunit;
 
-namespace OpenAI.NET.Test.Acceptance
+namespace OpenAI.NET.Tests.Acceptance
 {
     public class DeleteMe
     {
