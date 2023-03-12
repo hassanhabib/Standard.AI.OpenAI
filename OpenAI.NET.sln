@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.NET.Tests.Unit", "Op
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.NET.Infrastructure.Build", "OpenAI.NET.Infrastructure.Build\OpenAI.NET.Infrastructure.Build.csproj", "{8BD71289-2C25-4434-8A04-04E7B6C55D29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.NET.Test.Acceptance", "OpenAI.NET.Test.Acceptance\OpenAI.NET.Test.Acceptance.csproj", "{3B748003-997E-4368-8340-B178822EBCE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.NET.Tests.Acceptance", "OpenAI.NET.Tests.Acceptance\OpenAI.NET.Tests.Acceptance.csproj", "{3B748003-997E-4368-8340-B178822EBCE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
