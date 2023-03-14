@@ -11,7 +11,7 @@ using RESTFulSense.Clients;
 
 namespace OpenAI.NET.Brokers.OpenAIs
 {
-    internal partial class OpenAIBroker
+    internal partial class OpenAIBroker : IOpenAIBroker
     {
         private readonly ApiConfigurations apiConfigurations;
         private readonly IRESTFulApiFactoryClient apiClient;
