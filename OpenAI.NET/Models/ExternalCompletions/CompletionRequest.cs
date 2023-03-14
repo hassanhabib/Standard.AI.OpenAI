@@ -17,7 +17,6 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public string[] Prompt { get; set; } = new string[0];
 
         [JsonProperty(propertyName: "suffix")]
-        [JsonPropertyName(name: "suffix")]
         public string Suffix { get; set; } = null;
 
         [JsonProperty(propertyName: "max_tokens")]
