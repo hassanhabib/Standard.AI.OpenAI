@@ -3,18 +3,19 @@
 // ---------------------------------------------------------------
 
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
     public class Usage
     {
-        [JsonPropertyName("prompt_tokens")]
+        [JsonProperty("prompt_tokens")]
         public int PromptTokens { get; set; }
 
-        [JsonPropertyName("completion_tokens")]
+        [JsonProperty("completion_tokens")]
         public int CompletionTokens { get; set; }
 
-        [JsonPropertyName("total_tokens")]
+        [JsonProperty("total_tokens")]
         public int TotalTokens { get; set; }
     }
 }

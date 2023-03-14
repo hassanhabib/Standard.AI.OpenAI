@@ -4,57 +4,58 @@
 
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
     internal class CompletionRequest
     {
-        [JsonPropertyName(name: "model")]
+        [JsonProperty("model")]
         public string Model { get; set; }
 
-        [JsonPropertyName(name: "prompt")]
+        [JsonProperty("prompt")]
         public string[] Prompt { get; set; } = new string[0];
 
-        [JsonPropertyName(name: "suffix")]
+        [JsonProperty("suffix")]
         public string? Suffix { get; set; }
 
-        [JsonPropertyName(name: "max_tokens")]
+        [JsonProperty("max_tokens")]
         public int? MaxTokens { get; set; }
 
-        [JsonPropertyName(name: "temperature")]
+        [JsonProperty("temperature")]
         public double? Temperature { get; set; }
 
-        [JsonPropertyName(name: "top_p")]
+        [JsonProperty("top_p")]
         public double? ProbabilityMass { get; set; }
 
-        [JsonPropertyName(name: "n")]
+        [JsonProperty("n")]
         public int? CompletionsPerPrompt { get; set; }
 
-        [JsonPropertyName(name: "stream")]
+        [JsonProperty("stream")]
         public bool? Stream { get; set; }
 
-        [JsonPropertyName(name: "logprobs")]
+        [JsonProperty("logprobs")]
         public int? LogProbabilities { get; set; }
 
-        [JsonPropertyName(name: "echo")]
+        [JsonProperty("echo")]
         public bool? Echo { get; set; }
 
-        [JsonPropertyName(name: "stop")]
+        [JsonProperty("stop")]
         public string[]? Stop { get; set; }
 
-        [JsonPropertyName(name: "presence_penalty")]
+        [JsonProperty("presence_penalty")]
         public double? PresencePenalty { get; set; }
 
-        [JsonPropertyName(name: "frequency_penalty")]
+        [JsonProperty("frequency_penalty")]
         public double? FrequencyPenalty { get; set; }
 
-        [JsonPropertyName(name: "best_of")]
+        [JsonProperty("best_of")]
         public int? BestOf { get; set; }
 
-        [JsonPropertyName(name: "logit_bias")]
+        [JsonProperty("logit_bias")]
         public Dictionary<string, int>? LogitBias { get; set; }
 
-        [JsonPropertyName(name: "user")]
+        [JsonProperty("user")]
         public string? User { get; set; }
     }
 }
