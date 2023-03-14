@@ -9,7 +9,7 @@ namespace OpenAI.NET.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker
     {
-        public async ValueTask<CompletionResponse> PostCompletionRequestAsync(CompletionRequest completionRequest) =>
-            await PostAsync<CompletionRequest, CompletionResponse>(relativeUrl: "v1/completions", completionRequest);
+        public async ValueTask<CompletionResponse> PostCompletionRequestAsync( string completionRequest) =>
+            await PostAsync<string, CompletionResponse>(relativeUrl: "v1/completions", completionRequest);
     }
 }

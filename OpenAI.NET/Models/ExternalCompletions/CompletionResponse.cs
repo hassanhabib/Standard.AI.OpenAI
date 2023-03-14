@@ -2,29 +2,28 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
     public class CompletionResponse
     {
-        [JsonProperty("id")]
+        [JsonProperty(propertyName: "id")]
         public string Id { get; set; }
 
-        [JsonProperty("_object")]
+        [JsonProperty(propertyName: "_object")]
         public string Object { get; set; }
 
-        [JsonProperty("created")]
+        [JsonProperty(propertyName: "created")]
         public int Created { get; set; }
 
-        [JsonProperty("model")]
+        [JsonProperty(propertyName: "model")]
         public string Model { get; set; }
 
-        [JsonProperty("choices")]
+        [JsonProperty(propertyName: "choices")]
         public Choice[] Choices { get; set; }
 
-        [JsonProperty("usage")]
+        [JsonProperty(propertyName: "usage")]
         public Usage Usage { get; set; }
     }
 }

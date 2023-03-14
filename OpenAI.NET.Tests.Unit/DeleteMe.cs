@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.ExternalCompletions;
@@ -20,7 +21,7 @@ namespace OpenAI.NET.Tests.Unit
         {
             var apiConfiguration = new ApiConfigurations
             {
-                ApiKey = "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",
+                ApiKey = "sk-sOmESoRtOfKeyAyedAtMakesgOBrOom",
                 ApiUrl = "https://api.openai.com/"
             };
 
@@ -35,8 +36,10 @@ namespace OpenAI.NET.Tests.Unit
                 CompletionsPerPrompt = 1
             };
 
-            CompletionResponse completionResponse = 
-                await openAIBroker.PostCompletionRequestAsync(completionRequest);
+            string serializedCompletionRequest = JsonConvert.SerializeObject(completionRequest);
+
+            CompletionResponse completionResponse =
+                await openAIBroker.PostCompletionRequestAsync(serializedCompletionRequest);
 
             Assert.NotNull(completionResponse);
         }

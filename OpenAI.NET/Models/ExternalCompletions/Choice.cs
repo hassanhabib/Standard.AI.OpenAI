@@ -8,16 +8,16 @@ namespace OpenAI.NET.Models.ExternalCompletions
 {
     public class Choice
     {
-        [JsonProperty("text")]
+        [JsonProperty(propertyName: "text")]
         public string Text { get; set; }
 
-        [JsonProperty("index")]
+        [JsonProperty(propertyName: "index")]
         public int Index { get; set; }
 
-        [JsonProperty("logprobs")]
+        [JsonProperty(propertyName: "logprobs")]
         public object LogProbabilities { get; set; }
 
-        [JsonProperty("finish_reason")]
+        [JsonProperty(propertyName: "finish_reason")]
         public string Finish_reason { get; set; }
     }
 }

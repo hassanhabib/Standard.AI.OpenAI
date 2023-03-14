@@ -10,52 +10,53 @@ namespace OpenAI.NET.Models.ExternalCompletions
 {
     internal class CompletionRequest
     {
-        [JsonProperty("model")]
+        [JsonProperty(propertyName: "model")]
         public string Model { get; set; }
 
-        [JsonProperty("prompt")]
+        [JsonProperty(propertyName: "prompt")]
         public string[] Prompt { get; set; } = new string[0];
 
-        [JsonProperty("suffix")]
-        public string? Suffix { get; set; }
+        [JsonProperty(propertyName: "suffix")]
+        [JsonPropertyName(name: "suffix")]
+        public string Suffix { get; set; } = null;
 
-        [JsonProperty("max_tokens")]
-        public int? MaxTokens { get; set; }
+        [JsonProperty(propertyName: "max_tokens")]
+        public int MaxTokens { get; set; } = 16;
 
-        [JsonProperty("temperature")]
-        public double? Temperature { get; set; }
+        [JsonProperty(propertyName: "temperature")]
+        public double Temperature { get; set; } = 1;
 
-        [JsonProperty("top_p")]
-        public double? ProbabilityMass { get; set; }
+        [JsonProperty(propertyName: "top_p")]
+        public double ProbabilityMass { get; set; } = 1;
 
-        [JsonProperty("n")]
-        public int? CompletionsPerPrompt { get; set; }
+        [JsonProperty(propertyName: "n")]
+        public int CompletionsPerPrompt { get; set; } = 1;
 
-        [JsonProperty("stream")]
-        public bool? Stream { get; set; }
+        [JsonProperty(propertyName: "stream")]
+        public bool Stream { get; set; } = false;
 
-        [JsonProperty("logprobs")]
-        public int? LogProbabilities { get; set; }
+        [JsonProperty(propertyName: "logprobs")]
+        public int? LogProbabilities { get; set; } = null;
 
-        [JsonProperty("echo")]
-        public bool? Echo { get; set; }
+        [JsonProperty(propertyName: "echo")]
+        public bool Echo { get; set; } = false;
 
-        [JsonProperty("stop")]
-        public string[]? Stop { get; set; }
+        [JsonProperty(propertyName: "stop")]
+        public string[] Stop { get; set; } = null;
 
-        [JsonProperty("presence_penalty")]
-        public double? PresencePenalty { get; set; }
+        [JsonProperty(propertyName: "presence_penalty")]
+        public double PresencePenalty { get; set; } = 0;
 
-        [JsonProperty("frequency_penalty")]
-        public double? FrequencyPenalty { get; set; }
+        [JsonProperty(propertyName: "frequency_penalty")]
+        public double FrequencyPenalty { get; set; } = 0;
 
-        [JsonProperty("best_of")]
-        public int? BestOf { get; set; }
+        [JsonProperty(propertyName: "best_of")]
+        public int BestOf { get; set; } = 1;
 
-        [JsonProperty("logit_bias")]
-        public Dictionary<string, int>? LogitBias { get; set; }
+        [JsonProperty(propertyName: "logit_bias")]
+        public Dictionary<string, int> LogitBias { get; set; } = new Dictionary<string, int>();
 
-        [JsonProperty("user")]
-        public string? User { get; set; }
+        [JsonProperty(propertyName: "user")]
+        public string User { get; set; } = string.Empty;
     }
 }
