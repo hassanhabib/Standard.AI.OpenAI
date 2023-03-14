@@ -3,27 +3,28 @@
 // ---------------------------------------------------------------
 
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
     public class CompletionResponse
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("_object")]
+        [JsonProperty("_object")]
         public string Object { get; set; }
 
-        [JsonPropertyName("created")]
+        [JsonProperty("created")]
         public int Created { get; set; }
 
-        [JsonPropertyName("model")]
+        [JsonProperty("model")]
         public string Model { get; set; }
 
-        [JsonPropertyName("choices")]
+        [JsonProperty("choices")]
         public Choice[] Choices { get; set; }
 
-        [JsonPropertyName("usage")]
+        [JsonProperty("usage")]
         public Usage Usage { get; set; }
     }
 }

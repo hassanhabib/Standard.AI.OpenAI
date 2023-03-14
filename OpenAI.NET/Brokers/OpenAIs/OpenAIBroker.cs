@@ -31,7 +31,7 @@ namespace OpenAI.NET.Brokers.OpenAIs
             await this.apiClient.PostContentAsync(relativeUrl, content);
 
         private async ValueTask<TResult> PostAsync<TRequest, TResult>(string relativeUrl, TRequest content) =>
-            await this.apiClient.PostContentAsync<TRequest, TResult>(relativeUrl, content);
+            await this.apiClient.PostContentAsync<TRequest, TResult>(relativeUrl, content, "application/json");
 
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>
             await this.apiClient.PutContentAsync(relativeUrl, content);
