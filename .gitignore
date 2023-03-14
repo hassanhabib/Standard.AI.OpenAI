@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/OpenAI.NET.Tests.Unit/DeleteMe2.cs
+/OpenAI.NET.Tests.Unit/BriansDeleteMe.cs
