@@ -21,9 +21,9 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public string Model { get; set; }
 
         [JsonProperty(propertyName: "choices")]
-        public Choice[] Choices { get; set; }
+        public ExternalChoice[] Choices { get; set; }
 
         [JsonProperty(propertyName: "usage")]
-        public Usage Usage { get; set; }
+        public ExternalUsage Usage { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenAI.NET.Models.Completions
 {
-    internal class CompletionRequest
+    public class CompletionRequest
     {
         public string Model { get; set; }
         public string[] Prompt { get; set; }

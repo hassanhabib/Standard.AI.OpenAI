@@ -4,7 +4,7 @@
 
 namespace OpenAI.NET.Models.Completions
 {
-    internal class CompletionResponse
+    public class CompletionResponse
     {
         public string Id { get; set; }
         public string Object { get; set; }

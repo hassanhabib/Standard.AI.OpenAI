@@ -4,7 +4,7 @@
 
 namespace OpenAI.NET.Models.Completions
 {
-    internal class Choice
+    public class Choice
     {
         public string Text { get; set; }
         public int Index { get; set; }

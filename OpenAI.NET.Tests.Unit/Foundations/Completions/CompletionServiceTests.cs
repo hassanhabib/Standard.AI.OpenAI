@@ -2,11 +2,15 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using KellermanSoftware.CompareNetObjects;
 using Moq;
 using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Models.Completions;
+using OpenAI.NET.Models.ExternalCompletions;
 using OpenAI.NET.Services.Foundations.Completions;
 using Tynamix.ObjectFiller;
 
@@ -15,14 +19,24 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
     public partial class CompletionServiceTests
     {
         private readonly Mock<IOpenAIBroker> openAiBrokerMock;
+        private readonly ICompareLogic compareLogic;
         private readonly ICompletionService completionService;
 
         public CompletionServiceTests()
         {
             this.openAiBrokerMock = new Mock<IOpenAIBroker>();
+            this.compareLogic = new CompareLogic();
 
             this.completionService = new CompletionService(
                 openAiBroker: this.openAiBrokerMock.Object);
+        }
+
+        private Expression<Func<ExternalCompletionRequest, bool>> SameExternalCompletionRequestAs(
+            ExternalCompletionRequest expectedExternalCompletionRequest)
+        {
+            return actualExternalCompletionRequesty =>
+                this.compareLogic.Compare(expectedExternalCompletionRequest, actualExternalCompletionRequesty)
+                    .AreEqual;
         }
 
         private static dynamic CreateRandomCompletionProperties()
