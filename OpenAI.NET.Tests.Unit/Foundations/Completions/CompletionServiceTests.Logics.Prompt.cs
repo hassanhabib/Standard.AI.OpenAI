@@ -67,8 +67,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             var randomCompletion = new Completion
             {
-                Request = randomCompletionRequest,
-                Response = randomCompletionResponse
+                Request = randomCompletionRequest
             };
 
             var randomExternalCompletionRequest = new ExternalCompletionRequest
@@ -117,8 +116,13 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             Completion inputCompletion = randomCompletion;
             Completion expectedCompletion = inputCompletion.DeepClone();
-            ExternalCompletionRequest mappedExternalCompletionRequest = randomExternalCompletionRequest;
-            ExternalCompletionResponse returnedExternalCompletionResponse = randomExternalCompletionResponse;
+            expectedCompletion.Response = randomCompletionResponse;
+            
+            ExternalCompletionRequest mappedExternalCompletionRequest = 
+                randomExternalCompletionRequest;
+            
+            ExternalCompletionResponse returnedExternalCompletionResponse = 
+                randomExternalCompletionResponse;
 
             this.openAiBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(It.Is(
@@ -126,7 +130,8 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                         .ReturnsAsync(returnedExternalCompletionResponse);
 
             // when
-            Completion actualCompletion = await this.completionService.PromptCompletionAsync(inputCompletion);
+            Completion actualCompletion = 
+                await this.completionService.PromptCompletionAsync(inputCompletion);
 
             // then
             actualCompletion.Should().BeEquivalentTo(expectedCompletion);

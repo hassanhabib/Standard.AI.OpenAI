@@ -2,7 +2,6 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenAI.NET.Brokers.OpenAIs;
@@ -20,13 +19,16 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
         public async ValueTask<Completion> PromptCompletionAsync(Completion completion)
         {
-            ExternalCompletionRequest externalCompletionRequest = ConvertToCompletionRequest(completion);
-            ExternalCompletionResponse completionResponse = await this.openAiBroker.PostCompletionRequestAsync(externalCompletionRequest);
+            ExternalCompletionRequest externalCompletionRequest =
+                ConvertToCompletionRequest(completion);
 
-            return completion;
+            ExternalCompletionResponse externalCompletionResponse =
+                await this.openAiBroker.PostCompletionRequestAsync(externalCompletionRequest);
+
+            return ConvertToCompletion(completion, externalCompletionResponse);
         }
 
-        private ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
+        private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
         {
             return new ExternalCompletionRequest
             {
@@ -49,7 +51,9 @@ namespace OpenAI.NET.Services.Foundations.Completions
             };
         }
 
-        private Completion ConvertToCompletion(Completion completion, ExternalCompletionResponse externalCompletionResponse)
+        private static Completion ConvertToCompletion(
+            Completion completion,
+            ExternalCompletionResponse externalCompletionResponse)
         {
             completion.Response = new CompletionResponse
             {
