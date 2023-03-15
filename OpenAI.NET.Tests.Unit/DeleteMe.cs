@@ -6,7 +6,7 @@ using Xunit;
 
 namespace OpenAI.NET.Tests.Unit
 {
-    public class DeleteMe
+    public partial class DeleteMe
     {
         [Fact]
         public void ShouldBeTrue() => Assert.True(condition: true);
