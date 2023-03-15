@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 /OpenAI.NET.Tests.Unit/DeleteMe2.cs
 /OpenAI.NET.Tests.Unit/BriansDeleteMe.cs
+/OpenAI.NET.Tests.Unit/DeleteMe.BriansKey.cs
