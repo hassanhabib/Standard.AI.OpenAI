@@ -11,9 +11,9 @@ namespace OpenAI.NET.Services.Foundations.Completions
 {
     internal partial class CompletionService : ICompletionService
     {
-        private readonly IOpenAiBroker openAiBroker;
+        private readonly IOpenAIBroker openAiBroker;
 
-        public CompletionService(IOpenAiBroker openAiBroker) =>
+        public CompletionService(IOpenAIBroker openAiBroker) =>
             this.openAiBroker = openAiBroker;
 
         public ValueTask<Completion> PromptCompletionAsync(Completion completion)
