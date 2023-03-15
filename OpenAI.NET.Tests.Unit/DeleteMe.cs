@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.ExternalCompletions;
@@ -11,7 +10,7 @@ using Xunit;
 
 namespace OpenAI.NET.Tests.Unit
 {
-    public class DeleteMe
+    public partial class DeleteMe
     {
         [Fact]
         public void ShouldBeTrue() => Assert.True(condition: true);
@@ -21,7 +20,7 @@ namespace OpenAI.NET.Tests.Unit
         {
             var apiConfiguration = new ApiConfigurations
             {
-                ApiKey = "sk-sOmESoRtOfKeyAyedAtMakesgOBrOom",
+                ApiKey = this.apiKey,
                 ApiUrl = "https://api.openai.com/"
             };
 
@@ -36,10 +35,8 @@ namespace OpenAI.NET.Tests.Unit
                 CompletionsPerPrompt = 1
             };
 
-            string serializedCompletionRequest = JsonConvert.SerializeObject(completionRequest);
-
             CompletionResponse completionResponse =
-                await openAIBroker.PostCompletionRequestAsync(serializedCompletionRequest);
+                await openAIBroker.PostCompletionRequestAsync(completionRequest);
 
             Assert.NotNull(completionResponse);
         }

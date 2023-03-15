@@ -18,6 +18,6 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public object LogProbabilities { get; set; }
 
         [JsonProperty(propertyName: "finish_reason")]
-        public string Finish_reason { get; set; }
+        public string FinishReason { get; set; }
     }
 }
