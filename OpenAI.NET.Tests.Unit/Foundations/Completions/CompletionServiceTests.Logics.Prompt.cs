@@ -16,7 +16,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
     public partial class CompletionServiceTests
     {
         [Fact]
-        public async Task PromptCompletionAsync()
+        public async Task ShouldPromptCompletionAsync()
         {
             // given
             dynamic randomCompletionProperties = CreateRandomCompletionProperties();
