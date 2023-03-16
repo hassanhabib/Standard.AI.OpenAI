@@ -4,8 +4,6 @@
 
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
-using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace OpenAI.NET.Services.Foundations.Completions
 {
@@ -13,22 +11,41 @@ namespace OpenAI.NET.Services.Foundations.Completions
     {
         private void ValidateCompletion(Completion completion)
         {
+            ValidateCompletionNotNull(completion);
+
+            Validate(
+                (Rule: IsInvalid(completion.Request), Parameter: nameof(Completion.Request)));
+        }
+
+        private void ValidateCompletionNotNull(Completion completion)
+        {
             if (completion is null)
             {
                 throw new NullCompletionException();
             }
+        }
 
-            if (completion.Request is null)
+        private dynamic IsInvalid(object @object) => new
+        {
+            Condition = @object is null,
+            Message = "Object is required"
+        };
+
+        private void Validate(params (dynamic Rule, string Parameter)[] validations)
+        {
+            var invalidCompletionException = new InvalidCompletionException();
+
+            foreach ((dynamic rule, string parameter) in validations)
             {
-                var invalidCompletionException =
-                    new InvalidCompletionException();
-
-                invalidCompletionException.AddData(
-                    nameof(completion.Request),
-                    "Object is required");
-
-                throw invalidCompletionException;
+                if (rule.Condition)
+                {
+                    invalidCompletionException.UpsertDataList(
+                        key: parameter,
+                        value: rule.Message);
+                }
             }
+
+            invalidCompletionException.ThrowIfContainsErrors();
         }
     }
 }
