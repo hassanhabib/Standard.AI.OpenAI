@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
@@ -21,6 +22,11 @@ namespace OpenAI.NET.Services.Foundations.Completions
             catch (NullCompletionException nullCompletionException)
             {
                 throw new CompletionValidationException(nullCompletionException);
+            }
+            catch (InvalidCompletionException invalidCompletionException)
+            {
+                throw new CompletionValidationException(
+                    invalidCompletionException);
             }
         }
     }
