@@ -124,5 +124,41 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnPromptIfPromptIsEmptyAsync()
+        {
+            // given
+            var completion = new Completion
+            {
+                Request = new CompletionRequest
+                {
+                    Model = GetRandomString(),
+                    Prompt = new string[] { }
+                }
+            };
+
+            var invalidCompletionException = new InvalidCompletionException();
+
+            invalidCompletionException.AddData(
+                key: nameof(CompletionRequest.Prompt),
+                values: "Value is required");
+
+            var expectedCompletionValidationException =
+                new CompletionValidationException(invalidCompletionException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+                this.completionService.PromptCompletionAsync(completion);
+
+            CompletionValidationException actualCompletionValidationException =
+                await Assert.ThrowsAsync<CompletionValidationException>(promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionValidationException.Should().BeEquivalentTo(
+                expectedCompletionValidationException);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
