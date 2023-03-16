@@ -35,6 +35,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
             ExternalCompletionResponse externalCompletionResponse =
                 await this.openAiBroker.PostCompletionRequestAsync(externalCompletionRequest);
+
             return externalCompletionResponse;
         }
 
