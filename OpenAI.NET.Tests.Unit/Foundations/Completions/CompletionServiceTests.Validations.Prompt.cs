@@ -29,17 +29,19 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             // when
             ValueTask<Completion> promptCompletionTask = 
                 this.completionService.PromptCompletionAsync(nullCompletion);
-
+            
             CompletionValidationException actualCompletionValidationException = 
-                await Assert.ThrowsAsync<CompletionValidationException>(promptCompletionTask.AsTask);
+                await Assert.ThrowsAsync<CompletionValidationException>(
+                    promptCompletionTask.AsTask);
 
             // then
             actualCompletionValidationException.Should()
                 .BeEquivalentTo(exceptedCompletionValidationException);
 
             this.openAiBrokerMock.Verify(broker =>
-                broker.PostCompletionRequestAsync(It.IsAny<ExternalCompletionRequest>()),
-                    Times.Never);
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Never);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }

@@ -17,15 +17,25 @@ namespace OpenAI.NET.Services.Foundations.Completions
         public CompletionService(IOpenAIBroker openAiBroker) =>
             this.openAiBroker = openAiBroker;
 
-        public async ValueTask<Completion> PromptCompletionAsync(Completion completion)
+        public ValueTask<Completion> PromptCompletionAsync(Completion completion) =>
+        TryCatch(async () =>
+        {
+            ValidateCompletion(completion);
+            
+            ExternalCompletionResponse externalCompletionResponse = 
+                await PostCompletionRequestAsync(completion);
+
+            return ConvertToCompletion(completion, externalCompletionResponse);
+        });
+
+        private async Task<ExternalCompletionResponse> PostCompletionRequestAsync(Completion completion)
         {
             ExternalCompletionRequest externalCompletionRequest =
                 ConvertToCompletionRequest(completion);
 
             ExternalCompletionResponse externalCompletionResponse =
                 await this.openAiBroker.PostCompletionRequestAsync(externalCompletionRequest);
-
-            return ConvertToCompletion(completion, externalCompletionResponse);
+            return externalCompletionResponse;
         }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
