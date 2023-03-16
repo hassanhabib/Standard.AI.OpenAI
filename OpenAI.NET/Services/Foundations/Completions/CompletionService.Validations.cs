@@ -49,7 +49,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
         private dynamic IsInvalid(string[] textArray) => new
         {
-            Condition = textArray is null,
+            Condition = textArray is null || textArray.Length == 0,
             Message = "Value is required"
         };
 
