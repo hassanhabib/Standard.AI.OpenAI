@@ -4,6 +4,7 @@
 
 using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Specialized;
 using Moq;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
@@ -45,7 +46,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsInvalidAsync()
+        public async Task ShouldThrowValidationExceptionOnPromptIfRequestIsNullAsync()
         {
             // given
             var invalidCompletion = new Completion();
@@ -78,6 +79,48 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Never);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
+        public async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsInvalidAsync(string invalidText)
+        {
+            // given
+            var completion = new Completion
+            {
+                Request = new CompletionRequest
+                {
+                    Model = invalidText
+                }
+            };
+
+            var invalidCompletionException = new InvalidCompletionException();
+
+            invalidCompletionException.AddData(
+                key: nameof(CompletionRequest.Model),
+                values: "Value is required");
+
+            invalidCompletionException.AddData(
+                key: nameof(CompletionRequest.Prompt),
+                values: "Value is required");
+
+            var expectedCompletionValidationException =
+                new CompletionValidationException(invalidCompletionException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask = 
+                this.completionService.PromptCompletionAsync(completion);
+
+            CompletionValidationException actualCompletionValidationException =
+                await Assert.ThrowsAsync<CompletionValidationException>(promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionValidationException.Should().BeEquivalentTo(
+                expectedCompletionValidationException);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
