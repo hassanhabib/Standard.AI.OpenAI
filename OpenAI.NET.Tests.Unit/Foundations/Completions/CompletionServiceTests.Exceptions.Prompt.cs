@@ -100,5 +100,40 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnPromptIfBadRequestOccursAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+            var httpResponseBadRequestException = new HttpResponseBadRequestException();
+            var invalidCompletionException = new InvalidCompletionException(httpResponseBadRequestException);
+
+            var expectedCompletionDependencyValidationException = 
+                new CompletionDependencyValidationException(invalidCompletionException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(httpResponseBadRequestException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionDependencyValidationException actualCompletionDependencyException =
+                await Assert.ThrowsAsync<CompletionDependencyValidationException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionDependencyException.Should().BeEquivalentTo(
+                expectedCompletionDependencyValidationException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
