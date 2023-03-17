@@ -56,6 +56,13 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
                 throw new CompletionDependencyException(invalidConfigurationCompletionException);
             }
+            catch(HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallCompletionException =
+                    new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
+
+                throw new CompletionDependencyValidationException(excessiveCallCompletionException);
+            }
         }
     }
 }
