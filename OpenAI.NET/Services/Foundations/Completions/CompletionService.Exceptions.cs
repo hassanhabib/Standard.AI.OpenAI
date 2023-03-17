@@ -36,6 +36,13 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
                 throw new CompletionDependencyException(unauthorizedCompletionException);
             }
+            catch(HttpResponseNotFoundException httpResponseNotFoundException)
+            {
+                var notFoundCompletionException = 
+                    new NotFoundCompletionException(httpResponseNotFoundException);
+
+                throw new CompletionDependencyValidationException(notFoundCompletionException);
+            }
         }
     }
 }
