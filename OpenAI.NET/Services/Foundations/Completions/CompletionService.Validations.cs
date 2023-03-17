@@ -10,7 +10,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
 {
     internal partial class CompletionService
     {
-        private void ValidateCompletion(Completion completion)
+        private static void ValidateCompletion(Completion completion)
         {
             ValidateCompletionNotNull(completion);
             ValidateCompletionRequestNotNull(completion.Request);
@@ -21,7 +21,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
                 (Rule: IsInvalid(completion.Request.Prompt), Parameter: nameof(Completion.Request.Prompt)));
         }
 
-        private void ValidateCompletionNotNull(Completion completion)
+        private static void ValidateCompletionNotNull(Completion completion)
         {
             if (completion is null)
             {
@@ -29,31 +29,31 @@ namespace OpenAI.NET.Services.Foundations.Completions
             }
         }
 
-        private void ValidateCompletionRequestNotNull(CompletionRequest request)
+        private static void ValidateCompletionRequestNotNull(CompletionRequest request)
         {
             Validate(
                 (Rule: IsInvalid(request), Parameter: nameof(Completion.Request)));
         }
 
-        private dynamic IsInvalid(object @object) => new
+        private static dynamic IsInvalid(object @object) => new
         {
             Condition = @object is null,
             Message = "Object is required"
         };
 
-        private dynamic IsInvalid(string text) => new
+        private static dynamic IsInvalid(string text) => new
         {
             Condition = String.IsNullOrWhiteSpace(text),
             Message = "Value is required"
         };
 
-        private dynamic IsInvalid(string[] textArray) => new
+        private static dynamic IsInvalid(string[] textArray) => new
         {
             Condition = textArray is null || textArray.Length == 0,
             Message = "Value is required"
         };
 
-        private void Validate(params (dynamic Rule, string Parameter)[] validations)
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var invalidCompletionException = new InvalidCompletionException();
 
