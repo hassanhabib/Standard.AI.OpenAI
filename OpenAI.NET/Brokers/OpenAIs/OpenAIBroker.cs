@@ -41,13 +41,13 @@ namespace OpenAI.NET.Brokers.OpenAIs
 
         private HttpClient SetupHttpClient()
         {
-            var httpClient =  new HttpClient()
+            var httpClient = new HttpClient()
             {
                 BaseAddress =
                     new Uri(uriString: this.apiConfigurations.ApiUrl),
             };
 
-            httpClient.DefaultRequestHeaders.Authorization = 
+            httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                     scheme: "Bearer",
                     parameter: this.apiConfigurations.ApiKey);
