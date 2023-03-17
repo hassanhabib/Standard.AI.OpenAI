@@ -55,7 +55,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             return new
             {
                 RequestModel = GetRandomString(),
-                Prompt = CreateRandomStringArray(),
+                Prompts = CreateRandomStringArray(),
                 Suffix = GetRandomString(),
                 MaxTokens = GetRandomNumber(),
                 Temperature = GetRandomNumber(),
