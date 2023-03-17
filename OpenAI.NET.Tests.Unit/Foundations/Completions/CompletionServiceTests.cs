@@ -12,7 +12,9 @@ using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.ExternalCompletions;
 using OpenAI.NET.Services.Foundations.Completions;
+using RESTFulSense.Exceptions;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 {
@@ -29,6 +31,15 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.completionService = new CompletionService(
                 openAiBroker: this.openAiBrokerMock.Object);
+        }
+
+        public static TheoryData UnAuthorizationExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
 
         private Expression<Func<ExternalCompletionRequest, bool>> SameExternalCompletionRequestAs(
