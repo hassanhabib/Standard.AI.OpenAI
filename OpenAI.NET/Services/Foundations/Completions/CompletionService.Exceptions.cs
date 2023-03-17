@@ -35,6 +35,13 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
                 throw new CompletionDependencyException(unauthorizedCompletionException);
             }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedCompletionException =
+                    new UnauthorizedCompletionException(httpResponseForbiddenException);
+
+                throw new CompletionDependencyException(unauthorizedCompletionException);
+            }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundCompletionException =
