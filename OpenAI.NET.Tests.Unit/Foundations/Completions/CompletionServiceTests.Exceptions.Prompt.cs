@@ -11,6 +11,7 @@ using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
 using OpenAI.NET.Models.ExternalCompletions;
 using RESTFulSense.Exceptions;
+using RESTFulSense.Models;
 using Xunit;
 
 namespace OpenAI.NET.Tests.Unit.Foundations.Completions
@@ -172,6 +173,47 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             // then
             actualCompletionException.Should().BeEquivalentTo(
                 expectedCompletionDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnPromptIfTooManyRequestsOccurredAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallCompletionException =
+                new ExcessiveCallCompletionException(
+                    httpResponseTooManyRequestsException);
+
+            var expectedCompletionDependencyValidationException =
+                new CompletionDependencyValidationException(
+                    excessiveCallCompletionException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionDependencyValidationException actualCompletionDependencyValidationException =
+                await Assert.ThrowsAsync<CompletionDependencyValidationException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionDependencyValidationException.Should().BeEquivalentTo(
+                expectedCompletionDependencyValidationException);
 
             this.openAiBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
