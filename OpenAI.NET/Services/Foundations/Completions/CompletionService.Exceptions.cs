@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
@@ -73,10 +74,16 @@ namespace OpenAI.NET.Services.Foundations.Completions
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerCompletionException =
-                    new FailedServerCompletionException(
-                        httpResponseException);
+                    new FailedServerCompletionException(httpResponseException);
 
                 throw new CompletionDependencyException(failedServerCompletionException);
+            }
+            catch(Exception exception)
+            {
+                var failedCompletionServiceException = 
+                    new FailedCompletionServiceException(exception);
+
+                throw new CompletionServiceException(failedCompletionServiceException);
             }
         }
     }
