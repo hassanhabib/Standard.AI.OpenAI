@@ -1,0 +1,15 @@
+version: 2
+updates:
+
+    # Maintain dependencies for OpenAI.NET, OpenAI.NET.Infrastructure.Build, OpenAI.NET.Tests.Acceptance and OpenAI.NET.Tests.Unit
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+
+   # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
