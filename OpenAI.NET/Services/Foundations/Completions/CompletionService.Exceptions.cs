@@ -2,7 +2,6 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
@@ -31,14 +30,14 @@ namespace OpenAI.NET.Services.Foundations.Completions
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
-                var unauthorizedCompletionException = 
+                var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseUnauthorizedException);
 
                 throw new CompletionDependencyException(unauthorizedCompletionException);
             }
-            catch(HttpResponseNotFoundException httpResponseNotFoundException)
+            catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
-                var notFoundCompletionException = 
+                var notFoundCompletionException =
                     new NotFoundCompletionException(httpResponseNotFoundException);
 
                 throw new CompletionDependencyValidationException(notFoundCompletionException);
@@ -49,6 +48,13 @@ namespace OpenAI.NET.Services.Foundations.Completions
                     new InvalidCompletionException(httpResponseBadRequestException);
 
                 throw new CompletionDependencyValidationException(invalidCompletionException);
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationCompletionException =
+                    new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
+
+                throw new CompletionDependencyException(invalidConfigurationCompletionException);
             }
         }
     }
