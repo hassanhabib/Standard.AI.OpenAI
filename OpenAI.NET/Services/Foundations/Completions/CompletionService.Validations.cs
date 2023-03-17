@@ -10,7 +10,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
 {
     internal partial class CompletionService
     {
-        private void ValidateCompletion(Completion completion)
+        private static void ValidateCompletion(Completion completion)
         {
             ValidateCompletionNotNull(completion);
             ValidateCompletionRequestNotNull(completion.Request);
