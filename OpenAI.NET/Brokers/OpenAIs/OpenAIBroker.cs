@@ -2,12 +2,12 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using OpenAI.NET.Models.Configurations;
+using RESTFulSense.Clients;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Configurations;
-using RESTFulSense.Clients;
 
 namespace OpenAI.NET.Brokers.OpenAIs
 {
@@ -41,13 +41,13 @@ namespace OpenAI.NET.Brokers.OpenAIs
 
         private HttpClient SetupHttpClient()
         {
-            var httpClient =  new HttpClient()
+            var httpClient = new HttpClient()
             {
                 BaseAddress =
                     new Uri(uriString: this.apiConfigurations.ApiUrl),
             };
 
-            httpClient.DefaultRequestHeaders.Authorization = 
+            httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                     scheme: "Bearer",
                     parameter: this.apiConfigurations.ApiKey);

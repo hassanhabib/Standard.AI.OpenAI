@@ -2,8 +2,8 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
@@ -52,7 +52,7 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public int BestOf { get; set; } = 1;
 
         [JsonProperty(propertyName: "logit_bias")]
-        public Dictionary<string, int> LogitBias { get; set; } = 
+        public Dictionary<string, int> LogitBias { get; set; } =
             new Dictionary<string, int>();
 
         [JsonProperty(propertyName: "user")]
