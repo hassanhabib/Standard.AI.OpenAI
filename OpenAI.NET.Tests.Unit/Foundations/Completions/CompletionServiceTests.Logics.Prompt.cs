@@ -24,7 +24,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             var randomCompletionRequest = new CompletionRequest
             {
                 Model = randomCompletionProperties.RequestModel,
-                Prompt = randomCompletionProperties.Prompt,
+                Prompts = randomCompletionProperties.Prompt,
                 Suffix = randomCompletionProperties.Suffix,
                 MaxTokens = randomCompletionProperties.MaxTokens,
                 Temperature = randomCompletionProperties.Temperature,

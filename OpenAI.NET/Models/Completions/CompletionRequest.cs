@@ -9,7 +9,7 @@ namespace OpenAI.NET.Models.Completions
     public class CompletionRequest
     {
         public string Model { get; set; }
-        public string[] Prompt { get; set; }
+        public string[] Prompts { get; set; }
         public string Suffix { get; set; }
         public int MaxTokens { get; set; }
         public double Temperature { get; set; }

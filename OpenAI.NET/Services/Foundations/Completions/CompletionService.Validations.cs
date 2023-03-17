@@ -18,7 +18,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
             Validate(
                 (Rule: IsInvalid(completion.Request), Parameter: nameof(Completion.Request)),
                 (Rule: IsInvalid(completion.Request.Model), Parameter: nameof(Completion.Request.Model)),
-                (Rule: IsInvalid(completion.Request.Prompt), Parameter: nameof(Completion.Request.Prompt)));
+                (Rule: IsInvalid(completion.Request.Prompts), Parameter: nameof(Completion.Request.Prompts)));
         }
 
         private void ValidateCompletionNotNull(Completion completion)
