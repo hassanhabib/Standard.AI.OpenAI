@@ -5,7 +5,6 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentAssertions.Specialized;
 using Moq;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
@@ -113,7 +112,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                 new CompletionValidationException(invalidCompletionException);
 
             // when
-            ValueTask<Completion> promptCompletionTask = 
+            ValueTask<Completion> promptCompletionTask =
                 this.completionService.PromptCompletionAsync(completion);
 
             CompletionValidationException actualCompletionValidationException =

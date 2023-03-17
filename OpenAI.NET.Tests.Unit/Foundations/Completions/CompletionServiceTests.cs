@@ -122,7 +122,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         private static Filler<Completion> CreateCompletionFiller()
         {
             var filler = new Filler<Completion>();
-            
+
             filler.Setup()
                 .OnType<object>().IgnoreIt();
 

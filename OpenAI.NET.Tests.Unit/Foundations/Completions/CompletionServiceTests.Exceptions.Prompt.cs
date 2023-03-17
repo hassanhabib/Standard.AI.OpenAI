@@ -259,7 +259,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
-        
+
         [Fact]
         public async Task ShouldThrowServiceExceptionOnPromptIfServiceErrorOccursAsync()
         {

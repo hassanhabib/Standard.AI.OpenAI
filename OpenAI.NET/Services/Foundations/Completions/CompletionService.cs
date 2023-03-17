@@ -21,8 +21,8 @@ namespace OpenAI.NET.Services.Foundations.Completions
         TryCatch(async () =>
         {
             ValidateCompletion(completion);
-            
-            ExternalCompletionResponse externalCompletionResponse = 
+
+            ExternalCompletionResponse externalCompletionResponse =
                 await PostCompletionRequestAsync(completion);
 
             return ConvertToCompletion(completion, externalCompletionResponse);
