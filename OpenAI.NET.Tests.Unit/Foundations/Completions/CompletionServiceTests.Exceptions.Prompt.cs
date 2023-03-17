@@ -106,8 +106,12 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
-            var httpResponseBadRequestException = new HttpResponseBadRequestException();
-            var invalidCompletionException = new InvalidCompletionException(httpResponseBadRequestException);
+            
+            var httpResponseBadRequestException = 
+                new HttpResponseBadRequestException();
+            
+            var invalidCompletionException = 
+                new InvalidCompletionException(httpResponseBadRequestException);
 
             var expectedCompletionDependencyValidationException = 
                 new CompletionDependencyValidationException(invalidCompletionException);
