@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
+using RESTFulSense.Exceptions;
 
 namespace OpenAI.NET.Services.Foundations.Completions
 {
@@ -27,6 +28,13 @@ namespace OpenAI.NET.Services.Foundations.Completions
             {
                 throw new CompletionValidationException(
                     invalidCompletionException);
+            }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedCompletionException = 
+                    new UnauthorizedCompletionException(httpResponseUnauthorizedException);
+
+                throw new CompletionDependencyException(unauthorizedCompletionException);
             }
         }
     }
