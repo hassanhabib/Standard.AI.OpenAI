@@ -13,7 +13,7 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public string Model { get; set; }
 
         [JsonProperty(propertyName: "prompts")]
-        public string[] Prompt { get; set; } = new string[0];
+        public string[] Prompts { get; set; } = new string[0];
 
         [JsonProperty(propertyName: "suffix")]
         public string Suffix { get; set; } = null;
