@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Specialized;
@@ -134,7 +135,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                 Request = new CompletionRequest
                 {
                     Model = GetRandomString(),
-                    Prompt = new string[] { }
+                    Prompt = Array.Empty<string>()
                 }
             };
 
@@ -152,7 +153,8 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                 this.completionService.PromptCompletionAsync(completion);
 
             CompletionValidationException actualCompletionValidationException =
-                await Assert.ThrowsAsync<CompletionValidationException>(promptCompletionTask.AsTask);
+                await Assert.ThrowsAsync<CompletionValidationException>(
+                    promptCompletionTask.AsTask);
 
             // then
             actualCompletionValidationException.Should().BeEquivalentTo(
