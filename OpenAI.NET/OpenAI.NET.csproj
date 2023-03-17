@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="OpenAI.NET.Tests.Unit" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 
 	<ItemGroup>

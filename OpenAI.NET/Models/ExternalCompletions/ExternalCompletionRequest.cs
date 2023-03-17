@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
-    internal class CompletionRequest
+    internal class ExternalCompletionRequest
     {
         [JsonProperty(propertyName: "model")]
         public string Model { get; set; }

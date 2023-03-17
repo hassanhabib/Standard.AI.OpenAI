@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace OpenAI.NET.Models.ExternalCompletions
 {
-    public class CompletionResponse
+    public class ExternalCompletionResponse
     {
         [JsonProperty(propertyName: "id")]
         public string Id { get; set; }
@@ -21,9 +21,9 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public string Model { get; set; }
 
         [JsonProperty(propertyName: "choices")]
-        public Choice[] Choices { get; set; }
+        public ExternalChoice[] Choices { get; set; }
 
         [JsonProperty(propertyName: "usage")]
-        public Usage Usage { get; set; }
+        public ExternalUsage Usage { get; set; }
     }
 }
