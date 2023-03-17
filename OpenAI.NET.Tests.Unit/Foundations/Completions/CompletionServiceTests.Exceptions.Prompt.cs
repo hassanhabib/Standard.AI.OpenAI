@@ -139,5 +139,46 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnPromptIfUrlNotFoundErrorOccursAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+
+            var httpResponseUrlNotFoundException =
+                new HttpResponseUrlNotFoundException();
+
+            var invalidConfigurationCompletionException =
+                new InvalidConfigurationCompletionException(
+                    httpResponseUrlNotFoundException);
+
+            var expectedCompletionDependencyException =
+                new CompletionDependencyException(
+                    invalidConfigurationCompletionException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(httpResponseUrlNotFoundException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionDependencyException actualCompletionException =
+                await Assert.ThrowsAsync<CompletionDependencyException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionException.Should().BeEquivalentTo(
+                expectedCompletionDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
