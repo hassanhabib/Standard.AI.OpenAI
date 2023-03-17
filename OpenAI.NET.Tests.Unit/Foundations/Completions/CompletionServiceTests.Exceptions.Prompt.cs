@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -250,6 +251,44 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             // then
             actualCompletionException.Should().BeEquivalentTo(
                 expectedCompletionDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+        
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnPromptIfServiceErrorOccursAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+            var serviceException = new Exception();
+
+            var failedCompletionServiceException =
+                new FailedCompletionServiceException(serviceException);
+
+            var expectedCompletionServiceException =
+                new CompletionServiceException(
+                    failedCompletionServiceException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionServiceException actualCompletionServiceException =
+                await Assert.ThrowsAsync<CompletionServiceException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionServiceException.Should().BeEquivalentTo(
+                expectedCompletionServiceException);
 
             this.openAiBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
