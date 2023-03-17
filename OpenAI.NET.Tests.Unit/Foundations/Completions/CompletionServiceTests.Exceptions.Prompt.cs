@@ -2,16 +2,13 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentAssertions.Specialized;
 using Moq;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
 using OpenAI.NET.Models.ExternalCompletions;
 using RESTFulSense.Exceptions;
-using RESTFulSense.Models;
 using Xunit;
 
 namespace OpenAI.NET.Tests.Unit.Foundations.Completions
@@ -107,14 +104,14 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
-            
-            var httpResponseBadRequestException = 
+
+            var httpResponseBadRequestException =
                 new HttpResponseBadRequestException();
-            
-            var invalidCompletionException = 
+
+            var invalidCompletionException =
                 new InvalidCompletionException(httpResponseBadRequestException);
 
-            var expectedCompletionDependencyValidationException = 
+            var expectedCompletionDependencyValidationException =
                 new CompletionDependencyValidationException(invalidCompletionException);
 
             this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
@@ -214,6 +211,46 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             // then
             actualCompletionDependencyValidationException.Should().BeEquivalentTo(
                 expectedCompletionDependencyValidationException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnPromptIfHttpErrorOccursAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+
+            var httpResponseException =
+                new HttpResponseException();
+
+            var failedServerCompletionException =
+                new FailedServerCompletionException(httpResponseException);
+
+            var expectedCompletionDependencyException =
+                new CompletionDependencyException(
+                    failedServerCompletionException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionDependencyException actualCompletionException =
+                await Assert.ThrowsAsync<CompletionDependencyException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionException.Should().BeEquivalentTo(
+                expectedCompletionDependencyException);
 
             this.openAiBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
