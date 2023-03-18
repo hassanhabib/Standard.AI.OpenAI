@@ -52,7 +52,7 @@ namespace OpenAI.NET.Models.ExternalCompletions
         public int BestOf { get; set; } = 1;
 
         [JsonProperty(propertyName: "logit_bias")]
-        public Dictionary<string, int> LogitBias { get; set; } = 
+        public Dictionary<string, int> LogitBias { get; set; } =
             new Dictionary<string, int>();
 
         [JsonProperty(propertyName: "user")]
