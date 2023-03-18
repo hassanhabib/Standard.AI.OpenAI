@@ -16,7 +16,7 @@ using RESTFulSense.Exceptions;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Foundations.Completions
+namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
@@ -45,8 +45,8 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         private Expression<Func<ExternalCompletionRequest, bool>> SameExternalCompletionRequestAs(
             ExternalCompletionRequest expectedExternalCompletionRequest)
         {
-            return actualExternalCompletionRequesty =>
-                this.compareLogic.Compare(expectedExternalCompletionRequest, actualExternalCompletionRequesty)
+            return actualExternalCompletionRequest =>
+                this.compareLogic.Compare(expectedExternalCompletionRequest, actualExternalCompletionRequest)
                     .AreEqual;
         }
 
@@ -122,7 +122,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
         private static Filler<Completion> CreateCompletionFiller()
         {
             var filler = new Filler<Completion>();
-            
+
             filler.Setup()
                 .OnType<object>().IgnoreIt();
 

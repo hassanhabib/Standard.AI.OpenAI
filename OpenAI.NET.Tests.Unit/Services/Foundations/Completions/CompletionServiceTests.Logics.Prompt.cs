@@ -11,7 +11,7 @@ using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.ExternalCompletions;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Foundations.Completions
+namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
@@ -117,11 +117,11 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
             Completion inputCompletion = randomCompletion;
             Completion expectedCompletion = inputCompletion.DeepClone();
             expectedCompletion.Response = randomCompletionResponse;
-            
-            ExternalCompletionRequest mappedExternalCompletionRequest = 
+
+            ExternalCompletionRequest mappedExternalCompletionRequest =
                 randomExternalCompletionRequest;
-            
-            ExternalCompletionResponse returnedExternalCompletionResponse = 
+
+            ExternalCompletionResponse returnedExternalCompletionResponse =
                 randomExternalCompletionResponse;
 
             this.openAiBrokerMock.Setup(broker =>
@@ -130,7 +130,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                         .ReturnsAsync(returnedExternalCompletionResponse);
 
             // when
-            Completion actualCompletion = 
+            Completion actualCompletion =
                 await this.completionService.PromptCompletionAsync(inputCompletion);
 
             // then
