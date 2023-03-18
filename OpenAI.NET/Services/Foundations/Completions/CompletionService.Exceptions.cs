@@ -64,7 +64,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
                 throw new CompletionDependencyException(invalidConfigurationCompletionException);
             }
-            catch(HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallCompletionException =
                     new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
@@ -78,9 +78,9 @@ namespace OpenAI.NET.Services.Foundations.Completions
 
                 throw new CompletionDependencyException(failedServerCompletionException);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                var failedCompletionServiceException = 
+                var failedCompletionServiceException =
                     new FailedCompletionServiceException(exception);
 
                 throw new CompletionServiceException(failedCompletionServiceException);

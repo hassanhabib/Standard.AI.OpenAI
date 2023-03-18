@@ -5,14 +5,13 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentAssertions.Specialized;
 using Moq;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Completions.Exceptions;
 using OpenAI.NET.Models.ExternalCompletions;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Foundations.Completions
+namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
@@ -113,7 +112,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
                 new CompletionValidationException(invalidCompletionException);
 
             // when
-            ValueTask<Completion> promptCompletionTask = 
+            ValueTask<Completion> promptCompletionTask =
                 this.completionService.PromptCompletionAsync(completion);
 
             CompletionValidationException actualCompletionValidationException =

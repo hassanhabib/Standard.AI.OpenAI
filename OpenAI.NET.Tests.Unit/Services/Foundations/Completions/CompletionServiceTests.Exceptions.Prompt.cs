@@ -12,7 +12,7 @@ using OpenAI.NET.Models.ExternalCompletions;
 using RESTFulSense.Exceptions;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Foundations.Completions
+namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
@@ -259,7 +259,7 @@ namespace OpenAI.NET.Tests.Unit.Foundations.Completions
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
-        
+
         [Fact]
         public async Task ShouldThrowServiceExceptionOnPromptIfServiceErrorOccursAsync()
         {
