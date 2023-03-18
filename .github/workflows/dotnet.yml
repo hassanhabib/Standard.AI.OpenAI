@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Pulling Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Installing .NET
       uses: actions/setup-dotnet@v3
       with:
