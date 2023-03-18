@@ -14,70 +14,11 @@ namespace OpenAI.NET.Infrastructure.Build
     {
         private static void Main(string[] args)
         {
-            var adoNetClient = new ADotNetClient();
+            // Creation of the GitHub pull request and master build pipeline.
+            Workflows.GitHubPipeline();
 
-            var githubPipeline = new GithubPipeline
-            {
-                Name = "OpenAI.NET Build",
-
-                OnEvents = new Events
-                {
-                    Push = new PushEvent
-                    {
-                        Branches = new string[] { "main" }
-                    },
-
-                    PullRequest = new PullRequestEvent
-                    {
-                        Branches = new string[] { "main" }
-                    }
-                },
-
-                Jobs = new Jobs
-                {
-                    Build = new BuildJob
-                    {
-                        RunsOn = BuildMachines.WindowsLatest,
-
-                        Steps = new List<GithubTask>
-            {
-                new CheckoutTaskV2
-                {
-                    Name = "Pulling Code"
-                },
-
-                new SetupDotNetTaskV1
-                {
-                    Name = "Installing .NET",
-
-                    TargetDotNetVersion = new TargetDotNetVersion
-                    {
-                        DotNetVersion = "7.0.201"
-                    }
-                },
-
-                new RestoreTask
-                {
-                    Name = "Restoring Packages"
-                },
-
-                new DotNetBuildTask
-                {
-                    Name = "Building Solution"
-                },
-
-                new TestTask
-                {
-                    Name = "Running Tests"
-                }
-            }
-                    }
-                }
-            };
-
-            adoNetClient.SerializeAndWriteToFile(
-                adoPipeline: githubPipeline,
-                path: "../../../../.github/workflows/dotnet.yml");
+            // Dependabot to keep the actions and packages updated to the latest versions.
+            Workflows.Dependabot();
         }
     }
 }
