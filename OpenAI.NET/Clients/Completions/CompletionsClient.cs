@@ -11,7 +11,7 @@ using Xeptions;
 
 namespace OpenAI.NET.Clients.Completions
 {
-    internal class CompletionsClient : ICompletionClient
+    internal class CompletionsClient : ICompletionsClient
     {
         private readonly ICompletionService completionService;
 

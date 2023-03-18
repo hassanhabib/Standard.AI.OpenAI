@@ -11,7 +11,7 @@ using OpenAI.NET.Models.Completions;
 
 namespace OpenAI.NET.Clients.Completions
 {
-    public interface ICompletionClient
+    public interface ICompletionsClient
     {
         ValueTask<Completion> PromptCompletionAsync(Completion completion);
     }
