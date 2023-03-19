@@ -23,9 +23,13 @@ namespace OpenAI.NET.Brokers.OpenAIs
 
         public OpenAIBroker(IHttpClientFactory httpClientFactory)
         {
-            this.apiConfigurations = apiConfigurations;
-            this.httpClient = httpClientFactory.CreateClient(nameof(OpenAIBroker));
+            this.httpClient = SetupHttpClient(httpClientFactory);
             this.apiClient = SetupApiClient();
+        }
+
+        private static HttpClient SetupHttpClient(IHttpClientFactory httpClientFactory)
+        {
+            return httpClientFactory.CreateClient(nameof(OpenAIBroker));
         }
 
         private async ValueTask<T> GetAsync<T>(string relativeUrl) =>
@@ -43,26 +47,11 @@ namespace OpenAI.NET.Brokers.OpenAIs
                 ignoreNulls: true);
         }
 
-
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>
             await this.apiClient.PutContentAsync(relativeUrl, content);
 
         private async ValueTask<T> DeleteAsync<T>(string relativeUrl) =>
             await this.apiClient.DeleteContentAsync<T>(relativeUrl);
-
-        private HttpClient SetupHttpClient()
-        {
-            this.httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(
-                    scheme: "Bearer",
-                    parameter: this.apiConfigurations.ApiKey);
-
-            this.httpClient.DefaultRequestHeaders.Add(
-                name: "OpenAI-Organization",
-                value: this.apiConfigurations.OrganizationId);
-
-            return httpClient;
-        }
 
         private IRESTFulApiFactoryClient SetupApiClient() =>
             new RESTFulApiFactoryClient(this.httpClient);

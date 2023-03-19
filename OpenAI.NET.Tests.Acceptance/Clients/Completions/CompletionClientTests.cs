@@ -4,6 +4,7 @@
 
 using System;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Configurations;
@@ -19,21 +20,16 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         private readonly WireMockServer wireMockServer;
         private readonly string apiKey;
         private readonly string organizationId;
+        private readonly IServiceProvider serviceProvider;
 
         public CompletionClientTests()
         {
-            this.wireMockServer = WireMockServer.Start(1989);
-            this.apiKey = CreateRandomString();
-            this.organizationId = CreateRandomString();
+            this.openAIClient = new OpenAIClient();
+            this.serviceProvider = this.openAIClient.ServiceProvider;
 
-            var openAiConfiguration = new OpenAIApiConfigurations
-            {
-                ApiUrl = "http://localhost:1989",
-                ApiKey = this.apiKey,
-                OrganizationId = this.organizationId
-            };
-
-            this.openAIClient = new OpenAIClient(openAiConfiguration);
+            OpenAIApiConfigurations apiConfigurations = this.serviceProvider.GetRequiredService<OpenAIApiConfigurations>();
+            this.wireMockServer = WireMockServer.Start(apiConfigurations.ApiUrl);
+            (this.apiKey, this.organizationId) = (apiConfigurations.ApiKey, apiConfigurations.OrganizationId);
         }     
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
