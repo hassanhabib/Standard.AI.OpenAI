@@ -41,6 +41,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                 .WithPath("/v1/completions")
                 .WithHeader("Authorization", $"Bearer {this.apiKey}")
                 .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                .WithHeader("Content-Type", "application/json; charset=utf-8")
                 .WithBody(JsonConvert.SerializeObject(
                     completionRequest,
                     jsonSerializationSettings)))
