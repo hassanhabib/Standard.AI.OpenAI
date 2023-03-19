@@ -64,6 +64,14 @@ Array.ForEach(resultCompletion.Response.Prompts, Console.WriteLine);
 
 ```
 
+## How to Contribute
+If you want to contribute to this project please review the following documents:
+- [The Standard](https://github.com/hassanhabib/The-Standard)
+- [C# Coding Standard](https://github.com/hassanhabib/CSharpCodingStandard)
+- [The Team Standard](https://github.com/hassanhabib/The-Standard-Team)
+
+If you have a question make sure you either open an issue or join our [The Standard Community](https://discord.com/invite/vdPZ7hS52X) discord server.
+
 ## Live-Sessions
 Our live-sessions are schedules on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to to be able to join us.
 
