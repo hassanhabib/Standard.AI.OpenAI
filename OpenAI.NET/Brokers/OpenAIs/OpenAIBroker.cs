@@ -21,9 +21,10 @@ namespace OpenAI.NET.Brokers.OpenAIs
         /// Initializes a new instance of the <see cref="OpenAIBroker"/> class.
         /// </summary>
         /// <param name="apiClient">The RESTFulSenses Api Client.</param>
-        public OpenAIBroker(IRESTFulApiFactoryClient apiClient)
+        public OpenAIBroker(IHttpClientFactory httpClientFactory)
         {
-            this.apiClient = apiClient;
+            HttpClient httpClient = httpClientFactory.CreateClient(nameof(OpenAIBroker));
+            this.apiClient = new RESTFulApiFactoryClient(httpClient);
         }
 
         private async ValueTask<T> GetAsync<T>(string relativeUrl) =>

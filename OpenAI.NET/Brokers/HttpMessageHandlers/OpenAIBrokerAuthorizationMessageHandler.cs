@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace OpenAI.NET.Brokers.HttpMessageHandlers
 {
-    internal class AuthorizationMessageHandler : DelegatingHandler
+    internal class OpenAIBrokerAuthorizationMessageHandler : DelegatingHandler
     {
         private const string OpenAIOrganizationIdHeaderKey = "OpenAI-Organization";
         private readonly ApiConfigurations apiConfigurations;
 
-        public AuthorizationMessageHandler(ApiConfigurations apiConfigurations)
+        public OpenAIBrokerAuthorizationMessageHandler(ApiConfigurations apiConfigurations)
         {
             this.apiConfigurations = apiConfigurations;
         }

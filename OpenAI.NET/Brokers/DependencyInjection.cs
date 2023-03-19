@@ -21,32 +21,24 @@ namespace OpenAI.NET.Brokers
             this IServiceCollection services)
         {
             services
-                .AddRestfulHttpClient()
+                .AddOpenAIBrokerHttpClient()
                 .AddScoped<IOpenAIBroker, OpenAIBroker>();
 
             return services;
         }
 
-        private static IServiceCollection AddRestfulHttpClient(
+        private static IServiceCollection AddOpenAIBrokerHttpClient(
             this IServiceCollection services)
         {
             services
-                .AddHttpClient<RESTFulApiFactoryClient>((configuration, httpClient) =>
+                .AddHttpClient<OpenAIBroker>((configuration, httpClient) =>
                 {
                     ApiConfigurations apiConfigurations = configuration.GetRequiredService<ApiConfigurations>();
                     httpClient.BaseAddress = new Uri(uriString: apiConfigurations.ApiUrl);
                 })
-                .AddHttpMessageHandler<AuthorizationMessageHandler>()
+                .AddHttpMessageHandler<OpenAIBrokerAuthorizationMessageHandler>()
                 .Services
-                .AddScoped<AuthorizationMessageHandler>();
-
-            services
-                .AddScoped<IRESTFulApiFactoryClient>(configuration =>
-                {
-                    IHttpClientFactory clientFactory = configuration.GetRequiredService<IHttpClientFactory>();
-                    HttpClient httpClient = clientFactory.CreateClient(nameof(RESTFulApiFactoryClient));
-                    return new RESTFulApiFactoryClient(httpClient);
-                });
+                .AddScoped<OpenAIBrokerAuthorizationMessageHandler>();
 
             return services;
         }
