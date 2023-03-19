@@ -9,9 +9,9 @@ namespace OpenAI.NET.Brokers.OpenAIs
 {
     internal class OpenAIBrokerDeligatingHandler : DelegatingHandler
     {
-        private readonly ApiConfigurations apiConfigurations;
+        private readonly OpenAIApiConfigurations apiConfigurations;
 
-        public OpenAIBrokerDeligatingHandler(ApiConfigurations apiConfigurations)
+        public OpenAIBrokerDeligatingHandler(OpenAIApiConfigurations apiConfigurations)
         {
             this.apiConfigurations = apiConfigurations;
         }

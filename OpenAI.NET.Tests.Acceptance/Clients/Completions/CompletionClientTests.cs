@@ -26,7 +26,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             this.apiKey = CreateRandomString();
             this.organizationId = CreateRandomString();
 
-            var openAiConfiguration = new ApiConfigurations
+            var openAiConfiguration = new OpenAIApiConfigurations
             {
                 ApiUrl = "http://localhost:1989",
                 ApiKey = this.apiKey,

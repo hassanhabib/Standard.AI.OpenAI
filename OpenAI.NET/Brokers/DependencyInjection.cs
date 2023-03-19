@@ -16,9 +16,10 @@ namespace OpenAI.NET.Brokers
         /// <param name="services">The services.</param>
         /// <returns>An IServiceCollection.</returns>
         public static IServiceCollection AddBrokers(
-            this IServiceCollection services)
+            this IServiceCollection services,
+            OpenAIApiConfigurations apiConfigurations)
         {
-            services.AddOpenAIBroker();
+            services.AddOpenAIBroker(apiConfigurations);
             return services;
         }
 
@@ -28,14 +29,15 @@ namespace OpenAI.NET.Brokers
         /// <param name="services">The services.</param>
         /// <returns>An IServiceCollection.</returns>
         private static IServiceCollection AddOpenAIBroker(
-            this IServiceCollection services)
+            this IServiceCollection services,
+            OpenAIApiConfigurations apiConfigurations)
         {
-            services.AddHttpClient<OpenAIBroker>((configuration, httpClient) =>
-            {
-                var apiCOnfigurations = configuration.GetRequiredService<ApiConfigurations>();
-                httpClient.BaseAddress = new(uriString: apiCOnfigurations.ApiUrl);
-            })
-            .AddHttpMessageHandler<OpenAIBrokerDeligatingHandler>();
+            services
+                .AddHttpClient<OpenAIBroker>(httpClient =>
+                    httpClient.BaseAddress = new(uriString: apiConfigurations.ApiUrl))
+                .AddHttpMessageHandler<OpenAIBrokerDeligatingHandler>()
+                .Services
+                .AddScoped(_ => new OpenAIBrokerDeligatingHandler(apiConfigurations));
 
             services.AddScoped<IOpenAIBroker, OpenAIBroker>();
 

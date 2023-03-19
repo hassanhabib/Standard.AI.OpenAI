@@ -17,7 +17,7 @@ namespace OpenAI.NET.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker : IOpenAIBroker
     {
-        private readonly ApiConfigurations apiConfigurations;
+        private readonly OpenAIApiConfigurations apiConfigurations;
         private readonly IRESTFulApiFactoryClient apiClient;
         private readonly HttpClient httpClient;
 

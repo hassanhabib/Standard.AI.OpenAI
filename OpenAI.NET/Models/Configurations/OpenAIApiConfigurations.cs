@@ -4,7 +4,7 @@
 
 namespace OpenAI.NET.Models.Configurations
 {
-    public class ApiConfigurations
+    public class OpenAIApiConfigurations
     {
         public string ApiUrl { get; set; } = "https://api.openai.com/v1";
         public string ApiKey { get; set; }

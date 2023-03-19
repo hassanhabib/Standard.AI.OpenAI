@@ -4,6 +4,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenAI.NET.Brokers;
 using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Clients.Completions;
 using OpenAI.NET.Models.Configurations;
@@ -13,7 +14,7 @@ namespace OpenAI.NET.Clients.OpenAIs
 {
     public class OpenAIClient : IOpenAIClient
     {
-        public OpenAIClient(ApiConfigurations apiConfigurations)
+        public OpenAIClient(OpenAIApiConfigurations apiConfigurations)
         {
             IHost host = RegisterServices(apiConfigurations);
             InitializeClients(host);
@@ -24,16 +25,15 @@ namespace OpenAI.NET.Clients.OpenAIs
         private void InitializeClients(IHost host) =>
             Completions = host.Services.GetRequiredService<ICompletionsClient>();
 
-        private static IHost RegisterServices(ApiConfigurations apiConfigurations)
+        private static IHost RegisterServices(OpenAIApiConfigurations apiConfigurations)
         {
             IHostBuilder builder = Host.CreateDefaultBuilder();
 
             builder.ConfigureServices(configuration =>
             {
-                configuration.AddTransient<IOpenAIBroker, OpenAIBroker>();
+                configuration.AddBrokers(apiConfigurations);
                 configuration.AddTransient<ICompletionService, CompletionService>();
                 configuration.AddTransient<ICompletionsClient, CompletionsClient>();
-                configuration.AddSingleton(options => apiConfigurations);
             });
 
             IHost host = builder.Build();
