@@ -120,9 +120,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             return filler;
         }
 
-        public void Dispose()
-        {
-            this.wireMockServer.Stop();
-        }
+        public void Dispose() => this.wireMockServer.Stop();
     }
 }

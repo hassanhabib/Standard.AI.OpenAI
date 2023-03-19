@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// --------------------------------------------------------------- 
+// Copyright (c) Coalition of the Good-Hearted Engineers 
+// ---------------------------------------------------------------
+
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -24,7 +24,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             Completion randomCompletion = CreateRandomCompletion();
             Completion inputCompletion = randomCompletion;
 
-            ExternalCompletionRequest completionRequest = 
+            ExternalCompletionRequest completionRequest =
                 ConvertToCompletionRequest(inputCompletion);
 
             ExternalCompletionResponse completionResponse =
@@ -33,7 +33,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             Completion expectedCompletion = inputCompletion.DeepClone();
             expectedCompletion = ConvertToCompletion(inputCompletion, completionResponse);
 
-            var jsonSerializationSettings = new JsonSerializerSettings(); 
+            var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
 
             this.wireMockServer.Given(
