@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Completions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
 
 namespace OpenAI.NET.Services.Foundations.Completions
 {

@@ -3,8 +3,8 @@
 // ---------------------------------------------------------------
 
 using System;
-using OpenAI.NET.Models.Completions;
-using OpenAI.NET.Models.Completions.Exceptions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.Completions.Exceptions;
 
 namespace OpenAI.NET.Services.Foundations.Completions
 {

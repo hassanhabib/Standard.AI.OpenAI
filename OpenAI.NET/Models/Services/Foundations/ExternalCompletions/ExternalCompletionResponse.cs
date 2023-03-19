@@ -4,7 +4,7 @@
 
 using Newtonsoft.Json;
 
-namespace OpenAI.NET.Models.ExternalCompletions
+namespace OpenAI.NET.Models.Services.Foundations.ExternalCompletions
 {
     public class ExternalCompletionResponse
     {
