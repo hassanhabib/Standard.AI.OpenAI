@@ -4,8 +4,8 @@
 
 using System.Threading.Tasks;
 using OpenAI.NET.Models.Clients.Completions.Exceptions;
-using OpenAI.NET.Models.Completions;
-using OpenAI.NET.Models.Completions.Exceptions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.Completions.Exceptions;
 using OpenAI.NET.Services.Foundations.Completions;
 using Xeptions;
 
