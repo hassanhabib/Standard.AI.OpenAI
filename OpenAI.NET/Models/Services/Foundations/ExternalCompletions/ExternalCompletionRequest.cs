@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace OpenAI.NET.Models.ExternalCompletions
+namespace OpenAI.NET.Models.Services.Foundations.ExternalCompletions
 {
     internal class ExternalCompletionRequest
     {

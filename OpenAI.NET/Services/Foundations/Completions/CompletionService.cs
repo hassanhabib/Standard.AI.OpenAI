@@ -5,8 +5,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using OpenAI.NET.Brokers.OpenAIs;
-using OpenAI.NET.Models.Completions;
-using OpenAI.NET.Models.ExternalCompletions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
 
 namespace OpenAI.NET.Services.Foundations.Completions
 {
