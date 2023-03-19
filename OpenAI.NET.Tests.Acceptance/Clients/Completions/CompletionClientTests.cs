@@ -33,7 +33,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             };
 
             this.openAIClient = new OpenAIClient(openAiConfiguration);
-        }
+        }     
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
         {
@@ -121,7 +121,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 
         public void Dispose()
         {
-            this.wireMockServer.Reset();
             this.wireMockServer.Stop();
         }
     }
