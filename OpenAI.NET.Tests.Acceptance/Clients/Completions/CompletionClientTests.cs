@@ -20,6 +20,9 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         private readonly string apiKey;
         private readonly string organizationId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompletionClientTests"/> class.
+        /// </summary>
         public CompletionClientTests()
         {
             this.wireMockServer = WireMockServer.Start(1989);
@@ -30,7 +33,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             {
                 ApiUrl = "http://localhost:1989",
                 ApiKey = this.apiKey,
-                OrganizationId = this.organizationId
+                OrganizationId = this.organizationId,
             };
 
             this.openAIClient = new OpenAIClient(openAiConfiguration);
