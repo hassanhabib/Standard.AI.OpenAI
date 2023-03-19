@@ -24,6 +24,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         {
             this.wireMockServer = WireMockServer.Start(1989);
             this.apiKey = CreateRandomString();
+            this.organizationId = CreateRandomString();
 
             var openAiConfiguration = new ApiConfigurations
             {
