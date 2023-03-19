@@ -1,5 +1,11 @@
 # OpenAI.NET
 
+<div align=center>
+	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/OpenAI.NET/artificial-intelligence.png" />
+</div>
+
+<br />
+
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
 [![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f)](https://github.com/hassanhabib/The-Standard)
 [![The Standard Community](https://img.shields.io/discord/934130100008538142?color=%237289da&label=The%20Standard%20Community&logo=Discord)](https://discord.gg/vdPZ7hS52X)
@@ -62,11 +68,11 @@ Array.ForEach(resultCompletion.Response.Prompts, Console.WriteLine);
 Our live-sessions are schedules on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to to be able to join us.
 
 We broadcast on multiple platforms:
-YouTube <br/>
-LinkedIn <br/>
-Twitch <br/>
-Twitter <br/>
-Facebook <br/>
+<br /> YouTube
+<br /> LinkedIn
+<br /> Twitch
+<br /> Twitter
+<br /> Facebook
 
 ### Past-Sessions
 Here's our live sessions to show you how this library was developed from scratch:
