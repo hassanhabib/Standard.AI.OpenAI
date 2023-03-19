@@ -5,7 +5,5 @@
 namespace OpenAI.NET.Brokers.OpenAIs
 {
     internal partial interface IOpenAIBroker
-    {
-
-    }
+    { }
 }
