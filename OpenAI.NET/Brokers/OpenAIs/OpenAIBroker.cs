@@ -5,7 +5,11 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Http;
+
 using OpenAI.NET.Models.Configurations;
 using RESTFulSense.Clients;
 
@@ -17,10 +21,10 @@ namespace OpenAI.NET.Brokers.OpenAIs
         private readonly IRESTFulApiFactoryClient apiClient;
         private readonly HttpClient httpClient;
 
-        public OpenAIBroker(ApiConfigurations apiConfigurations)
+        public OpenAIBroker(IHttpClientFactory httpClientFactory)
         {
             this.apiConfigurations = apiConfigurations;
-            this.httpClient = SetupHttpClient();
+            this.httpClient = httpClientFactory.CreateClient(nameof(OpenAIBroker));
             this.apiClient = SetupApiClient();
         }
 
@@ -35,7 +39,7 @@ namespace OpenAI.NET.Brokers.OpenAIs
             return await this.apiClient.PostContentAsync<TRequest, TResult>(
                 relativeUrl,
                 content,
-                mediaType: "application/json",
+                mediaType: MediaTypeNames.Application.Json,
                 ignoreNulls: true);
         }
 
@@ -48,18 +52,12 @@ namespace OpenAI.NET.Brokers.OpenAIs
 
         private HttpClient SetupHttpClient()
         {
-            var httpClient = new HttpClient()
-            {
-                BaseAddress =
-                    new Uri(uriString: this.apiConfigurations.ApiUrl),
-            };
-
-            httpClient.DefaultRequestHeaders.Authorization =
+            this.httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                     scheme: "Bearer",
                     parameter: this.apiConfigurations.ApiKey);
 
-            httpClient.DefaultRequestHeaders.Add(
+            this.httpClient.DefaultRequestHeaders.Add(
                 name: "OpenAI-Organization",
                 value: this.apiConfigurations.OrganizationId);
 
