@@ -2,13 +2,13 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.NET.Clients.OpenAIs;
-using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Configurations;
-using OpenAI.NET.Models.ExternalCompletions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using System;
+using System.Linq;
 using Tynamix.ObjectFiller;
 using WireMock.Server;
 

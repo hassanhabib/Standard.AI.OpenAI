@@ -2,13 +2,13 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Net;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Newtonsoft.Json;
-using OpenAI.NET.Models.Completions;
-using OpenAI.NET.Models.ExternalCompletions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using System.Net;
+using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using Xunit;

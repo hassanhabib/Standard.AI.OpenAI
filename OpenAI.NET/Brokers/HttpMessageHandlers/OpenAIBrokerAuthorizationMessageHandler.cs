@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-
 using OpenAI.NET.Models.Configurations;
-
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -12,9 +10,9 @@ namespace OpenAI.NET.Brokers.HttpMessageHandlers
     internal class OpenAIBrokerAuthorizationMessageHandler : DelegatingHandler
     {
         private const string OpenAIOrganizationIdHeaderKey = "OpenAI-Organization";
-        private readonly ApiConfigurations apiConfigurations;
+        private readonly OpenAIApiConfigurations apiConfigurations;
 
-        public OpenAIBrokerAuthorizationMessageHandler(ApiConfigurations apiConfigurations)
+        public OpenAIBrokerAuthorizationMessageHandler(OpenAIApiConfigurations apiConfigurations)
         {
             this.apiConfigurations = apiConfigurations;
         }
