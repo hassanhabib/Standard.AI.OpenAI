@@ -2,6 +2,9 @@
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 using OpenAI.NET.Models.Configurations;
 
 
@@ -34,11 +37,11 @@ namespace OpenAI.NET.Brokers.OpenAIs
         {
             request.Headers.Authorization ??=
                 new AuthenticationHeaderValue(
-                    scheme: "Bearer",
+                    scheme: JwtBearerDefaults.AuthenticationScheme,
                     parameter: this.apiConfigurations.ApiKey);
 
             request.Headers.Add(
-                name: "OpenAI-Organization",
+                name: GlobalConstants.OpenAIOrgIdKey,
                 value: this.apiConfigurations.OrganizationId);
         }
     }
