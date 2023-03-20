@@ -52,18 +52,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             }
 
             this.wireMockServer.Given(
-                Request
-                    .Create()
-                    .WithPath("/v1/completions")
-                    .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
-                    .WithBody(JsonConvert.SerializeObject(
-                        completionRequest,
-                        jsonSerializationSettings)))
-                    .RespondWith(
-                        Response.Create()
-                        .WithStatusCode(HttpStatusCode.OK)
-                        .WithBodyAsJson(completionResponse));
+                    .WithBodyAsJson(completionResponse));
 
             // when
             Completion actualCompletion =
