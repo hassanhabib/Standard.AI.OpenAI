@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------
 
 using System;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 
@@ -14,14 +16,42 @@ namespace OpenAI.NET.Tests.Integration.APIs.Completions
 
         public CompletionsApiTests()
         {
-            var openAIConfigurations = new ApiConfigurations
-            {
-                ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
-                OrganizationId = Environment.GetEnvironmentVariable("OrgId"),
-                ApiUrl = "https://api.openai.com/"
-            };
+            ApiConfigurations openAIConfigurations =
+                GetApiConfigurationsFromUserSecrets() ??
+                GetApiConfigurationsFromEnvironmentVariables();
 
             this.openAIClient = new OpenAIClient(openAIConfigurations);
         }
+
+        private ApiConfigurations GetApiConfigurationsFromUserSecrets()
+        {
+            ApiConfigurations apiConfigurations = default!;
+
+            IHostBuilder builder = Host.CreateDefaultBuilder();
+
+            builder.ConfigureAppConfiguration(configBuilder =>
+            {
+                configBuilder.AddUserSecrets(userSecretsId: "318ba1a7-5a3f-472f-9d57-cd5430e2c958");
+                IConfiguration config = configBuilder.Build();
+                apiConfigurations = config.Get<ApiConfigurations>();
+            });
+            
+            builder.Build();
+
+            return apiConfigurations;
+        }
+
+        private ApiConfigurations GetApiConfigurationsFromEnvironmentVariables()
+        {
+            ApiConfigurations openAIConfigurations = new ApiConfigurations
+            {
+                ApiKey = Environment.GetEnvironmentVariable(variable: "ApiKey"),
+                OrganizationId = Environment.GetEnvironmentVariable(variable: "OrgId"),
+                ApiUrl = "https://api.openai.com/"
+            };
+
+            return openAIConfigurations;
+        }
     }
 }
+
