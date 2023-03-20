@@ -2,6 +2,8 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using FluentAssertions.Equivalency.Tracing;
+
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
@@ -9,6 +11,8 @@ using OpenAI.NET.Models.Services.Foundations.Completions;
 using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
 using Tynamix.ObjectFiller;
 using WireMock.Server;
 
@@ -16,11 +20,11 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 {
     public partial class CompletionClientTests : IDisposable
     {
-        private readonly IOpenAIClient openAIClient;
         private readonly WireMockServer wireMockServer;
-        private readonly string apiKey;
-        private readonly string organizationId;
         private readonly IServiceProvider serviceProvider;
+        private IOpenAIClient openAIClient;
+        private string apiKey;
+        private string organizationId;
 
         public CompletionClientTests()
         {
@@ -30,7 +34,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             OpenAIApiConfigurations apiConfigurations = this.serviceProvider.GetRequiredService<OpenAIApiConfigurations>();
             this.wireMockServer = WireMockServer.Start(apiConfigurations.ApiUrl);
             (this.apiKey, this.organizationId) = (apiConfigurations.ApiKey, apiConfigurations.OrganizationId);
-        }     
+        }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
         {
@@ -114,6 +118,14 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                 .OnType<object>().IgnoreIt();
 
             return filler;
+        }
+
+        private IOpenAIClient GetApiClient(OpenAIApiConfigurations apiConfigurations)
+        {
+            this.apiKey = apiConfigurations.ApiKey;
+            this.organizationId = apiConfigurations.OrganizationId;
+
+            return new OpenAIClient(apiConfigurations);
         }
 
         public void Dispose() => this.wireMockServer.Stop();

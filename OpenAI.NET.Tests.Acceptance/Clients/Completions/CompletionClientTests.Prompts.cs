@@ -5,6 +5,7 @@
 using FluentAssertions;
 using Force.DeepCloner;
 using Newtonsoft.Json;
+using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.Services.Foundations.Completions;
 using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
 using System.Net;
@@ -17,8 +18,10 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 {
     public partial class CompletionClientTests
     {
-        [Fact]
-        public async Task ShouldPromptCompletionAsync()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task ShouldPromptCompletionAsync(bool resolveFromDI)
         {
             // given
             Completion randomCompletion = CreateRandomCompletion();
@@ -51,6 +54,18 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                         Response.Create()
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBodyAsJson(completionResponse));
+
+            if (!resolveFromDI)
+            {
+                var apiConfigurations = new OpenAIApiConfigurations
+                {
+                    ApiUrl = "http://localhost:1989",
+                    ApiKey = CreateRandomString(),
+                    OrganizationId = CreateRandomString(),
+                };
+
+                this.openAIClient = GetApiClient(apiConfigurations);
+            }
 
             // when
             Completion actualCompletion =

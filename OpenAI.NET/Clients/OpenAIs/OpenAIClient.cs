@@ -16,16 +16,16 @@ namespace OpenAI.NET.Clients.OpenAIs
 {
     public class OpenAIClient : IOpenAIClient
     {
-        public OpenAIClient()
+        public OpenAIClient(OpenAIApiConfigurations apiConfigurations)
         {
-            IHost host = RegisterServices();
+            IHost host = RegisterServices(apiConfigurations);
             this.ServiceProvider = host.Services;
             InitializeClients(host);
         }
 
-        public OpenAIClient(OpenAIApiConfigurations apiConfigurations)
+        internal OpenAIClient()
         {
-            IHost host = RegisterServices(apiConfigurations);
+            IHost host = RegisterServices();
             this.ServiceProvider = host.Services;
             InitializeClients(host);
         }
@@ -69,6 +69,5 @@ namespace OpenAI.NET.Clients.OpenAIs
 
             return host;
         }
-
     }
 }
