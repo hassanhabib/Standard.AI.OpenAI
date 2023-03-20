@@ -41,6 +41,18 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                 DefaultValueHandling = DefaultValueHandling.Ignore,
             };
 
+            if (!resolveFromDI)
+            {
+                var apiConfigurations = new OpenAIApiConfigurations
+                {
+                    ApiUrl = "http://localhost:1989",
+                    ApiKey = CreateRandomString(),
+                    OrganizationId = CreateRandomString(),
+                };
+
+                this.openAIClient = GetApiClient(apiConfigurations);
+            }
+
             this.wireMockServer.Given(
                 Request
                     .Create()
@@ -54,18 +66,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                         Response.Create()
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBodyAsJson(completionResponse));
-
-            if (!resolveFromDI)
-            {
-                var apiConfigurations = new OpenAIApiConfigurations
-                {
-                    ApiUrl = "http://localhost:1989",
-                    ApiKey = CreateRandomString(),
-                    OrganizationId = CreateRandomString(),
-                };
-
-                this.openAIClient = GetApiClient(apiConfigurations);
-            }
 
             // when
             Completion actualCompletion =
