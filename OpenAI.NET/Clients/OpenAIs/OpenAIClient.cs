@@ -2,19 +2,21 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OpenAI.NET.Brokers;
+using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Clients.Completions;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Services.Foundations.Completions;
-using System.IO;
 
 namespace OpenAI.NET.Clients.OpenAIs
 {
     public class OpenAIClient : IOpenAIClient
     {
+        private const string OpenAIApiConfigurationKey = nameof(OpenAIApiConfigurations);
+
         public OpenAIClient(OpenAIApiConfigurations apiConfigurations)
         {
             IHost host = RegisterServices(apiConfigurations);
@@ -53,11 +55,11 @@ namespace OpenAI.NET.Clients.OpenAIs
             {
                 if (apiConfigurations is not null)
                 {
-                    services.AddBrokers(apiConfigurations);
+                    AddBrokers(services, apiConfigurations);
                 }
                 else
                 {
-                    services.AddBrokers(ctx.Configuration, "OpenAIApiConfiguration");
+                    AddBrokers(services, ctx.Configuration, "OpenAIApiConfiguration");
                 }
 
                 services.AddTransient<ICompletionService, CompletionService>();
@@ -67,6 +69,67 @@ namespace OpenAI.NET.Clients.OpenAIs
             IHost host = builder.Build();
 
             return host;
+        }
+
+        /// <summary>
+        /// Registers all the brokers.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <returns>An IServiceCollection.</returns>
+        private static IServiceCollection AddBrokers(
+            IServiceCollection services,
+            IConfiguration configuration,
+            string openAIApiSettingsKey = null)
+        {
+            var apiConfigurations = GetOpenAIApiConfigurations(configuration, openAIApiSettingsKey);
+            AddOpenAIBroker(services, apiConfigurations);
+            return services;
+        }
+
+        /// <summary>
+        /// Registers all the brokers.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <returns>An IServiceCollection.</returns>
+        private static IServiceCollection AddBrokers(
+            IServiceCollection services,
+            OpenAIApiConfigurations apiConfigurations)
+        {
+            AddOpenAIBroker(services, apiConfigurations);
+            return services;
+        }
+
+        /// <summary>
+        /// Registers all the dependencies for <see cref="OpenAIBroker"/> into the DI.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <returns>An IServiceCollection.</returns>
+        private static IServiceCollection AddOpenAIBroker(
+            IServiceCollection services,
+            OpenAIApiConfigurations apiConfigurations)
+        {
+            services.AddSingleton(_ => apiConfigurations);
+            services
+                .AddHttpClient<OpenAIBroker>(httpClient =>
+                    httpClient.BaseAddress = new(uriString: apiConfigurations.ApiUrl))
+                .AddHttpMessageHandler<OpenAIBrokerDeligatingHandler>()
+                .Services
+                .AddScoped(_ => new OpenAIBrokerDeligatingHandler(apiConfigurations));
+
+            services.AddScoped<IOpenAIBroker, OpenAIBroker>();
+
+            return services;
+        }
+
+        private static OpenAIApiConfigurations GetOpenAIApiConfigurations(
+            IConfiguration configuration,
+            string openAIApiSettingsKey = null)
+        {
+            openAIApiSettingsKey ??= OpenAIApiConfigurationKey;
+            OpenAIApiConfigurations apiConfigurations = configuration
+                                                            .GetSection(openAIApiSettingsKey)
+                                                            .Get<OpenAIApiConfigurations>();
+            return apiConfigurations;
         }
     }
 }
