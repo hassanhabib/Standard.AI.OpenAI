@@ -2,26 +2,29 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using Microsoft.Extensions.DependencyInjection;
+
+using RESTFulSense.Clients;
+
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Configurations;
-using RESTFulSense.Clients;
 
 namespace OpenAI.NET.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker : IOpenAIBroker
     {
-        private readonly ApiConfigurations apiConfigurations;
         private readonly IRESTFulApiFactoryClient apiClient;
-        private readonly HttpClient httpClient;
 
-        public OpenAIBroker(ApiConfigurations apiConfigurations)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenAIBroker"/> class.
+        /// </summary>
+        /// <param name="apiClient">The RESTFulSenses Api Client.</param>
+        public OpenAIBroker(IHttpClientFactory httpClientFactory)
         {
-            this.apiConfigurations = apiConfigurations;
-            this.httpClient = SetupHttpClient();
-            this.apiClient = SetupApiClient();
+            HttpClient httpClient = httpClientFactory.CreateClient(nameof(OpenAIBroker));
+            this.apiClient = new RESTFulApiFactoryClient(httpClient);
         }
 
         private async ValueTask<T> GetAsync<T>(string relativeUrl) =>
@@ -35,7 +38,7 @@ namespace OpenAI.NET.Brokers.OpenAIs
             return await this.apiClient.PostContentAsync<TRequest, TResult>(
                 relativeUrl,
                 content,
-                mediaType: "application/json",
+                mediaType: MediaTypeNames.Application.Json,
                 ignoreNulls: true);
         }
 
@@ -45,28 +48,5 @@ namespace OpenAI.NET.Brokers.OpenAIs
 
         private async ValueTask<T> DeleteAsync<T>(string relativeUrl) =>
             await this.apiClient.DeleteContentAsync<T>(relativeUrl);
-
-        private HttpClient SetupHttpClient()
-        {
-            var httpClient = new HttpClient()
-            {
-                BaseAddress =
-                    new Uri(uriString: this.apiConfigurations.ApiUrl),
-            };
-
-            httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(
-                    scheme: "Bearer",
-                    parameter: this.apiConfigurations.ApiKey);
-
-            httpClient.DefaultRequestHeaders.Add(
-                name: "OpenAI-Organization",
-                value: this.apiConfigurations.OrganizationId);
-
-            return httpClient;
-        }
-
-        private IRESTFulApiFactoryClient SetupApiClient() =>
-            new RESTFulApiFactoryClient(this.httpClient);
     }
 }
