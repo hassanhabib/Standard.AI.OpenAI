@@ -20,6 +20,7 @@ namespace OpenAI.NET.Infrastructure.Build
             {
                 Name = "OpenAI.NET Build",
 
+
                 OnEvents = new Events
                 {
                     Push = new PushEvent
@@ -37,6 +38,12 @@ namespace OpenAI.NET.Infrastructure.Build
                 {
                     Build = new BuildJob
                     {
+                        EnvironmentVariables = new Dictionary<string, string>
+                        {
+                            { "ApiKey", "${{ secrets.APIKEY }}" },
+                            { "OrgId", "${{ secrets.ORGID }}" }
+                        },
+
                         RunsOn = BuildMachines.WindowsLatest,
 
                         Steps = new List<GithubTask>

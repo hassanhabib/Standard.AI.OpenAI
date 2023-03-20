@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      ApiKey: ${{ secrets.APIKEY }}
+      OrgId: ${{ secrets.ORGID }}
     steps:
     - name: Pulling Code
       uses: actions/checkout@v2
