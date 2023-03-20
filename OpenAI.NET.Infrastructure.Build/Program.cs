@@ -40,37 +40,37 @@ namespace OpenAI.NET.Infrastructure.Build
                         RunsOn = BuildMachines.WindowsLatest,
 
                         Steps = new List<GithubTask>
-            {
-                new CheckoutTaskV2
-                {
-                    Name = "Pulling Code"
-                },
+                        {
+                            new CheckoutTaskV2
+                            {
+                                Name = "Pulling Code"
+                            },
 
-                new SetupDotNetTaskV1
-                {
-                    Name = "Installing .NET",
+                            new SetupDotNetTaskV1
+                            {
+                                Name = "Installing .NET",
 
-                    TargetDotNetVersion = new TargetDotNetVersion
-                    {
-                        DotNetVersion = "7.0.201"
-                    }
-                },
+                                TargetDotNetVersion = new TargetDotNetVersion
+                                {
+                                    DotNetVersion = "7.0.201"
+                                }
+                            },
 
-                new RestoreTask
-                {
-                    Name = "Restoring Packages"
-                },
+                            new RestoreTask
+                            {
+                                Name = "Restoring Packages"
+                            },
 
-                new DotNetBuildTask
-                {
-                    Name = "Building Solution"
-                },
+                            new DotNetBuildTask
+                            {
+                                Name = "Building Solution"
+                            },
 
-                new TestTask
-                {
-                    Name = "Running Tests"
-                }
-            }
+                            new TestTask
+                            {
+                                Name = "Running Tests"
+                            }
+                        }
                     }
                 }
             };
