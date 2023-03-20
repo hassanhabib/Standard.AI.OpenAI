@@ -75,7 +75,7 @@ namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
                 Created = GetRandomNumber(),
                 ResponseModel = GetRandomString(),
                 Choices = CreateRandomChoicesList(),
-                Usage = CreateRandomUsage(),
+                Usage = CreateRandomUsage()
             };
         }
 
