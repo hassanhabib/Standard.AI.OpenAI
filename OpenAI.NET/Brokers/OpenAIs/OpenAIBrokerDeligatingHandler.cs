@@ -1,9 +1,9 @@
-﻿using OpenAI.NET.Models.Configurations;
-
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using OpenAI.NET.Models.Configurations;
+
 
 namespace OpenAI.NET.Brokers.OpenAIs
 {

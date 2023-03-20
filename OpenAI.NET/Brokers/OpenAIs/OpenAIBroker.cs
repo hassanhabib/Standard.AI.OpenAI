@@ -2,14 +2,9 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Http;
-
 using OpenAI.NET.Models.Configurations;
 using RESTFulSense.Clients;
 

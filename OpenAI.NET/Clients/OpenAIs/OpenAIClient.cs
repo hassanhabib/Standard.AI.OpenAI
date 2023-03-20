@@ -9,7 +9,6 @@ using OpenAI.NET.Brokers;
 using OpenAI.NET.Clients.Completions;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Services.Foundations.Completions;
-using System;
 using System.IO;
 
 namespace OpenAI.NET.Clients.OpenAIs
@@ -19,20 +18,20 @@ namespace OpenAI.NET.Clients.OpenAIs
         public OpenAIClient(OpenAIApiConfigurations apiConfigurations)
         {
             IHost host = RegisterServices(apiConfigurations);
-            this.ServiceProvider = host.Services;
+            this.ApiConfigurations = apiConfigurations;
             InitializeClients(host);
         }
 
         internal OpenAIClient()
         {
             IHost host = RegisterServices();
-            this.ServiceProvider = host.Services;
+            this.ApiConfigurations = host.Services.GetRequiredService<OpenAIApiConfigurations>();
             InitializeClients(host);
         }
 
         public ICompletionsClient Completions { get; set; }
 
-        public IServiceProvider ServiceProvider { get; private set; }
+        public OpenAIApiConfigurations ApiConfigurations { get; private set; }
 
         private void InitializeClients(IHost host) =>
             Completions = host.Services.GetRequiredService<ICompletionsClient>();

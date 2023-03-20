@@ -2,18 +2,14 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using FluentAssertions.Equivalency.Tracing;
-
-using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.Services.Foundations.Completions;
 using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
-using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-
 using Tynamix.ObjectFiller;
+
 using WireMock.Server;
 
 namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
@@ -29,11 +25,11 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         public CompletionClientTests()
         {
             this.openAIClient = new OpenAIClient();
-            this.serviceProvider = this.openAIClient.ServiceProvider;
 
-            OpenAIApiConfigurations apiConfigurations = this.serviceProvider.GetRequiredService<OpenAIApiConfigurations>();
+            OpenAIApiConfigurations apiConfigurations = this.openAIClient.ApiConfigurations;
             this.wireMockServer = WireMockServer.Start(apiConfigurations.ApiUrl);
-            (this.apiKey, this.organizationId) = (apiConfigurations.ApiKey, apiConfigurations.OrganizationId);
+            this.apiKey = apiConfigurations.ApiKey; 
+            this.organizationId = apiConfigurations.OrganizationId;
         }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
