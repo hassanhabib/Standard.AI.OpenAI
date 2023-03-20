@@ -49,6 +49,7 @@ namespace OpenAI.NET.Brokers
             this IServiceCollection services,
             OpenAIApiConfigurations apiConfigurations)
         {
+            services.AddSingleton(_ => apiConfigurations);
             services
                 .AddHttpClient<OpenAIBroker>(httpClient =>
                     httpClient.BaseAddress = new(uriString: apiConfigurations.ApiUrl))
