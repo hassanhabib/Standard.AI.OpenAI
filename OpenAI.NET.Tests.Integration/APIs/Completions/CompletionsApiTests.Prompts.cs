@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
+using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Services.Foundations.Completions;
 using Xunit;
 
@@ -10,8 +11,10 @@ namespace OpenAI.NET.Tests.Integration.APIs.Completions
 {
     public partial class CompletionsApiTests
     {
-        [Fact]
-        public async Task ShouldPromptCompletionAsync()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task ShouldPromptCompletionAsync(bool resolveFromDI)
         {
             // given
             var inputCompletion = new Completion
@@ -26,6 +29,11 @@ namespace OpenAI.NET.Tests.Integration.APIs.Completions
                     }
                 }
             };
+
+            if (resolveFromDI)
+            {
+                this.openAIClient = new OpenAIClient();
+            }
 
             // when
             Completion responseCompletion =

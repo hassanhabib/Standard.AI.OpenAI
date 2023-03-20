@@ -10,11 +10,11 @@ namespace OpenAI.NET.Tests.Integration.APIs.Completions
 {
     public partial class CompletionsApiTests
     {
-        private readonly IOpenAIClient openAIClient;
+        private IOpenAIClient openAIClient;
 
         public CompletionsApiTests()
         {
-            var openAIConfigurations = new ApiConfigurations
+            var openAIConfigurations = new OpenAIApiConfigurations
             {
                 ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
                 OrganizationId = Environment.GetEnvironmentVariable("OrgId"),
