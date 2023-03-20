@@ -47,7 +47,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                     jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
-                    .WithStatusCode(HttpStatusCode.OK)
                     .WithBodyAsJson(completionResponse));
 
             // when

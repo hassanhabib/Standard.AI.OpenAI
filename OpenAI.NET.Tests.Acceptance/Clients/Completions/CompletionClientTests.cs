@@ -22,13 +22,13 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 
         public CompletionClientTests()
         {
-            this.wireMockServer = WireMockServer.Start(1989);
+            this.wireMockServer = WireMockServer.Start();
             this.apiKey = CreateRandomString();
             this.organizationId = CreateRandomString();
 
             var openAiConfiguration = new ApiConfigurations
             {
-                ApiUrl = "http://localhost:1989",
+                ApiUrl = this.wireMockServer.Url,
                 ApiKey = this.apiKey,
                 OrganizationId = this.organizationId
             };
