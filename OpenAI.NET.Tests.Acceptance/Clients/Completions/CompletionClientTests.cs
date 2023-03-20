@@ -25,9 +25,9 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             this.openAIClient = new OpenAIClient();
             OpenAIApiConfigurations apiConfigurations = this.openAIClient.ApiConfigurations;
             this.wireMockServer = WireMockServer.Start(apiConfigurations.ApiUrl);
-            this.apiKey = apiConfigurations.ApiKey; 
+            this.apiKey = apiConfigurations.ApiKey;
             this.organizationId = apiConfigurations.OrganizationId;
-		}
+        }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
         {
