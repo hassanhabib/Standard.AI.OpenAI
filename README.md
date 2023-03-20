@@ -39,7 +39,7 @@ Find our nuget package.
 The following example demonstrate how you can write your first Completions program.
 
 ```csharp
-var openAiApiConfigurations = new ApiConfigurations
+var openAiApiConfigurations = new OpenAIApiConfigurations
 {
 	ApiKey = "YOUR_API_KEY_HERE",
 	OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
