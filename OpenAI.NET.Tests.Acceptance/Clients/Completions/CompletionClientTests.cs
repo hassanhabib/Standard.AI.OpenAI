@@ -17,7 +17,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
     public partial class CompletionClientTests : IDisposable
     {
         private readonly WireMockServer wireMockServer;
-        private readonly IServiceProvider serviceProvider;
         private IOpenAIClient openAIClient;
         private string apiKey;
         private string organizationId;
