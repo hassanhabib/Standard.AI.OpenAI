@@ -9,8 +9,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
-
-using OpenAI.NET.Brokers.HttpMessageHandlers;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.Services.Foundations.Completions;
