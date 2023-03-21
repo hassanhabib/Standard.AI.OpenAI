@@ -36,7 +36,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             Completion expectedCompletion = inputCompletion.DeepClone();
             expectedCompletion = ConvertToCompletion(inputCompletion, completionResponse);
 
-            JsonSerializerSettings jsonSerializationSettings = new();
+            var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
 
             if (!resolveFromDI)
