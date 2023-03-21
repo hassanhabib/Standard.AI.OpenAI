@@ -5,7 +5,7 @@
 using System;
 using Xeptions;
 
-namespace OpenAI.NET.Models.Completions.Exceptions
+namespace OpenAI.NET.Models.Services.Foundations.Completions.Exceptions
 {
     internal class InvalidConfigurationCompletionException : Xeption
     {

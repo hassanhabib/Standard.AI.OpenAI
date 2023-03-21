@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Newtonsoft.Json;
-using OpenAI.NET.Models.Completions;
-using OpenAI.NET.Models.ExternalCompletions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using Xunit;
@@ -43,12 +43,12 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                 .WithPath("/v1/completions")
                 .WithHeader("Authorization", $"Bearer {this.apiKey}")
                 .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                .WithHeader("Content-Type", "application/json; charset=utf-8")
                 .WithBody(JsonConvert.SerializeObject(
                     completionRequest,
                     jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
-                    .WithStatusCode(HttpStatusCode.OK)
                     .WithBodyAsJson(completionResponse));
 
             // when

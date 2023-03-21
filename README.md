@@ -64,6 +64,14 @@ Array.ForEach(resultCompletion.Response.Prompts, Console.WriteLine);
 
 ```
 
+## How to Contribute
+If you want to contribute to this project please review the following documents:
+- [The Standard](https://github.com/hassanhabib/The-Standard)
+- [C# Coding Standard](https://github.com/hassanhabib/CSharpCodingStandard)
+- [The Team Standard](https://github.com/hassanhabib/The-Standard-Team)
+
+If you have a question make sure you either open an issue or join our [The Standard Community](https://discord.com/invite/vdPZ7hS52X) discord server.
+
 ## Live-Sessions
 Our live-sessions are schedules on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to to be able to join us.
 
@@ -90,7 +98,14 @@ Here's our live sessions to show you how this library was developed from scratch
 <a href="https://youtube.com/live/SZHBt0SW2EY?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI003: API Integrations</a>
 
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67"><img width="20" src="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67" data-canonical-src="https://www.searchmarketingaustralia.com.au/wp-content/uploads/2017/10/original_images_YouTube.png" style="max-width: 100%;"></a>
-<a href="https://youtube.com/live/z0BlU3KVr7E?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI004: Completion Service </a>
+<a href="https://youtube.com/live/z0BlU3KVr7E?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI004: Completion Service</a>
 
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67"><img width="20" src="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67" data-canonical-src="https://www.searchmarketingaustralia.com.au/wp-content/uploads/2017/10/original_images_YouTube.png" style="max-width: 100%;"></a>
-<a href="https://youtube.com/live/wMC1I85Zjmo?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI005: Completion Service </a>
+<a href="https://youtube.com/live/wMC1I85Zjmo?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI005: Completion Service</a>
+
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67"><img width="20" src="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67" data-canonical-src="https://www.searchmarketingaustralia.com.au/wp-content/uploads/2017/10/original_images_YouTube.png" style="max-width: 100%;"></a>
+<a href="https://youtube.com/live/aENHthpFTvI?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI006: Developing Completion Clients </a>
+
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67"><img width="20" src="https://camo.githubusercontent.com/3d319610708f36a324d601b85d0d29c4e90344a8768f45c05136b92a877fd755/68747470733a2f2f7777772e7365617263686d61726b6574696e676175737472616c69612e636f6d2e61752f77702d636f6e74656e742f75706c6f6164732f323031372f31302f6f726967696e616c5f696d616765735f596f75547562652e706e67" data-canonical-src="https://www.searchmarketingaustralia.com.au/wp-content/uploads/2017/10/original_images_YouTube.png" style="max-width: 100%;"></a>
+<a href="https://youtube.com/live/fzlF2k7SM?si=EnSIkaIECMiOmarE" rel="nofollow">OPENAI007: Acceptance & Integration Tests </a>
+

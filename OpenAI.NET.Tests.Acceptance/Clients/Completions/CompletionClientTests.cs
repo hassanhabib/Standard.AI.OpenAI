@@ -5,9 +5,9 @@
 using System;
 using System.Linq;
 using OpenAI.NET.Clients.OpenAIs;
-using OpenAI.NET.Models.Completions;
 using OpenAI.NET.Models.Configurations;
-using OpenAI.NET.Models.ExternalCompletions;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
 using Tynamix.ObjectFiller;
 using WireMock.Server;
 
@@ -25,19 +25,19 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         /// </summary>
         public CompletionClientTests()
         {
-            this.wireMockServer = WireMockServer.Start(1989);
+            this.wireMockServer = WireMockServer.Start();
             this.apiKey = CreateRandomString();
             this.organizationId = CreateRandomString();
 
             var openAiConfiguration = new ApiConfigurations
             {
-                ApiUrl = "http://localhost:1989",
+                ApiUrl = this.wireMockServer.Url,
                 ApiKey = this.apiKey,
                 OrganizationId = this.organizationId,
             };
 
             this.openAIClient = new OpenAIClient(openAiConfiguration);
-        }     
+        }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
         {
