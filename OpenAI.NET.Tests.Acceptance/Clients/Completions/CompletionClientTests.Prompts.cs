@@ -3,14 +3,13 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Force.DeepCloner;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
+
 using OpenAI.NET.Brokers.HttpMessageHandlers;
 using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
@@ -76,7 +75,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                     Request.Create()
                         .WithPath(url)
                         .WithHeader(HeaderNames.Authorization, $"{JwtBearerDefaults.AuthenticationScheme} {this.apiConfigurations.ApiKey}")
-                        .WithHeader(OpenAIBrokerAuthorizationMessageHandler.OpenAIOrganizationIdHeaderKey, $"{this.apiConfigurations.OrganizationId}")
+                        .WithHeader(GlobalConstants.OpenAIOrgIdKey, $"{this.apiConfigurations.OrganizationId}")
                         .WithHeader(HeaderNames.ContentType, $"{MediaTypeNames.Application.Json}; charset=utf-8")
                         .WithBody(JsonConvert.SerializeObject(
                             testData.CompletionRequest,

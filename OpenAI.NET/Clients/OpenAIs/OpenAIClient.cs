@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenAI.NET.Brokers.HttpMessageHandlers;
 using OpenAI.NET.Brokers.OpenAIs;
 using OpenAI.NET.Clients.Completions;
 using OpenAI.NET.Models.Configurations;
