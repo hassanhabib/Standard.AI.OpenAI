@@ -18,7 +18,7 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 {
     public partial class CompletionClientTests
     {
-        [Theory]
+        [Theory(Skip = "This test is only for releases")]
         [InlineData(true)]
         [InlineData(false)]
         public async Task ShouldPromptCompletionAsync(bool resolveFromDI)
