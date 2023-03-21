@@ -14,7 +14,7 @@ namespace OpenAI.NET.Services.Foundations.Completions
     {
         private delegate ValueTask<Completion> ReturningCompletionFunction();
 
-        private async ValueTask<Completion> TryCatch(ReturningCompletionFunction returningCompletionFunction)
+        private static async ValueTask<Completion> TryCatch(ReturningCompletionFunction returningCompletionFunction)
         {
             try
             {
