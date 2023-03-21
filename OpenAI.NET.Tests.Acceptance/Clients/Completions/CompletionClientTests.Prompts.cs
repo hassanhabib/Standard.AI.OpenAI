@@ -5,7 +5,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Force.DeepCloner;
 using Newtonsoft.Json;
 using OpenAI.NET.Models.Services.Foundations.Completions;
 using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
@@ -30,8 +29,8 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
             ExternalCompletionResponse completionResponse =
                 CreateRandomExternalCompletionResponse();
 
-            Completion expectedCompletion = inputCompletion.DeepClone();
-            expectedCompletion = ConvertToCompletion(inputCompletion, completionResponse);
+            Completion expectedCompletion =
+                ConvertToCompletion(inputCompletion, completionResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
