@@ -67,7 +67,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
 
         private void ConfigureWireMockServer(string url, CompletionRequestTestData testData)
         {
-            var fullUrl = new Uri(baseUri: new Uri(this.apiConfigurations.ApiUrl), relativeUri: url);
             this.wireMockServer
                 .Given(
                     Request.Create()
