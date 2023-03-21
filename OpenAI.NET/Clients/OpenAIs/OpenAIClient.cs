@@ -37,9 +37,8 @@ namespace OpenAI.NET.Clients.OpenAIs
             });
 
             IHost host = builder.Build();
-            
+
             return host;
         }
-
     }
 }
