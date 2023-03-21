@@ -10,7 +10,8 @@ namespace OpenAI.NET.Models.Services.Foundations.Completions.Exceptions
     internal class NotFoundCompletionException : Xeption
     {
         public NotFoundCompletionException(Exception innerException)
-            : base(message: "Not found completion error occurred. Fix the errors and try again.", innerException)
+            : base(message: "Not found completion error occurred, fix errors and try again.",
+                  innerException)
         { }
     }
 }

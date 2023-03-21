@@ -9,6 +9,7 @@ namespace OpenAI.NET.Models.Services.Foundations.Completions.Exceptions
     public class NullCompletionException : Xeption
     {
         public NullCompletionException()
-            : base(message: "Completion is null.") { }
+            : base(message: "Completion is null.")
+        { }
     }
 }

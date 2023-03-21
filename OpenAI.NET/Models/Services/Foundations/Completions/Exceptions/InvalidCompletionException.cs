@@ -14,7 +14,8 @@ namespace OpenAI.NET.Models.Services.Foundations.Completions.Exceptions
         { }
 
         public InvalidCompletionException(Exception innerException)
-            : base(message: "Invalid completion error occurred, fix errors and try again.", innerException)
+            : base(message: "Invalid completion error occurred, fix errors and try again.",
+                  innerException)
         { }
     }
 }
