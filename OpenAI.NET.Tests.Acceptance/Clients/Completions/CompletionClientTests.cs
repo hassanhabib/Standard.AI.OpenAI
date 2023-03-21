@@ -16,17 +16,14 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
     public partial class CompletionClientTests : IDisposable
     {
         private readonly WireMockServer wireMockServer;
+        private OpenAIApiConfigurations apiConfigurations;
         private IOpenAIClient openAIClient;
-        private string apiKey;
-        private string organizationId;
 
         public CompletionClientTests()
         {
             this.openAIClient = new OpenAIClient();
-            OpenAIApiConfigurations apiConfigurations = this.openAIClient.ApiConfigurations;
-            this.wireMockServer = WireMockServer.Start(apiConfigurations.ApiUrl);
-            this.apiKey = apiConfigurations.ApiKey;
-            this.organizationId = apiConfigurations.OrganizationId;
+            this.apiConfigurations = this.openAIClient.ApiConfigurations;
+            this.wireMockServer = WireMockServer.Start(this.apiConfigurations.ApiUrl);
         }
 
         private static ExternalCompletionRequest ConvertToCompletionRequest(Completion completion)
@@ -111,14 +108,6 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
                 .OnType<object>().IgnoreIt();
 
             return filler;
-        }
-
-        private IOpenAIClient GetApiClient(OpenAIApiConfigurations apiConfigurations)
-        {
-            this.apiKey = apiConfigurations.ApiKey;
-            this.organizationId = apiConfigurations.OrganizationId;
-
-            return new OpenAIClient(apiConfigurations);
         }
 
         public void Dispose() => this.wireMockServer.Stop();

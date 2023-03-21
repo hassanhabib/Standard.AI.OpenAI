@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using OpenAI.NET.Models.Configurations;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using OpenAI.NET.Models.Configurations;
 
 namespace OpenAI.NET.Brokers.HttpMessageHandlers
 {
     internal class OpenAIBrokerAuthorizationMessageHandler : DelegatingHandler
     {
-        private const string OpenAIOrganizationIdHeaderKey = "OpenAI-Organization";
+        internal const string OpenAIOrganizationIdHeaderKey = "OpenAI-Organization";
         private readonly OpenAIApiConfigurations apiConfigurations;
 
         public OpenAIBrokerAuthorizationMessageHandler(OpenAIApiConfigurations apiConfigurations)
