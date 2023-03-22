@@ -1,4 +1,4 @@
-name: OpenAI.NET Build
+name: Standard.AI.OpenAI Build
 on:
   push:
     branches:
