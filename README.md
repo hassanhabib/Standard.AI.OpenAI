@@ -32,7 +32,7 @@ https://platform.openai.com/account/api-keys
 ### Hello, World!
 Once you've completed the aforementioned steps, let's write our very first program with Standard.AI.OpenAI as follows:
 
-#### Standard.AI.OpenAI Nuget
+### Standard.AI.OpenAI Nuget
 Find our nuget package.
 
 #### Program.cs
