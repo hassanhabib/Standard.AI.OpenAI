@@ -30,7 +30,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
                 CreateRandomExternalCompletionResponse();
 
             Completion expectedCompletion = inputCompletion.DeepClone();
-            expectedCompletion = ConvertToCompletion(inputCompletion, completionResponse);
+            expectedCompletion = ConvertToCompletion(expectedCompletion, completionResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
