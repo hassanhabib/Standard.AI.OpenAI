@@ -9,5 +9,6 @@ namespace OpenAI.NET.Models.Configurations
         public string ApiUrl { get; set; } = "https://api.openai.com/v1";
         public string ApiKey { get; set; }
         public string OrganizationId { get; set; }
+        public HttpPolicySettings PolicySettings { get; set; }
     }
 }
