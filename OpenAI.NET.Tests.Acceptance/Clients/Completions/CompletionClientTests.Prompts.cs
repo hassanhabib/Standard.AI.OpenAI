@@ -87,13 +87,13 @@ namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
         {
             public CompletionRequestTestData()
             {
-                RandomCompletion = CreateRandomCompletion();
-                InputCompletion = RandomCompletion;
-                CompletionRequest= ConvertToCompletionRequest(InputCompletion);
-                CompletionResponse = CreateRandomExternalCompletionResponse();
-                ExpectedCompletion = ConvertToCompletion(InputCompletion, CompletionResponse);
-                JsonSerializationSettings = new JsonSerializerSettings();
-                JsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                this.RandomCompletion = CreateRandomCompletion();
+                this.InputCompletion = RandomCompletion;
+                this.CompletionRequest= ConvertToCompletionRequest(InputCompletion);
+                this.CompletionResponse = CreateRandomExternalCompletionResponse();
+                this.ExpectedCompletion = ConvertToCompletion(InputCompletion, CompletionResponse);
+                this.JsonSerializationSettings = new JsonSerializerSettings();
+                this.JsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
             }
 
             public Completion RandomCompletion { get; private set; }
