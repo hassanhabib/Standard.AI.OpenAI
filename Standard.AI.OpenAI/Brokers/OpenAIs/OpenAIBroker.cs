@@ -39,7 +39,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
                 ignoreNulls: true);
         }
 
-
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>
             await this.apiClient.PutContentAsync(relativeUrl, content);
 

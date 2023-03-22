@@ -40,6 +40,5 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
 
             return host;
         }
-
     }
 }
