@@ -8,7 +8,7 @@ using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
 
-namespace OpenAI.NET.Infrastructure.Build
+namespace Standard.AI.OpenAI.Infrastructure.Build
 {
     internal class Program
     {
@@ -18,7 +18,7 @@ namespace OpenAI.NET.Infrastructure.Build
 
             var githubPipeline = new GithubPipeline
             {
-                Name = "OpenAI.NET Build",
+                Name = "Standard.AI.OpenAI Build",
 
 
                 OnEvents = new Events

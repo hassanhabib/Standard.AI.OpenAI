@@ -11,9 +11,9 @@
 		<Product>Standard.AI.OpenAI</Product>
 		<Description>A Standardized .NET library for OpenAI Integrations.</Description>
 		<Copyright>The Standard Community 2023 (c)</Copyright>
-		<PackageProjectUrl>https://github.com/hassanhabib/OpenAI.NET</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/hassanhabib/Standard.AI.OpenAI</PackageProjectUrl>
 		<PackageIcon>artificial-intelligence.png</PackageIcon>
-		<RepositoryUrl>https://github.com/hassanhabib/OpenAI.NET</RepositoryUrl>
+		<RepositoryUrl>https://github.com/hassanhabib/Standard.AI.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>AI; OpenAI; .NET; ChatGPT; Artificial Intelligence; The Standard</PackageTags>
 		<PackageReleaseNotes>This is a beta release for Completions capability.</PackageReleaseNotes>
@@ -27,9 +27,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="OpenAI.NET.Tests.Unit" />
+		<InternalsVisibleTo Include="Standard.AI.OpenAI.Tests.Unit" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
-		<InternalsVisibleTo Include="OpenAI.NET.Tests.Acceptance" />
+		<InternalsVisibleTo Include="Standard.AI.OpenAI.Tests.Acceptance" />
 	</ItemGroup>
 
 	<ItemGroup>

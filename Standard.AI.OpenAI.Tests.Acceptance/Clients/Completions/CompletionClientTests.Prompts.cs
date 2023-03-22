@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Newtonsoft.Json;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
+namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
 {
     public partial class CompletionClientTests
     {

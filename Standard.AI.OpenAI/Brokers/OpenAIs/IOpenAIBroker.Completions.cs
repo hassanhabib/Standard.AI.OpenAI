@@ -3,9 +3,9 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 
-namespace OpenAI.NET.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial interface IOpenAIBroker
     {

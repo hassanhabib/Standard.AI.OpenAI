@@ -2,7 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-namespace OpenAI.NET.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial interface IOpenAIBroker
     {

@@ -2,7 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-namespace OpenAI.NET.Models.Configurations
+namespace Standard.AI.OpenAI.Models.Configurations
 {
     public class ApiConfigurations
     {

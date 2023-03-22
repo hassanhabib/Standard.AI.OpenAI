@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenAI.NET\Standard.AI.OpenAI.csproj" />
+    <ProjectReference Include="..\Standard.AI.OpenAI\Standard.AI.OpenAI.csproj" />
   </ItemGroup>
 
 </Project>

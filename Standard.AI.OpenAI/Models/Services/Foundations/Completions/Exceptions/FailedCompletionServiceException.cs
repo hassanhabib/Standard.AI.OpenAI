@@ -5,7 +5,7 @@
 using System;
 using Xeptions;
 
-namespace OpenAI.NET.Models.Services.Foundations.Completions.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
     internal class FailedCompletionServiceException : Xeption
     {

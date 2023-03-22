@@ -3,13 +3,13 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Clients.Completions.Exceptions;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.Completions.Exceptions;
-using OpenAI.NET.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Clients.Completions.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
+using Standard.AI.OpenAI.Services.Foundations.Completions;
 using Xeptions;
 
-namespace OpenAI.NET.Clients.Completions
+namespace Standard.AI.OpenAI.Clients.Completions
 {
     internal class CompletionsClient : ICompletionsClient
     {

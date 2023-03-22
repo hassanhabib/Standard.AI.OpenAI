@@ -4,11 +4,11 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using OpenAI.NET.Brokers.OpenAIs;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 
-namespace OpenAI.NET.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
     internal partial class CompletionService : ICompletionService
     {

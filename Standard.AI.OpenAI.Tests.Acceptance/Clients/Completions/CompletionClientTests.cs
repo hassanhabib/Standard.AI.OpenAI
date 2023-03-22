@@ -4,14 +4,14 @@
 
 using System;
 using System.Linq;
-using OpenAI.NET.Clients.OpenAIs;
-using OpenAI.NET.Models.Configurations;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Tynamix.ObjectFiller;
 using WireMock.Server;
 
-namespace OpenAI.NET.Tests.Acceptance.Clients.Completions
+namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
 {
     public partial class CompletionClientTests : IDisposable
     {

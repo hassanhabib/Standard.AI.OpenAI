@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenAI.NET.Models.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions
 {
     public class CompletionRequest
     {

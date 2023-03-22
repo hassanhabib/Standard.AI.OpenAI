@@ -6,10 +6,10 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Configurations;
+using Standard.AI.OpenAI.Models.Configurations;
 using RESTFulSense.Clients;
 
-namespace OpenAI.NET.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker : IOpenAIBroker
     {

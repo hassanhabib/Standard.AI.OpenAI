@@ -4,7 +4,7 @@
 
 using Xeptions;
 
-namespace OpenAI.NET.Models.Clients.Completions.Exceptions
+namespace Standard.AI.OpenAI.Models.Clients.Completions.Exceptions
 {
     internal class CompletionClientDependencyException : Xeption
     {

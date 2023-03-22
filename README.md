@@ -1,17 +1,17 @@
-# OpenAI.NET
+# Standard.AI.OpenAI
 
 <div align=center>
-	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/OpenAI.NET/artificial-intelligence.png" />
+	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/Standard.AI.OpenAI/main/Standard.AI.OpenAI/artificial-intelligence.png" />
 </div>
 
 <br />
 
-[![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
+[![.NET](https://github.com/hassanhabib/Standard.AI.OpenAI/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/Standard.AI.OpenAI/actions/workflows/dotnet.yml)
 [![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f)](https://github.com/hassanhabib/The-Standard)
 [![The Standard Community](https://img.shields.io/discord/934130100008538142?color=%237289da&label=The%20Standard%20Community&logo=Discord)](https://discord.gg/vdPZ7hS52X)
 
 ## Introduction
-OpenAI.NET is a Standard-Compliant .NET library built on top of OpenAI API RESTful endpoints to enable software engineers to develop AI-Powered solutions in .NET.
+Standard.AI.OpenAI is a Standard-Compliant .NET library built on top of OpenAI API RESTful endpoints to enable software engineers to develop AI-Powered solutions in .NET.
 
 ## Standard-Compliance
 This library was built according to The Standard. The library follows engineering principles, patterns and tooling as recommended by The Standard.
@@ -30,9 +30,9 @@ Once you've created an OpenAI account. Now, go ahead and generate an API key fro
 https://platform.openai.com/account/api-keys
 
 ### Hello, World!
-Once you've completed the aforementioned steps, let's write our very first program with OpenAI.NET as follows:
+Once you've completed the aforementioned steps, let's write our very first program with Standard.AI.OpenAI as follows:
 
-#### OpenAI.NET Nuget
+#### Standard.AI.OpenAI Nuget
 Find our nuget package.
 
 #### Program.cs

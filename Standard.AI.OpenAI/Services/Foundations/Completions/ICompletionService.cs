@@ -3,9 +3,9 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 
-namespace OpenAI.NET.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
     internal interface ICompletionService
     {

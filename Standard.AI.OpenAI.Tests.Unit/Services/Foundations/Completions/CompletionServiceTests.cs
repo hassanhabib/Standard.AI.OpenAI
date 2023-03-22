@@ -8,15 +8,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
-using OpenAI.NET.Brokers.OpenAIs;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
-using OpenAI.NET.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Services.Foundations.Completions;
 using RESTFulSense.Exceptions;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {

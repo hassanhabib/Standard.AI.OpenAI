@@ -2,7 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-namespace OpenAI.NET.Models.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions
 {
     public class Choice
     {

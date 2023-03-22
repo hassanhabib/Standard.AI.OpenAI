@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.ExternalCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Unit.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {

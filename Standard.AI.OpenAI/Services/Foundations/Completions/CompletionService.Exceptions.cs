@@ -4,11 +4,11 @@
 
 using System;
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Services.Foundations.Completions;
-using OpenAI.NET.Models.Services.Foundations.Completions.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using RESTFulSense.Exceptions;
 
-namespace OpenAI.NET.Services.Foundations.Completions
+namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
     internal partial class CompletionService
     {

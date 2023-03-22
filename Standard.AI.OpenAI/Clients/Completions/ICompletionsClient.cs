@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 
-namespace OpenAI.NET.Clients.Completions
+namespace Standard.AI.OpenAI.Clients.Completions
 {
     public interface ICompletionsClient
     {

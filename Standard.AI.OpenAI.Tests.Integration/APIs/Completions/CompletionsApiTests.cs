@@ -3,10 +3,10 @@
 // ---------------------------------------------------------------
 
 using System;
-using OpenAI.NET.Clients.OpenAIs;
-using OpenAI.NET.Models.Configurations;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
 
-namespace OpenAI.NET.Tests.Integration.APIs.Completions
+namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
 {
     public partial class CompletionsApiTests
     {

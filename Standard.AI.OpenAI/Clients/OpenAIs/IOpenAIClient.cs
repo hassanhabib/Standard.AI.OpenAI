@@ -2,9 +2,9 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using OpenAI.NET.Clients.Completions;
+using Standard.AI.OpenAI.Clients.Completions;
 
-namespace OpenAI.NET.Clients.OpenAIs
+namespace Standard.AI.OpenAI.Clients.OpenAIs
 {
     public interface IOpenAIClient
     {

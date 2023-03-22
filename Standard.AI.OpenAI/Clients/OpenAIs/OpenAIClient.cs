@@ -4,12 +4,12 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OpenAI.NET.Brokers.OpenAIs;
-using OpenAI.NET.Clients.Completions;
-using OpenAI.NET.Models.Configurations;
-using OpenAI.NET.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Clients.Completions;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Services.Foundations.Completions;
 
-namespace OpenAI.NET.Clients.OpenAIs
+namespace Standard.AI.OpenAI.Clients.OpenAIs
 {
     public class OpenAIClient : IOpenAIClient
     {

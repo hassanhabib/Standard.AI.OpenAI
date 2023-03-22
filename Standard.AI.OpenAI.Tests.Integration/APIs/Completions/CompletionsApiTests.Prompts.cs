@@ -3,10 +3,10 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using OpenAI.NET.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Xunit;
 
-namespace OpenAI.NET.Tests.Integration.APIs.Completions
+namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
 {
     public partial class CompletionsApiTests
     {
