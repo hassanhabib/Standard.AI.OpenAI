@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------- 
+// --------------------------------------------------------------- 
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
@@ -75,7 +75,11 @@ namespace Standard.AI.OpenAI.Infrastructure.Build
 
                             new TestTask
                             {
-                                Name = "Running Tests"
+                                Name = "Running Tests",
+                                Run = "dotnet test" +
+                                    " --no-build" +
+                                    " --verbosity normal" +
+                                    " --collect:'XPlat Code Coverage'"
                             }
                         }
                     }
