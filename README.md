@@ -1,7 +1,7 @@
 # Standard.AI.OpenAI
 
 <div align=center>
-	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/OpenAI.NET/artificial-intelligence.png" />
+	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/Standard.AI.OpenAI/artificial-intelligence.png" />
 </div>
 
 <br />
