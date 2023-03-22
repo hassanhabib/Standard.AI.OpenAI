@@ -1,10 +1,6 @@
-# OpenAI.NET
+# Standard.AI.OpenAI
 
-<div align=center>
-	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/OpenAI.NET/artificial-intelligence.png" />
-</div>
-
-<br />
+![Standard.AI.OpenAI Icon](https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/OpenAI.NET/artificial-intelligence.png)
 
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
 [![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f)](https://github.com/hassanhabib/The-Standard)
