@@ -39,29 +39,33 @@ Find our nuget package.
 The following example demonstrate how you can write your first Completions program.
 
 ```csharp
+using OpenAI.NET.Clients.OpenAIs;
+using OpenAI.NET.Models.Configurations;
+using OpenAI.NET.Models.Services.Foundations.Completions;
+
 var openAiApiConfigurations = new ApiConfigurations
 {
-	ApiKey = "YOUR_API_KEY_HERE",
-	OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
-}
+    ApiKey = "YOUR_API_KEY_HERE",
+    OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
+};
 
 var openAiClient = new OpenAIClient(openAiApiConfigurations);
 
 var inputCompletion = new Completion
 {
-	Request = new CompletionRequest
-	{
-		Prompts = new string[] {"Human: Hello!"}
-		Model = "text-davinci-003"
-	};
-}
+    Request = new CompletionRequest
+    {
+        Prompt = new string[] { "Human: Hello!" },
+
+        Model = "text-davinci-003"
+    }
+};
 
 Completion resultCompletion =
-	await this.openAiClient.Completions.PostCompletionAsync(
-		inputCompletion);
+    await openAiClient.Completions.PromptCompletionAsync(
+        inputCompletion);
 
-Array.ForEach(resultCompletion.Response.Prompts, Console.WriteLine);
-
+Array.ForEach(resultCompletion.Response.Choices, choice => Console.WriteLine(choice.Text));
 ```
 
 ## How to Contribute
