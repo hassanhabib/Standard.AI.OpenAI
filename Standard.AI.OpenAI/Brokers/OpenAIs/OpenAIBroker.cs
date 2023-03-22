@@ -6,8 +6,8 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Standard.AI.OpenAI.Models.Configurations;
 using RESTFulSense.Clients;
+using Standard.AI.OpenAI.Models.Configurations;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {

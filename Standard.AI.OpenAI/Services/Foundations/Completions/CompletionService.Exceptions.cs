@@ -4,9 +4,9 @@
 
 using System;
 using System.Threading.Tasks;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
-using RESTFulSense.Exceptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {

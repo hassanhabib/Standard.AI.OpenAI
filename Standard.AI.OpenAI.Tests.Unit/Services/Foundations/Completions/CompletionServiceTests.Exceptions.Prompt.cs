@@ -6,10 +6,10 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
-using RESTFulSense.Exceptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions

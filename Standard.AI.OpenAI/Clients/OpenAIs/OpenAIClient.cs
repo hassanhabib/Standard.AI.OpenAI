@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             });
 
             IHost host = builder.Build();
-            
+
             return host;
         }
 

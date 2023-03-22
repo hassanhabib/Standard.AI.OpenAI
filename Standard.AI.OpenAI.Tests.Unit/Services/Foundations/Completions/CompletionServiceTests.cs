@@ -8,11 +8,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
-using RESTFulSense.Exceptions;
 using Tynamix.ObjectFiller;
 using Xunit;
 

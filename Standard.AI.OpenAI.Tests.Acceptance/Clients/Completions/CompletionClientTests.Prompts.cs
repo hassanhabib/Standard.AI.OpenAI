@@ -2,7 +2,6 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
