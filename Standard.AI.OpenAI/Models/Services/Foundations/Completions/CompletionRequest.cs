@@ -8,7 +8,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions
 {
     public class CompletionRequest
     {
-        public string Model { get; set; }
+        public Model Model { get; set; }
         public string[] Prompt { get; set; }
         public string Suffix { get; set; }
         public int MaxTokens { get; set; }

@@ -54,7 +54,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         {
             return new
             {
-                RequestModel = GetRandomString(),
+                RequestModel = CreateRandomModel(),
                 Prompt = CreateRandomStringArray(),
                 Suffix = GetRandomString(),
                 MaxTokens = GetRandomNumber(),
@@ -78,6 +78,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 Usage = CreateRandomUsage()
             };
         }
+
+        private static Model CreateRandomModel() => GetRandomString();
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
@@ -124,7 +126,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var filler = new Filler<Completion>();
 
             filler.Setup()
-                .OnType<object>().IgnoreIt();
+                .OnType<object>().IgnoreIt()
+                .OnType<Model>().Use(CreateRandomModel());
 
             return filler;
         }
