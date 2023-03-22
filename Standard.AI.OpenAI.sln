@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.OpenAI.Tests.Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.OpenAI.Tests.Integration", "Standard.AI.OpenAI.Tests.Integration\Standard.AI.OpenAI.Tests.Integration.csproj", "{578291B4-806F-4BF9-B785-BFAA7AB7962D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1902FEB4-F700-45AF-BB7E-F6A4BBFFECD8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
