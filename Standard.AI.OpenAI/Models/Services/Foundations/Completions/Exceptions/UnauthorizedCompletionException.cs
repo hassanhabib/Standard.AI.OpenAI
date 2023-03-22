@@ -10,7 +10,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
     internal class UnauthorizedCompletionException : Xeption
     {
         public UnauthorizedCompletionException(Exception innerException)
-            : base(message: "Unauthorized completion request. Fix errors and try again.",
+            : base(message: "Unauthorized completion request, fix errors and try again.",
                   innerException)
         { }
     }
