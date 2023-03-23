@@ -29,6 +29,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 throw new CompletionValidationException(
                     invalidCompletionException);
             }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationCompletionException =
+                    new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
+
+                throw new CompletionDependencyException(invalidConfigurationCompletionException);
+            }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedCompletionException =
@@ -57,13 +64,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 
                 throw new CompletionDependencyValidationException(invalidCompletionException);
             }
-            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
-            {
-                var invalidConfigurationCompletionException =
-                    new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
-
-                throw new CompletionDependencyException(invalidConfigurationCompletionException);
-            }
+       
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallCompletionException =
