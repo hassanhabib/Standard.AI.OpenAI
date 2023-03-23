@@ -4,7 +4,7 @@
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
 {
-    public partial class ModelsServiceTests
+    public partial class ModelServiceTests
     {
     }
 }

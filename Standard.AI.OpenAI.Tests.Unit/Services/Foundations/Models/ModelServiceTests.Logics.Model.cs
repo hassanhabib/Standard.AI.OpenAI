@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
 {
-    public partial class ModelsServiceTests
+    public partial class ModelServiceTests
     {
         [Fact]
         public async Task ShouldGetModelsAsync()

@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
-using Xeptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Models.Exceptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Models
 {
@@ -27,21 +27,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
                 throw new ModelServiceException(failedModelServiceException);
             }
         }
-    }
-
-    internal class ModelServiceException : Xeption
-    {
-        public ModelServiceException(Xeption innerException)
-            : base(message: "Model service error occurred, contact support.",
-                  innerException)
-        { }
-    }
-
-    internal class FailedModelServiceException : Xeption
-    {
-        public FailedModelServiceException(Exception innerException)
-            : base(message: "Failed model service error occurred, contact support.",
-                   innerException)
-        { }
     }
 }
