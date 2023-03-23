@@ -18,11 +18,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
         public ModelService(IOpenAIBroker openAiBroker) =>
             this.openAiBroker = openAiBroker;
 
-        public ValueTask<Model[]> GetModelsAsync() => throw new System.NotImplementedException();
-    
+        public async ValueTask<Model[]> GetModelsAsync()
+        {
+            ExternalModelsResult result = await this.openAiBroker.GetAllModelsAsync();
+            ExternalModel[] externalModels = result.Data;
+            Model[] models = ConvertToModels(externalModels);
+
+            return models;
+        }
+
         private static Model[] ConvertToModels(ExternalModel[] externalModels)
         {
-            IEnumerable<Model> models = 
+            IEnumerable<Model> models =
                 externalModels.Select(selector: ConvertToModel);
 
             Model[] modelArray = models.ToArray();
@@ -43,7 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
 
         private static Permission[] ConvertToPermissions(ExternalPermission[] externalPermissions)
         {
-            IEnumerable<Permission> permissions = 
+            IEnumerable<Permission> permissions =
                 externalPermissions.Select(selector: ConvertToPermission);
 
             Permission[] permissionsArray = permissions.ToArray();

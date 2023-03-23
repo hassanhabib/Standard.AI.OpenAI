@@ -2,13 +2,10 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
 using Moq;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
-using Tynamix.ObjectFiller;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
