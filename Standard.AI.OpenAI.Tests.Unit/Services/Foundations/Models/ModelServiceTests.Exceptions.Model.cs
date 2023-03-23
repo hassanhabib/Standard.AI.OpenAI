@@ -121,8 +121,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
                 expectedModelDependencyValidationException);
 
             this.openAiBrokerMock.Verify(broker =>
-                broker.GetAllModelsAsync(),
-                        Times.Once);
+                broker.GetAllModelsAsync(), Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
