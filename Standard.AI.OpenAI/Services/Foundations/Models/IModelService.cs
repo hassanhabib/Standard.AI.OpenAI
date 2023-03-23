@@ -3,12 +3,12 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalModels;
+using Standard.AI.OpenAI.Models.Services.Foundations.Models;
 
-namespace Standard.AI.OpenAI.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Services.Foundations.Models
 {
-    internal partial interface IOpenAIBroker
+    internal interface IModelService
     {
-        ValueTask<ExternalModelsResult> GetAllModelsAsync();
+        ValueTask<Model[]> GetModelsAsync();
     }
 }

@@ -352,3 +352,5 @@ MigrationBackup/
 /OpenAI.NET.Tests.Unit/BriansDeleteMe.cs
 /OpenAI.NET.Tests.Unit/DeleteMe.BriansKey.cs
 /OpenAI.NET.Tests.Unit/DeleteMe.ProjectKey.cs
+/Standard.AI.OpenAI.Tests.Unit/Services/Foundations/Models/ModelsServiceTests.DeleteMe.BriansKey.cs
+/Standard.AI.OpenAI.Tests.Unit/Services/Foundations/Models/ModelsServiceTests.DeleteMe.cs
