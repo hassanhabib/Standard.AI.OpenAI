@@ -90,7 +90,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
 
-
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnGetModelsIfTooManyRequestsOccurredAsync()
         {

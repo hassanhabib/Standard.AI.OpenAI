@@ -49,6 +49,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
 
                 throw new ModelDependencyValidationException(excessiveCallModelException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedServerModelException =
+                    new FailedServerModelException(httpResponseException);
+
+                throw new ModelDependencyException(failedServerModelException);
+            }
             catch (Exception exception)
             {
                 var failedModelServiceException =
