@@ -5,6 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models.Exceptions;
 
@@ -40,6 +41,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
                     new InvalidConfigurationModelException(httpResponseUrlNotFoundException);
 
                 throw new ModelDependencyException(invalidConfigurationModelException);
+            }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallModelException =
+                    new ExcessiveCallModelException(httpResponseTooManyRequestsException);
+
+                throw new ModelDependencyValidationException(excessiveCallModelException);
             }
             catch (Exception exception)
             {
