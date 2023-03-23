@@ -38,9 +38,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalModels
         [JsonProperty(propertyName: "organization")]
         public string Organization { get; set; }
 
-        [JsonProperty(propertyName: "group")]
-        public object Group { get; set; }
-
         [JsonProperty(propertyName: "is_blocking")]
         public bool IsBlocking { get; set; }
     }
