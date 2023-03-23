@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions
 {
-    public class ExternalChoice
+    internal class ExternalCompletionChoice
     {
         [JsonProperty(propertyName: "text")]
         public string Text { get; set; }

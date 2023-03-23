@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions
 {
-    public class ExternalUsage
+    internal class ExternalCompletionUsage
     {
         [JsonProperty(propertyName: "prompt_tokens")]
         public int PromptTokens { get; set; }

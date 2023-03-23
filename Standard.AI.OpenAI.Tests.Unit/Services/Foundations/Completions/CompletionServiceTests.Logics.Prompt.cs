@@ -98,7 +98,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 Model = randomCompletionProperties.ResponseModel,
 
                 Choices = ((dynamic[])randomCompletionProperties.Choices).Select(item =>
-                    new ExternalChoice
+                    new ExternalCompletionChoice
                     {
                         FinishReason = item.FinishReason,
                         Index = item.Index,
@@ -106,7 +106,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         Text = item.Text
                     }).ToArray(),
 
-                Usage = new ExternalUsage
+                Usage = new ExternalCompletionUsage
                 {
                     CompletionTokens = randomCompletionProperties.Usage.CompletionTokens,
                     PromptTokens = randomCompletionProperties.Usage.PromptTokens,
