@@ -2,8 +2,8 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Clients.Completions;
 using Standard.AI.OpenAI.Models.Configurations;
@@ -15,30 +15,26 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
     {
         public OpenAIClient(ApiConfigurations apiConfigurations)
         {
-            IHost host = RegisterServices(apiConfigurations);
-            InitializeClients(host);
+            IServiceProvider serviceProvider = RegisterServices(apiConfigurations);
+            InitializeClients(serviceProvider);
         }
 
         public ICompletionsClient Completions { get; set; }
 
-        private void InitializeClients(IHost host) =>
-            Completions = host.Services.GetRequiredService<ICompletionsClient>();
+        private void InitializeClients(IServiceProvider serviceProvider) =>
+            Completions = serviceProvider.GetRequiredService<ICompletionsClient>();
 
-        private static IHost RegisterServices(ApiConfigurations apiConfigurations)
+        private static IServiceProvider RegisterServices(ApiConfigurations apiConfigurations)
         {
-            IHostBuilder builder = Host.CreateDefaultBuilder();
+            var serviceCollection = new ServiceCollection()
+                .AddTransient<IOpenAIBroker, OpenAIBroker>()
+                .AddTransient<ICompletionService, CompletionService>()
+                .AddTransient<ICompletionsClient, CompletionsClient>()
+                .AddSingleton(apiConfigurations);
 
-            builder.ConfigureServices(configuration =>
-            {
-                configuration.AddTransient<IOpenAIBroker, OpenAIBroker>();
-                configuration.AddTransient<ICompletionService, CompletionService>();
-                configuration.AddTransient<ICompletionsClient, CompletionsClient>();
-                configuration.AddSingleton(options => apiConfigurations);
-            });
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            IHost host = builder.Build();
-
-            return host;
+            return serviceProvider;
         }
     }
 }
