@@ -34,6 +34,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
 
                 throw new ModelDependencyException(unauthorizedModelException);
             }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationModelException =
+                    new InvalidConfigurationModelException(httpResponseUrlNotFoundException);
+
+                throw new ModelDependencyException(invalidConfigurationModelException);
+            }
             catch (Exception exception)
             {
                 var failedModelServiceException =

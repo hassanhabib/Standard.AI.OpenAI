@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models.Exceptions;
 using Xunit;
@@ -79,6 +82,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
             // then
             actualModelException.Should().BeEquivalentTo(
                 expectedModelDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.GetAllModelsAsync(),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnGetModelsIfTooManyRequestsOccurredAsync()
+        {
+            // given
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallModelException =
+                new ExcessiveCallModelException(
+                    httpResponseTooManyRequestsException);
+
+            var expectedModelDependencyValidationException =
+                new ModelDependencyValidationException(
+                    excessiveCallModelException);
+
+            this.openAiBrokerMock.Setup(broker => broker.GetAllModelsAsync())
+                    .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<Model[]> getModelsTask = this.modelService.GetModelsAsync();
+
+            ModelDependencyValidationException actualModelDependencyValidationException =
+                await Assert.ThrowsAsync<ModelDependencyValidationException>(
+                    getModelsTask.AsTask);
+
+            // then
+            actualModelDependencyValidationException.Should().BeEquivalentTo(
+                expectedModelDependencyValidationException);
 
             this.openAiBrokerMock.Verify(broker =>
                 broker.GetAllModelsAsync(),
