@@ -9,6 +9,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial interface IOpenAIBroker
     {
-        ValueTask<ExternalChatCompletionResponse> PostChatCompletionAsync(ExternalChatCompletionRequest request);
+        ValueTask<ExternalChatCompletionResponse> PostChatCompletionRequestAsync(
+            ExternalChatCompletionRequest externalChatCompletionRequest);
     }
 }
