@@ -16,6 +16,48 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnPromptIfUrlNotFoundErrorOccursAsync()
+        {
+            // given
+            Completion someCompletion = CreateRandomCompletion();
+
+            var httpResponseUrlNotFoundException =
+                new HttpResponseUrlNotFoundException();
+
+            var invalidConfigurationCompletionException =
+                new InvalidConfigurationCompletionException(
+                    httpResponseUrlNotFoundException);
+
+            var expectedCompletionDependencyException =
+                new CompletionDependencyException(
+                    invalidConfigurationCompletionException);
+
+            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+                It.IsAny<ExternalCompletionRequest>()))
+                    .ThrowsAsync(httpResponseUrlNotFoundException);
+
+            // when
+            ValueTask<Completion> promptCompletionTask =
+               this.completionService.PromptCompletionAsync(someCompletion);
+
+            CompletionDependencyException actualCompletionException =
+                await Assert.ThrowsAsync<CompletionDependencyException>(
+                    promptCompletionTask.AsTask);
+
+            // then
+            actualCompletionException.Should().BeEquivalentTo(
+                expectedCompletionDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostCompletionRequestAsync(
+                    It.IsAny<ExternalCompletionRequest>()),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
         [Theory]
         [MemberData(nameof(UnAuthorizationExceptions))]
         public async Task ShouldThrowDependencyExceptionOnPromptIfUnAuthorizedAsync(
@@ -138,46 +180,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
 
-        [Fact]
-        public async Task ShouldThrowDependencyExceptionOnPromptIfUrlNotFoundErrorOccursAsync()
-        {
-            // given
-            Completion someCompletion = CreateRandomCompletion();
 
-            var httpResponseUrlNotFoundException =
-                new HttpResponseUrlNotFoundException();
-
-            var invalidConfigurationCompletionException =
-                new InvalidConfigurationCompletionException(
-                    httpResponseUrlNotFoundException);
-
-            var expectedCompletionDependencyException =
-                new CompletionDependencyException(
-                    invalidConfigurationCompletionException);
-
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
-                It.IsAny<ExternalCompletionRequest>()))
-                    .ThrowsAsync(httpResponseUrlNotFoundException);
-
-            // when
-            ValueTask<Completion> promptCompletionTask =
-               this.completionService.PromptCompletionAsync(someCompletion);
-
-            CompletionDependencyException actualCompletionException =
-                await Assert.ThrowsAsync<CompletionDependencyException>(
-                    promptCompletionTask.AsTask);
-
-            // then
-            actualCompletionException.Should().BeEquivalentTo(
-                expectedCompletionDependencyException);
-
-            this.openAiBrokerMock.Verify(broker =>
-                broker.PostCompletionRequestAsync(
-                    It.IsAny<ExternalCompletionRequest>()),
-                        Times.Once);
-
-            this.openAiBrokerMock.VerifyNoOtherCalls();
-        }
 
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnPromptIfTooManyRequestsOccurredAsync()
