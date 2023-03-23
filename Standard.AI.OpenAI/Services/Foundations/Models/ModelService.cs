@@ -18,14 +18,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
         public ModelService(IOpenAIBroker openAiBroker) =>
             this.openAiBroker = openAiBroker;
 
-        public async ValueTask<Model[]> GetModelsAsync()
+        public ValueTask<Model[]> GetModelsAsync() =>
+        TryCatch(async () =>
         {
             ExternalModelsResult result = await this.openAiBroker.GetAllModelsAsync();
             ExternalModel[] externalModels = result.Data;
             Model[] models = ConvertToModels(externalModels);
 
             return models;
-        }
+        });
+
 
         private static Model[] ConvertToModels(ExternalModel[] externalModels)
         {

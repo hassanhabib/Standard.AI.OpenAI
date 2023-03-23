@@ -19,6 +19,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
         public async Task ShouldThrowDependencyExceptionOnGetModelsIfUnAuthorizedAsync(
             HttpResponseException unAuthorizationException)
         {
+
             // given
             var unauthorizedModelException =
                 new UnauthorizedModelException(

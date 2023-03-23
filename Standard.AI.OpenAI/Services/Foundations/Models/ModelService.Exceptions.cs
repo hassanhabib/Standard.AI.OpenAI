@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models.Exceptions;
 
@@ -18,6 +19,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.Models
             try
             {
                 return await returningModelArrayFunction();
+            }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedModelException =
+                    new UnauthorizedModelException(httpResponseUnauthorizedException);
+
+                throw new ModelDependencyException(unauthorizedModelException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedModelException =
+                    new UnauthorizedModelException(httpResponseForbiddenException);
+
+                throw new ModelDependencyException(unauthorizedModelException);
             }
             catch (Exception exception)
             {
