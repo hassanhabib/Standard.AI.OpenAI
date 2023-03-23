@@ -125,5 +125,41 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnGetModelsIfHttpErrorOccursAsync()
+        {
+            // given
+            var httpResponseException =
+                new HttpResponseException();
+
+            var failedServerModelException =
+                new FailedServerModelException(httpResponseException);
+
+            var expectedModelDependencyException =
+                new ModelDependencyException(
+                    failedServerModelException);
+
+            this.openAiBrokerMock.Setup(broker => broker.GetAllModelsAsync())
+                    .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<Model[]> getModelsTask =
+               this.modelService.GetModelsAsync();
+
+            ModelDependencyException actualModelException =
+                await Assert.ThrowsAsync<ModelDependencyException>(
+                    getModelsTask.AsTask);
+
+            // then
+            actualModelException.Should().BeEquivalentTo(
+                expectedModelDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.GetAllModelsAsync(),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
