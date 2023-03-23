@@ -23,8 +23,8 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
         public CompletionClientTests()
         {
             this.wireMockServer = WireMockServer.Start();
-            this.apiKey = GetRandomString();
-            this.organizationId = GetRandomString();
+            this.apiKey = CreateRandomString();
+            this.organizationId = CreateRandomString();
 
             var openAiConfiguration = new ApiConfigurations
             {
@@ -91,7 +91,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
             return completion;
         }
 
-        private static string GetRandomString() =>
+        private static string CreateRandomString() =>
             new MnemonicString().GetValue();
 
         private static Completion CreateRandomCompletion() =>
@@ -115,8 +115,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
             var filler = new Filler<Completion>();
 
             filler.Setup()
-                .OnType<object>().IgnoreIt()
-                .OnType<Model>().Use(GetRandomString());
+                .OnType<object>().IgnoreIt();
 
             return filler;
         }
