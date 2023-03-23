@@ -2,13 +2,11 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models;
 using Standard.AI.OpenAI.Models.Services.Foundations.Models.Exceptions;
 using Xunit;
@@ -153,6 +151,39 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Models
             // then
             actualModelException.Should().BeEquivalentTo(
                 expectedModelDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.GetAllModelsAsync(),
+                        Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnGetModelsIfServiceErrorOccursAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedModelServiceException =
+                new FailedModelServiceException(serviceException);
+
+            var expectedModelServiceException =
+                new ModelServiceException(failedModelServiceException);
+
+            this.openAiBrokerMock.Setup(broker => broker.GetAllModelsAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<Model[]> getModelsTask = this.modelService.GetModelsAsync();
+
+            ModelServiceException actualModelServiceException =
+                await Assert.ThrowsAsync<ModelServiceException>(
+                    getModelsTask.AsTask);
+
+            // then
+            actualModelServiceException.Should().BeEquivalentTo(
+                expectedModelServiceException);
 
             this.openAiBrokerMock.Verify(broker =>
                 broker.GetAllModelsAsync(),
