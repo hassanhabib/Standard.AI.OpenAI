@@ -76,11 +76,16 @@ If you have a question make sure you either open an issue or join our [The Stand
 Our live-sessions are schedules on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to to be able to join us.
 
 We broadcast on multiple platforms:
-<br /> YouTube
-<br /> LinkedIn
-<br /> Twitch
-<br /> Twitter
-<br /> Facebook
+
+[YouTube](https://www.youtube.com/@HassanHabib)
+
+[LinkedIn](https://www.linkedin.com/in/hassanrezkhabib/)
+
+[Twitch](https://www.twitch.tv/binhabib)
+
+[Twitter](https://twitter.com/HassanRezkHabib)
+
+[Facebook](https://www.facebook.com/hassan.rezk.habib)
 
 ### Past-Sessions
 Here's our live sessions to show you how this library was developed from scratch:
