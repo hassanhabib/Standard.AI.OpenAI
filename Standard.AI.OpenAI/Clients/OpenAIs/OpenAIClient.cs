@@ -33,8 +33,8 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddSingleton(apiConfigurations);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
             return serviceProvider;
         }
-
     }
 }
