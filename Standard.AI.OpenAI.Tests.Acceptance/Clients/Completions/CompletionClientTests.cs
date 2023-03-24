@@ -50,7 +50,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
                 MaxTokens = completion.Request.MaxTokens,
                 PresencePenalty = completion.Request.PresencePenalty,
                 ProbabilityMass = completion.Request.ProbabilityMass,
-                Prompt = completion.Request.Prompt,
+                Prompts = completion.Request.Prompts,
                 Stop = completion.Request.Stop,
                 Stream = completion.Request.Stream,
                 Suffix = completion.Request.Suffix,

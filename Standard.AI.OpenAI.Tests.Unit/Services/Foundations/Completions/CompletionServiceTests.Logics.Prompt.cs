@@ -24,7 +24,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var randomCompletionRequest = new CompletionRequest
             {
                 Model = randomCompletionProperties.RequestModel,
-                Prompt = randomCompletionProperties.Prompt,
+                Prompts = randomCompletionProperties.Prompt,
                 Suffix = randomCompletionProperties.Suffix,
                 MaxTokens = randomCompletionProperties.MaxTokens,
                 Temperature = randomCompletionProperties.Temperature,
@@ -73,7 +73,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var randomExternalCompletionRequest = new ExternalCompletionRequest
             {
                 Model = randomCompletionProperties.RequestModel,
-                Prompt = randomCompletionProperties.Prompt,
+                Prompts = randomCompletionProperties.Prompt,
                 Suffix = randomCompletionProperties.Suffix,
                 MaxTokens = randomCompletionProperties.MaxTokens,
                 Temperature = randomCompletionProperties.Temperature,
