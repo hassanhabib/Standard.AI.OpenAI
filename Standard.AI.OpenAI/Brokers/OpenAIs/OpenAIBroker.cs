@@ -36,7 +36,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
                 relativeUrl,
                 content,
                 mediaType: "application/json",
-                ignoreNulls: true);
+                ignoreDefaultValues: true);
         }
 
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>
