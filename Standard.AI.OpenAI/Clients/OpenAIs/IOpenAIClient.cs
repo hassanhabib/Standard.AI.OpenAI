@@ -8,6 +8,6 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
 {
     public interface IOpenAIClient
     {
-        ICompletionsClient Completions { get; set; }
+        ICompletionsClient Completions { get; }
     }
 }
