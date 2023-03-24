@@ -105,7 +105,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             invalidCompletionException.AddData(
-                key: nameof(CompletionRequest.Prompt),
+                key: nameof(CompletionRequest.Prompts),
                 values: "Value is required");
 
             var expectedCompletionValidationException =
@@ -134,14 +134,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 Request = new CompletionRequest
                 {
                     Model = GetRandomString(),
-                    Prompt = Array.Empty<string>()
+                    Prompts = Array.Empty<string>()
                 }
             };
 
             var invalidCompletionException = new InvalidCompletionException();
 
             invalidCompletionException.AddData(
-                key: nameof(CompletionRequest.Prompt),
+                key: nameof(CompletionRequest.Prompts),
                 values: "Value is required");
 
             var expectedCompletionValidationException =

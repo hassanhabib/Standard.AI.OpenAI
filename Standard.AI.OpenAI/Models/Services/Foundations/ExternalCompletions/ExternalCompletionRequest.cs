@@ -12,8 +12,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions
         [JsonProperty(propertyName: "model")]
         public string Model { get; set; }
 
-        [JsonProperty(propertyName: "prompt")]
-        public string[] Prompt { get; set; } = new string[0];
+        [JsonProperty(propertyName: "prompts")]
+        public string[] Prompts { get; set; } = new string[0];
 
         [JsonProperty(propertyName: "suffix")]
         public string Suffix { get; set; } = null;

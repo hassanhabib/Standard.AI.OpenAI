@@ -19,7 +19,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
                 Request = new CompletionRequest
                 {
                     Model = "text-davinci-003",
-                    Prompt = new string[]
+                    Prompts = new string[]
                     {
                         "Human: What's the tallest building in the world?\n",
                         "AI: "
