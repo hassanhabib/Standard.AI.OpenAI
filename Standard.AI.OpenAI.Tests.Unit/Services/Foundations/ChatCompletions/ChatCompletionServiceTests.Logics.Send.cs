@@ -58,6 +58,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     {
                         Index = choice.Index,
                         FinishReason = choice.FinishReason,
+
                         Message = new ChatCompletionMessage
                         {
                             Role = choice.Message.Role,
@@ -116,6 +117,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     {
                         Index = choice.Index,
                         FinishReason = choice.FinishReason,
+
                         Message = new ExternalChatCompletionMessage
                         {
                             Role = choice.Message.Role,

@@ -2,14 +2,11 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -22,13 +19,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
         public async ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion)
         {
-            ExternalChatCompletionRequest externalChatCompletionRequest = 
+            ExternalChatCompletionRequest externalChatCompletionRequest =
                 ConvertToChatCompletionRequest(chatCompletion);
 
             ExternalChatCompletionResponse externalChatCompletionResponse =
                 await this.openAIBroker.PostChatCompletionRequestAsync(externalChatCompletionRequest);
 
-            return ConvertToChatCompletion(chatCompletion,externalChatCompletionResponse);
+            return ConvertToChatCompletion(chatCompletion, externalChatCompletionResponse);
         }
 
         private static ExternalChatCompletionRequest ConvertToChatCompletionRequest(ChatCompletion chatCompletion)
@@ -66,30 +63,30 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
             chatCompletion.Response = new ChatCompletionResponse
             {
-               Id = externalChatCompletionResponse.Id,
-               Created = externalChatCompletionResponse.Created,
-               Choices = externalChatCompletionResponse.Choices.Select(choice =>
-               {
-                   return new ChatCompletionChoice
-                   {
-                       FinishReason = choice.FinishReason,
-                       Index = choice.Index,
+                Id = externalChatCompletionResponse.Id,
+                Created = externalChatCompletionResponse.Created,
+                Choices = externalChatCompletionResponse.Choices.Select(choice =>
+                {
+                    return new ChatCompletionChoice
+                    {
+                        FinishReason = choice.FinishReason,
+                        Index = choice.Index,
 
-                       Message = new ChatCompletionMessage
-                       {
-                           Content = choice.Message.Content,
-                           Role = choice.Message.Role
-                       }
-                   };
+                        Message = new ChatCompletionMessage
+                        {
+                            Content = choice.Message.Content,
+                            Role = choice.Message.Role
+                        }
+                    };
 
-               }).ToArray(),
-               Usage = new ChatCompletionUsage
-               {
-                   CompletionTokens = externalChatCompletionResponse.Usage.CompletionTokens,
-                   PromptTokens = externalChatCompletionResponse.Usage.PromptTokens,
-                   TotalTokens = externalChatCompletionResponse.Usage.TotalTokens
-               },
-               Object = externalChatCompletionResponse.Object
+                }).ToArray(),
+                Usage = new ChatCompletionUsage
+                {
+                    CompletionTokens = externalChatCompletionResponse.Usage.CompletionTokens,
+                    PromptTokens = externalChatCompletionResponse.Usage.PromptTokens,
+                    TotalTokens = externalChatCompletionResponse.Usage.TotalTokens
+                },
+                Object = externalChatCompletionResponse.Object
             };
 
             return chatCompletion;
