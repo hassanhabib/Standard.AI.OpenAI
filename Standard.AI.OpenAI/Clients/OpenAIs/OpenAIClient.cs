@@ -19,7 +19,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             InitializeClients(serviceProvider);
         }
 
-        public ICompletionsClient Completions { get; set; }
+        public ICompletionsClient Completions { get; private set; }
 
         private void InitializeClients(IServiceProvider serviceProvider) =>
             Completions = serviceProvider.GetRequiredService<ICompletionsClient>();
