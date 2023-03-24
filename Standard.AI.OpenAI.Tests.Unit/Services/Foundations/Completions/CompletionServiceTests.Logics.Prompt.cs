@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
     public partial class CompletionServiceTests
     {
         [Fact]
-        public async Task ShouldPromptCompletionAsync()
+        public async Task ShouldPromptsCompletionAsync()
         {
             // given
             dynamic randomCompletionProperties = CreateRandomCompletionProperties();
@@ -24,7 +24,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var randomCompletionRequest = new CompletionRequest
             {
                 Model = randomCompletionProperties.RequestModel,
-                Prompts = randomCompletionProperties.Prompt,
+                Prompts = randomCompletionProperties.Prompts,
                 Suffix = randomCompletionProperties.Suffix,
                 MaxTokens = randomCompletionProperties.MaxTokens,
                 Temperature = randomCompletionProperties.Temperature,
@@ -73,7 +73,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var randomExternalCompletionRequest = new ExternalCompletionRequest
             {
                 Model = randomCompletionProperties.RequestModel,
-                Prompts = randomCompletionProperties.Prompt,
+                Prompts = randomCompletionProperties.Prompts,
                 Suffix = randomCompletionProperties.Suffix,
                 MaxTokens = randomCompletionProperties.MaxTokens,
                 Temperature = randomCompletionProperties.Temperature,
