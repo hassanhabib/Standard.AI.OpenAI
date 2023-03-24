@@ -10,9 +10,7 @@ using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
-using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Tynamix.ObjectFiller;
 
