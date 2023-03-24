@@ -46,8 +46,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             ExternalCompletionRequest expectedExternalCompletionRequest)
         {
             return actualExternalCompletionRequest =>
-                this.compareLogic.Compare(expectedExternalCompletionRequest, actualExternalCompletionRequest)
-                    .AreEqual;
+                this.compareLogic.Compare(
+                    expectedExternalCompletionRequest,
+                    actualExternalCompletionRequest)
+                        .AreEqual;
         }
 
         private static dynamic CreateRandomCompletionProperties()
