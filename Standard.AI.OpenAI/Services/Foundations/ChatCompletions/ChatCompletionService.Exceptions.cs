@@ -2,9 +2,9 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using System.Threading.Tasks;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -21,6 +21,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (NullChatCompletionException nullChatCompletionException)
             {
                 throw new ChatCompletionValidationException(nullChatCompletionException);
+            }
+            catch (InvalidChatCompletionException invalidChatCompletionException)
+            {
+                throw new ChatCompletionValidationException(invalidChatCompletionException);
             }
         }
     }
