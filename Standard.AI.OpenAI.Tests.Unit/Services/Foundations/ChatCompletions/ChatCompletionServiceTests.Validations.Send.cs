@@ -83,5 +83,54 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
+        public async Task ShouldThrowValidationExceptionOnSendIfRequestIsInvalidAsync(string invalidText)
+        {
+            // given
+            var invalidChatCompletion = new ChatCompletion()
+            {
+                Request = new ChatCompletionRequest
+                {
+                    Model = invalidText,
+                    Messages = null
+                }
+            };
+
+            var invalidChatCompletionException =
+                new InvalidChatCompletionException();
+
+            invalidChatCompletionException.AddData(
+                key: nameof(ChatCompletion.Request.Model),
+                values: "Value is required");
+
+            invalidChatCompletionException.AddData(
+                key: nameof(ChatCompletion.Request.Messages),
+                values: "Value is required");
+
+            var expectedChatCompletionValidationException =
+                new ChatCompletionValidationException(invalidChatCompletionException);
+
+            // when
+            ValueTask<ChatCompletion> sendChatCompletionTask =
+                this.chatCompletionService.SendChatCompletionAsync(invalidChatCompletion);
+
+            ChatCompletionValidationException actualChatCompletionValidationException =
+                await Assert.ThrowsAsync<ChatCompletionValidationException>(sendChatCompletionTask.AsTask);
+
+            // then
+            actualChatCompletionValidationException.Should()
+                .BeEquivalentTo(expectedChatCompletionValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
