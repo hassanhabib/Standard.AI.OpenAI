@@ -37,12 +37,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionValidationException.Should()
                 .BeEquivalentTo(exceptedCompletionValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -75,12 +75,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionValidationException.Should()
                 .BeEquivalentTo(expectedCompletionValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -122,7 +122,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionValidationException.Should().BeEquivalentTo(
                 expectedCompletionValidationException);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -159,7 +159,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionValidationException.Should().BeEquivalentTo(
                 expectedCompletionValidationException);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionDependencyException(
                     invalidConfigurationCompletionException);
 
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+            this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
@@ -50,12 +50,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionException.Should().BeEquivalentTo(
                 expectedCompletionDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -74,7 +74,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionDependencyException(
                     unauthorizedCompletionException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()))
                         .ThrowsAsync(unAuthorizationException);
@@ -91,12 +91,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionDependencyException.Should().BeEquivalentTo(
                 expectedCompletionDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionDependencyValidationException(
                     notFoundCompletionException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()))
                         .ThrowsAsync(httpResponseNotFoundException);
@@ -133,12 +133,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionDependencyException.Should().BeEquivalentTo(
                 expectedCompletionDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var expectedCompletionDependencyValidationException =
                 new CompletionDependencyValidationException(invalidCompletionException);
 
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+            this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
                     .ThrowsAsync(httpResponseBadRequestException);
 
@@ -172,12 +172,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionDependencyException.Should().BeEquivalentTo(
                 expectedCompletionDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
 
@@ -199,7 +199,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionDependencyValidationException(
                     excessiveCallCompletionException);
 
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+            this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
                     .ThrowsAsync(httpResponseTooManyRequestsException);
 
@@ -215,12 +215,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionDependencyValidationException.Should().BeEquivalentTo(
                 expectedCompletionDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -239,7 +239,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionDependencyException(
                     failedServerCompletionException);
 
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+            this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
                     .ThrowsAsync(httpResponseException);
 
@@ -255,12 +255,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionException.Should().BeEquivalentTo(
                 expectedCompletionDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -277,7 +277,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new CompletionServiceException(
                     failedCompletionServiceException);
 
-            this.openAiBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
+            this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
                     .ThrowsAsync(serviceException);
 
@@ -293,12 +293,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             actualCompletionServiceException.Should().BeEquivalentTo(
                 expectedCompletionServiceException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

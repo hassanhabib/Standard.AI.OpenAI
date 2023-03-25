@@ -12,10 +12,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
     internal partial class CompletionService : ICompletionService
     {
-        private readonly IOpenAIBroker openAiBroker;
+        private readonly IOpenAIBroker openAIBroker;
 
-        public CompletionService(IOpenAIBroker openAiBroker) =>
-            this.openAiBroker = openAiBroker;
+        public CompletionService(IOpenAIBroker openAIBroker) =>
+            this.openAIBroker = openAIBroker;
 
         public ValueTask<Completion> PromptCompletionAsync(Completion completion) =>
         TryCatch(async () =>
@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 ConvertToCompletionRequest(completion);
 
             ExternalCompletionResponse externalCompletionResponse =
-                await this.openAiBroker.PostCompletionRequestAsync(externalCompletionRequest);
+                await this.openAIBroker.PostCompletionRequestAsync(externalCompletionRequest);
 
             return externalCompletionResponse;
         }
