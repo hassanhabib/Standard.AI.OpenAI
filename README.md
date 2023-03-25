@@ -43,13 +43,13 @@ using OpenAI.NET.Clients.OpenAIs;
 using OpenAI.NET.Models.Configurations;
 using OpenAI.NET.Models.Services.Foundations.Completions;
 
-var openAiApiConfigurations = new ApiConfigurations
+var openAIApiConfigurations = new ApiConfigurations
 {
     ApiKey = "YOUR_API_KEY_HERE",
     OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
 };
 
-var openAiClient = new OpenAIClient(openAiApiConfigurations);
+var openAIClient = new OpenAIClient(openAIApiConfigurations);
 
 var inputCompletion = new Completion
 {
@@ -62,7 +62,7 @@ var inputCompletion = new Completion
 };
 
 Completion resultCompletion =
-    await openAiClient.Completions.PromptCompletionAsync(
+    await openAIClient.Completions.PromptCompletionAsync(
         inputCompletion);
 
 Array.ForEach(resultCompletion.Response.Choices, choice => Console.WriteLine(choice.Text));
