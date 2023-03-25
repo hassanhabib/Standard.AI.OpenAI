@@ -10,15 +10,18 @@ using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
-    internal class ChatCompletionService : IChatCompletionService
+    internal partial class ChatCompletionService : IChatCompletionService
     {
         private readonly IOpenAIBroker openAIBroker;
 
         public ChatCompletionService(IOpenAIBroker openAIBroker) =>
             this.openAIBroker = openAIBroker;
 
-        public async ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion)
+        public ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion) =>
+        TryCatch(async () =>
         {
+            ValidateChatCompletionOnSend(chatCompletion);
+
             ExternalChatCompletionRequest externalChatCompletionRequest =
                 ConvertToChatCompletionRequest(chatCompletion);
 
@@ -26,7 +29,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 await this.openAIBroker.PostChatCompletionRequestAsync(externalChatCompletionRequest);
 
             return ConvertToChatCompletion(chatCompletion, externalChatCompletionResponse);
-        }
+        });
 
         private static ExternalChatCompletionRequest ConvertToChatCompletionRequest(ChatCompletion chatCompletion)
         {
