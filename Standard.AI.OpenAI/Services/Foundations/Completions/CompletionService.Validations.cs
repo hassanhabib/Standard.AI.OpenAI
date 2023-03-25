@@ -38,7 +38,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
         private static dynamic IsInvalid(object @object) => new
         {
             Condition = @object is null,
-            Message = "Object is required"
+            Message = "Value is required"
         };
 
         private static dynamic IsInvalid(string text) => new
