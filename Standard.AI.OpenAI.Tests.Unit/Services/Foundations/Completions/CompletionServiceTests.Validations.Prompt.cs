@@ -57,7 +57,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             invalidCompletionException.AddData(
                 key: nameof(Completion.Request),
-                values: "Object is required");
+                values: "Value is required");
 
             var expectedCompletionValidationException =
                 new CompletionValidationException(
