@@ -2,19 +2,14 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
-using System;
 using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions
 {
-    public class InvalidChatCompletionException : Xeption
+    public class ChatCompletionDependencyValidationException : Xeption
     {
-        public InvalidChatCompletionException()
-            : base(message: "Chat completion is invalid.")
-        { }
-
-        public InvalidChatCompletionException(Exception innerException)
-            : base(message: $"Chat completion is invalid.",
+        public ChatCompletionDependencyValidationException(Xeption innerException)
+            : base(message: "Chat completion dependency validation error occurred, fix errors and try again",
                   innerException)
         { }
     }

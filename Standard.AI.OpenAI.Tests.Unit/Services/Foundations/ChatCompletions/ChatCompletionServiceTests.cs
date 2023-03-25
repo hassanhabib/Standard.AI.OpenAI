@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Tynamix.ObjectFiller;
@@ -117,6 +118,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     Role = GetRandomString(),
                     Content = GetRandomString()
                 }).ToArray();
+        }
+
+        private static ChatCompletion CreateRandomChatCompletion() =>
+            ChatCompletionFiller().Create();
+
+        private static Filler<ChatCompletion> ChatCompletionFiller()
+        {
+            var filler = new Filler<ChatCompletion>();
+
+            filler.Setup()
+                .OnType<object>().IgnoreIt();
+
+            return filler;
         }
     }
 }
