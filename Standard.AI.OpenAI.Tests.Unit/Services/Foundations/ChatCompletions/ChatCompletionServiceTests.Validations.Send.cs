@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 using Xunit;
 
@@ -34,6 +35,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             ChatCompletionValidationException actualChatCompletionValidationException =
                 await Assert.ThrowsAsync<ChatCompletionValidationException>(
                     sendChatCompletionTask.AsTask);
+
+            // then
+            actualChatCompletionValidationException.Should()
+                .BeEquivalentTo(expectedChatCompletionValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnSendIfRequestIsNullAsync()
+        {
+            // given
+            var invalidChatCompletion = new ChatCompletion();
+            invalidChatCompletion.Request = null;
+
+            var invalidChatCompletionException =
+                new InvalidChatCompletionException();
+
+            invalidChatCompletionException.AddData(
+                key: nameof(ChatCompletion.Request),
+                values: "Value is required");
+
+            var expectedChatCompletionValidationException =
+                new ChatCompletionValidationException(invalidChatCompletionException);
+
+            // when
+            ValueTask<ChatCompletion> sendChatCompletionTask =
+                this.chatCompletionService.SendChatCompletionAsync(invalidChatCompletion);
+
+            ChatCompletionValidationException actualChatCompletionValidationException =
+                await Assert.ThrowsAsync<ChatCompletionValidationException>(sendChatCompletionTask.AsTask);
 
             // then
             actualChatCompletionValidationException.Should()
