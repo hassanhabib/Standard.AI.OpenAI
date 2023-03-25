@@ -1,10 +1,12 @@
 # Standard.AI.OpenAI
 
-![](https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/Standard.AI.OpenAI/artificial-intelligence.png)
+<div align=center>
+	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/Standard.AI.OpenAI/artificial-intelligence.png" />
+</div>
 
+<br />
 
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
-[![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget)](https://www.nuget.org/packages/Standard.AI.OpenAI)
 [![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f)](https://github.com/hassanhabib/The-Standard)
 [![The Standard Community](https://img.shields.io/discord/934130100008538142?color=%237289da&label=The%20Standard%20Community&logo=Discord)](https://discord.gg/vdPZ7hS52X)
 
@@ -23,12 +25,6 @@ In order to use this library there are prerequists that you must complete before
 You must create an OpenAI account with the following link:
 https://platform.openai.com/signup
 
-### Nuget Package 
-Install the Standard.AI.OpenAI library in your project.
-Use the method best suited for your development preference listed at the Nuget Link above or below.
-
-[![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget)](https://www.nuget.org/packages/Standard.AI.OpenAI)
-
 ### API Keys
 Once you've created an OpenAI account. Now, go ahead and generate an API key from the following link:
 https://platform.openai.com/account/api-keys
@@ -36,7 +32,10 @@ https://platform.openai.com/account/api-keys
 ### Hello, World!
 Once you've completed the aforementioned steps, let's write our very first program with Standard.AI.OpenAI as follows:
 
-### Program.cs
+#### Standard.AI.OpenAI Nuget
+Find our nuget package.
+
+#### Program.cs
 The following example demonstrate how you can write your first Completions program.
 
 ```csharp
@@ -78,7 +77,7 @@ If you want to contribute to this project please review the following documents:
 If you have a question make sure you either open an issue or join our [The Standard Community](https://discord.com/invite/vdPZ7hS52X) discord server.
 
 ## Live-Sessions
-Our live-sessions are scheduled on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to be able to join us.
+Our live-sessions are schedules on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to to be able to join us.
 
 We broadcast on multiple platforms:
 
@@ -114,7 +113,3 @@ Here's our live sessions to show you how this library was developed from scratch
 [OPENAI008: Acceptance & Integration Tests](https://www.youtube.com/live/86bfBmkUMFo?feature=share)
 
 [OPENAI009: Publishing Nuget Package](https://www.youtube.com/live/saU_5peAC-Y?feature=share)
-
-[OPENAI010: Developing Chat Integrations](https://www.youtube.com/live/YRLymNBSlqI?feature=share)
-
-[OPENAI011: Developing Chat Integrations](https://www.youtube.com/live/-6W_-5cKkfs?feature=share)
