@@ -20,17 +20,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
-        private readonly Mock<IOpenAIBroker> openAiBrokerMock;
+        private readonly Mock<IOpenAIBroker> openAIBrokerMock;
         private readonly ICompareLogic compareLogic;
         private readonly ICompletionService completionService;
 
         public CompletionServiceTests()
         {
-            this.openAiBrokerMock = new Mock<IOpenAIBroker>();
+            this.openAIBrokerMock = new Mock<IOpenAIBroker>();
             this.compareLogic = new CompareLogic();
 
             this.completionService = new CompletionService(
-                openAiBroker: this.openAiBrokerMock.Object);
+                openAIBroker: this.openAIBrokerMock.Object);
         }
 
         public static TheoryData UnAuthorizationExceptions()

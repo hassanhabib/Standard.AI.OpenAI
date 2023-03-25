@@ -124,7 +124,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             ExternalCompletionResponse returnedExternalCompletionResponse =
                 randomExternalCompletionResponse;
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(It.Is(
                     SameExternalCompletionRequestAs(mappedExternalCompletionRequest))))
                         .ReturnsAsync(returnedExternalCompletionResponse);
@@ -136,12 +136,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             // then
             actualCompletion.Should().BeEquivalentTo(expectedCompletion);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostCompletionRequestAsync(It.Is(
                     SameExternalCompletionRequestAs(mappedExternalCompletionRequest))),
                         Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
