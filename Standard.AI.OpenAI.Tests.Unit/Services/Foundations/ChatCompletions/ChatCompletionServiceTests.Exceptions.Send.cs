@@ -59,6 +59,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
+        [Theory]
+        [MemberData(nameof(UnAuthorizationExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnSendIfUnAuthorizedAsync(
+            HttpResponseException unAuthorizationException)
+        {
+            // given
+            ChatCompletion someChatCompletion =
+                CreateRandomChatCompletion();
+
+            var unauthorizedChatCompletionException =
+                new UnauthorizedChatCompletionException(unAuthorizationException);
+
+            var expectedChatCompletionDependencyException =
+                new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()))
+                        .ThrowsAsync(unAuthorizationException);
+
+            // when
+            ValueTask<ChatCompletion> sendChatCompletionTask =
+                this.chatCompletionService.SendChatCompletionAsync(someChatCompletion);
+
+            ChatCompletionDependencyException
+                actualChatCompletionDependencyException =
+                    await Assert.ThrowsAsync<ChatCompletionDependencyException>(
+                        sendChatCompletionTask.AsTask);
+
+            // then
+            actualChatCompletionDependencyException.Should().BeEquivalentTo(
+                expectedChatCompletionDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnSendIfDependencyValidationErrorOccursAsync()
         {

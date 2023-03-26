@@ -9,11 +9,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 {
@@ -118,6 +120,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     Role = GetRandomString(),
                     Content = GetRandomString()
                 }).ToArray();
+        }
+
+        public static TheoryData UnAuthorizationExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
 
         private static ChatCompletion CreateRandomChatCompletion() =>
