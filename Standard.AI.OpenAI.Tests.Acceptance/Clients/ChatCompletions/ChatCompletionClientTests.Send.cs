@@ -29,10 +29,10 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
             ExternalChatCompletionResponse chatCompletionResponse =
                 CreateRandomExternalChatCompletionResponse();
 
-            ChatCompletion expectedChatCompletion = 
+            ChatCompletion expectedChatCompletion =
                 inputChatCompletion.DeepClone();
 
-            expectedChatCompletion = 
+            expectedChatCompletion =
                 ConvertToChatCompletion(expectedChatCompletion, chatCompletionResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
@@ -53,7 +53,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
             // when
             ChatCompletion actualChatCompletion =
-                await this.openAIClient.ChatCompletions.PostChatCompletionAsync(
+                await this.openAIClient.ChatCompletions.SendChatCompletionAsync(
                     inputChatCompletion);
 
             // then

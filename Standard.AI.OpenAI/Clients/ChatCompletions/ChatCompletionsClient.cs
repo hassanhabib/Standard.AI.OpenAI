@@ -18,7 +18,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
         public ChatCompletionsClient(IChatCompletionService chatCompletionService) =>
             this.chatCompletionService = chatCompletionService;
 
-        public async ValueTask<ChatCompletion> PostChatCompletionAsync(ChatCompletion chatCompletion)
+        public async ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion)
         {
             try
             {
