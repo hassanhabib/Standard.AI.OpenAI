@@ -10,7 +10,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
 {
     public partial class CompletionsApiTests
     {
-        [Fact]
+        [Fact(Skip = "This test is only for releases")]
         public async Task ShouldPromptCompletionAsync()
         {
             // given
