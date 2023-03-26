@@ -272,18 +272,18 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSendIfServiceErrorOccurredAsync()
+        public async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion = CreateRandomChatCompletion();
             var serviceException = new Exception();
 
-            var failedServerChatCompletionException =
-                new FailedServerChatCompletionException(serviceException);
+            var failedChatCompletionServiceException =
+                new FailedChatCompletionServiceException(serviceException);
 
             var expectedChatCompletionServiceException =
                 new ChatCompletionServiceException(
-                    failedServerChatCompletionException);
+                    failedChatCompletionServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
