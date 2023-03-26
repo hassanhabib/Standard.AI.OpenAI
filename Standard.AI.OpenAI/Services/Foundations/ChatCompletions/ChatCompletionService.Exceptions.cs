@@ -45,17 +45,17 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
-                var unauthorizedCompletionException =
+                var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
 
-                throw new ChatCompletionDependencyException(unauthorizedCompletionException);
+                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
-                var unauthorizedCompletionException =
+                var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseForbiddenException);
 
-                throw new ChatCompletionDependencyException(unauthorizedCompletionException);
+                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
