@@ -3,8 +3,6 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Data;
-using System.Reflection.Metadata;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
 

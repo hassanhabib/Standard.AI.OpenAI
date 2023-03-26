@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
