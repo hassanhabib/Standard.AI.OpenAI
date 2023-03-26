@@ -7,7 +7,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
-    internal class FailedCompletionServiceException : Xeption
+    public class FailedCompletionServiceException : Xeption
     {
         public FailedCompletionServiceException(Exception innerException)
             : base(message: "Failed completion error occurred, contact support.",
