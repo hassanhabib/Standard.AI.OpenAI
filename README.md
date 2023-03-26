@@ -39,33 +39,46 @@ Find our nuget package.
 The following example demonstrate how you can write your first Completions program.
 
 ```csharp
-using OpenAI.NET.Clients.OpenAIs;
-using OpenAI.NET.Models.Configurations;
-using OpenAI.NET.Models.Services.Foundations.Completions;
+using System;
+using System.Threading.Tasks;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 
-var openAIApiConfigurations = new ApiConfigurations
+namespace ExampleOpenAIDotNet
 {
-    ApiKey = "YOUR_API_KEY_HERE",
-    OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
-};
-
-var openAIClient = new OpenAIClient(openAIApiConfigurations);
-
-var inputCompletion = new Completion
-{
-    Request = new CompletionRequest
+    internal class Program
     {
-        Prompt = new string[] { "Human: Hello!" },
+        static async Task Main(string[] args)
+        {
+            var openAIApiConfigurations = new ApiConfigurations
+            {
+                ApiKey = "YOUR_API_KEY_HERE",
+                OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
+            };
 
-        Model = "text-davinci-003"
+            var openAIClient = new OpenAIClient(openAIApiConfigurations);
+
+            var inputCompletion = new Completion
+            {
+                Request = new CompletionRequest
+                {
+                    Prompts = new string[] { "Human: Hello!" },
+
+                    Model = "text-davinci-003"
+                }
+            };
+
+            Completion resultCompletion =
+                await openAIClient.Completions.PromptCompletionAsync(
+                    inputCompletion);
+
+            Array.ForEach(
+                resultCompletion.Response.Choices, 
+                choice => Console.WriteLine(choice.Text));
+        }
     }
-};
-
-Completion resultCompletion =
-    await openAIClient.Completions.PromptCompletionAsync(
-        inputCompletion);
-
-Array.ForEach(resultCompletion.Response.Choices, choice => Console.WriteLine(choice.Text));
+}
 ```
 
 ## How to Contribute
