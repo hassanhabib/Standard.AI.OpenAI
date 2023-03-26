@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -261,6 +262,46 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             // then
             actualChatCompletionDependencyException.Should().BeEquivalentTo(
                 expectedChatCompletionDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnSendIfServiceErrorOccurredAsync()
+        {
+            // given
+            ChatCompletion someChatCompletion = CreateRandomChatCompletion();
+            var serviceException = new Exception();
+
+            var failedServerChatCompletionException =
+                new FailedServerChatCompletionException(serviceException);
+
+            var expectedChatCompletionServiceException =
+                new ChatCompletionServiceException(
+                    failedServerChatCompletionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()))
+                        .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<ChatCompletion> sendChatCompletionTask =
+                this.chatCompletionService.SendChatCompletionAsync(someChatCompletion);
+
+            ChatCompletionServiceException
+                actualChatCompletionServiceException =
+                    await Assert.ThrowsAsync<ChatCompletionServiceException>(
+                        sendChatCompletionTask.AsTask);
+
+            // then
+            actualChatCompletionServiceException.Should().BeEquivalentTo(
+                expectedChatCompletionServiceException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.PostChatCompletionRequestAsync(
