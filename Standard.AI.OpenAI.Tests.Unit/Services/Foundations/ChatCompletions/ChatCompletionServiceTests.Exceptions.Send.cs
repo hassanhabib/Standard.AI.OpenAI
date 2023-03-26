@@ -101,7 +101,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfChatCompletionNotFoundAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnSendIfChatCompletionNotFoundOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion =
@@ -187,7 +187,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfDependencyValidationErrorOccursAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnSendIfBadRequestErrorOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion = CreateRandomChatCompletion();
@@ -220,6 +220,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             // then
             actualChatCompletionDependencyValidationException.Should().BeEquivalentTo(
                 expectedChatCompletionDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnSendIfHttpResponseErrorOccurredAsync()
+        {
+            // given
+            ChatCompletion someChatCompletion = CreateRandomChatCompletion();
+            var httpResponseException = new HttpResponseException();
+
+            var failedServerChatCompletionException =
+                new FailedServerChatCompletionException(
+                    httpResponseException);
+
+            var expectedChatCompletionDependencyException =
+                new ChatCompletionDependencyException(
+                    failedServerChatCompletionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostChatCompletionRequestAsync(
+                    It.IsAny<ExternalChatCompletionRequest>()))
+                        .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<ChatCompletion> sendChatCompletionTask =
+                this.chatCompletionService.SendChatCompletionAsync(someChatCompletion);
+
+            ChatCompletionDependencyException
+                actualChatCompletionDependencyException =
+                    await Assert.ThrowsAsync<ChatCompletionDependencyException>(
+                        sendChatCompletionTask.AsTask);
+
+            // then
+            actualChatCompletionDependencyException.Should().BeEquivalentTo(
+                expectedChatCompletionDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.PostChatCompletionRequestAsync(
