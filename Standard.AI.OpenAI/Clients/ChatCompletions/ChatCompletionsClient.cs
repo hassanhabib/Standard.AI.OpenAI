@@ -11,11 +11,11 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Clients.ChatCompletions
 {
-    internal class ChatCompletionClient : IChatCompletionClient
+    internal class ChatCompletionsClient : IChatCompletionsClient
     {
         private readonly IChatCompletionService chatCompletionService;
 
-        public ChatCompletionClient(IChatCompletionService chatCompletionService) =>
+        public ChatCompletionsClient(IChatCompletionService chatCompletionService) =>
             this.chatCompletionService = chatCompletionService;
 
         public async ValueTask<ChatCompletion> PostChatCompletionAsync(ChatCompletion chatCompletion)

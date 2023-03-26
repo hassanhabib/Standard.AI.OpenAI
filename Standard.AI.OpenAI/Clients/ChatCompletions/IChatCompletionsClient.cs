@@ -7,7 +7,7 @@ using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 
 namespace Standard.AI.OpenAI.Clients.ChatCompletions
 {
-    public interface IChatCompletionClient
+    public interface IChatCompletionsClient
     {
         ValueTask<ChatCompletion> PostChatCompletionAsync(ChatCompletion chatCompletion);
     }
