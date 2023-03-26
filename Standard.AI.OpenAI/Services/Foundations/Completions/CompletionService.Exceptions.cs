@@ -64,7 +64,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 
                 throw new CompletionDependencyValidationException(invalidCompletionException);
             }
-       
+
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallCompletionException =
