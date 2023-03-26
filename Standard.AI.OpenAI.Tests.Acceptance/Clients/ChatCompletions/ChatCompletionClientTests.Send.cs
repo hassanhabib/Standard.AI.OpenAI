@@ -29,10 +29,10 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
             ExternalChatCompletionResponse chatCompletionResponse =
                 CreateRandomExternalChatCompletionResponse();
 
-            ChatCompletion expectedChatCompletion = 
+            ChatCompletion expectedChatCompletion =
                 inputChatCompletion.DeepClone();
 
-            expectedChatCompletion = 
+            expectedChatCompletion =
                 ConvertToChatCompletion(expectedChatCompletion, chatCompletionResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
