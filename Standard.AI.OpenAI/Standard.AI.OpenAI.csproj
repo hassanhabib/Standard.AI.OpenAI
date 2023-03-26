@@ -16,13 +16,13 @@
 		<RepositoryUrl>https://github.com/hassanhabib/Standard.AI.OpenAI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>AI; OpenAI; .NET; ChatGPT; Artificial Intelligence; The Standard</PackageTags>
-		<PackageReleaseNotes>This is a beta release for Completions capability.</PackageReleaseNotes>
-		<AssemblyVersion>0.1</AssemblyVersion>
-		<FileVersion>0.1n</FileVersion>
+		<PackageReleaseNotes>This is a beta release that offers both completions and chat completions</PackageReleaseNotes>
+		<AssemblyVersion>0.2</AssemblyVersion>
+		<FileVersion>0.2n</FileVersion>
 		<PackageLicenseFile>license.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>0.1</Version>
+		<Version>0.2</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
