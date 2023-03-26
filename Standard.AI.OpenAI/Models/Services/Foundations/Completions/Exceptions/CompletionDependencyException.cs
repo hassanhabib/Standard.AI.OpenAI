@@ -6,7 +6,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
-    internal class CompletionDependencyException : Xeption
+    public class CompletionDependencyException : Xeption
     {
         public CompletionDependencyException(Xeption innerException)
             : base(message: "Completion dependency error occurred, contact support.",

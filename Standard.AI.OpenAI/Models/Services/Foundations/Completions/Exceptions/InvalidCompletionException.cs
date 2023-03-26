@@ -7,7 +7,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
-    internal class InvalidCompletionException : Xeption
+    public class InvalidCompletionException : Xeption
     {
         public InvalidCompletionException()
             : base(message: "Invalid completion error occurred, fix errors and try again.")

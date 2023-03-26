@@ -7,7 +7,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
-    internal class InvalidConfigurationCompletionException : Xeption
+    public class InvalidConfigurationCompletionException : Xeption
     {
         public InvalidConfigurationCompletionException(Exception innerException)
             : base(message: "Invalid configuration error occurred, fix errors and try again.",
