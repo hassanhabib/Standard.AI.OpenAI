@@ -3,16 +3,11 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Standard.AI.OpenAI.Clients.OpenAIs;
 using Standard.AI.OpenAI.Models.Configurations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Tynamix.ObjectFiller;
 using WireMock.Server;
 
@@ -72,7 +67,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
         private static ChatCompletionMessage ConvertToExternalChatCompletionMessage(
             ExternalChatCompletionMessage chatCompletionMessage)
         {
-            return new ChatCompletionMessage 
+            return new ChatCompletionMessage
             {
                 Content = chatCompletionMessage.Content,
                 Role = chatCompletionMessage.Role,
@@ -81,16 +76,16 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
         private static ChatCompletion ConvertToChatCompletion(
            ChatCompletion chatCompletion,
-           ExternalChatCompletionResponse externalCompletionResponse)
+           ExternalChatCompletionResponse externalChatCompletionResponse)
         {
             chatCompletion.Response = new ChatCompletionResponse
             {
 
-                Id = externalCompletionResponse.Id,
-                Object = externalCompletionResponse.Object,
-                Created = externalCompletionResponse.Created,
+                Id = externalChatCompletionResponse.Id,
+                Object = externalChatCompletionResponse.Object,
+                Created = externalChatCompletionResponse.Created,
 
-                Choices = externalCompletionResponse.Choices.Select(externalChoice => new ChatCompletionChoice
+                Choices = externalChatCompletionResponse.Choices.Select(externalChoice => new ChatCompletionChoice
                 {
                     FinishReason = externalChoice.FinishReason,
                     Message = ConvertToExternalChatCompletionMessage(externalChoice.Message),
@@ -100,9 +95,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
                 Usage = new ChatCompletionUsage
                 {
-                    CompletionTokens = externalCompletionResponse.Usage.CompletionTokens,
-                    PromptTokens = externalCompletionResponse.Usage.PromptTokens,
-                    TotalTokens = externalCompletionResponse.Usage.TotalTokens
+                    CompletionTokens = externalChatCompletionResponse.Usage.CompletionTokens,
+                    PromptTokens = externalChatCompletionResponse.Usage.PromptTokens,
+                    TotalTokens = externalChatCompletionResponse.Usage.TotalTokens
                 },
 
             };

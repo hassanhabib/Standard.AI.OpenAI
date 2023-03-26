@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
     public partial class ChatCompletionClientTests
     {
         [Fact]
-        public async Task ShouldPromptChatCompletionAsync()
+        public async Task ShouldSendChatCompletionAsync()
         {
             // given
             ChatCompletion randomChatCompletion = CreateRandomChatCompletion();
@@ -29,8 +29,11 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
             ExternalChatCompletionResponse chatCompletionResponse =
                 CreateRandomExternalChatCompletionResponse();
 
-            ChatCompletion expectedChatCompletion = inputChatCompletion.DeepClone();
-            expectedChatCompletion = ConvertToChatCompletion(expectedChatCompletion, chatCompletionResponse);
+            ChatCompletion expectedChatCompletion = 
+                inputChatCompletion.DeepClone();
+
+            expectedChatCompletion = 
+                ConvertToChatCompletion(expectedChatCompletion, chatCompletionResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
@@ -49,12 +52,12 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
                     .WithBodyAsJson(chatCompletionResponse));
 
             // when
-            ChatCompletion actualchatCompletion =
+            ChatCompletion actualChatCompletion =
                 await this.openAIClient.ChatCompletions.PostChatCompletionAsync(
                     inputChatCompletion);
 
             // then
-            actualchatCompletion.Should().BeEquivalentTo(expectedChatCompletion);
+            actualChatCompletion.Should().BeEquivalentTo(expectedChatCompletion);
         }
     }
 }
