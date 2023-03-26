@@ -36,13 +36,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
                 throw new ChatCompletionDependencyException(invalidConfigurationChatCompletionException);
             }
-            catch (HttpResponseBadRequestException httpResponseBadRequestException)
-            {
-                var invalidChatCompletionException =
-                    new InvalidChatCompletionException(httpResponseBadRequestException);
-
-                throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
-            }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
@@ -63,6 +56,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                     new NotFoundChatCompletionException(httpResponseNotFoundException);
 
                 throw new ChatCompletionDependencyValidationException(notFoundChatCompletionException);
+            }
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
+            {
+                var invalidChatCompletionException =
+                    new InvalidChatCompletionException(httpResponseBadRequestException);
+
+                throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
