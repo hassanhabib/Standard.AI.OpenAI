@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions
         [JsonProperty(propertyName: "model")]
         public string Model { get; set; }
 
-        [JsonProperty(propertyName: "prompts")]
+        [JsonProperty(propertyName: "prompt")]
         public string[] Prompts { get; set; } = new string[0];
 
         [JsonProperty(propertyName: "suffix")]
