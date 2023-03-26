@@ -2,10 +2,10 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
-using System.Threading.Tasks;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -27,9 +27,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             {
                 throw new ChatCompletionValidationException(invalidChatCompletionException);
             }
-            catch(HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
-                var invalidConfigurationChatCompletionException = 
+                var invalidConfigurationChatCompletionException =
                     new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
 
                 throw new ChatCompletionDependencyException(invalidConfigurationChatCompletionException);
@@ -40,6 +40,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                     new InvalidChatCompletionException(httpResponseBadRequestException);
 
                 throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
+            }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedCompletionException =
+                    new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
+
+                throw new ChatCompletionDependencyException(unauthorizedCompletionException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedCompletionException =
+                    new UnauthorizedChatCompletionException(httpResponseForbiddenException);
+
+                throw new ChatCompletionDependencyException(unauthorizedCompletionException);
             }
         }
     }
