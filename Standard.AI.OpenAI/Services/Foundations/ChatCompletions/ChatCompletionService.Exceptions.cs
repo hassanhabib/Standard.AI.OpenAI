@@ -27,6 +27,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             {
                 throw new ChatCompletionValidationException(invalidChatCompletionException);
             }
+            catch(HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationChatCompletionException = 
+                    new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
+
+                throw new ChatCompletionDependencyException(invalidConfigurationChatCompletionException);
+            }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
