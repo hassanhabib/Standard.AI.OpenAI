@@ -71,6 +71,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
                 throw new ChatCompletionDependencyValidationException(excessiveCallChatCompletionException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedServerChatCompletionException =
+                    new FailedServerChatCompletionException(httpResponseException);
+
+                throw new ChatCompletionDependencyException(failedServerChatCompletionException);
+            }
         }
     }
 }
