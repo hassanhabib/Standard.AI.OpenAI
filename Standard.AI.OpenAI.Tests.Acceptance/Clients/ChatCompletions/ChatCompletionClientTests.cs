@@ -1,0 +1,145 @@
+﻿// ---------------------------------------------------------------------------------- 
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+// ----------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
+using Tynamix.ObjectFiller;
+using WireMock.Server;
+
+namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
+{
+    public partial class ChatCompletionClientTests : IDisposable
+    {
+        private readonly IOpenAIClient openAIClient;
+        private readonly WireMockServer wireMockServer;
+        private readonly string apiKey;
+        private readonly string organizationId;
+
+        public ChatCompletionClientTests()
+        {
+            this.wireMockServer = WireMockServer.Start();
+            this.apiKey = CreateRandomString();
+            this.organizationId = CreateRandomString();
+
+            var openAiConfiguration = new ApiConfigurations
+            {
+                ApiUrl = this.wireMockServer.Url,
+                ApiKey = this.apiKey,
+                OrganizationId = this.organizationId
+            };
+
+            this.openAIClient = new OpenAIClient(openAiConfiguration);
+        }
+
+        private static ExternalChatCompletionRequest ConvertToChatCompletionRequest(ChatCompletion chatCompletion)
+        {
+            return new ExternalChatCompletionRequest
+            {
+                Model = chatCompletion.Request.Model,
+
+                Messages = chatCompletion.Request.Messages.Select(message =>
+                {
+                    return new ExternalChatCompletionMessage
+                    {
+                        Role = message.Role,
+                        Content = message.Content
+                    };
+                }).ToArray(),
+
+                Temperature = chatCompletion.Request.Temperature,
+                ProbabilityMass = chatCompletion.Request.ProbabilityMass,
+                CompletionsPerPrompt = chatCompletion.Request.CompletionsPerPrompt,
+                Stream = chatCompletion.Request.Stream,
+                Stop = chatCompletion.Request.Stop,
+                MaxTokens = chatCompletion.Request.MaxTokens,
+                PresencePenalty = chatCompletion.Request.PresencePenalty,
+                FrequencyPenalty = chatCompletion.Request.FrequencyPenalty,
+                LogitBias = chatCompletion.Request.LogitBias,
+                User = chatCompletion.Request.User
+            };
+        }
+
+        private static ChatCompletionMessage ConvertToExternalChatCompletionMessage(
+            ExternalChatCompletionMessage chatCompletionMessage)
+        {
+            return new ChatCompletionMessage 
+            {
+                Content = chatCompletionMessage.Content,
+                Role = chatCompletionMessage.Role,
+            };
+        }
+
+        private static ChatCompletion ConvertToChatCompletion(
+           ChatCompletion chatCompletion,
+           ExternalChatCompletionResponse externalCompletionResponse)
+        {
+            chatCompletion.Response = new ChatCompletionResponse
+            {
+
+                Id = externalCompletionResponse.Id,
+                Object = externalCompletionResponse.Object,
+                Created = externalCompletionResponse.Created,
+
+                Choices = externalCompletionResponse.Choices.Select(externalChoice => new ChatCompletionChoice
+                {
+                    FinishReason = externalChoice.FinishReason,
+                    Message = ConvertToExternalChatCompletionMessage(externalChoice.Message),
+                    Index = externalChoice.Index,
+                }).ToArray(),
+
+
+                Usage = new ChatCompletionUsage
+                {
+                    CompletionTokens = externalCompletionResponse.Usage.CompletionTokens,
+                    PromptTokens = externalCompletionResponse.Usage.PromptTokens,
+                    TotalTokens = externalCompletionResponse.Usage.TotalTokens
+                },
+
+            };
+
+            return chatCompletion;
+        }
+
+        private static string CreateRandomString() =>
+            new MnemonicString().GetValue();
+
+        private static ChatCompletion CreateRandomChatCompletion() =>
+            CreateChatCompletionFiller().Create();
+
+        private static ExternalChatCompletionResponse CreateRandomExternalChatCompletionResponse() =>
+            CreateChatCompletionResponseFiller().Create();
+
+        private static Filler<ExternalChatCompletionResponse> CreateChatCompletionResponseFiller()
+        {
+            var filler = new Filler<ExternalChatCompletionResponse>();
+
+            filler.Setup()
+               .OnType<object>().IgnoreIt();
+
+            return filler;
+        }
+
+        private static Filler<ChatCompletion> CreateChatCompletionFiller()
+        {
+            var filler = new Filler<ChatCompletion>();
+
+            filler.Setup()
+                .OnType<object>().IgnoreIt();
+
+            return filler;
+        }
+
+        public void Dispose() => this.wireMockServer.Stop();
+
+    }
+}
