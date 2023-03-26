@@ -131,11 +131,3 @@ Here's our live sessions to show you how this library was developed from scratch
 [OPENAI008: Acceptance & Integration Tests](https://www.youtube.com/live/86bfBmkUMFo?feature=share)
 
 [OPENAI009: Publishing Nuget Package](https://www.youtube.com/live/saU_5peAC-Y?feature=share)
-
-[OPENAI010: Developing Chat Integrations](https://www.youtube.com/live/YRLymNBSlqI?feature=share)
-
-[OPENAI011: Developing Chat Integrations](https://www.youtube.com/live/-6W_-5cKkfs?feature=share)
-
-[OPENAI012: Developing Chat Integrations](https://www.youtube.com/live/o8ZdFcScOKU?feature=share)
-
-[OPENAI012: Developing Chat Integrations](https://www.youtube.com/live/OvU6Tate4iI?feature=share)
