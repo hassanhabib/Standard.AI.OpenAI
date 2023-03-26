@@ -55,6 +55,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
                 throw new ChatCompletionDependencyException(unauthorizedCompletionException);
             }
+            catch(HttpResponseNotFoundException httpResponseNotFoundException)
+            {
+                var notFoundChatCompletionException =
+                    new NotFoundChatCompletionException(httpResponseNotFoundException);
+
+                throw new ChatCompletionDependencyValidationException(notFoundChatCompletionException);
+            }
         }
     }
 }
