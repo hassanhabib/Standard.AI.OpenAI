@@ -53,7 +53,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
             // when
             ChatCompletion actualChatCompletion =
-                await this.openAIClient.ChatCompletions.PostChatCompletionAsync(
+                await this.openAIClient.ChatCompletions.SendChatCompletionAsync(
                     inputChatCompletion);
 
             // then

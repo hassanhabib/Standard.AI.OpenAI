@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.ChatCompletions
 
             // when
             ChatCompletion responseChatCompletion =
-                await this.openAIClient.ChatCompletions.PostChatCompletionAsync(
+                await this.openAIClient.ChatCompletions.SendChatCompletionAsync(
                     inputChatCompletion);
 
             // then

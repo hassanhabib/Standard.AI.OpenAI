@@ -9,6 +9,6 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
 {
     public interface IChatCompletionsClient
     {
-        ValueTask<ChatCompletion> PostChatCompletionAsync(ChatCompletion chatCompletion);
+        ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion);
     }
 }
