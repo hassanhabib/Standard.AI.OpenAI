@@ -2,6 +2,9 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
@@ -37,16 +40,16 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
 
             this.wireMockServer.Given(
                 Request.Create()
-                .WithPath("/v1/completions")
-                .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                .WithHeader("OpenAI-Organization", $"{this.organizationId}")
-                .WithHeader("Content-Type", "application/json; charset=utf-8")
+                    .WithPath("/v1/completions")
+                    .WithHeader("Authorization", $"{JwtBearerDefaults.AuthenticationScheme} {this.apiKey}")
+                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                    .WithHeader("Content-Type", $"{MediaTypeNames.Application.Json}; charset={Encoding.UTF8.WebName}")
                 .WithBody(JsonConvert.SerializeObject(
                     completionRequest,
                     jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
-                    .WithBodyAsJson(completionResponse));
+                        .WithBodyAsJson(completionResponse));
 
             // when
             Completion actualCompletion =
