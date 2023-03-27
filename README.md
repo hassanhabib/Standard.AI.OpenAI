@@ -85,6 +85,15 @@ namespace ExampleOpenAIDotNet
     }
 }
 ```
+#### Exceptions
+
+Standard.AI.OpenAI may throw following exceptions:
+
+| Exception Name | When it will be thrown |
+| --- | --- |
+| `CompletionClientValidationException` | This exception is thrown when a validation error occurs while using the completion client. For example, if required data is missing or invalid. |
+| `CompletionClientDependencyException` | This exception is thrown when a dependency error occurs while using the completion client. For example, if a required dependency is unavailable or incompatible. |
+| `CompletionClientServiceException` | This exception is thrown when a service error occurs while using the completion client. For example, if there is a problem with the server or any other service failure. |
 
 ## How to Contribute
 If you want to contribute to this project please review the following documents:
