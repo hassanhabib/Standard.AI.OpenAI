@@ -40,16 +40,16 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
 
             this.wireMockServer.Given(
                 Request.Create()
-                    .WithPath("/v1/completions")
-                    .WithHeader("Authorization", $"{JwtBearerDefaults.AuthenticationScheme} {this.apiKey}")
-                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
-                    .WithHeader("Content-Type", $"{MediaTypeNames.Application.Json}; charset={Encoding.UTF8.WebName}")
+                .WithPath("/v1/completions")
+                .WithHeader("Authorization", $"{JwtBearerDefaults.AuthenticationScheme} {this.apiKey}")
+                .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                .WithHeader("Content-Type", $"{MediaTypeNames.Application.Json}; charset={Encoding.UTF8.WebName}")
                 .WithBody(JsonConvert.SerializeObject(
                     completionRequest,
                     jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
-                        .WithBodyAsJson(completionResponse));
+                    .WithBodyAsJson(completionResponse));
 
             // when
             Completion actualCompletion =
