@@ -21,7 +21,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIModels
         public string OwnedBy { get; set; }
 
         [JsonProperty(propertyName: "permission")]
-        public ExternalAIModelPermission[] Permission { get; set; }
+        public ExternalAIModelPermission[] Permissions { get; set; }
 
         [JsonProperty(propertyName: "root")]
         public string Root { get; set; }
