@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
@@ -75,6 +76,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                     new FailedServerImageGenerationException(httpResponseException);
 
                 throw new ImageGenerationDependencyException(failedServerImageGenerationException);
+            }
+            catch (Exception exception)
+            {
+                var failedImageGenerationServiceException =
+                    new FailedImageGenerationServiceException(exception);
+
+                throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
         }
     }
