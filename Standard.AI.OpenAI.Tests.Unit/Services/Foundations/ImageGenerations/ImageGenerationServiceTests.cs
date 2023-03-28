@@ -9,6 +9,7 @@ using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalImageGenerations;
+using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Services.Foundations.ImageGenerations;
 using Tynamix.ObjectFiller;
 
@@ -68,5 +69,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                     Base64EncodedJsonImage = GetRandomString()
                 }).ToArray();
         }
+
+        private static ImageGeneration CreateRandomImageGeneration() =>
+            CreateImageGenerationFiller().Create();
+
+        private static Filler<ImageGeneration> CreateImageGenerationFiller() =>
+            new Filler<ImageGeneration>();
     }
 }
