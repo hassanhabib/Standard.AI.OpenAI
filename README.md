@@ -37,9 +37,10 @@ https://platform.openai.com/account/api-keys
 ### Hello, World!
 Once you've completed the aforementioned steps, let's write our very first program with Standard.AI.OpenAI as follows:
 
-### Program.cs
+### Completions
 The following example demonstrate how you can write your first Completions program.
 
+#### Program.cs
 ```csharp
 using System;
 using System.Threading.Tasks;
@@ -92,6 +93,71 @@ Standard.AI.OpenAI may throw following exceptions:
 | `CompletionClientDependencyException` | This exception is thrown when a dependency error occurs while using the completion client. For example, if a required dependency is unavailable or incompatible. |
 | `CompletionClientServiceException` | This exception is thrown when a service error occurs while using the completion client. For example, if there is a problem with the server or any other service failure. |
 
+### Chat Completions
+The following example demonstrate how you can write your first Chat Completions program.
+
+#### Program.cs
+```csharp
+using System;
+using System.Threading.Tasks;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
+
+namespace ExampleOpenAIDotNet
+{
+    internal class Program
+    {
+        static async Task Main(string[] args)
+        {
+            var openAIApiConfigurations = new ApiConfigurations
+            {
+                ApiKey = "YOUR_API_KEY_HERE",
+                OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
+            };
+
+            var openAIClient = new OpenAIClient(openAIApiConfigurations);
+
+            var chatCompletion = new ChatCompletion
+            {
+                Request = new ChatCompletionRequest
+                {
+                    Model = "gpt-3.5-turbo",
+                    Messages = new ChatCompletionMessage[]
+                    {
+                        new ChatCompletionMessage
+                        {
+                            Content = "What is c#?",
+                            Role = "user",
+                        }
+                    },
+                }
+            };
+
+            ChatCompletion resultChatCompletion =
+                await openAIClient.ChatCompletions.SendChatCompletionAsync(
+                    chatCompletion);
+
+            Array.ForEach(
+                resultChatCompletion.Response.Choices,
+                choice => Console.WriteLine(
+                    value: $"{choice.Message.Role}: {choice.Message.Content}"));
+        }
+    }
+}
+```
+
+#### Exceptions
+
+Standard.AI.OpenAI may throw following exceptions:
+
+| Exception Name | When it will be thrown |
+| --- | --- |
+| `ChatCompletionClientValidationException` | This exception is thrown when a validation error occurs while using the chat completion client. For example, if required data is missing or invalid. |
+| `ChatCompletionClientDependencyException` | This exception is thrown when a dependency error occurs while using the chat completion client. For example, if a required dependency is unavailable or incompatible. |
+| `ChatCompletionClientServiceException` | This exception is thrown when a service error occurs while using the chat completion client. For example, if there is a problem with the server or any other service failure. |
+
+
 ## How to Contribute
 If you want to contribute to this project please review the following documents:
 - [The Standard](https://github.com/hassanhabib/The-Standard)
@@ -137,3 +203,11 @@ Here's our live sessions to show you how this library was developed from scratch
 [OPENAI008: Acceptance & Integration Tests](https://www.youtube.com/live/86bfBmkUMFo?feature=share)
 
 [OPENAI009: Publishing Nuget Package](https://www.youtube.com/live/saU_5peAC-Y?feature=share)
+
+[OPENAI010: Developing Chat Integrations](https://www.youtube.com/watch?v=YRLymNBSlqI)
+
+[OPENAI011: Developing Chat Services (Part 1)](https://www.youtube.com/watch?v=-6W_-5cKkfs)
+
+[OPENAI012: Developing Chat Services (Part 2)](https://www.youtube.com/watch?v=o8ZdFcScOKU)
+
+[OPENAI013: Developing Chat Services (Part 3)](https://www.youtube.com/watch?v=OvU6Tate4iI)
