@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -253,6 +254,44 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             // then
             actualImageGenerationDependencyException.Should().BeEquivalentTo(
                 expectedImageGenerationDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnGenerateIfServiceErrorOccurredAsync()
+        {
+            // given
+            ImageGeneration someImageGeneration = CreateRandomImageGeneration();
+            var serviceException = new Exception();
+
+            var failedImageGenerationServiceException =
+                new FailedImageGenerationServiceException(serviceException);
+
+            var expectedImageGenerationServiceException =
+                new ImageGenerationServiceException(
+                    failedImageGenerationServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()))
+                        .ThrowsAsync(serviceException);
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(someImageGeneration);
+
+            ImageGenerationServiceException actualImageGenerationServiceException =
+                await Assert.ThrowsAsync<ImageGenerationServiceException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationServiceException.Should().BeEquivalentTo(
+                expectedImageGenerationServiceException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.PostImageGenerationRequestAsync(
