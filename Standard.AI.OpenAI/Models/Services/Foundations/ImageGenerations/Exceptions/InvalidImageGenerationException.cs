@@ -10,11 +10,11 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     public class InvalidImageGenerationException : Xeption
     {
         public InvalidImageGenerationException()
-            : base(message: "Image generation is invalid.")
+            : base(message: "Invalid image generation error occurred, fix errors and try again.")
         { }
 
         public InvalidImageGenerationException(Exception innerException)
-            : base(message: "Image generation is invalid.",
+            : base(message: "Invalid image generation error occurred, fix errors and try again.",
                   innerException)
         { }
     }
