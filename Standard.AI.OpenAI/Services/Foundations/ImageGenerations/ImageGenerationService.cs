@@ -10,20 +10,23 @@ using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 {
-    internal class ImageGenerationService : IImageGenerationService
+    internal partial class ImageGenerationService : IImageGenerationService
     {
         private readonly IOpenAIBroker openAIBroker;
 
         public ImageGenerationService(IOpenAIBroker openAIBroker) =>
             this.openAIBroker = openAIBroker;
 
-        public async ValueTask<ImageGeneration> GenerateImageAsync(ImageGeneration imageGeneration)
+        public ValueTask<ImageGeneration> GenerateImageAsync(ImageGeneration imageGeneration) =>
+        TryCatch(async () =>
         {
+            ValidateImageGenerationIsNotNull(imageGeneration);
+
             ExternalImageGenerationResponse externalImageGenerationResponse =
                 await PostImageGenerationRequestAsync(imageGeneration);
 
             return ConvertToImageGeneration(imageGeneration, externalImageGenerationResponse);
-        }
+        });
 
         private async ValueTask<ExternalImageGenerationResponse> PostImageGenerationRequestAsync(
             ImageGeneration imageGeneration)
