@@ -34,6 +34,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationDependencyException(invalidConfigurationImageGenerationException);
             }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedImageGenerationException =
+                    new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
+
+                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedImageGenerationException =
+                    new UnauthorizedImageGenerationException(httpResponseForbiddenException);
+
+                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+            }
         }
     }
 }
