@@ -1,10 +1,7 @@
 # Standard.AI.OpenAI
 
-<div align=center>
-	<img width="300" src="https://raw.githubusercontent.com/hassanhabib/OpenAI.NET/main/Standard.AI.OpenAI/artificial-intelligence.png" />
-</div>
+![Standard.AI.OpenAI](Standard.AI.OpenAI/standard-ai-openai-cover.png)
 
-<br />
 
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
 [![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget)](https://www.nuget.org/packages/Standard.AI.OpenAI)
