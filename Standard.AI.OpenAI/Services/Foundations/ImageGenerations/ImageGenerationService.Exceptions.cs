@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
 
@@ -25,6 +26,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (InvalidImageGenerationException invalidImageGenerationException)
             {
                 throw new ImageGenerationValidationException(invalidImageGenerationException);
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationImageGenerationException =
+                    new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
+
+                throw new ImageGenerationDependencyException(invalidConfigurationImageGenerationException);
             }
         }
     }
