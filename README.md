@@ -1,6 +1,6 @@
 # Standard.AI.OpenAI
 
-![Standard.AI.OpenAI](Standard.AI.OpenAI/standard-ai-openai-cover-big.png)
+![Standard.AI.OpenAI](https://raw.githubusercontent.com/hassanhabib/Standard.AI.OpenAI/main/Standard.AI.OpenAI/standard-ai-openai-cover-big.png)
 
 
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
