@@ -62,6 +62,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationDependencyValidationException(invalidImageGenerationException); ;
             }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallImageGenerationException =
+                    new ExcessiveCallImageGenerationException(httpResponseTooManyRequestsException);
+
+                throw new ImageGenerationDependencyValidationException(excessiveCallImageGenerationException);
+            }
         }
     }
 }
