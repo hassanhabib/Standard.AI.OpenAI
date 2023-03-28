@@ -22,6 +22,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             {
                 throw new ImageGenerationValidationException(nullImageGenerationException);
             }
+            catch (InvalidImageGenerationException invalidImageGenerationException)
+            {
+                throw new ImageGenerationValidationException(invalidImageGenerationException);
+            }
         }
     }
 }

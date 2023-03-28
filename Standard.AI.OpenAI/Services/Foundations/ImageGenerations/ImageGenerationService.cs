@@ -20,7 +20,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         public ValueTask<ImageGeneration> GenerateImageAsync(ImageGeneration imageGeneration) =>
         TryCatch(async () =>
         {
-            ValidateImageGenerationIsNotNull(imageGeneration);
+            ValidateImageGenerationOnGenerate(imageGeneration);
 
             ExternalImageGenerationResponse externalImageGenerationResponse =
                 await PostImageGenerationRequestAsync(imageGeneration);
