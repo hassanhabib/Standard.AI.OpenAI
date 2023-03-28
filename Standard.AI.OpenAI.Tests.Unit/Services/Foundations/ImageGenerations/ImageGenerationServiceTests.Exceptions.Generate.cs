@@ -56,5 +56,44 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(UnAuthorizationExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnAuthorizedAsync(
+            HttpResponseException unAuthorizedException)
+        {
+            // given
+            ImageGeneration someImageGeneration = CreateRandomImageGeneration();
+
+            var unauthorizedImageGenerationException =
+                new UnauthorizedImageGenerationException(unAuthorizedException);
+
+            var expectedImageGenerationDependencyException =
+                new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()))
+                        .ThrowsAsync(unAuthorizedException);
+
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(someImageGeneration);
+
+            ImageGenerationDependencyException actualImageGenerationDependencyException =
+                await Assert.ThrowsAsync<ImageGenerationDependencyException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationDependencyException.Should().BeEquivalentTo(
+                expectedImageGenerationDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
