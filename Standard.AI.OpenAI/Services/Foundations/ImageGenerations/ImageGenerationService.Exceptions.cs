@@ -55,6 +55,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationDependencyValidationException(notFoundImageGenerationException);
             }
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
+            {
+                var invalidImageGenerationException =
+                    new InvalidImageGenerationException(httpResponseBadRequestException);
+
+                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException); ;
+            }
         }
     }
 }
