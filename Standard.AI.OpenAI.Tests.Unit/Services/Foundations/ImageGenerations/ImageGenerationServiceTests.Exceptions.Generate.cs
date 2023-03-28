@@ -137,5 +137,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfBadRequestErrorOccurredAsync()
+        {
+            // given
+            ImageGeneration someImageGeneration = CreateRandomImageGeneration();
+
+            var httpResponseBadRequestException =
+                new HttpResponseBadRequestException();
+
+            var invalidImageGenerationException =
+                new InvalidImageGenerationException(
+                    httpResponseBadRequestException);
+
+            var expectedImageGenerationDependencyValidationException =
+                new ImageGenerationDependencyValidationException(
+                    invalidImageGenerationException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()))
+                        .ThrowsAsync(httpResponseBadRequestException);
+
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(someImageGeneration);
+
+            ImageGenerationDependencyValidationException actualImageGenerationDependencyValidationException =
+                await Assert.ThrowsAsync<ImageGenerationDependencyValidationException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationDependencyValidationException.Should().BeEquivalentTo(
+                expectedImageGenerationDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
