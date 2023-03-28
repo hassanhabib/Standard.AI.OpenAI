@@ -221,5 +221,45 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnGenerateIfHttpResponseErrorOccurredAsync()
+        {
+            // given
+            ImageGeneration someImageGeneration = CreateRandomImageGeneration();
+            var httpResponseException = new HttpResponseException();
+
+            var failedServerImageGenerationException =
+                new FailedServerImageGenerationException(
+                    httpResponseException);
+
+            var expectedImageGenerationDependencyException =
+                new ImageGenerationDependencyException(
+                    failedServerImageGenerationException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()))
+                        .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(someImageGeneration);
+
+            ImageGenerationDependencyException actualImageGenerationDependencyException =
+                await Assert.ThrowsAsync<ImageGenerationDependencyException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationDependencyException.Should().BeEquivalentTo(
+                expectedImageGenerationDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
