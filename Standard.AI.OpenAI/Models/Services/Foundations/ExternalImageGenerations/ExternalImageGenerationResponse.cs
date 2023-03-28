@@ -12,6 +12,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalImageGeneration
         public int Created { get; set; }
 
         [JsonProperty(propertyName: "data")]
-        public ExternalImageGenerationResult[] GeneratedImages { get; set; }
+        public ExternalImageGenerationResult[] Results { get; set; }
     }
 }
