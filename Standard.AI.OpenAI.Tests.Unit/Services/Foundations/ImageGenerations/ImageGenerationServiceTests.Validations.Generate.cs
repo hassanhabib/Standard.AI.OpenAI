@@ -83,5 +83,50 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task ShouldThrowValidationExceptionOnGenerateIfRequestIsInvalidAsync(string invalidText)
+        {
+            // given
+            var invalidImageGeneration = new ImageGeneration
+            {
+                Request = new ImageGenerationRequest
+                {
+                    Prompt = invalidText
+                }
+            };
+
+            var invalidImageGenerationException =
+                new InvalidImageGenerationException();
+
+            invalidImageGenerationException.AddData(
+                key: nameof(ImageGeneration.Request.Prompt),
+                    values: "Value is required");
+
+            var expectedImageGenerationValidationException =
+                new ImageGenerationValidationException(invalidImageGenerationException);
+
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(invalidImageGeneration);
+
+            ImageGenerationValidationException actualImageGenerationValidationException =
+                await Assert.ThrowsAsync<ImageGenerationValidationException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationValidationException.Should().BeEquivalentTo(
+                expectedImageGenerationValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
