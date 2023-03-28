@@ -179,5 +179,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfTooManyRequestsOccurredAsync()
+        {
+            // given
+            ImageGeneration someImageGeneration = CreateRandomImageGeneration();
+
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallImageGenerationException =
+                new ExcessiveCallImageGenerationException(
+                    httpResponseTooManyRequestsException);
+
+            var expectedImageGenerationDependencyValidationException =
+                new ImageGenerationDependencyValidationException(
+                    excessiveCallImageGenerationException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()))
+                        .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<ImageGeneration> generateImageTask =
+                this.imageGenerationService.GenerateImageAsync(someImageGeneration);
+
+            ImageGenerationDependencyValidationException actualImageGenerationDependencyValidationException =
+                await Assert.ThrowsAsync<ImageGenerationDependencyValidationException>(
+                    generateImageTask.AsTask);
+
+            // then
+            actualImageGenerationDependencyValidationException.Should().BeEquivalentTo(
+                expectedImageGenerationDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostImageGenerationRequestAsync(
+                    It.IsAny<ExternalImageGenerationRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
