@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
 
@@ -16,6 +17,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             Validate(
                 (Rule: IsInvalid(imageGeneration.Request),
                 Parameter: nameof(ImageGeneration.Request)));
+
+            Validate(
+                (Rule: IsInvalid(imageGeneration.Request.Prompt),
+                Parameter: nameof(ImageGeneration.Request.Prompt)));
         }
 
         private static void ValidateImageGenerationIsNotNull(ImageGeneration imageGeneration)
@@ -29,6 +34,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         private static dynamic IsInvalid(object @object) => new
         {
             Condition = @object is null,
+            Message = "Value is required"
+        };
+
+        private static dynamic IsInvalid(string text) => new
+        {
+            Condition = String.IsNullOrWhiteSpace(text),
             Message = "Value is required"
         };
 
