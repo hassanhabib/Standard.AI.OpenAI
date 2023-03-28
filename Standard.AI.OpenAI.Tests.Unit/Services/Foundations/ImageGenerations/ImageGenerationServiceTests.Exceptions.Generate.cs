@@ -140,7 +140,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfBadRequestErrorOccurredAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfBadRequestOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
