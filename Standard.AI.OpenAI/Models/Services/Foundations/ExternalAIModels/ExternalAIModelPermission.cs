@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIModels
         public string Object { get; set; }
 
         [JsonProperty(propertyName: "created")]
-        public int Created { get; set; }
+        public uint Created { get; set; }
 
         [JsonProperty(propertyName: "allow_create_engine")]
         public bool AllowCreateEngine { get; set; }
