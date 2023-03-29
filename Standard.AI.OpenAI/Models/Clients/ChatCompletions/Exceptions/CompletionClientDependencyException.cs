@@ -4,7 +4,7 @@
 
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Clients.Completions.Exceptions
+namespace Standard.AI.OpenAI.Models.Clients.ChatCompletions.Exceptions
 {
     public class CompletionClientDependencyException : Xeption
     {
