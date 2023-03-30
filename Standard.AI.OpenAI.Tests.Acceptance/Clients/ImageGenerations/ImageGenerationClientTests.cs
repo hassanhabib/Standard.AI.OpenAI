@@ -62,9 +62,6 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
         private static ExternalImageGenerationResponse CreateRandomExternalImageGenerationResponse() =>
             CreateExternalImageGenerationResponseFiller().Create();
 
-        private static Filler<ExternalImageGenerationResponse> CreateExternalImageGenerationResponseFiller() =>
-            new Filler<ExternalImageGenerationResponse>();
-
         private static ExternalImageGenerationRequest ConvertToImageGenerationRequest(ImageGeneration imageGeneration)
         {
             return new ExternalImageGenerationRequest
@@ -83,6 +80,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
         private static DateTimeOffset CreateRandomDate() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
+        private static string CreateRandomString() =>
+            new MnemonicString().GetValue();
+
         private static Filler<ImageGeneration> CreateImageGenerationFiller()
         {
             var filler = new Filler<ImageGeneration>();
@@ -93,8 +93,8 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
             return filler;
         }
 
-        private static string CreateRandomString() =>
-            new MnemonicString().GetValue();
+        private static Filler<ExternalImageGenerationResponse> CreateExternalImageGenerationResponseFiller() =>
+            new Filler<ExternalImageGenerationResponse>();
 
         public void Dispose() => this.wireMockServer.Stop();
     }
