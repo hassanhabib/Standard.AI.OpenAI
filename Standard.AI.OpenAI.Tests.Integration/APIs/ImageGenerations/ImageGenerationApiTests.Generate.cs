@@ -14,9 +14,9 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.ImageGenerations
         public async Task ShouldGenerateImageAsync()
         {
             // given
-            var inputImageGeneration = new ImageGeneration()
+            var inputImageGeneration = new ImageGeneration
             {
-                Request = new ImageGenerationRequest()
+                Request = new ImageGenerationRequest
                 {
                     Prompt = "A cute baby sea otter"
                 }
