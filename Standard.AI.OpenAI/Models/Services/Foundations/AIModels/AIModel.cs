@@ -14,5 +14,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels
         public string OwnedBy { get; set; }
         public AIModelPermission[] Permissions { get; set; }
         public string OriginModel { get; set; }
+        public string Parent { get; set; }
     }
 }
