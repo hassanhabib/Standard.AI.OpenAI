@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -19,7 +20,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         public async Task ShouldGenerateImageAsync()
         {
             // given
-            dynamic randomImageGenerationProperties = CreateRandomImageGenerationProperties();
+            DateTimeOffset randomDateTime = GetRandomDate();
+            int randomDateNumber = GetRandomDateNumber();
+
+            dynamic randomImageGenerationProperties = CreateRandomImageGenerationProperties(
+                createdDate: randomDateTime,
+                createdNumber: randomDateNumber);
 
             var randomImageGenerationRequest = new ImageGenerationRequest
             {
@@ -32,7 +38,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var randomImageGenerationResponse = new ImageGenerationResponse
             {
-                Created = randomImageGenerationProperties.Created,
+                Created = randomImageGenerationProperties.CreatedDate,
 
                 Results = ((dynamic[])randomImageGenerationProperties.Results).Select(result =>
                 {
@@ -82,6 +88,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             ExternalImageGenerationResponse returnedExternalImageGenerationResponse =
                 randomExternalImageGenerationResponse;
 
+            this.dateTimeBrokerMock.Setup(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber))
+                    .Returns(randomDateTime);
+
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(It.Is(
                     SameExternalImageGenerationRequestAs(mappedExternalImageGenerationRequest))))
@@ -99,7 +109,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                     SameExternalImageGenerationRequestAs(mappedExternalImageGenerationRequest))),
                         Times.Once);
 
+            this.dateTimeBrokerMock.Verify(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber),
+                    Times.Once);
+
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
