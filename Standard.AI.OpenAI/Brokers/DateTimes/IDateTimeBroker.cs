@@ -8,6 +8,6 @@ namespace Standard.AI.OpenAI.Brokers.DateTimes
 {
     public interface IDateTimeBroker
     {
-        DateTimeOffset ConvertToDateTimeOffSet(uint totalSeconds);
+        DateTimeOffset ConvertToDateTimeOffSet(int totalSeconds);
     }
 }

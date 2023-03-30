@@ -2,8 +2,10 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
@@ -13,9 +15,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
     internal partial class ImageGenerationService : IImageGenerationService
     {
         private readonly IOpenAIBroker openAIBroker;
+        private readonly IDateTimeBroker dateTimeBroker;
 
-        public ImageGenerationService(IOpenAIBroker openAIBroker) =>
+        public ImageGenerationService(IOpenAIBroker openAIBroker, IDateTimeBroker dateTimeBroker)
+        {
             this.openAIBroker = openAIBroker;
+            this.dateTimeBroker = dateTimeBroker;
+        }
 
         public ValueTask<ImageGeneration> GenerateImageAsync(ImageGeneration imageGeneration) =>
         TryCatch(async () =>
@@ -52,13 +58,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             };
         }
 
-        private static ImageGeneration ConvertToImageGeneration(
+        private ImageGeneration ConvertToImageGeneration(
             ImageGeneration imageGeneration,
             ExternalImageGenerationResponse externalImageGenerationResponse)
         {
+            DateTimeOffset createdDateTime = this.dateTimeBroker.ConvertToDateTimeOffSet(externalImageGenerationResponse.Created);
+
             imageGeneration.Response = new ImageGenerationResponse
             {
-                Created = externalImageGenerationResponse.Created,
+                Created = createdDateTime,
 
                 Results = externalImageGenerationResponse.Results.Select(result =>
                 {
