@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
 
         public CompletionsApiTests()
         {
-            var openAIConfigurations = new ApiConfigurations
+            var openAIConfigurations = new OpenAIConfigurations
             {
                 ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
                 OrganizationId = Environment.GetEnvironmentVariable("OrgId"),

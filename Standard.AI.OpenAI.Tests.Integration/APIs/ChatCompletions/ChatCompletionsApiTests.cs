@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.ChatCompletions
 
         public ChatCompletionsApiTests()
         {
-            var openAIConfigurations = new ApiConfigurations
+            var openAIConfigurations = new OpenAIConfigurations
             {
                 ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
                 OrganizationId = Environment.GetEnvironmentVariable("OrgId"),

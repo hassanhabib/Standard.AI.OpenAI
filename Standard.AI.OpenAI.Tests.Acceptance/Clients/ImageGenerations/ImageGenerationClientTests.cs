@@ -26,14 +26,14 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
             this.apiKey = CreateRandomString();
             this.organizationId = CreateRandomString();
 
-            var openAiConfiguration = new ApiConfigurations
+            var openAIConfiguration = new OpenAIConfigurations
             {
                 ApiUrl = this.wireMockServer.Url,
                 ApiKey = this.apiKey,
                 OrganizationId = this.organizationId
             };
 
-            this.openAIClient = new OpenAIClient(openAiConfiguration);
+            this.openAIClient = new OpenAIClient(openAIConfiguration);
         }
 
         private static ImageGeneration ConvertToImageGeneration(
