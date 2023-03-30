@@ -45,7 +45,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         Name = idName,
                         Object = objectType,
                         Type = objectType,
-                        Created = GetRandomNumber(),
+                        Created = GetRandomDateNumber(),
                         CreatedDate = GetRandomDate(),
                         OwnedBy = CreateRandomString(),
                         Root = rootOriginModel,
@@ -73,7 +73,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 Id = CreateRandomString(),
                 Object = objectType,
                 Type = objectType,
-                Created = GetRandomNumber(),
+                Created = GetRandomDateNumber(),
                 CreatedDate = GetRandomDate(),
                 AllowCreateEngine = GetRandomBoolean(),
                 AllowSampling = GetRandomBoolean(),
@@ -92,6 +92,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
         private static string CreateRandomString() =>
             new MnemonicString().GetValue();
+
+        private static int GetRandomDateNumber() =>
+            new IntRange(min: int.MinValue, max: int.MaxValue).GetValue();
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
