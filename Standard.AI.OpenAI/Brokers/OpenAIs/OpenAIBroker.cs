@@ -13,13 +13,13 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker : IOpenAIBroker
     {
-        private readonly ApiConfigurations apiConfigurations;
+        private readonly OpenAIConfigurations openAIConfigurations;
         private readonly IRESTFulApiFactoryClient apiClient;
         private readonly HttpClient httpClient;
 
-        public OpenAIBroker(ApiConfigurations apiConfigurations)
+        public OpenAIBroker(OpenAIConfigurations openAIConfigurations)
         {
-            this.apiConfigurations = apiConfigurations;
+            this.openAIConfigurations = openAIConfigurations;
             this.httpClient = SetupHttpClient();
             this.apiClient = SetupApiClient();
         }
@@ -50,17 +50,17 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
             var httpClient = new HttpClient()
             {
                 BaseAddress =
-                    new Uri(uriString: this.apiConfigurations.ApiUrl),
+                    new Uri(uriString: this.openAIConfigurations.ApiUrl),
             };
 
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                     scheme: "Bearer",
-                    parameter: this.apiConfigurations.ApiKey);
+                    parameter: this.openAIConfigurations.ApiKey);
 
             httpClient.DefaultRequestHeaders.Add(
                 name: "OpenAI-Organization",
-                value: this.apiConfigurations.OrganizationId);
+                value: this.openAIConfigurations.OrganizationId);
 
             return httpClient;
         }

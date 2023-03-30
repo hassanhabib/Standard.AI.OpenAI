@@ -18,9 +18,9 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
 {
     public class OpenAIClient : IOpenAIClient
     {
-        public OpenAIClient(ApiConfigurations apiConfigurations)
+        public OpenAIClient(OpenAIConfigurations openAIConfigurations)
         {
-            IServiceProvider serviceProvider = RegisterServices(apiConfigurations);
+            IServiceProvider serviceProvider = RegisterServices(openAIConfigurations);
             InitializeClients(serviceProvider);
         }
 
@@ -35,7 +35,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             ImageGenerations = serviceProvider.GetRequiredService<IImageGenerationsClient>();
         }
 
-        private static IServiceProvider RegisterServices(ApiConfigurations apiConfigurations)
+        private static IServiceProvider RegisterServices(OpenAIConfigurations openAIConfigurations)
         {
             var serviceCollection = new ServiceCollection()
                 .AddTransient<IOpenAIBroker, OpenAIBroker>()
@@ -46,7 +46,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<ICompletionsClient, CompletionsClient>()
                 .AddTransient<IChatCompletionsClient, ChatCompletionsClient>()
                 .AddTransient<IImageGenerationsClient, ImageGenerationsClient>()
-                .AddSingleton(apiConfigurations);
+                .AddSingleton(openAIConfigurations);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
