@@ -38,7 +38,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     string idName = CreateRandomString();
                     string objectType = CreateRandomString();
                     string rootOriginModel = CreateRandomString();
-                    
+
                     return new
                     {
                         Id = idName,
@@ -94,7 +94,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             new MnemonicString().GetValue();
 
         private static int GetRandomDateNumber() =>
-            new IntRange(min: int.MinValue, max: int.MaxValue).GetValue();
+            Guid.NewGuid().GetHashCode();
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
