@@ -12,6 +12,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static void ValidateAudioTranscriptionOnSend(AudioTranscription audioTranscription)
         {
             ValidateAudioTranscriptionIsNotNull(audioTranscription);
+
+            Validate(
+                (Rule: IsInvalid(audioTranscription.Request),
+                Parameter: nameof(AudioTranscription.Request)));
         }
 
         private static void ValidateAudioTranscriptionIsNotNull(AudioTranscription audioTranscription)
@@ -20,6 +24,29 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             {
                 throw new NullAudioTranscriptionException();
             }
+        }
+
+        private static dynamic IsInvalid(object @object) => new
+        {
+            Condition = @object is null,
+            Message = "Value is required"
+        };
+
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
+        {
+            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
+
+            foreach ((dynamic rule, string parameter) in validations)
+            {
+                if (rule.Condition)
+                {
+                    invalidAudioTranscriptionException.UpsertDataList(
+                        key: parameter,
+                        value: rule.Message);
+                }
+            }
+
+            invalidAudioTranscriptionException.ThrowIfContainsErrors();
         }
     }
 }
