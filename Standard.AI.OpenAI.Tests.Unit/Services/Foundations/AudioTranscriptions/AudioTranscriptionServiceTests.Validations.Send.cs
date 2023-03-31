@@ -4,7 +4,6 @@
 
 using System.Threading.Tasks;
 using FluentAssertions;
-using Force.DeepCloner;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
@@ -109,6 +108,50 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscriptionRequest.Model),
                 values: "Value is required");
+
+            AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
+                new(invalidAudioTranscriptionException);
+
+            // when
+            ValueTask<AudioTranscription> sendAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(audioTranscription);
+
+            AudioTranscriptionValidationException actualAudioTranscriptionValidationException =
+                await Assert.ThrowsAsync<AudioTranscriptionValidationException>(
+                    sendAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionValidationException.Should()
+                .BeEquivalentTo(exceptedAudioTranscriptionValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestFilePathIsNotFoundAsync()
+        {
+            // given
+            const string notFoundFilePath = "notFoundFile.txt";
+
+            AudioTranscription audioTranscription = new()
+            {
+                Request = new AudioTranscriptionRequest
+                {
+                    FilePath = notFoundFilePath,
+                    Model = AudioTranscriptionModel.Create(CreateRandomString())
+                }
+            };
+
+            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new();
+
+            invalidAudioTranscriptionException.AddData(
+                key: nameof(AudioTranscriptionRequest.FilePath),
+                values: "File not found");
 
             AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
                 new(invalidAudioTranscriptionException);
