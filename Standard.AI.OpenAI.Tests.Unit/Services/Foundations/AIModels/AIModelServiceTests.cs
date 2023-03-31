@@ -7,10 +7,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Services.Foundations.AIModels;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 {
@@ -28,6 +30,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             this.aiModelService = new AIModelService(
                 openAIBroker: this.openAIBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
+        }
+
+        public static TheoryData UnauthorizationExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
 
         private static List<dynamic> CreateRandomAIModelsPropertiesList()

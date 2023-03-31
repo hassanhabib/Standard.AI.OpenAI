@@ -9,6 +9,7 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
@@ -44,6 +45,41 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllAIModelsAsync(),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [MemberData(nameof(UnauthorizationExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
+            HttpResponseException unauthorizationException)
+        {
+            var unauthorizedAIModelException =
+                new UnauthorizedAIModelException(unauthorizationException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(unauthorizedAIModelException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllAIModelsAsync())
+                        .ThrowsAsync(unauthorizationException);
+
+            // when
+            ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
+               this.aiModelService.RetrieveAllAIModelsAsync();
+
+            UnauthorizedAIModelException
+                actualUnauthorizedAIModelDependencyException =
+                    await Assert.ThrowsAsync<UnauthorizedAIModelException>(
+                        getAllAIModelsTask.AsTask);
+
+            // then
+            actualUnauthorizedAIModelDependencyException.Should().BeEquivalentTo(
                 expectedAIModelDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
