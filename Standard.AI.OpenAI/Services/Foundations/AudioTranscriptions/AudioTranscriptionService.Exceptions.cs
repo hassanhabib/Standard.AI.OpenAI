@@ -23,6 +23,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             {
                 throw new AudioTranscriptionValidationException(nullAudioTranscriptionException);
             }
+            catch (InvalidAudioTranscriptionException invalidAudioTranscriptionException)
+            {
+                throw new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+            }
         }
     }
 }
