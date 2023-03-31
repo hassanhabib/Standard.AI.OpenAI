@@ -25,5 +25,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIModels
 
         [JsonProperty(propertyName: "root")]
         public string Root { get; set; }
+
+        [JsonProperty(propertyName: "parent")]
+        public string Parent { get; set; }
     }
 }
