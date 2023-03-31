@@ -73,13 +73,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
                this.aiModelService.RetrieveAllAIModelsAsync();
 
-            UnauthorizedAIModelException
-                actualUnauthorizedAIModelDependencyException =
+            UnauthorizedAIModelException actualAIModelDependencyException =
                     await Assert.ThrowsAsync<UnauthorizedAIModelException>(
                         getAllAIModelsTask.AsTask);
 
             // then
-            actualUnauthorizedAIModelDependencyException.Should().BeEquivalentTo(
+            actualAIModelDependencyException.Should().BeEquivalentTo(
                 expectedAIModelDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
