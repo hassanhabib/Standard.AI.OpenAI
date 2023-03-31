@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
@@ -12,7 +13,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
     internal partial class AIModelService
     {
-
         private delegate ValueTask<IEnumerable<AIModel>> ReturningAIModelsFunction();
 
         private async ValueTask<IEnumerable<AIModel>> TryCatch(ReturningAIModelsFunction returningAIModelsFunction)
@@ -23,7 +23,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
-                var invalidConfigurationAIModelException = 
+                var invalidConfigurationAIModelException =
                     new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
                 throw new AIModelDependencyException(invalidConfigurationAIModelException);
@@ -49,12 +49,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyValidationException(excessiveCallAIModelException);
             }
-            catch(HttpResponseException httpResponseException)
+            catch (HttpResponseException httpResponseException)
             {
-                var failedServerAIModelException = 
+                var failedServerAIModelException =
                     new FailedServerAIModelException(httpResponseException);
 
                 throw new AIModelDependencyException(failedServerAIModelException);
+            }
+            catch (Exception exception)
+            {
+                var failedAIModelServiceException =
+                    new FailedAIModelServiceException(exception);
+
+                throw new AIModelServiceException(
+                    failedAIModelServiceException);
             }
         }
     }

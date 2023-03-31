@@ -10,9 +10,6 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
@@ -59,7 +56,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Theory]
-        [MemberData(nameof(UnauthorizationExceptions))]
+        [MemberData(nameof(UnauthorizedExceptions))]
         public async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
             HttpResponseException unuthorizedException)
         {
@@ -107,7 +104,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             var expectedAIModelDependencyValidationException =
                 new AIModelDependencyValidationException(
                     excessiveCallAIModelException);
-            
+
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
                     .ThrowsAsync(httpResponseTooManyRequestsException);
@@ -170,7 +167,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAllModelsIfServiceErrorOccuredAsync()
+        public async Task ShouldThrowServiceExceptionOnRetrieveAllModelsIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();

@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
-        public static TheoryData UnauthorizationExceptions()
+        public static TheoryData UnauthorizedExceptions()
         {
             return new TheoryData<HttpResponseException>
             {
