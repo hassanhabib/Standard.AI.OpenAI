@@ -45,5 +45,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsNullAsync()
+        {
+            // given
+            AudioTranscription audioTranscription = new()
+            {
+                Request = null
+            };
+
+            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new();
+
+            invalidAudioTranscriptionException.AddData(
+                key: nameof(AudioTranscription.Request),
+                values: "Value is required");
+
+            AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
+                new(invalidAudioTranscriptionException);
+
+            // when
+            ValueTask<AudioTranscription> sendAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(audioTranscription);
+
+            AudioTranscriptionValidationException actualAudioTranscriptionValidationException =
+                await Assert.ThrowsAsync<AudioTranscriptionValidationException>(
+                    sendAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionValidationException.Should()
+                .BeEquivalentTo(exceptedAudioTranscriptionValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
