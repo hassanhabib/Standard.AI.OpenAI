@@ -77,7 +77,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             new Filler<string[]>().Create();
 
         private static bool GetRandomBoolean() =>
-            new SequenceGeneratorBoolean().GetValue();
+            Randomizer<bool>.Create();
 
         private static Dictionary<string, int> CreateRandomDictionary() =>
             new Filler<Dictionary<string, int>>().Create();
