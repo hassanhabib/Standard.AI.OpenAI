@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         {
             return new
             {
-                FilePath = CreateRandomString(),
+                FilePath = $"{CreateRandomString()}.txt",
                 Model = AudioTranscriptionModel.Create(CreateRandomString()),
                 ResponseFormat = CreateRandomString(),
                 Prompt = CreateRandomString(),

@@ -19,6 +19,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             // given
             dynamic audioTranscriptionProperties = CreateRandomAudioTranscriptionProperties();
 
+            using AutoRemovableFile _ = new(audioTranscriptionProperties.FilePath);
+
             AudioTranscriptionRequest randomAudioTranscriptionRequest = new()
             {
                 FilePath = audioTranscriptionProperties.FilePath,
