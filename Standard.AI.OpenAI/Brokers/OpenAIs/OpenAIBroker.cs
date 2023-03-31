@@ -30,6 +30,21 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
         private async ValueTask<T> PostAsync<T>(string relativeUrl, T content) =>
             await this.apiClient.PostContentAsync(relativeUrl, content);
 
+        private async ValueTask<TResult> PostAsync<TResult>(string relativeUrl, HttpContent content)
+        {
+            // TODO: We make us of the httpClient directly since atm RESTFulSense does not have an overload
+            //       which accept HttpContent.
+            //       Tracked by: <https://github.com/hassanhabib/RESTFulSense/issues/71>
+
+            HttpResponseMessage responseMessage = await httpClient.PostAsync(relativeUrl, content);
+            await RESTFulSense.Services.ValidationService.ValidateHttpResponseAsync(responseMessage);
+
+            return await DeserializeResponseContentAsync<TResult>(responseMessage);
+
+            static async ValueTask<T> DeserializeResponseContentAsync<T>(HttpResponseMessage responseMessage) =>
+                Newtonsoft.Json.JsonConvert.DeserializeObject<T>(await responseMessage.Content.ReadAsStringAsync());
+        }
+
         private async ValueTask<TResult> PostAsync<TRequest, TResult>(string relativeUrl, TRequest content)
         {
             return await this.apiClient.PostContentAsync<TRequest, TResult>(
