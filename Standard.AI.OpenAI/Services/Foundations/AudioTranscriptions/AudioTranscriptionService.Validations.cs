@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System;
+using System.IO;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 
@@ -24,6 +25,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 (Rule: IsInvalid(audioTranscription.Request.Model),
                 Parameter: nameof(AudioTranscriptionRequest.Model)));
+
+            Validate(
+                (Rule: FileNotFound(audioTranscription.Request.FilePath),
+                Parameter: nameof(AudioTranscriptionRequest.FilePath)));
         }
 
         private static void ValidateAudioTranscriptionIsNotNull(AudioTranscription audioTranscription)
@@ -46,9 +51,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             Message = "Value is required"
         };
 
+        private static dynamic FileNotFound(string filePath) => new
+        {
+            Condition = !File.Exists(filePath),
+            Message = "File not found"
+        };
+
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
+            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new();
 
             foreach ((dynamic rule, string parameter) in validations)
             {
