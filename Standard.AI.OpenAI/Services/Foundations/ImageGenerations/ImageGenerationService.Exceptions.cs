@@ -1,6 +1,6 @@
-﻿// --------------------------------------------------------------- 
-// Copyright (c) Coalition of the Good-Hearted Engineers 
-// ---------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------------- 
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+// ----------------------------------------------------------------------------------
 
 using System;
 using System.Threading.Tasks;
