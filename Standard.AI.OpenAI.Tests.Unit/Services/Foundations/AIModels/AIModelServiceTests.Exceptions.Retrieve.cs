@@ -137,13 +137,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             var httpResponseException =
                 new HttpResponseException();
 
-            var excessiveCallAIModelException =
+            var failedServerAIModelException =
                 new FailedServerAIModelException(
                     httpResponseException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(
-                    excessiveCallAIModelException);
+                    failedServerAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
