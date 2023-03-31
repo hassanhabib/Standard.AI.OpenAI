@@ -28,6 +28,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyException(invalidConfigurationAIModelException);
             }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedAIModelException =
+                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+
+                throw new AIModelDependencyException(unauthorizedAIModelException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedAIModelException =
+                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+
+                throw new AIModelDependencyException(unauthorizedAIModelException);
+            }
         }
     }
 }

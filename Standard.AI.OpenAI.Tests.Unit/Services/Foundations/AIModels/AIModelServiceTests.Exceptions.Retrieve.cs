@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
-                        .ThrowsAsync(httpResponseUrlNotFoundException);
+                    .ThrowsAsync(httpResponseUrlNotFoundException);
 
             // when
             ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
@@ -49,7 +49,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllAIModelsAsync(),
-                        Times.Once);
+                    Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
@@ -67,15 +67,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
-                        .ThrowsAsync(unauthorizationException);
+                    .ThrowsAsync(unauthorizationException);
 
             // when
             ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
                this.aiModelService.RetrieveAllAIModelsAsync();
 
-            UnauthorizedAIModelException actualAIModelDependencyException =
-                    await Assert.ThrowsAsync<UnauthorizedAIModelException>(
-                        getAllAIModelsTask.AsTask);
+            AIModelDependencyException actualAIModelDependencyException =
+                await Assert.ThrowsAsync<AIModelDependencyException>(
+                    getAllAIModelsTask.AsTask);
 
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
@@ -83,7 +83,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllAIModelsAsync(),
-                        Times.Once);
+                    Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }

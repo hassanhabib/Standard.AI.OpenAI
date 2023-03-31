@@ -10,7 +10,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
     {
         public AIModelDependencyException(Xeption innerException)
             : base(message: "AI Model dependency error occurred, contact support.",
-          innerException)
+                innerException)
         { }
     }
 }
