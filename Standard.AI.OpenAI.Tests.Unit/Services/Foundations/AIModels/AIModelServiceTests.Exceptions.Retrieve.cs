@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -160,6 +161,41 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
                 expectedAIModelDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllAIModelsAsync(),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveAllModelsIfServiceErrorOccuredAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedAIModelServiceException =
+                new FailedAIModelServiceException(serviceException);
+
+            var expectedAIModelServiceException =
+                new AIModelServiceException(failedAIModelServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllAIModelsAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<IEnumerable<AIModel>> retrieveAllAIModelsTask =
+                this.aiModelService.RetrieveAllAIModelsAsync();
+
+            AIModelServiceException actualAIModelServiceException =
+                await Assert.ThrowsAsync<AIModelServiceException>(
+                    retrieveAllAIModelsTask.AsTask);
+
+            // then
+            actualAIModelServiceException.Should().BeEquivalentTo(
+                expectedAIModelServiceException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllAIModelsAsync(),
