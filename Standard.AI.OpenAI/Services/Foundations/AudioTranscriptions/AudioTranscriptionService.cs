@@ -16,8 +16,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         public AudioTranscriptionService(IOpenAIBroker openAIBroker) =>
             this.openAIBroker = openAIBroker;
 
-        public async ValueTask<AudioTranscription> SendAudioTranscriptionAsync(AudioTranscription audioTranscription)
+        public ValueTask<AudioTranscription> SendAudioTranscriptionAsync(AudioTranscription audioTranscription) =>
+        TryCatch(async () =>
         {
+            ValidateAudioTranscriptionOnSend(audioTranscription);
+
             ExternalAudioTranscriptionRequest externalAudioTranscriptionRequest =
                 ConvertToExternalAudioTranscriptionRequest(audioTranscription);
 
@@ -25,7 +28,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 await this.openAIBroker.PostAudioTranscriptionRequestAsync(externalAudioTranscriptionRequest);
 
             return ConvertToAudioTranscription(audioTranscription, externalAudioTranscriptionResponse);
-        }
+        });
 
         private static ExternalAudioTranscriptionRequest ConvertToExternalAudioTranscriptionRequest(
             AudioTranscription audioTranscription)
