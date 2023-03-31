@@ -12,7 +12,7 @@ using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIModels;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
-    internal class AIModelService : IAIModelService
+    internal partial class AIModelService : IAIModelService
     {
         private readonly IOpenAIBroker openAIBroker;
         private readonly IDateTimeBroker dateTimeBroker;
@@ -25,9 +25,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             this.dateTimeBroker = dateTimeBroker;
         }
 
-        public async ValueTask<IEnumerable<AIModel>> RetrieveAllAIModelsAsync()
+        public ValueTask<IEnumerable<AIModel>> RetrieveAllAIModelsAsync() =>
+        TryCatch(async () =>
         {
-            ExternalAIModelsResult externalAIModelsResult = 
+            ExternalAIModelsResult externalAIModelsResult =
                 await this.openAIBroker.GetAllAIModelsAsync();
 
             return externalAIModelsResult.AIModels.Select(externalAIModel =>
@@ -59,6 +60,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                             };
                         }).ToArray()
                 }).ToArray();
-        }
+        });
     }
 }
