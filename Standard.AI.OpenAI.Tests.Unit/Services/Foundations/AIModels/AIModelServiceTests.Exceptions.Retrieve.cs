@@ -21,6 +21,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         [Fact]
         public async Task ShouldThrowDependencyExceptionOnRetrieveIfUrlNotFoundAsync()
         {
+            // given
             var httpResponseUrlNotFoundException =
                 new HttpResponseUrlNotFoundException();
 
@@ -59,17 +60,18 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         [Theory]
         [MemberData(nameof(UnauthorizationExceptions))]
         public async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
-            HttpResponseException unauthorizationException)
+            HttpResponseException unuthorizedException)
         {
+            // given
             var unauthorizedAIModelException =
-                new UnauthorizedAIModelException(unauthorizationException);
+                new UnauthorizedAIModelException(unuthorizedException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(unauthorizedAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
-                    .ThrowsAsync(unauthorizationException);
+                    .ThrowsAsync(unuthorizedException);
 
             // when
             ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
@@ -91,7 +93,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfTooManyRequestsOccurredAsync()
         {
             // given
             var httpResponseTooManyRequestsException =
@@ -120,6 +122,44 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
                 expectedAIModelDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllAIModelsAsync(),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveIfServerErrorOccurredAsync()
+        {
+            // given
+            var httpResponseException =
+                new HttpResponseException();
+
+            var excessiveCallAIModelException =
+                new FailedServerAIModelException(
+                    httpResponseException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(
+                    excessiveCallAIModelException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllAIModelsAsync())
+                    .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<IEnumerable<AIModel>> retrieveAllAIModelsTask =
+                this.aiModelService.RetrieveAllAIModelsAsync();
+
+            AIModelDependencyException actualAIModelDependencyException =
+                await Assert.ThrowsAsync<AIModelDependencyException>(
+                    retrieveAllAIModelsTask.AsTask);
+
+            // then
+            actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllAIModelsAsync(),
