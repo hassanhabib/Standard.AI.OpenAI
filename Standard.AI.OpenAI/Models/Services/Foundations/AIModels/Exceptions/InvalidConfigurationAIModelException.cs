@@ -1,0 +1,16 @@
+﻿// --------------------------------------------------------------- 
+// Copyright (c) Coalition of the Good-Hearted Engineers 
+// ---------------------------------------------------------------
+
+using System;
+using Xeptions;
+
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
+{
+    internal class InvalidConfigurationAIModelException : Xeption
+    {
+        public InvalidConfigurationAIModelException(Exception innerException)
+            : base(message: "Invalid AI Model configuration error occurred, contact support.", innerException)
+        { }
+    }
+}
