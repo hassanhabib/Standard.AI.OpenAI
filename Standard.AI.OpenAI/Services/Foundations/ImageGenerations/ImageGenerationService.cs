@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
@@ -62,11 +61,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             ImageGeneration imageGeneration,
             ExternalImageGenerationResponse externalImageGenerationResponse)
         {
-            DateTimeOffset createdDateTime = this.dateTimeBroker.ConvertToDateTimeOffSet(externalImageGenerationResponse.Created);
-
             imageGeneration.Response = new ImageGenerationResponse
             {
-                Created = createdDateTime,
+                Created = this.dateTimeBroker.ConvertToDateTimeOffSet(externalImageGenerationResponse.Created),
 
                 Results = externalImageGenerationResponse.Results.Select(result =>
                 {
