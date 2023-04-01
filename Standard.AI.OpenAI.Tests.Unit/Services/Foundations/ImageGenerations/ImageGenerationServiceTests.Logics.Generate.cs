@@ -25,7 +25,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             dynamic randomImageGenerationProperties = CreateRandomImageGenerationProperties(
                 createdDate: randomDateTime,
-                createdNumber: randomDateNumber);
+                createdDateNumber: randomDateNumber);
 
             var randomImageGenerationRequest = new ImageGenerationRequest
             {

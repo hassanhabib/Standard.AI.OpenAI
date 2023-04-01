@@ -38,7 +38,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
         private static dynamic CreateRandomImageGenerationProperties(
             DateTimeOffset createdDate,
-            int createdNumber)
+            int createdDateNumber)
         {
             return new
             {
@@ -47,7 +47,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 ImageSize = GetRandomString(),
                 ResponseFormat = GetRandomString(),
                 User = GetRandomString(),
-                Created = createdNumber,
+                Created = createdDateNumber,
                 CreatedDate = createdDate,
                 Results = GetRandomImageGenerationResults(),
             };
