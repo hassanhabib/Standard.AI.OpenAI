@@ -61,7 +61,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Theory]
-        [MemberData(nameof(UnAuthorizationExceptions))]
+        [MemberData(nameof(UnauthorizedExceptions))]
         public async Task ShouldThrowDependencyExceptionOnSendIfUnAuthorizedAsync(
             HttpResponseException unAuthorizationException)
         {

@@ -58,18 +58,18 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
         public async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
-            HttpResponseException unuthorizedException)
+            HttpResponseException unauthorizedException)
         {
             // given
             var unauthorizedAIModelException =
-                new UnauthorizedAIModelException(unuthorizedException);
+                new UnauthorizedAIModelException(unauthorizedException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(unauthorizedAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
-                    .ThrowsAsync(unuthorizedException);
+                    .ThrowsAsync(unauthorizedException);
 
             // when
             ValueTask<IEnumerable<AIModel>> getAllAIModelsTask =
