@@ -37,13 +37,14 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
 
             this.wireMockServer.Given(
                 Request.Create()
-                .WithPath("/v1/images/generations")
-                .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                .WithHeader("OpenAI-Organization", $"{this.organizationId}")
-                .WithHeader("Content-Type", "application/json; charset=utf-8")
-                .WithBody(JsonConvert.SerializeObject(
-                    imageGenerationRequest,
-                    jsonSerializationSettings)))
+                .UsingPost()
+                    .WithPath("/v1/images/generations")
+                    .WithHeader("Authorization", $"Bearer {this.apiKey}")
+                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                    .WithHeader("Content-Type", "application/json; charset=utf-8")
+                    .WithBody(JsonConvert.SerializeObject(
+                        imageGenerationRequest,
+                        jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
                     .WithBodyAsJson(imageGenerationResponse));
