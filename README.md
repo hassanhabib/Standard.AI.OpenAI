@@ -54,7 +54,7 @@ namespace ExampleOpenAIDotNet
     {
         static async Task Main(string[] args)
         {
-            var openAIApiConfigurations = new ApiConfigurations
+            var openAIApiConfigurations = new OpenAIConfigurations
             {
                 ApiKey = "YOUR_API_KEY_HERE",
                 OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
