@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -89,7 +88,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         }).ToArray()
                 };
             }).ToArray();
-            
+
             IEnumerable<AIModel> expectedAIModels = randomAIModels;
 
             aiModelRandomPropertiesList.ForEach(item =>
@@ -103,7 +102,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 ((dynamic[])item.Permissions).ToList().ForEach(permission =>
                 {
                     int permissionCreated = permission.Created;
-                    
+
                     this.dateTimeBrokerMock.Setup(broker =>
                         broker.ConvertToDateTimeOffSet(permissionCreated))
                             .Returns(permission.CreatedDate);

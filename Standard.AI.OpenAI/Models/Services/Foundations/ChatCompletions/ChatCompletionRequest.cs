@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ---------------------------------------------------------------------------------- 
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+// ----------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions
