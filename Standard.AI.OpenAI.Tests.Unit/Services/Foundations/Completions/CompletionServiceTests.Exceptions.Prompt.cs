@@ -59,16 +59,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Theory]
-        [MemberData(nameof(UnAuthorizationExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnPromptIfUnAuthorizedAsync(
-            HttpResponseException unAuthorizationException)
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnPromptIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
 
             var unauthorizedCompletionException =
                 new UnauthorizedCompletionException(
-                    unAuthorizationException);
+                    unauthorizedException);
 
             var expectedCompletionDependencyException =
                 new CompletionDependencyException(
@@ -77,7 +77,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
                     It.IsAny<ExternalCompletionRequest>()))
-                        .ThrowsAsync(unAuthorizationException);
+                        .ThrowsAsync(unauthorizedException);
 
             // when
             ValueTask<Completion> promptCompletionTask =

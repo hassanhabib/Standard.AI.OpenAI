@@ -98,7 +98,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             return filler;
         }
 
-        public static TheoryData UnAuthorizationExceptions()
+        public static TheoryData UnauthorizedExceptions()
         {
             return new TheoryData<HttpResponseException>
             {

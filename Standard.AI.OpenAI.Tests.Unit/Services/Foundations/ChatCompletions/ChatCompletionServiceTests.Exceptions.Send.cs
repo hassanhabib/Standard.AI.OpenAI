@@ -61,16 +61,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Theory]
-        [MemberData(nameof(UnAuthorizationExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnSendIfUnAuthorizedAsync(
-            HttpResponseException unAuthorizationException)
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnSendIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
         {
             // given
             ChatCompletion someChatCompletion =
                 CreateRandomChatCompletion();
 
             var unauthorizedChatCompletionException =
-                new UnauthorizedChatCompletionException(unAuthorizationException);
+                new UnauthorizedChatCompletionException(unauthorizedException);
 
             var expectedChatCompletionDependencyException =
                 new ChatCompletionDependencyException(unauthorizedChatCompletionException);
@@ -78,7 +78,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
                     It.IsAny<ExternalChatCompletionRequest>()))
-                        .ThrowsAsync(unAuthorizationException);
+                        .ThrowsAsync(unauthorizedException);
 
             // when
             ValueTask<ChatCompletion> sendChatCompletionTask =
