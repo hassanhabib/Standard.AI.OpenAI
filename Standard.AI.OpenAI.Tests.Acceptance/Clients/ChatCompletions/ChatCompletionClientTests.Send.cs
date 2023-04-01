@@ -40,13 +40,14 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
             this.wireMockServer.Given(
                 Request.Create()
-                .WithPath("/v1/chat/completions")
-                .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                .WithHeader("OpenAI-Organization", $"{this.organizationId}")
-                .WithHeader("Content-Type", "application/json; charset=utf-8")
-                .WithBody(JsonConvert.SerializeObject(
-                    chatCompletionRequest,
-                    jsonSerializationSettings)))
+                .UsingPost()
+                    .WithPath("/v1/chat/completions")
+                    .WithHeader("Authorization", $"Bearer {this.apiKey}")
+                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                    .WithHeader("Content-Type", "application/json; charset=utf-8")
+                    .WithBody(JsonConvert.SerializeObject(
+                        chatCompletionRequest,
+                        jsonSerializationSettings)))
                 .RespondWith(
                     Response.Create()
                     .WithBodyAsJson(chatCompletionResponse));
