@@ -8,7 +8,7 @@ using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 
 namespace Standard.AI.OpenAI.Clients.AIModels
 {
-    internal interface IAIModelsClient
+    public interface IAIModelsClient
     {
         ValueTask<IEnumerable<AIModel>> RetrieveAIModelsAsync();
     }

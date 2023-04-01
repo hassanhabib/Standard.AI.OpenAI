@@ -12,7 +12,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Clients.AIModels
 {
-    internal class AIModelsClient : IAIModelsClient
+    public class AIModelsClient : IAIModelsClient
     {
         private readonly IAIModelService aIModelService;
 
