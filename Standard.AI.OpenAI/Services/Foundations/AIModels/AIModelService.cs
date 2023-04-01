@@ -18,7 +18,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         private readonly IDateTimeBroker dateTimeBroker;
 
         public AIModelService(
-            IOpenAIBroker openAIBroker, 
+            IOpenAIBroker openAIBroker,
             IDateTimeBroker dateTimeBroker)
         {
             this.openAIBroker = openAIBroker;
