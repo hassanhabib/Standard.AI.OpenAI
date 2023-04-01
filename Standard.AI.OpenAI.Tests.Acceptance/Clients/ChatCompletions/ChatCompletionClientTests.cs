@@ -135,6 +135,5 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
         }
 
         public void Dispose() => this.wireMockServer.Stop();
-
     }
 }
