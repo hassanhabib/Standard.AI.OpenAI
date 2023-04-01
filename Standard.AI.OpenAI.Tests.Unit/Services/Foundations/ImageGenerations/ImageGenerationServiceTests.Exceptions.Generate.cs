@@ -61,7 +61,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnAuthorizedAsync(
+        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
