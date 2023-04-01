@@ -18,7 +18,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalEdits
         public string Instruction { get; set; }
 
         [JsonProperty("n")]
-        public int EditsPerInstruction { get; set; }
+        public int NumberOfEdits { get; set; }
 
         [JsonProperty("temperature")]
         public decimal Temperature { get; set; }

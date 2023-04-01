@@ -10,6 +10,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     internal partial interface IOpenAIBroker
     {
         ValueTask<ExternalEditResponse> PostEditRequestAsync(
-         ExternalEditRequest externalEditRequest);
+            ExternalEditRequest externalEditRequest);
     }
 }
