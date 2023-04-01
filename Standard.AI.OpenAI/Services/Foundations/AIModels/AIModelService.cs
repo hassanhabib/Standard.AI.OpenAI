@@ -14,8 +14,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
     internal partial class AIModelService : IAIModelService
     {
-        private readonly IOpenAIBroker openAIBroker;
         private readonly IDateTimeBroker dateTimeBroker;
+        private readonly IOpenAIBroker openAIBroker;
 
         public AIModelService(
             IOpenAIBroker openAIBroker,
@@ -31,35 +31,39 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             ExternalAIModelsResult externalAIModelsResult =
                 await this.openAIBroker.GetAllAIModelsAsync();
 
-            return externalAIModelsResult.AIModels.Select(externalAIModel =>
-                new AIModel
-                {
-                    Name = externalAIModel.Id,
-                    CreatedDate = this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIModel.Created),
-                    Type = externalAIModel.Object,
-                    OwnedBy = externalAIModel.OwnedBy,
-                    Parent = externalAIModel.Parent,
-                    OriginModel = externalAIModel.Root,
-
-                    Permissions = externalAIModel.Permissions.Select(
-                        externalPermission =>
-                        {
-                            return new AIModelPermission
-                            {
-                                Id = externalPermission.Id,
-                                Type = externalPermission.Object,
-                                CreatedDate = this.dateTimeBroker.ConvertToDateTimeOffSet(externalPermission.Created),
-                                AllowCreateEngine = externalPermission.AllowCreateEngine,
-                                AllowSampling = externalPermission.AllowSampling,
-                                AllowLogProbabilities = externalPermission.AllowLogprobs,
-                                AllowSearchIndices = externalPermission.AllowSearchIndices,
-                                AllowView = externalPermission.AllowView,
-                                AllowFineTuning = externalPermission.AllowFineTuning,
-                                Organization = externalPermission.Organization,
-                                IsBlocking = externalPermission.IsBlocking
-                            };
-                        }).ToArray()
-                }).ToArray();
+            return externalAIModelsResult.AIModels.Select(ConvertToAIModel).ToArray();
         });
+
+        private AIModel ConvertToAIModel(ExternalAIModel externalAIModel)
+        {
+            return new AIModel
+            {
+                Name = externalAIModel.Id,
+                CreatedDate = this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIModel.Created),
+                Type = externalAIModel.Object,
+                OwnedBy = externalAIModel.OwnedBy,
+                Parent = externalAIModel.Parent,
+                OriginModel = externalAIModel.Root,
+                Permissions = externalAIModel.Permissions.Select(ConvertToAIModelPermission).ToArray()
+            };
+        }
+
+        private AIModelPermission ConvertToAIModelPermission(ExternalAIModelPermission externalAIModelPermission)
+        {
+            return new AIModelPermission
+            {
+                Id = externalAIModelPermission.Id,
+                Type = externalAIModelPermission.Object,
+                CreatedDate = this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIModelPermission.Created),
+                AllowCreateEngine = externalAIModelPermission.AllowCreateEngine,
+                AllowSampling = externalAIModelPermission.AllowSampling,
+                AllowLogProbabilities = externalAIModelPermission.AllowLogprobs,
+                AllowSearchIndices = externalAIModelPermission.AllowSearchIndices,
+                AllowView = externalAIModelPermission.AllowView,
+                AllowFineTuning = externalAIModelPermission.AllowFineTuning,
+                Organization = externalAIModelPermission.Organization,
+                IsBlocking = externalAIModelPermission.IsBlocking
+            };
+        }
     }
 }
