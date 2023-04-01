@@ -24,6 +24,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalEdits
         public decimal Temperature { get; set; }
 
         [JsonProperty("top_p")]
-        public decimal NucleusSampling { get; set; }
+        public double ProbabilityMass { get; set; }
     }
 }
