@@ -41,20 +41,20 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
             return new ExternalCompletionRequest
             {
                 Model = completion.Request.Model,
-                BestOf = completion.Request.BestOf,
-                CompletionsPerPrompt = completion.Request.CompletionsPerPrompt,
-                Echo = completion.Request.Echo,
-                FrequencyPenalty = completion.Request.FrequencyPenalty,
-                LogitBias = completion.Request.LogitBias,
-                LogProbabilities = completion.Request.LogProbabilities,
-                MaxTokens = completion.Request.MaxTokens,
-                PresencePenalty = completion.Request.PresencePenalty,
-                ProbabilityMass = completion.Request.ProbabilityMass,
                 Prompts = completion.Request.Prompts,
-                Stop = completion.Request.Stop,
-                Stream = completion.Request.Stream,
                 Suffix = completion.Request.Suffix,
+                MaxTokens = completion.Request.MaxTokens,
                 Temperature = completion.Request.Temperature,
+                ProbabilityMass = completion.Request.ProbabilityMass,
+                CompletionsPerPrompt = completion.Request.CompletionsPerPrompt,
+                Stream = completion.Request.Stream,
+                LogProbabilities = completion.Request.LogProbabilities,
+                Echo = completion.Request.Echo,
+                Stop = completion.Request.Stop,
+                PresencePenalty = completion.Request.PresencePenalty,
+                FrequencyPenalty = completion.Request.FrequencyPenalty,
+                BestOf = completion.Request.BestOf,
+                LogitBias = completion.Request.LogitBias,
                 User = completion.Request.User
             };
         }
@@ -65,6 +65,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
         {
             completion.Response = new CompletionResponse
             {
+                Id = externalCompletionResponse.Id,
+                Object = externalCompletionResponse.Object,
+                Created = externalCompletionResponse.Created,
                 Model = externalCompletionResponse.Model,
 
                 Choices = externalCompletionResponse.Choices.Select(externalChoice => new Choice
@@ -75,17 +78,12 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
                     Text = externalChoice.Text
                 }).ToArray(),
 
-                Created = externalCompletionResponse.Created,
-                Id = externalCompletionResponse.Id,
-
                 Usage = new Usage
                 {
                     CompletionTokens = externalCompletionResponse.Usage.CompletionTokens,
                     PromptTokens = externalCompletionResponse.Usage.PromptTokens,
                     TotalTokens = externalCompletionResponse.Usage.TotalTokens
-                },
-
-                Object = externalCompletionResponse.Object
+                }
             };
 
             return completion;

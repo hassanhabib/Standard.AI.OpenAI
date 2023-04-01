@@ -86,7 +86,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
             var filler = new Filler<ImageGeneration>();
 
             filler.Setup()
-                .OnType<DateTimeOffset>().Use(CreateRandomDate());
+                .OnType<DateTimeOffset>().Use(CreateRandomDate);
 
             return filler;
         }
