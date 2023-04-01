@@ -54,13 +54,13 @@ namespace ExampleOpenAIDotNet
     {
         static async Task Main(string[] args)
         {
-            var openAIApiConfigurations = new OpenAIConfigurations
+            var openAIConfigurations = new OpenAIConfigurations
             {
                 ApiKey = "YOUR_API_KEY_HERE",
                 OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
             };
 
-            var openAIClient = new OpenAIClient(openAIApiConfigurations);
+            var openAIClient = new OpenAIClient(openAIConfigurations);
 
             var inputCompletion = new Completion
             {
@@ -110,13 +110,13 @@ namespace ExampleOpenAIDotNet
     {
         static async Task Main(string[] args)
         {
-            var openAIApiConfigurations = new ApiConfigurations
+            var openAIConfigurations = new OpenAIConfigurations
             {
                 ApiKey = "YOUR_API_KEY_HERE",
                 OrganizationId = "YOUR_OPTIONAL_ORG_ID_HERE"
             };
 
-            var openAIClient = new OpenAIClient(openAIApiConfigurations);
+            var openAIClient = new OpenAIClient(openAIConfigurations);
 
             var chatCompletion = new ChatCompletion
             {
