@@ -61,7 +61,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var invalidImageGenerationException =
                     new InvalidImageGenerationException(httpResponseBadRequestException);
 
-                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException); ;
+                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
