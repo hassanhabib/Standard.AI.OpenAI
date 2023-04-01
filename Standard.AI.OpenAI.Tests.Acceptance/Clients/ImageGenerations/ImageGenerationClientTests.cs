@@ -40,11 +40,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
             ImageGeneration imageGeneration,
             ExternalImageGenerationResponse externalImageGenerationResponse)
         {
-            var createdDateTime = DateTimeOffset.FromUnixTimeSeconds(externalImageGenerationResponse.Created);
-
             imageGeneration.Response = new ImageGenerationResponse
             {
-                Created = createdDateTime,
+                Created = DateTimeOffset.FromUnixTimeSeconds(externalImageGenerationResponse.Created),
 
                 Results = externalImageGenerationResponse.Results.Select(result =>
                 {
