@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Threading.Tasks;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 
@@ -26,6 +27,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (InvalidAudioTranscriptionException invalidAudioTranscriptionException)
             {
                 throw new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationAudioTranscriptionException =
+                    new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
+
+                throw new AudioTranscriptionDependencyException(invalidConfigurationAudioTranscriptionException);
             }
         }
     }
