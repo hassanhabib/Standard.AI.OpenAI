@@ -41,7 +41,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
                 ignoreDefaultValues: true);
         }
 
-        private async ValueTask<Stream> PostWithStreamResponseAsync<TRequest>(string relativeUrl, TRequest content, CancellationToken cancellationToken )
+        private async ValueTask<Stream> PostWithStreamResponseAsync<TRequest>(string relativeUrl, TRequest content, CancellationToken cancellationToken)
         {
             return await this.apiClient.PostContentWithStreamResponseAsync(
                 relativeUrl,
