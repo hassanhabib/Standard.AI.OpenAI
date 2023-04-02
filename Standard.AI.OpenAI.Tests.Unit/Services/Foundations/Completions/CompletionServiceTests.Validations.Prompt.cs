@@ -43,6 +43,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         Times.Never);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -81,6 +82,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         Times.Never);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -123,6 +125,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 expectedCompletionValidationException);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -160,6 +163,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 expectedCompletionValidationException);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
