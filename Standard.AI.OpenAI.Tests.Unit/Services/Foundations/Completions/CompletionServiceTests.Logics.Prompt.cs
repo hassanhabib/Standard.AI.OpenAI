@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -19,7 +20,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         public async Task ShouldPromptsCompletionAsync()
         {
             // given
-            dynamic randomCompletionProperties = CreateRandomCompletionProperties();
+            DateTimeOffset randomDate = GetRandomDate();
+            int randomDateNumber = GetRandomNumber();
+
+            dynamic randomCompletionProperties = CreateRandomCompletionProperties(
+                createdDate: randomDate,
+                createdDateNumber: randomDateNumber);
 
             var randomCompletionRequest = new CompletionRequest
             {
@@ -45,7 +51,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             {
                 Id = randomCompletionProperties.Id,
                 Object = randomCompletionProperties.Object,
-                Created = randomCompletionProperties.Created,
+                CreatedDate = randomCompletionProperties.CreatedDate,
                 Model = randomCompletionProperties.ResponseModel,
 
                 Choices = ((dynamic[])randomCompletionProperties.Choices).Select(item =>
@@ -129,6 +135,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                     SameExternalCompletionRequestAs(mappedExternalCompletionRequest))))
                         .ReturnsAsync(returnedExternalCompletionResponse);
 
+            this.dateTimeBrokerMock.Setup(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber))
+                    .Returns(randomDate);
+
             // when
             Completion actualCompletion =
                 await this.completionService.PromptCompletionAsync(inputCompletion);
@@ -141,7 +151,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                     SameExternalCompletionRequestAs(mappedExternalCompletionRequest))),
                         Times.Once);
 
+            this.dateTimeBrokerMock.Verify(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber),
+                    Times.Once);
+
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
