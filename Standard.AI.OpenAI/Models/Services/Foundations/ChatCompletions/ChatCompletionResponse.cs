@@ -2,6 +2,8 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
+
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions
 {
     public class ChatCompletionResponse
@@ -11,6 +13,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions
         public string Object { get; set; }
 
         public int Created { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         public ChatCompletionChoice[] Choices { get; set; }
 
