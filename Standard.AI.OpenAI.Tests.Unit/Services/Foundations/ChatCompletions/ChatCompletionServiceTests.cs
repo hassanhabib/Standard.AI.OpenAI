@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using RESTFulSense.Exceptions;
+using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
@@ -22,19 +23,24 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
     public partial class ChatCompletionServiceTests
     {
         private readonly Mock<IOpenAIBroker> openAIBrokerMock;
+        private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         private readonly ICompareLogic compareLogic;
         private readonly IChatCompletionService chatCompletionService;
 
         public ChatCompletionServiceTests()
         {
             this.openAIBrokerMock = new Mock<IOpenAIBroker>();
+            this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.compareLogic = new CompareLogic();
 
             this.chatCompletionService = new ChatCompletionService(
-                openAIBroker: this.openAIBrokerMock.Object);
+                openAIBroker: this.openAIBrokerMock.Object,
+                dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
-        private static dynamic CreateRandomChatCompletionProperties()
+        private static dynamic CreateRandomChatCompletionProperties(
+            DateTimeOffset createdDate,
+            int createdDateNumber)
         {
             return new
             {
@@ -52,7 +58,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 User = GetRandomString(),
                 Id = GetRandomString(),
                 Object = GetRandomString(),
-                Created = GetRandomNumber(),
+                CreatedDate = createdDate,
+                Created = createdDateNumber,
                 Choices = GetRandomChatCompletionChoices(),
                 Usage = GetRandomChatCompletionUsage()
             };
@@ -66,6 +73,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     actualExternalCompletionRequest)
                         .AreEqual;
         }
+
+        private static DateTimeOffset GetRandomDate() =>
+            new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
         private static string GetRandomString() =>
            new MnemonicString().GetValue();

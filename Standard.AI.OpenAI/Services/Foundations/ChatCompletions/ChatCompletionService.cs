@@ -4,6 +4,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
@@ -13,9 +14,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
     internal partial class ChatCompletionService : IChatCompletionService
     {
         private readonly IOpenAIBroker openAIBroker;
+        private readonly IDateTimeBroker dateTimeBroker;
 
-        public ChatCompletionService(IOpenAIBroker openAIBroker) =>
+        public ChatCompletionService(
+            IOpenAIBroker openAIBroker,
+            IDateTimeBroker dateTimeBroker)
+        {
             this.openAIBroker = openAIBroker;
+            this.dateTimeBroker = dateTimeBroker;
+        }
 
         public ValueTask<ChatCompletion> SendChatCompletionAsync(ChatCompletion chatCompletion) =>
         TryCatch(async () =>
