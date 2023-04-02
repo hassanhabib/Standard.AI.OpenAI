@@ -193,5 +193,50 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnSendIfHttpResponseErrorOccurredAsync()
+        {
+            // given
+            AudioTranscription someAudioTranscription =
+                CreateRandomAudioTranscription();
+
+            using AutoRemovableFile _ = new(someAudioTranscription.Request.FilePath);
+
+            var httpResponseException = new HttpResponseException();
+
+            var failedServerAudioTranscriptionException =
+                new FailedServerAudioTranscriptionException(
+                    httpResponseException);
+
+            var expectedAudioTranscriptionDependencyException =
+                new AudioTranscriptionDependencyException(
+                    failedServerAudioTranscriptionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()))
+                        .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<AudioTranscription> sendAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(someAudioTranscription);
+
+            AudioTranscriptionDependencyException
+                actualAudioTranscriptionDependencyException =
+                    await Assert.ThrowsAsync<AudioTranscriptionDependencyException>(
+                        sendAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionDependencyException.Should().BeEquivalentTo(
+                expectedAudioTranscriptionDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
