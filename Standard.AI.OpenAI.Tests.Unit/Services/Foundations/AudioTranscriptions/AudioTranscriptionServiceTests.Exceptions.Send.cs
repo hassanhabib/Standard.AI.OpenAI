@@ -148,5 +148,50 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
+        {
+            // given
+            AudioTranscription someAudioTranscription =
+                CreateRandomAudioTranscription();
+
+            using AutoRemovableFile _ = new(someAudioTranscription.Request.FilePath);
+
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallAudioTranscriptionException =
+                new ExcessiveCallAudioTranscriptionException(
+                    httpResponseTooManyRequestsException);
+
+            var expectedAudioTranscriptionDependencyValidationException =
+                new AudioTranscriptionDependencyValidationException(
+                    excessiveCallAudioTranscriptionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()))
+                        .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<AudioTranscription> promptAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(someAudioTranscription);
+
+            AudioTranscriptionDependencyValidationException actualAudioTranscriptionDependencyException =
+                await Assert.ThrowsAsync<AudioTranscriptionDependencyValidationException>(
+                    promptAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionDependencyException.Should().BeEquivalentTo(
+                expectedAudioTranscriptionDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()),
+                        Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
