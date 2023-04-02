@@ -66,7 +66,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             };
         }
 
-        private static ChatCompletion ConvertToChatCompletion(
+        private ChatCompletion ConvertToChatCompletion(
             ChatCompletion chatCompletion,
             ExternalChatCompletionResponse externalChatCompletionResponse)
         {
@@ -74,7 +74,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             chatCompletion.Response = new ChatCompletionResponse
             {
                 Id = externalChatCompletionResponse.Id,
-                Created = externalChatCompletionResponse.Created,
+                CreatedDate = this.dateTimeBroker.ConvertToDateTimeOffSet(externalChatCompletionResponse.Created),
                 Choices = externalChatCompletionResponse.Choices.Select(choice =>
                 {
                     return new ChatCompletionChoice

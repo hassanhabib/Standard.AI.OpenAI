@@ -149,7 +149,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             var filler = new Filler<ChatCompletion>();
 
             filler.Setup()
-                .OnType<object>().IgnoreIt();
+                .OnType<object>().IgnoreIt()
+                .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
         }
