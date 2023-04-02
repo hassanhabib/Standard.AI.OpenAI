@@ -10,6 +10,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     internal partial interface IOpenAIBroker
     {
         ValueTask<ExternalAIModelsResult> GetAllAIModelsAsync();
-        ValueTask<ExternalAIModel> GetAIModelByIdAsync(string modelId);
+        ValueTask<ExternalAIModel> GetAIModelByIdAsync(string aiModelId);
     }
 }
