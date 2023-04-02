@@ -12,8 +12,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     internal partial interface IOpenAIBroker
     {
         ValueTask<ExternalCompletionResponse> PostCompletionRequestAsync(
-            ExternalCompletionRequest
-            completionRequest);
+            ExternalCompletionRequest completionRequest);
 
         ValueTask<Stream> PostCompletionRequestWithStreamResponseAsync(
             ExternalCompletionRequest completionRequest,
