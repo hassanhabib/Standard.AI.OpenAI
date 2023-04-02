@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="APIs\AudioTranscriptions\assets\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Standard.AI.OpenAI\Standard.AI.OpenAI.csproj" />
   </ItemGroup>
 
