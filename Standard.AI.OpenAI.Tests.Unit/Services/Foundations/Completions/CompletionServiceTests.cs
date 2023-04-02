@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using RESTFulSense.Exceptions;
+using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
@@ -21,16 +22,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
     public partial class CompletionServiceTests
     {
         private readonly Mock<IOpenAIBroker> openAIBrokerMock;
+        private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         private readonly ICompareLogic compareLogic;
         private readonly ICompletionService completionService;
 
         public CompletionServiceTests()
         {
             this.openAIBrokerMock = new Mock<IOpenAIBroker>();
+            this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.compareLogic = new CompareLogic();
 
             this.completionService = new CompletionService(
-                openAIBroker: this.openAIBrokerMock.Object);
+                openAIBroker: this.openAIBrokerMock.Object,
+                dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
         public static TheoryData UnAuthorizationExceptions()
@@ -52,7 +56,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         .AreEqual;
         }
 
-        private static dynamic CreateRandomCompletionProperties()
+        private static dynamic CreateRandomCompletionProperties(
+            DateTimeOffset createdDate,
+            int createdDateNumber)
         {
             return new
             {
@@ -74,12 +80,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 User = GetRandomString(),
                 Id = GetRandomString(),
                 Object = GetRandomString(),
-                Created = GetRandomNumber(),
+                CreatedDate = createdDate,
+                Created = createdDateNumber,
                 ResponseModel = GetRandomString(),
                 Choices = CreateRandomChoicesList(),
                 Usage = CreateRandomUsage()
             };
         }
+
+        private static DateTimeOffset GetRandomDate() =>
+            new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
@@ -126,7 +136,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var filler = new Filler<Completion>();
 
             filler.Setup()
-                .OnType<object>().IgnoreIt();
+                .OnType<object>().IgnoreIt()
+                .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
         }
