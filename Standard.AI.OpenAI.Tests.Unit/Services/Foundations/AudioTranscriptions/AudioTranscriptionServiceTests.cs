@@ -6,11 +6,13 @@ using System;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 {
@@ -59,6 +61,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
         private static string CreateRandomString()
             => new MnemonicString().GetValue();
+
+        public static TheoryData UnAuthorizationExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
+        }
 
         private static AudioTranscription CreateRandomAudioTranscription() =>
             AudioTranscriptionFiller().Create();
