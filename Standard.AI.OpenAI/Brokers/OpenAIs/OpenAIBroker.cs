@@ -3,8 +3,10 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using RESTFulSense.Clients;
 using Standard.AI.OpenAI.Models.Configurations;
@@ -35,6 +37,16 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
             return await this.apiClient.PostContentAsync<TRequest, TResult>(
                 relativeUrl,
                 content,
+                mediaType: "application/json",
+                ignoreDefaultValues: true);
+        }
+
+        private async ValueTask<Stream> PostWithStreamResponseAsync<TRequest>(string relativeUrl, TRequest content, CancellationToken cancellationToken )
+        {
+            return await this.apiClient.PostContentWithStreamResponseAsync(
+                relativeUrl,
+                content,
+                cancellationToken,
                 mediaType: "application/json",
                 ignoreDefaultValues: true);
         }

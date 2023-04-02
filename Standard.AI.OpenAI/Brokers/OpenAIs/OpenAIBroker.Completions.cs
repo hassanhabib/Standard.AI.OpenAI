@@ -2,6 +2,8 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 
@@ -11,5 +13,10 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     {
         public async ValueTask<ExternalCompletionResponse> PostCompletionRequestAsync(ExternalCompletionRequest completionRequest) =>
             await PostAsync<ExternalCompletionRequest, ExternalCompletionResponse>(relativeUrl: "v1/completions", completionRequest);
+
+        public async ValueTask<Stream> PostCompletionRequestWithStreamResponseAsync(
+            ExternalCompletionRequest completionRequest,
+            CancellationToken cancellationToken) =>
+            await PostWithStreamResponseAsync(relativeUrl: "v1/completions", completionRequest, cancellationToken);
     }
 }
