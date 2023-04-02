@@ -86,5 +86,27 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             return mockStream.Object;
         }
+
+        private static AudioTranscription CreateRandomAudioTranscription() =>
+            AudioTranscriptionFiller().Create();
+
+        private static Filler<AudioTranscription> AudioTranscriptionFiller()
+        {
+            var filler = new Filler<AudioTranscription>();
+
+            filler.Setup()
+                .OnType<Stream>().Use(CreateRandomStream);
+
+            filler.Setup()
+                .OnType<AudioTranscriptionModel>()
+                .Use(new AudioTranscriptionModel[]
+                {
+                    AudioTranscriptionModel.Create(CreateRandomString()),
+                    AudioTranscriptionModel.Create(CreateRandomString()),
+                    AudioTranscriptionModel.Create(CreateRandomString())
+                });
+
+            return filler;
+        }
     }
 }
