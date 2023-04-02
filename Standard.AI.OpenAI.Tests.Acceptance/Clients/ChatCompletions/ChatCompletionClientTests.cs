@@ -83,7 +83,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
                 Id = externalChatCompletionResponse.Id,
                 Object = externalChatCompletionResponse.Object,
-                Created = externalChatCompletionResponse.Created,
+                CreatedDate = DateTimeOffset.FromUnixTimeSeconds(externalChatCompletionResponse.Created),
 
                 Choices = externalChatCompletionResponse.Choices.Select(externalChoice => new ChatCompletionChoice
                 {
@@ -104,6 +104,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
 
             return chatCompletion;
         }
+
+        private static DateTimeOffset GetRandomDate() =>
+            new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
         private static string CreateRandomString() =>
             new MnemonicString().GetValue();
@@ -129,7 +132,8 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
             var filler = new Filler<ChatCompletion>();
 
             filler.Setup()
-                .OnType<object>().IgnoreIt();
+                .OnType<object>().IgnoreIt()
+                .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
         }
