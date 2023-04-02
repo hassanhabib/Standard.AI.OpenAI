@@ -35,6 +35,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 throw new AudioTranscriptionDependencyException(invalidConfigurationAudioTranscriptionException);
             }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedAudioTranscriptionException =
+                    new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
+
+                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedAudioTranscriptionException =
+                    new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
+
+                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+            }
         }
     }
 }
