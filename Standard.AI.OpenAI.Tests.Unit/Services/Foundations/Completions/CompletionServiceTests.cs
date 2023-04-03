@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
-        public static TheoryData UnAuthorizationExceptions()
+        public static TheoryData UnauthorizedExceptions()
         {
             return new TheoryData<HttpResponseException>
             {

@@ -88,15 +88,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         private static DateTimeOffset GetRandomDate() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
-        public static TheoryData UnauthorizationExceptions()
-        {
-            return new TheoryData<HttpResponseException>
-            {
-                new HttpResponseUnauthorizedException(),
-                new HttpResponseForbiddenException()
-            };
-        }
-
         private static Filler<ImageGeneration> CreateImageGenerationFiller()
         {
             var filler = new Filler<ImageGeneration>();
@@ -105,6 +96,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
+        }
+
+        public static TheoryData UnauthorizedExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
     }
 }

@@ -60,15 +60,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Theory]
-        [MemberData(nameof(UnauthorizationExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnAuthorizedAsync(
-            HttpResponseException unauthorizationException)
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
 
             var unauthorizedImageGenerationException =
-                new UnauthorizedImageGenerationException(unauthorizationException);
+                new UnauthorizedImageGenerationException(unauthorizedException);
 
             var expectedImageGenerationDependencyException =
                 new ImageGenerationDependencyException(unauthorizedImageGenerationException);
@@ -76,7 +76,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
                     It.IsAny<ExternalImageGenerationRequest>()))
-                        .ThrowsAsync(unauthorizationException);
+                        .ThrowsAsync(unauthorizedException);
 
             // when
             ValueTask<ImageGeneration> generateImageTask =
