@@ -14,16 +14,16 @@ namespace Standard.AI.OpenAI.Clients.AIModels
 {
     internal class AIModelsClient : IAIModelsClient
     {
-        private readonly IAIModelService aIModelService;
+        private readonly IAIModelService aiModelService;
 
-        public AIModelsClient(IAIModelService aIModelService) =>
-            this.aIModelService = aIModelService;
+        public AIModelsClient(IAIModelService aiModelService) =>
+            this.aiModelService = aiModelService;
 
         public async ValueTask<IEnumerable<AIModel>> RetrieveAIModelsAsync()
         {
             try
             {
-                return await this.aIModelService.RetrieveAllAIModelsAsync();
+                return await this.aiModelService.RetrieveAllAIModelsAsync();
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
