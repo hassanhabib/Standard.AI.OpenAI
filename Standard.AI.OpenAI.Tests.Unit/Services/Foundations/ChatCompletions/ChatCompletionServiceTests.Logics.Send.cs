@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -19,7 +20,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         public async Task ShouldSendChatCompletionAsync()
         {
             // given
-            dynamic randomChatCompletionProperties = CreateRandomChatCompletionProperties();
+            DateTimeOffset randomDate = GetRandomDate();
+            int randomDateNumber = GetRandomNumber();
+
+            dynamic randomChatCompletionProperties = CreateRandomChatCompletionProperties(
+                createdDate: randomDate,
+                createdDateNumber: randomDateNumber);
 
             var randomChatCompletionRequest = new ChatCompletionRequest
             {
@@ -50,7 +56,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             {
                 Id = randomChatCompletionProperties.Id,
                 Object = randomChatCompletionProperties.Object,
-                Created = randomChatCompletionProperties.Created,
+                CreatedDate = randomChatCompletionProperties.CreatedDate,
 
                 Choices = ((dynamic[])randomChatCompletionProperties.Choices).Select(choice =>
                 {
@@ -149,6 +155,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     SameExternalChatCompletionRequestAs(mappedExternalChatCompletionRequest))))
                         .ReturnsAsync(returnedExternalChatCompletionResponse);
 
+            this.dateTimeBrokerMock.Setup(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber))
+                    .Returns(randomDate);
+
             // when
             ChatCompletion actualChatCompletion =
                 await this.chatCompletionService.SendChatCompletionAsync(inputChatCompletion);
@@ -161,7 +171,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                     SameExternalChatCompletionRequestAs(mappedExternalChatCompletionRequest))),
                         Times.Once);
 
+            this.dateTimeBrokerMock.Verify(broker =>
+                broker.ConvertToDateTimeOffSet(randomDateNumber),
+                    Times.Once);
+
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
