@@ -11,5 +11,8 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     {
         public async ValueTask<ExternalAIModelsResult> GetAllAIModelsAsync() =>
              await GetAsync<ExternalAIModelsResult>(relativeUrl: "v1/models");
+
+        public async ValueTask<ExternalAIModel> GetAIModelByIdAsync(string aiModelId) =>
+            await GetAsync<ExternalAIModel>(relativeUrl: $"v1/models/{aiModelId}");
     }
 }
