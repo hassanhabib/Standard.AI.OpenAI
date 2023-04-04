@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
@@ -114,13 +115,53 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             ValueTask<AIModel> retrieveAIModelByIdTask =
                this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
 
-            AIModelDependencyValidationException actualAIModelDependencyException =
+            AIModelDependencyValidationException actualAIModelDependencyValidationException =
                 await Assert.ThrowsAsync<AIModelDependencyValidationException>(
                     retrieveAIModelByIdTask.AsTask);
 
             // then
-            actualAIModelDependencyException.Should().BeEquivalentTo(
+            actualAIModelDependencyValidationException.Should().BeEquivalentTo(
                 expectedAIModelDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAIModelByIdAsync(someAiModelId),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfServerErrorOccurredAsync()
+        {
+            // given
+            var someAiModelId = CreateRandomString();
+
+            var httpResponseException =
+                new HttpResponseException();
+
+            var failedServerAIModelException =
+                new FailedServerAIModelException(
+                    httpResponseException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(
+                    failedServerAIModelException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                 broker.GetAIModelByIdAsync(someAiModelId))
+                     .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<AIModel> retrieveAIModelByIdTask =
+               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+
+            AIModelDependencyException actualAIModelDependencyException =
+                await Assert.ThrowsAsync<AIModelDependencyException>(
+                    retrieveAIModelByIdTask.AsTask);
+
+            // then
+            actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAIModelByIdAsync(someAiModelId),
