@@ -35,9 +35,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             return externalAIModelsResult.AIModels.Select(ConvertToAIModel).ToArray();
         });
 
-        public ValueTask<AIModel> RetrieveAIModelByIdAsync(string aiModelId)
+        public async ValueTask<AIModel> RetrieveAIModelByIdAsync(string aiModelName)
         {
-            throw new NotImplementedException();
+            ExternalAIModel externalAIModel =
+                await this.openAIBroker.GetAIModelByIdAsync(aiModelId: aiModelName);
+
+            return ConvertToAIModel(externalAIModel);
         }
 
         private AIModel ConvertToAIModel(ExternalAIModel externalAIModel)

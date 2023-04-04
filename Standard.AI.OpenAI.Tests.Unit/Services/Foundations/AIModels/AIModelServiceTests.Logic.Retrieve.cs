@@ -232,7 +232,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             // when
             AIModel actualAIModel =
-                await this.aiModelService.RetrieveAIModelByIdAsync(someModelId);
+                await this.aiModelService.RetrieveAIModelByIdAsync(
+                    aiModelName: someModelId);
 
             // then
             actualAIModel.Should().BeEquivalentTo(expectedAIModel);
