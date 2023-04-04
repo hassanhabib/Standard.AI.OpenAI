@@ -43,6 +43,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
             }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallAIModelException =
+                    new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
+
+                throw new AIModelDependencyValidationException(excessiveCallAIModelException);
+            }
         }
 
         private async ValueTask<IEnumerable<AIModel>> TryCatch(ReturningAIModelsFunction returningAIModelsFunction)
