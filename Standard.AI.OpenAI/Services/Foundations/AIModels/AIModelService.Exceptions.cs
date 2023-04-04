@@ -13,7 +13,23 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
     internal partial class AIModelService
     {
+        private delegate ValueTask<AIModel> ReturningAIModelFunction();
         private delegate ValueTask<IEnumerable<AIModel>> ReturningAIModelsFunction();
+        
+        private async ValueTask<AIModel> TryCatch(ReturningAIModelFunction returningAIModelFunction)
+        {
+            try
+            {
+                return await returningAIModelFunction();
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationAIModelException =
+                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
+
+                throw new AIModelDependencyException(invalidConfigurationAIModelException);
+            }
+        }
 
         private async ValueTask<IEnumerable<AIModel>> TryCatch(ReturningAIModelsFunction returningAIModelsFunction)
         {
