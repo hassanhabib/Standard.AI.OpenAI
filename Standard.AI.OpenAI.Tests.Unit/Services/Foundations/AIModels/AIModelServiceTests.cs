@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
@@ -45,25 +46,30 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             return Enumerable.Range(start: 0, count: GetRandomNumber())
                 .Select(item =>
                 {
-                    string idName = CreateRandomString();
-                    string objectType = CreateRandomString();
-                    string rootOriginModel = CreateRandomString();
-
-                    return new
-                    {
-                        Id = idName,
-                        Name = idName,
-                        Object = objectType,
-                        Type = objectType,
-                        Created = GetRandomDateNumber(),
-                        CreatedDate = GetRandomDate(),
-                        OwnedBy = CreateRandomString(),
-                        Root = rootOriginModel,
-                        OriginModel = rootOriginModel,
-                        Parent = CreateRandomString(),
-                        Permissions = CreateRandomPermissionPropertiesList()
-                    };
+                    return CreateRandomAIModelProperties();
                 }).ToList<dynamic>();
+        }
+
+        private static dynamic CreateRandomAIModelProperties()
+        {
+            string idName = CreateRandomString();
+            string objectType = CreateRandomString();
+            string rootOriginModel = CreateRandomString();
+
+            return new
+            {
+                Id = idName,
+                Name = idName,
+                Object = objectType,
+                Type = objectType,
+                Created = GetRandomDateNumber(),
+                CreatedDate = GetRandomDate(),
+                OwnedBy = CreateRandomString(),
+                Root = rootOriginModel,
+                OriginModel = rootOriginModel,
+                Parent = CreateRandomString(),
+                Permissions = CreateRandomPermissionPropertiesList()
+            };
         }
 
         private static dynamic[] CreateRandomPermissionPropertiesList()
