@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
     public partial class AIModelServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveModelByIdIfUrlNotFoundAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfUrlNotFoundAsync()
         {
             // given
             var someAiModelId = CreateRandomString();
@@ -55,5 +55,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
 
+        [Theory]
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
+        {
+            // given
+            var someAiModelId = CreateRandomString();
+
+            var unauthorizedAIModelException =
+                new UnauthorizedAIModelException(unauthorizedException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(unauthorizedAIModelException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                 broker.GetAIModelByIdAsync(someAiModelId))
+                     .ThrowsAsync(unauthorizedException);
+
+            // when
+            ValueTask<AIModel> getAIModelByIdTask =
+               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+
+            AIModelDependencyException
+                actualAIModelDependencyException =
+                    await Assert.ThrowsAsync<AIModelDependencyException>(
+                        getAIModelByIdTask.AsTask);
+
+            // then
+            actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAIModelByIdAsync(someAiModelId),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
