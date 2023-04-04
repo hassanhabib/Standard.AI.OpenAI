@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
 using Xunit;
-using FluentAssertions;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 {
