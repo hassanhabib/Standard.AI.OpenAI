@@ -65,7 +65,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         private static int GetRandomDateNumber() =>
-            new Random((int)Stopwatch.GetTimestamp()).Next(int.MinValue, int.MaxValue);   
+            new Random((int)Stopwatch.GetTimestamp()).Next(int.MinValue, int.MaxValue);
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
