@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
             return externalAIModelsResult.AIModels.Select(ConvertToAIModel).ToArray();
         });
+
+        public ValueTask<AIModel> RetrieveAIModelByIdAsync(string aiModelId)
+        {
+            throw new NotImplementedException();
+        }
 
         private AIModel ConvertToAIModel(ExternalAIModel externalAIModel)
         {

@@ -145,5 +145,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldRetrieveAIModelByIdAsync()
+        {
+            // given 
+
+            // when
+
+            // then
+        }
     }
 }
