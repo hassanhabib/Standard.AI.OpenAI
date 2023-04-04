@@ -57,6 +57,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyException(failedServerAIModelException);
             }
+            catch (Exception exception)
+            {
+                var failedAIModelServiceException =
+                    new FailedAIModelServiceException(exception);
+
+                throw new AIModelServiceException(
+                    failedAIModelServiceException);
+            }
         }
 
         private async ValueTask<IEnumerable<AIModel>> TryCatch(ReturningAIModelsFunction returningAIModelsFunction)
