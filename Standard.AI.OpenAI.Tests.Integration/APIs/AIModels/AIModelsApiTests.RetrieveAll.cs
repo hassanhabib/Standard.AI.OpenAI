@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIModels
         {
             // given . when
             IEnumerable<AIModel> responseAIModels =
-                await this.openAIClient.AllAIModels.RetrieveAIModelsAsync();
+                await this.openAIClient.AIModels.RetrieveAIModelsAsync();
 
             // then
             Assert.NotNull(responseAIModels);
