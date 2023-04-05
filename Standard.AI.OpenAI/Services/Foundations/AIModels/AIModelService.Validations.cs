@@ -9,7 +9,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             if (String.IsNullOrWhiteSpace(aiModelName))
             {
-                throw new InvalidAIModelNameException();
+                throw new InvalidAIModelException();
             }
         }
     }
