@@ -6,9 +6,9 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Clients.AIModels.Exceptions
 {
-    public class AIModelClientDependencyValidationException : Xeption
+    public class AIModelClientDependencyException : Xeption
     {
-        public AIModelClientDependencyValidationException(Xeption innerException)
+        public AIModelClientDependencyException(Xeption innerException)
             : base(message: "AI model client validation error occurred, fix the errors and try again", innerException)
         { }
     }
