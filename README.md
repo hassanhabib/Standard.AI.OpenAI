@@ -184,30 +184,4 @@ We broadcast on multiple platforms:
 ### Past-Sessions
 Here's our live sessions to show you how this library was developed from scratch:
 
-[OPENAI000: Getting Started](https://www.youtube.com/watch?v=JQnTpGV-7YA)
-
-[OPENAI001: API Integrations](https://www.youtube.com/watch?v=2eN4ht2uESo)
-
-[OPENAI002: API Integrations](https://youtube.com/live/IrBGCAyLmmQ?si=EnSIkaIECMiOmarE)
-
-[OPENAI003: API Integrations](https://youtube.com/live/SZHBt0SW2EY?si=EnSIkaIECMiOmarE)
-
-[OPENAI004: Completion Service](https://youtube.com/live/z0BlU3KVr7E?si=EnSIkaIECMiOmarE)
-
-[OPENAI005: Completion Service](https://youtube.com/live/wMC1I85Zjmo?si=EnSIkaIECMiOmarE)
-
-[OPENAI006: Developing Completion Clients](https://youtube.com/live/aENHthpFTvI?si=EnSIkaIECMiOmarE)
-
-[OPENAI007: Acceptance & Integration Tests](https://youtube.com/live/fzlF2k7SM?si=EnSIkaIECMiOmarE)
-
-[OPENAI008: Acceptance & Integration Tests](https://www.youtube.com/live/86bfBmkUMFo?feature=share)
-
-[OPENAI009: Publishing Nuget Package](https://www.youtube.com/live/saU_5peAC-Y?feature=share)
-
-[OPENAI010: Developing Chat Integrations](https://www.youtube.com/watch?v=YRLymNBSlqI)
-
-[OPENAI011: Developing Chat Services (Part 1)](https://www.youtube.com/watch?v=-6W_-5cKkfs)
-
-[OPENAI012: Developing Chat Services (Part 2)](https://www.youtube.com/watch?v=o8ZdFcScOKU)
-
-[OPENAI013: Developing Chat Services (Part 3)](https://www.youtube.com/watch?v=OvU6Tate4iI)
+[Standard.AI.OpenAI YouTube Playlist](https://www.youtube.com/watch?v=JQnTpGV-7YA&list=PLan3SCnsISTTl_MnGP6B78Nfu9Ix8G4mU)
