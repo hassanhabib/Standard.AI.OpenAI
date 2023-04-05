@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +37,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         public ValueTask<AIModel> RetrieveAIModelByNameAsync(string aiModelName) =>
         TryCatch(async () =>
         {
+            ValidateAIModelName(aiModelName);
+
             ExternalAIModel externalAIModel =
                 await this.openAIBroker.GetAIModelByIdAsync(aiModelId: aiModelName);
 
