@@ -54,25 +54,25 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfNotFoundAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfNameIsInvalidAsync()
         {
             // given
             string someAIModelId = CreateRandomString();
 
-            var httpResponseNotFoundException =
-                new HttpResponseNotFoundException();
+            var httpResponseBadRequestException =
+                new HttpResponseBadRequestException();
 
-            var modelDoesNotExistException =
-                new ModelDoesNotExistException(
-                    httpResponseNotFoundException);
+            var invalidConfigurationAIModelException =
+                new InvalidConfigurationAIModelException(
+                    httpResponseBadRequestException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(
-                    modelDoesNotExistException);
+                    invalidConfigurationAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAIModelByIdAsync(someAIModelId))
-                    .ThrowsAsync(httpResponseNotFoundException);
+                    .ThrowsAsync(httpResponseBadRequestException);
 
             // when
             ValueTask<AIModel> retrieveAIModelByNameTask =
