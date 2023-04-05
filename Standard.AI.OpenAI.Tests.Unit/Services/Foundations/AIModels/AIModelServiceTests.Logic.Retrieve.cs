@@ -151,7 +151,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         {
             // given 
             dynamic aiModelRandomProperties = CreateRandomAIModelProperties();
-            string someAiModelId = aiModelRandomProperties.Id;
+            string someAIModelId = aiModelRandomProperties.Id;
 
             var externalAIModel = new ExternalAIModel
             {
@@ -227,13 +227,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             });
 
             this.openAIBrokerMock.Setup(broker =>
-                broker.GetAIModelByIdAsync(someAiModelId))
+                broker.GetAIModelByIdAsync(someAIModelId))
                     .ReturnsAsync(externalAIModel);
 
             // when
             AIModel actualAIModel =
                 await this.aiModelService.RetrieveAIModelByNameAsync(
-                    aiModelName: someAiModelId);
+                    aiModelName: someAIModelId);
 
             // then
             actualAIModel.Should().BeEquivalentTo(expectedAIModel);
@@ -252,7 +252,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             });
 
             this.openAIBrokerMock.Verify(broker =>
-                broker.GetAIModelByIdAsync(someAiModelId),
+                broker.GetAIModelByIdAsync(someAIModelId),
                     Times.Once);
 
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
