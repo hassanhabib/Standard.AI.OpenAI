@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------------------------- 
+﻿// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
         public AIModelsClient(IAIModelService aiModelService) =>
             this.aiModelService = aiModelService;
 
+        /// <inheritdoc />
         public async ValueTask<IEnumerable<AIModel>> RetrieveAIModelsAsync()
         {
             try
