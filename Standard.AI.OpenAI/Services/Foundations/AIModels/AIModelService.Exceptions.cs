@@ -15,12 +15,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
     {
         private delegate ValueTask<AIModel> ReturningAIModelFunction();
         private delegate ValueTask<IEnumerable<AIModel>> ReturningAIModelsFunction();
-        
+
         private async ValueTask<AIModel> TryCatch(ReturningAIModelFunction returningAIModelFunction)
         {
             try
             {
                 return await returningAIModelFunction();
+            }
+            catch (InvalidAIModelException invalidAIModelException)
+            {
+                throw new AIModelValidationException(invalidAIModelException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
