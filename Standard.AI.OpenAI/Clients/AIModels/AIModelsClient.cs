@@ -1,4 +1,4 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyException aiModelDependencyException)
             {
-                throw new AIModelClientValidationException(
+                throw new AIModelClientDependencyException(
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)
