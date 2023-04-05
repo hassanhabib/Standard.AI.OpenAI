@@ -13,7 +13,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
     public partial class AIModelServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfUrlNotFoundAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfUrlNotFoundAsync()
         {
             // given
             var someAiModelId = CreateRandomString();
@@ -34,13 +34,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
             // when
-            ValueTask<AIModel> retrieveAIModelByIdTask =
-               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAiModelId);
 
             AIModelDependencyException
                 actualAIModelDependencyException =
                     await Assert.ThrowsAsync<AIModelDependencyException>(
-                        retrieveAIModelByIdTask.AsTask);
+                        retrieveAIModelByNameTask.AsTask);
 
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
@@ -56,7 +56,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfUnauthorizedAsync(
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
@@ -73,13 +73,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                      .ThrowsAsync(unauthorizedException);
 
             // when
-            ValueTask<AIModel> retrieveAIModelByIdTask =
-               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAiModelId);
 
             AIModelDependencyException
                 actualAIModelDependencyException =
                     await Assert.ThrowsAsync<AIModelDependencyException>(
-                        retrieveAIModelByIdTask.AsTask);
+                        retrieveAIModelByNameTask.AsTask);
 
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
@@ -94,7 +94,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAIModelByIdIfTooManyRequestsOccurredAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAIModelByNameIfTooManyRequestsOccurredAsync()
         {
             // given
             var someAiModelId = CreateRandomString();
@@ -115,12 +115,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                      .ThrowsAsync(httpResponseTooManyRequestsException);
 
             // when
-            ValueTask<AIModel> retrieveAIModelByIdTask =
-               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAiModelId);
 
             AIModelDependencyValidationException actualAIModelDependencyValidationException =
                 await Assert.ThrowsAsync<AIModelDependencyValidationException>(
-                    retrieveAIModelByIdTask.AsTask);
+                    retrieveAIModelByNameTask.AsTask);
 
             // then
             actualAIModelDependencyValidationException.Should().BeEquivalentTo(
@@ -135,7 +135,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByIdIfServerErrorOccurredAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfServerErrorOccurredAsync()
         {
             // given
             var someAiModelId = CreateRandomString();
@@ -156,12 +156,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                      .ThrowsAsync(httpResponseException);
 
             // when
-            ValueTask<AIModel> retrieveAIModelByIdTask =
-               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAiModelId);
 
             AIModelDependencyException actualAIModelDependencyException =
                 await Assert.ThrowsAsync<AIModelDependencyException>(
-                    retrieveAIModelByIdTask.AsTask);
+                    retrieveAIModelByNameTask.AsTask);
 
             // then
             actualAIModelDependencyException.Should().BeEquivalentTo(
@@ -176,7 +176,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAIModelByIdIfServiceErrorOccurredAsync()
+        public async Task ShouldThrowServiceExceptionOnRetrieveAIModelByNameIfServiceErrorOccurredAsync()
         {
             // given
             var someAiModelId = CreateRandomString();
@@ -193,12 +193,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<AIModel> retrieveAIModelByIdTask =
-               this.aiModelService.RetrieveAIModelByIdAsync(aiModelName: someAiModelId);
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAiModelId);
 
             AIModelServiceException actualAIModelServiceException =
                 await Assert.ThrowsAsync<AIModelServiceException>(
-                    retrieveAIModelByIdTask.AsTask);
+                    retrieveAIModelByNameTask.AsTask);
 
             // then
             actualAIModelServiceException.Should().BeEquivalentTo(

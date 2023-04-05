@@ -147,7 +147,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldRetrieveAIModelByIdAsync()
+        public async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given 
             dynamic aiModelRandomProperties = CreateRandomAIModelProperties();
@@ -232,7 +232,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             // when
             AIModel actualAIModel =
-                await this.aiModelService.RetrieveAIModelByIdAsync(
+                await this.aiModelService.RetrieveAIModelByNameAsync(
                     aiModelName: someAiModelId);
 
             // then

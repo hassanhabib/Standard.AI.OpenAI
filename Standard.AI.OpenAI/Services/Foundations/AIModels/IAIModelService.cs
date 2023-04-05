@@ -12,6 +12,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
     {
         ValueTask<IEnumerable<AIModel>> RetrieveAllAIModelsAsync();
 
-        ValueTask<AIModel> RetrieveAIModelByIdAsync(string aiModelName);
+        ValueTask<AIModel> RetrieveAIModelByNameAsync(string aiModelName);
     }
 }
