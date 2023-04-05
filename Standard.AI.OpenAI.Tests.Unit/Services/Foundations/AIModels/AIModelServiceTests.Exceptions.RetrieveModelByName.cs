@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -32,6 +31,48 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAIModelByIdAsync(someAIModelId))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
+
+            // when
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAIModelId);
+
+            AIModelDependencyException
+                actualAIModelDependencyException =
+                    await Assert.ThrowsAsync<AIModelDependencyException>(
+                        retrieveAIModelByNameTask.AsTask);
+
+            // then
+            actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAIModelByIdAsync(someAIModelId),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfNotFoundAsync()
+        {
+            // given
+            string someAIModelId = CreateRandomString();
+
+            var httpResponseNotFoundException =
+                new HttpResponseNotFoundException();
+
+            var modelDoesNotExistException =
+                new ModelDoesNotExistException(
+                    httpResponseNotFoundException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(
+                    modelDoesNotExistException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAIModelByIdAsync(someAIModelId))
+                    .ThrowsAsync(httpResponseNotFoundException);
 
             // when
             ValueTask<AIModel> retrieveAIModelByNameTask =
