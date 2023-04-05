@@ -5,6 +5,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Standard.AI.OpenAI.Brokers.DateTimes;
+using Standard.AI.OpenAI.Brokers.Files;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Clients.AIModels;
 using Standard.AI.OpenAI.Clients.ChatCompletions;
@@ -44,6 +45,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             var serviceCollection = new ServiceCollection()
                 .AddTransient<IOpenAIBroker, OpenAIBroker>()
                 .AddTransient<IDateTimeBroker, DateTimeBroker>()
+                .AddTransient<IFileBroker, FileBroker>()
                 .AddTransient<ICompletionService, CompletionService>()
                 .AddTransient<IChatCompletionService, ChatCompletionService>()
                 .AddTransient<IImageGenerationService, ImageGenerationService>()
