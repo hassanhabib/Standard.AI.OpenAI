@@ -30,6 +30,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
 
                 throw new FileDependencyException(invalidConfigurationFileException);
             }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedFileException =
+                    new UnauthorizedFileException(httpResponseUnauthorizedException);
+
+                throw new FileDependencyException(unauthorizedFileException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedFileException =
+                    new UnauthorizedFileException(httpResponseForbiddenException);
+
+                throw new FileDependencyException(unauthorizedFileException);
+            }
         }
     }
 }
