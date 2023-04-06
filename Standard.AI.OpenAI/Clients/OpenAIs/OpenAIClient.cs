@@ -30,14 +30,14 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         public ICompletionsClient Completions { get; private set; }
         public IChatCompletionsClient ChatCompletions { get; private set; }
         public IImageGenerationsClient ImageGenerations { get; private set; }
-        public IAIModelsClient AllAIModels { get; private set; }
+        public IAIModelsClient AIModels { get; private set; }
 
         private void InitializeClients(IServiceProvider serviceProvider)
         {
             Completions = serviceProvider.GetRequiredService<ICompletionsClient>();
             ChatCompletions = serviceProvider.GetRequiredService<IChatCompletionsClient>();
             ImageGenerations = serviceProvider.GetRequiredService<IImageGenerationsClient>();
-            AllAIModels = serviceProvider.GetRequiredService<IAIModelsClient>();
+            AIModels = serviceProvider.GetRequiredService<IAIModelsClient>();
         }
 
         private static IServiceProvider RegisterServices(OpenAIConfigurations openAIConfigurations)
