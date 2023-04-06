@@ -19,6 +19,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
         public AIModelsClient(IAIModelService aiModelService) =>
             this.aiModelService = aiModelService;
 
+        /// <inheritdoc />
         public async ValueTask<IEnumerable<AIModel>> RetrieveAIModelsAsync()
         {
             try
@@ -32,7 +33,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyException aiModelDependencyException)
             {
-                throw new AIModelClientValidationException(
+                throw new AIModelClientDependencyException(
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)

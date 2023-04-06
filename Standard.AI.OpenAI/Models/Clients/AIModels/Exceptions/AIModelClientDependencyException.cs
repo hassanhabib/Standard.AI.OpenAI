@@ -6,9 +6,14 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Clients.AIModels.Exceptions
 {
-    public class AIModelClientDependencyValidationException : Xeption
+    /// <summary>
+    /// This exception is thrown when a dependency error occurs while using the
+    /// AI model client. For example, if a required dependency is unavailable or
+    /// incompatible.
+    /// </summary>
+    public class AIModelClientDependencyException : Xeption
     {
-        public AIModelClientDependencyValidationException(Xeption innerException)
+        public AIModelClientDependencyException(Xeption innerException)
             : base(message: "AI model client validation error occurred, fix the errors and try again", innerException)
         { }
     }
