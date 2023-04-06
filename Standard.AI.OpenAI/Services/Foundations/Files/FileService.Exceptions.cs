@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
 
@@ -21,6 +22,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
             catch (InvalidFileException invalidFileException)
             {
                 throw new FileValidationException(invalidFileException);
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationFileException =
+                    new InvalidConfigurationFileException(httpResponseUrlNotFoundException);
+
+                throw new FileDependencyException(invalidConfigurationFileException);
             }
         }
     }
