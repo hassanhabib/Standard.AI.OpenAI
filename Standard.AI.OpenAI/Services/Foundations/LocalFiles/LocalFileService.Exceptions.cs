@@ -36,14 +36,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
             catch (FileNotFoundException fileNotFoundException)
             {
-                var notFoundFileException = 
+                var notFoundFileException =
                     new NotFoundFileException(fileNotFoundException);
 
                 throw new FileDependencyValidationException(notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
-                var notFoundFileException = 
+                var notFoundFileException =
                     new NotFoundFileException(directoryNotFoundException);
 
                 throw new FileDependencyValidationException(notFoundFileException);
@@ -61,6 +61,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                     new FailedFileException(notSupportedException);
 
                 throw new FileDependencyException(failedFileException);
+            }
+            catch (Exception exception)
+            {
+                var failedLocalFileServiceException =
+                    new FailedLocalFileServiceException(exception);
+
+                throw new LocalFileServiceException(failedLocalFileServiceException);
             }
         }
     }
