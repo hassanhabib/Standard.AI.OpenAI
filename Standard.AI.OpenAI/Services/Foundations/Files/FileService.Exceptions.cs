@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files;
@@ -71,6 +72,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
                     new FailedServerFileException(httpResponseException);
 
                 throw new FileDependencyException(failedServerFileException);
+            }
+            catch (Exception exception)
+            {
+                var failedFileServiceException =
+                    new FailedFileServiceException(exception);
+
+                throw new FileServiceException(failedFileServiceException);
             }
         }
     }
