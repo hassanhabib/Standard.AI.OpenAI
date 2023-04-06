@@ -14,7 +14,7 @@ using WireMock.Server;
 
 namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
 {
-    public partial class AIModelsClientTests
+    public partial class AIModelsClientTests : IDisposable
     {
         private readonly string apiKey;
         private readonly string organizationId;
