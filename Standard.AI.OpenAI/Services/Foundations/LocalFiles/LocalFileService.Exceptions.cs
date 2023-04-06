@@ -22,7 +22,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             {
                 throw new FileValidationException(invalidFileException);
             }
-            catch (ArgumentException argumentException) 
+            catch (ArgumentException argumentException)
             {
                 var invalidFileException = new InvalidFileException(argumentException);
 
@@ -33,6 +33,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 var invalidFileException = new InvalidFileException(pathTooLongException);
 
                 throw new FileDependencyValidationException(invalidFileException);
+            }
+            catch (FileNotFoundException fileNotFoundException)
+            {
+                var notFoundFileException = 
+                    new NotFoundFileException(fileNotFoundException);
+
+                throw new FileDependencyValidationException(notFoundFileException);
+            }
+            catch (DirectoryNotFoundException directoryNotFoundException)
+            {
+                var notFoundFileException = 
+                    new NotFoundFileException(directoryNotFoundException);
+
+                throw new FileDependencyValidationException(notFoundFileException);
             }
         }
     }

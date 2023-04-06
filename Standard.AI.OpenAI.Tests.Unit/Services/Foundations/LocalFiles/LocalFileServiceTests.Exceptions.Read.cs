@@ -54,7 +54,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         {
             // given
             string someFilePath = CreateRandomFilePath();
-            var invalidFileException = new InvalidFileException(fileNotFoundException);
+
+            var invalidFileException =
+                new NotFoundFileException(fileNotFoundException);
 
             var expectedFileDependencyValidationException =
                 new FileDependencyValidationException(invalidFileException);
