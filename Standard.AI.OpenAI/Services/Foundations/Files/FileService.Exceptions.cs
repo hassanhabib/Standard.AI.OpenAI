@@ -51,6 +51,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
 
                 throw new FileDependencyValidationException(notFoundFileException);
             }
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
+            {
+                var invalidFileException =
+                    new InvalidFileException(httpResponseBadRequestException);
+
+                throw new FileDependencyValidationException(invalidFileException);
+            }
         }
     }
 }
