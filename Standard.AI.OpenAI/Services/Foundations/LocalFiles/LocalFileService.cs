@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.IO;
 using Standard.AI.OpenAI.Brokers.Files;
 
@@ -15,6 +16,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             this.fileBroker = fileBroker;
 
         public Stream ReadFile(string path) =>
-            this.fileBroker.ReadFile(path);
+        TryCatch(() =>
+        {
+            ValidatePath(path);
+
+            return this.fileBroker.ReadFile(path);
+        });
     }
 }
