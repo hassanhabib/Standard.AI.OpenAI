@@ -122,25 +122,29 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         public void ShouldThrowFailedServiceException()
         {
             // given            
-            var somePath = CreateRandomFilePath();
+            string someFilePath = CreateRandomFilePath();
             var serviceException = new Exception();
-            var failedServiceException = new FailedLocalFileServiceException(serviceException);
 
-            var expectedLocalFileException = new LocalFileServiceException(failedServiceException);
+            var failedLocalFileServiceException = 
+                new FailedLocalFileServiceException(serviceException);
+
+            var expectedLocalFileServiceException =
+                new LocalFileServiceException(failedLocalFileServiceException);
 
             this.fileBrokerMock.Setup(broker =>
-                broker.ReadFile(It.IsAny<string>())).Throws<Exception>();
+                broker.ReadFile(It.IsAny<string>()))
+                    .Throws(serviceException);
 
             // when
             Action readFileAction = () =>
-                this.localFileService.ReadFile(somePath);
+                this.localFileService.ReadFile(someFilePath);
 
             LocalFileServiceException actualLocalFileServiceException =
               Assert.Throws<LocalFileServiceException>(readFileAction);
 
             // then
             actualLocalFileServiceException.Should().BeEquivalentTo(
-                expectedLocalFileException);
+                expectedLocalFileServiceException);
 
             this.fileBrokerMock.Verify(broker =>
                 broker.ReadFile(It.IsAny<string>()),
