@@ -53,5 +53,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
+        {
+            // given
+            string someFileId = GetRandomString();
+
+            var unauthorizedFileException =
+                new UnauthorizedFileException(unauthorizedException);
+
+            var expectedFileDependencyException =
+                new FileDependencyException(unauthorizedFileException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()))
+                    .ThrowsAsync(unauthorizedException);
+
+            // when
+            ValueTask<File> removeFileByIdTask =
+                this.fileService.RemoveFileByIdAsync(someFileId);
+
+            FileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<FileDependencyException>(
+                    removeFileByIdTask.AsTask);
+
+            // then
+            actualFileDependencyException.Should().BeEquivalentTo(
+                expectedFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }

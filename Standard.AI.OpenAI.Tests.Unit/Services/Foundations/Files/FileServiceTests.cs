@@ -3,9 +3,11 @@
 // ----------------------------------------------------------------------------------
 
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Services.Foundations.Files;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
 {
@@ -20,6 +22,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
 
             this.fileService = new FileService(
                 openAIBroker: this.openAIBrokerMock.Object);
+        }
+
+        public static TheoryData UnauthorizedExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
 
         private static dynamic CreateRandomFileProperties()
