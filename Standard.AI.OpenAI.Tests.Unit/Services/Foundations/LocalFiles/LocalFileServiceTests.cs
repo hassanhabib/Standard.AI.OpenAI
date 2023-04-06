@@ -2,12 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.IO;
 using System.Text;
 using Moq;
 using Standard.AI.OpenAI.Brokers.Files;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
 {
@@ -22,6 +24,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
 
             this.localFileService = new LocalFileService(
                 fileBroker: this.fileBrokerMock.Object);
+        }
+
+        public static TheoryData FileExceptions()
+        {
+            return new TheoryData<Exception>()
+            {
+                new ArgumentException(),
+                new ArgumentNullException(),
+                new PathTooLongException()
+            };
         }
 
         private static string CreateRandomFilePath() =>
