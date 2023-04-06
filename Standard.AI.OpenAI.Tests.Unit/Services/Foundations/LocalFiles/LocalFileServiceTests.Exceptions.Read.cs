@@ -3,8 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
@@ -121,18 +119,34 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         }
 
         [Fact]
-        public Task ShouldThrowFailedServiceException()
+        public void ShouldThrowFailedServiceException()
         {
-            // given
+            // given            
+            var somePath = CreateRandomFilePath();
             var serviceException = new Exception();
-
             var failedServiceException = new FailedLocalFileServiceException(serviceException);
 
-            var expectedLocalFileException = new 
+            var expectedLocalFileException = new LocalFileServiceException(failedServiceException);
+
+            this.fileBrokerMock.Setup(broker =>
+                broker.ReadFile(It.IsAny<string>())).Throws<Exception>();
 
             // when
+            Action readFileAction = () =>
+                this.localFileService.ReadFile(somePath);
+
+            LocalFileServiceException actualLocalFileServiceException =
+              Assert.Throws<LocalFileServiceException>(readFileAction);
 
             // then
+            actualLocalFileServiceException.Should().BeEquivalentTo(
+                expectedLocalFileException);
+
+            this.fileBrokerMock.Verify(broker =>
+                broker.ReadFile(It.IsAny<string>()),
+                    Times.Once);
+
+            this.fileBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
