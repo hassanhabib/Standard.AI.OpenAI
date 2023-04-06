@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -240,6 +241,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
             // then
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRemoveByIdIfServiceErrorOccurredAsync()
+        {
+            // given
+            string someFileId = GetRandomString();
+            var serviceException = new Exception();
+
+            var failedFileServiceException =
+                new FailedFileServiceException(serviceException);
+
+            var expectedFileServiceException =
+                new FileServiceException(
+                    failedFileServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<File> removeFileByIdTask =
+                this.fileService.RemoveFileByIdAsync(someFileId);
+
+            FileServiceException actualFileServiceException =
+                await Assert.ThrowsAsync<FileServiceException>(
+                    removeFileByIdTask.AsTask);
+
+            // then
+            actualFileServiceException.Should().BeEquivalentTo(
+                expectedFileServiceException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
