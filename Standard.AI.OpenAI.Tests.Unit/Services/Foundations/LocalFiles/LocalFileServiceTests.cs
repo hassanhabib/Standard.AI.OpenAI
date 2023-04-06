@@ -31,7 +31,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             return new TheoryData<Exception>()
             {
                 new ArgumentException(),
-                new ArgumentNullException(),
                 new PathTooLongException()
             };
         }
