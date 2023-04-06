@@ -82,5 +82,41 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
 
             this.fileBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(FileDependencyExceptions))]
+        public void ShouldThrowDependencyExceptionOnReadIfFileErrorOccurs(
+            Exception fileDependencyException)
+        {
+            // given
+            string someFilePath = CreateRandomFilePath();
+
+            var failedFileException =
+                new FailedFileException(fileDependencyException);
+
+            var expectedFileDependencyException =
+                new FileDependencyException(failedFileException);
+
+            this.fileBrokerMock.Setup(broker =>
+                broker.ReadFile(someFilePath))
+                    .Throws(fileDependencyException);
+
+            // when
+            Action readFileAction = () =>
+                this.localFileService.ReadFile(someFilePath);
+
+            FileDependencyException actualFileDependencyException =
+                Assert.Throws<FileDependencyException>(readFileAction);
+
+            // then
+            actualFileDependencyException.Should().BeEquivalentTo(
+                expectedFileDependencyException);
+
+            this.fileBrokerMock.Verify(broker =>
+                broker.ReadFile(It.IsAny<string>()),
+                    Times.Once);
+
+            this.fileBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }

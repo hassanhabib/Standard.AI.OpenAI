@@ -44,6 +44,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             };
         }
 
+        public static TheoryData FileDependencyExceptions()
+        {
+            return new TheoryData<Exception>()
+            {
+                new IOException(),
+                new NotSupportedException()
+            };
+        }
+
         private static string CreateRandomFilePath() =>
             new MnemonicString().GetValue();
 
