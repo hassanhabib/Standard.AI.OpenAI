@@ -48,6 +48,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 
                 throw new FileDependencyValidationException(notFoundFileException);
             }
+            catch (IOException ioException)
+            {
+                var failedFileException =
+                    new FailedFileException(ioException);
+
+                throw new FileDependencyException(failedFileException);
+            }
+            catch (NotSupportedException notSupportedException)
+            {
+                var failedFileException =
+                    new FailedFileException(notSupportedException);
+
+                throw new FileDependencyException(failedFileException);
+            }
         }
     }
 }
