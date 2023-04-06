@@ -210,5 +210,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfHttpResponseErrorOccurredAsync()
+        {
+            // given
+            string someFileId = GetRandomString();
+            var httpResponseException = new HttpResponseException();
+
+            var failedServerFileException =
+                new FailedServerFileException(
+                    httpResponseException);
+
+            var expectedFileDependencyException =
+                new FileDependencyException(failedServerFileException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()))
+                    .ThrowsAsync(httpResponseException);
+
+            // when
+            ValueTask<File> removeFileByIdTask =
+                this.fileService.RemoveFileByIdAsync(someFileId);
+
+            FileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<FileDependencyException>(
+                    removeFileByIdTask.AsTask);
+
+            // then
+            actualFileDependencyException.Should().BeEquivalentTo(
+                expectedFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.DeleteFileByIdAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
