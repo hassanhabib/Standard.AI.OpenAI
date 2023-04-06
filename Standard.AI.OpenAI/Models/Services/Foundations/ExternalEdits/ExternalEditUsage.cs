@@ -9,7 +9,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalEdits
     internal class ExternalEditUsage
     {
         [JsonProperty("prompt_tokens")]
-        public int TotalPrompTokens { get; set; }
+        public int TotalPromptTokens { get; set; }
 
         [JsonProperty("completion_tokens")]
         public int TotalCompletionTokens { get; set; }
