@@ -10,7 +10,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
     public class NotFoundFileException : Xeption
     {
         public NotFoundFileException(Exception innerException)
-            : base(message: "File not found.",
+            : base(message: "Not found file error occurred, fix errors and try again.",
                   innerException)
         { }
     }

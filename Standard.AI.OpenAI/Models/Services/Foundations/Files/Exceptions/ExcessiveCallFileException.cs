@@ -10,7 +10,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
     public class ExcessiveCallFileException : Xeption
     {
         public ExcessiveCallFileException(Exception innerException)
-            : base(message: "Excessive call error occurred, limit your calls",
+            : base(message: "Excessive call error occurred, limit your calls.",
                   innerException)
         { }
     }
