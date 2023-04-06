@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
@@ -117,6 +118,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
                     Times.Once);
 
             this.fileBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public Task ShouldThrowFailedServiceException()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedServiceException = new FailedLocalFileServiceException(serviceException);
+
+            var expectedLocalFileException = new 
+
+            // when
+
+            // then
         }
     }
 }
