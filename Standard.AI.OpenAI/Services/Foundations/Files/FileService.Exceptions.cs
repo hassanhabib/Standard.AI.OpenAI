@@ -65,6 +65,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
 
                 throw new FileDependencyValidationException(excessiveCallFileException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedServerFileException =
+                    new FailedServerFileException(httpResponseException);
+
+                throw new FileDependencyException(failedServerFileException);
+            }
         }
     }
 }
