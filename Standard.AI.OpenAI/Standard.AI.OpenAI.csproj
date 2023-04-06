@@ -55,8 +55,4 @@
 	  </None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Models\Services\Foundations\LocalFiles\" />
-	</ItemGroup>
-
 </Project>
