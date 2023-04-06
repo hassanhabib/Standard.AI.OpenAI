@@ -6,10 +6,10 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
-    internal class FileDependencyValidationException : Xeption
+    public class LocalFileDependencyException : Xeption
     {
-        public FileDependencyValidationException(Xeption innerException)
-            : base(message: "File dependency validation error occurred, fix the errors and try again",
+        public LocalFileDependencyException(Xeption innerException)
+            : base(message: "Local file dependency error occurred, contact support.",
                   innerException)
         { }
     }

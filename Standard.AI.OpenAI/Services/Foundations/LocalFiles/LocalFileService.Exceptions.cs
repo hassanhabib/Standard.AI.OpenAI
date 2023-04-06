@@ -18,49 +18,49 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             {
                 return returningStreamFunction();
             }
-            catch (InvalidFileException invalidFileException)
+            catch (InvalidLocalFileException invalidFileException)
             {
-                throw new FileValidationException(invalidFileException);
+                throw new LocalFileValidationException(invalidFileException);
             }
             catch (ArgumentException argumentException)
             {
-                var invalidFileException = new InvalidFileException(argumentException);
+                var invalidFileException = new InvalidLocalFileException(argumentException);
 
-                throw new FileDependencyValidationException(invalidFileException);
+                throw new LocalFileDependencyValidationException(invalidFileException);
             }
             catch (PathTooLongException pathTooLongException)
             {
-                var invalidFileException = new InvalidFileException(pathTooLongException);
+                var invalidFileException = new InvalidLocalFileException(pathTooLongException);
 
-                throw new FileDependencyValidationException(invalidFileException);
+                throw new LocalFileDependencyValidationException(invalidFileException);
             }
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundFileException(fileNotFoundException);
+                    new NotFoundLocalFileException(fileNotFoundException);
 
-                throw new FileDependencyValidationException(notFoundFileException);
+                throw new LocalFileDependencyValidationException(notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundFileException(directoryNotFoundException);
+                    new NotFoundLocalFileException(directoryNotFoundException);
 
-                throw new FileDependencyValidationException(notFoundFileException);
+                throw new LocalFileDependencyValidationException(notFoundFileException);
             }
             catch (IOException ioException)
             {
                 var failedFileException =
-                    new FailedFileException(ioException);
+                    new FailedLocalFileDependencyException(ioException);
 
-                throw new FileDependencyException(failedFileException);
+                throw new LocalFileDependencyException(failedFileException);
             }
             catch (NotSupportedException notSupportedException)
             {
                 var failedFileException =
-                    new FailedFileException(notSupportedException);
+                    new FailedLocalFileDependencyException(notSupportedException);
 
-                throw new FileDependencyException(failedFileException);
+                throw new LocalFileDependencyException(failedFileException);
             }
             catch (Exception exception)
             {

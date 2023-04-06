@@ -2,15 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
-    internal class FailedFileException : Xeption
+    internal class LocalFileDependencyValidationException : Xeption
     {
-        public FailedFileException(Exception innerException)
-            : base(message: "Failed file error occurred, contact support.", innerException)
+        public LocalFileDependencyValidationException(Xeption innerException)
+            : base(message: "Local file dependency validation error occurred, fix the errors and try again",
+                  innerException)
         { }
     }
 }

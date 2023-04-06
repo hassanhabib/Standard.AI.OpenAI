@@ -6,10 +6,10 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
-    internal class FileValidationException : Xeption
+    internal class LocalFileValidationException : Xeption
     {
-        public FileValidationException(Xeption innerException)
-            : base(message: "File validation error occurred, fix error and try again.",
+        public LocalFileValidationException(Xeption innerException)
+            : base(message: "Local file validation error occurred, fix error and try again.",
                   innerException)
         { }
     }

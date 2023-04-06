@@ -7,11 +7,10 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
-    internal class NotFoundFileException : Xeption
+    internal class FailedLocalFileDependencyException : Xeption
     {
-        public NotFoundFileException(Exception innerException)
-            : base(message: "Not found file error occurred, fix error and try again.",
-                  innerException)
+        public FailedLocalFileDependencyException(Exception innerException)
+            : base(message: "Failed local file error occurred, contact support.", innerException)
         { }
     }
 }

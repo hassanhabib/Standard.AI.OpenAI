@@ -19,10 +19,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         {
             // given
             string someFilePath = CreateRandomFilePath();
-            var invalidFileException = new InvalidFileException(dependencyValidationException);
+            var invalidFileException = new InvalidLocalFileException(dependencyValidationException);
 
             var expectedFileDependencyValidationException =
-                new FileDependencyValidationException(invalidFileException);
+                new LocalFileDependencyValidationException(invalidFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -32,8 +32,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             Action readFileAction = () =>
                 this.localFileService.ReadFile(someFilePath);
 
-            FileDependencyValidationException actualFileDependencyValidationException =
-                Assert.Throws<FileDependencyValidationException>(readFileAction);
+            LocalFileDependencyValidationException actualFileDependencyValidationException =
+                Assert.Throws<LocalFileDependencyValidationException>(readFileAction);
 
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
@@ -55,10 +55,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             string someFilePath = CreateRandomFilePath();
 
             var invalidFileException =
-                new NotFoundFileException(fileNotFoundException);
+                new NotFoundLocalFileException(fileNotFoundException);
 
             var expectedFileDependencyValidationException =
-                new FileDependencyValidationException(invalidFileException);
+                new LocalFileDependencyValidationException(invalidFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -68,8 +68,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             Action readFileAction = () =>
                 this.localFileService.ReadFile(someFilePath);
 
-            FileDependencyValidationException actualFileDependencyValidationException =
-                Assert.Throws<FileDependencyValidationException>(readFileAction);
+            LocalFileDependencyValidationException actualFileDependencyValidationException =
+                Assert.Throws<LocalFileDependencyValidationException>(readFileAction);
 
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
@@ -91,10 +91,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             string someFilePath = CreateRandomFilePath();
 
             var failedFileException =
-                new FailedFileException(fileDependencyException);
+                new FailedLocalFileDependencyException(fileDependencyException);
 
             var expectedFileDependencyException =
-                new FileDependencyException(failedFileException);
+                new LocalFileDependencyException(failedFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -104,8 +104,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             Action readFileAction = () =>
                 this.localFileService.ReadFile(someFilePath);
 
-            FileDependencyException actualFileDependencyException =
-                Assert.Throws<FileDependencyException>(readFileAction);
+            LocalFileDependencyException actualFileDependencyException =
+                Assert.Throws<LocalFileDependencyException>(readFileAction);
 
             // then
             actualFileDependencyException.Should().BeEquivalentTo(
@@ -125,7 +125,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             string someFilePath = CreateRandomFilePath();
             var serviceException = new Exception();
 
-            var failedLocalFileServiceException = 
+            var failedLocalFileServiceException =
                 new FailedLocalFileServiceException(serviceException);
 
             var expectedLocalFileServiceException =

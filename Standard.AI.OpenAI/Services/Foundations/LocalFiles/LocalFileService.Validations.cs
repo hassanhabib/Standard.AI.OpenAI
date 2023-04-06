@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Data;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
@@ -24,7 +23,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 
         private void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidFileException = new InvalidFileException();
+            var invalidFileException = new InvalidLocalFileException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {

@@ -21,21 +21,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         {
             // given
             var invalidFileException =
-                new InvalidFileException();
+                new InvalidLocalFileException();
 
             invalidFileException.AddData(
                 key: "FilePath",
                 "Value is required");
 
             var expectedFileValidationException =
-                new FileValidationException(invalidFileException);
+                new LocalFileValidationException(invalidFileException);
 
             // when
             Action readFileAction = () =>
                 this.localFileService.ReadFile(invalidFilePath);
 
-            FileValidationException actualFileValidationException =
-                Assert.Throws<FileValidationException>(readFileAction);
+            LocalFileValidationException actualFileValidationException =
+                Assert.Throws<LocalFileValidationException>(readFileAction);
 
             // then
             actualFileValidationException.Should().BeEquivalentTo(

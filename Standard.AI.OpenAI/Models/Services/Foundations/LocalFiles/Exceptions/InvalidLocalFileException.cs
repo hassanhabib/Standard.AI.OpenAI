@@ -7,14 +7,14 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
-    public class InvalidFileException : Xeption
+    public class InvalidLocalFileException : Xeption
     {
-        public InvalidFileException()
-            : base(message: "Invalid file error occurred, fix error and try again.")
+        public InvalidLocalFileException()
+            : base(message: "Invalid local file error occurred, fix error and try again.")
         { }
 
-        public InvalidFileException(Exception innerException)
-            : base(message: "Invalid file error occurred, fix error and try again.", innerException)
+        public InvalidLocalFileException(Exception innerException)
+            : base(message: "Invalid local file error occurred, fix error and try again.", innerException)
         { }
     }
 }
