@@ -26,12 +26,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
                 fileBroker: this.fileBrokerMock.Object);
         }
 
-        public static TheoryData FileExceptions()
+        public static TheoryData FileValidationExceptions()
         {
             return new TheoryData<Exception>()
             {
                 new ArgumentException(),
                 new PathTooLongException()
+            };
+        }
+
+        public static TheoryData FileNotFoundExceptions()
+        {
+            return new TheoryData<Exception>()
+            {
+                new FileNotFoundException(),
+                new DirectoryNotFoundException()
             };
         }
 
