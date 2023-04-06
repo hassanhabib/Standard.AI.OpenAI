@@ -58,6 +58,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
 
                 throw new FileDependencyValidationException(invalidFileException);
             }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallFileException =
+                    new ExcessiveCallFileException(httpResponseTooManyRequestsException);
+
+                throw new FileDependencyValidationException(excessiveCallFileException);
+            }
         }
     }
 }
