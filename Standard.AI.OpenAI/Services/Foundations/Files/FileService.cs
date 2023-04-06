@@ -9,19 +9,21 @@ using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Files
 {
-    internal class FileService : IFileService
+    internal partial class FileService : IFileService
     {
         private readonly IOpenAIBroker openAIBroker;
 
         public FileService(IOpenAIBroker openAIBroker) =>
             this.openAIBroker = openAIBroker;
 
-        public async ValueTask<File> RemoveFileByIdAsync(string fileId)
+        public ValueTask<File> RemoveFileByIdAsync(string fileId) =>
+        TryCatch(async () =>
         {
+            ValidateFileId(fileId);
             ExternalFile removedFile = await this.openAIBroker.DeleteFileByIdAsync(fileId);
 
             return ConvertToFile(removedFile);
-        }
+        });
 
         private static File ConvertToFile(ExternalFile externalFile)
         {
