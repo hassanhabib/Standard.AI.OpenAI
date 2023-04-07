@@ -54,11 +54,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             // given
             string someFilePath = CreateRandomFilePath();
 
-            var invalidFileException =
+            var notFoundFileException =
                 new NotFoundLocalFileException(fileNotFoundException);
 
             var expectedFileDependencyValidationException =
-                new LocalFileDependencyValidationException(invalidFileException);
+                new LocalFileDependencyValidationException(notFoundFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
