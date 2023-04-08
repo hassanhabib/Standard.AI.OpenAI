@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
@@ -32,6 +31,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             return file;
         }
 
+        public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) =>
+        TryCatch(async () =>
+        {
+            ValidateFileId(fileId);
+            ExternalAIFileResponse removedFile = await this.openAIBroker.DeleteFileByIdAsync(fileId);
+
+            return ConvertToFile(removedFile);
+        });
+
         private async ValueTask<ExternalAIFileResponse> PostFileAsync(AIFile file)
         {
             var externalAIFileRequest = new ExternalAIFileRequest()
@@ -41,6 +49,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             };
 
             return await this.openAIBroker.PostFileFormAsync(externalAIFileRequest);
+        }
+
+        private static AIFile ConvertToFile(ExternalAIFileResponse externalAIFileResponse)
+        {
+            return new AIFile
+            {
+                Response = ConvertToDeletedFileResponse(externalAIFileResponse)
+            };
+        }
+
+        private static AIFileResponse ConvertToDeletedFileResponse(ExternalAIFileResponse externalAIFileResponse)
+        {
+            return new AIFileResponse
+            {
+                Id = externalAIFileResponse.Id,
+                Type = externalAIFileResponse.Object,
+                Size = externalAIFileResponse.Bytes,
+                Name = externalAIFileResponse.FileName,
+                Purpose = externalAIFileResponse.Purpose,
+                Deleted = externalAIFileResponse.Deleted
+            };
         }
 
         private AIFileResponse ConvertToFileResponse(ExternalAIFileResponse externalAIFileResponse)

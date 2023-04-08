@@ -9,11 +9,13 @@ using System.Net.Http;
 using System.Text;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 {
@@ -33,6 +35,27 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.aiFileService = new AIFileService(
                 openAIBroker: this.openAiBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
+        }
+
+        public static TheoryData UnauthorizedExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
+        }
+
+        public dynamic CreateRandomFileProperties()
+        {
+            int randomCreated = GetRandomNumber();
+            DateTimeOffset randomCreatedDate = CreateRandomDateTimeOffset();
+
+            dynamic randomFileProperties = CreateRandomFileProperties(
+                created: randomCreated,
+                createdDate: randomCreatedDate);
+
+            return randomFileProperties;
         }
 
         public dynamic CreateRandomFileProperties(int created, DateTimeOffset createdDate)
@@ -55,7 +78,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Size = randomBytesSize,
                 Bytes = randomBytesSize,
                 Created = created,
-                CreatedDate = createdDate
+                CreatedDate = createdDate,
+                Deleted = GetRandomBoolean()
             };
         }
 
@@ -64,10 +88,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         {
             return actualExternalAIFileRequest =>
                 this.compareLogic.Compare(
-                    expectedExternalAIFileRequest, 
+                    expectedExternalAIFileRequest,
                     actualExternalAIFileRequest)
                         .AreEqual;
         }
+
+        private static bool GetRandomBoolean() =>
+            Randomizer<bool>.Create();
 
         private static DateTimeOffset CreateRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();

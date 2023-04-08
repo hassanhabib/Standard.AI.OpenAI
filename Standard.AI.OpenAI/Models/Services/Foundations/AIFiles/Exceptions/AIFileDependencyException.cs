@@ -2,15 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
-    public class ExcessiveCallFileException : Xeption
+    public class AIFileDependencyException : Xeption
     {
-        public ExcessiveCallFileException(Exception innerException)
-            : base(message: "Excessive call error occurred, limit your calls.",
+        public AIFileDependencyException(Xeption innerException)
+            : base(message: "AI file dependency error occurred, contact support.",
                   innerException)
         { }
     }

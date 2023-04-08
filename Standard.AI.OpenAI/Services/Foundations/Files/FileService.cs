@@ -16,32 +16,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
             this.openAIBroker = openAIBroker;
 
         public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) =>
-        TryCatch(async () =>
-        {
-            ValidateFileId(fileId);
-            ExternalAIFileResponse removedFile = await this.openAIBroker.DeleteFileByIdAsync(fileId);
-
-            return ConvertToFile(removedFile);
-        });
-
-        private static AIFile ConvertToFile(ExternalAIFileResponse externalAIFileResponse)
-        {
-            return new AIFile
-            {
-                Response = ConvertToFileResponse(externalAIFileResponse)
-            };
-        }
-
-        private static AIFileResponse ConvertToFileResponse(ExternalAIFileResponse externalAIFileResponse)
-        {
-            return new AIFileResponse
-            {
-                Id = externalAIFileResponse.Id,
-                Type = externalAIFileResponse.Object,
-                Size = externalAIFileResponse.Bytes,
-                Name = externalAIFileResponse.FileName,
-                Purpose = externalAIFileResponse.Purpose,
-            };
-        }
+            throw new System.NotImplementedException();
     }
 }

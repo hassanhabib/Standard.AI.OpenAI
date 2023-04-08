@@ -10,5 +10,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
     internal interface IAIFileService
     {
         ValueTask<AIFile> UploadFileAsync(AIFile file);
+        ValueTask<AIFile> RemoveFileByIdAsync(string fileId);
     }
 }
