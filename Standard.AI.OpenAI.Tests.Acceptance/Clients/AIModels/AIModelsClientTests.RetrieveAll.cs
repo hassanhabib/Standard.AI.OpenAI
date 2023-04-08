@@ -40,7 +40,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
 
             // when
             IEnumerable<AIModel> actualAIModels =
-                await this.openAIClient.AllAIModels.RetrieveAIModelsAsync();
+                await this.openAIClient.AIModels.RetrieveAIModelsAsync();
 
             // then
             actualAIModels.Should().BeEquivalentTo(expectedAIModels);

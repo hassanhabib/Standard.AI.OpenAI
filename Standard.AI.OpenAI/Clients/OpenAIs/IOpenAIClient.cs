@@ -14,6 +14,6 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         ICompletionsClient Completions { get; }
         IChatCompletionsClient ChatCompletions { get; }
         IImageGenerationsClient ImageGenerations { get; }
-        IAIModelsClient AllAIModels { get; }
+        IAIModelsClient AIModels { get; }
     }
 }

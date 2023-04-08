@@ -111,6 +111,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             new IntRange(min: 2, max: 10).GetValue();
 
         private static bool GetRandomBoolean() =>
-            new SequenceGeneratorBoolean().GetValue();
+            Randomizer<bool>.Create();
     }
 }
