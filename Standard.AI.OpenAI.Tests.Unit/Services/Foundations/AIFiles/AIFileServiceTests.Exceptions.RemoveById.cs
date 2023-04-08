@@ -53,6 +53,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -90,6 +91,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -130,6 +132,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -170,6 +173,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -210,6 +214,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -247,6 +252,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -284,6 +290,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Times.Once);
 
             this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
