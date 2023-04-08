@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
 using Xunit;
 
@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyException actualFileDependencyException =
@@ -74,7 +74,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(unauthorizedException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyException actualFileDependencyException =
@@ -114,7 +114,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(httpResponseNotFoundException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyValidationException actualFileDependencyValidationException =
@@ -154,7 +154,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(httpResponseBadRequestException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyValidationException actualFileDependencyValidationException =
@@ -194,7 +194,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(httpResponseTooManyRequestsException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyValidationException actualFileDependencyValidationException =
@@ -231,7 +231,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(httpResponseException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileDependencyException actualFileDependencyException =
@@ -268,7 +268,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(someFileId);
 
             FileServiceException actualFileServiceException =

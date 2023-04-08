@@ -3,12 +3,12 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Files
 {
     internal interface IFileService
     {
-        ValueTask<File> RemoveFileByIdAsync(string fileId);
+        ValueTask<AIFile> RemoveFileByIdAsync(string fileId);
     }
 }

@@ -5,20 +5,20 @@
 using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Files
 {
     internal partial class FileService
     {
-        private delegate ValueTask<File> ReturningFileFunction();
+        private delegate ValueTask<AIFile> ReturningAIFileFunction();
 
-        private async ValueTask<File> TryCatch(ReturningFileFunction returningFileFunction)
+        private async ValueTask<AIFile> TryCatch(ReturningAIFileFunction returningAIFileFunction)
         {
             try
             {
-                return await returningFileFunction();
+                return await returningAIFileFunction();
             }
             catch (InvalidFileException invalidFileException)
             {

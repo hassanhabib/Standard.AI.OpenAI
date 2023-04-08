@@ -5,7 +5,6 @@
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Files
 {
@@ -16,7 +15,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
         public FileService(IOpenAIBroker openAIBroker) =>
             this.openAIBroker = openAIBroker;
 
-        public ValueTask<File> RemoveFileByIdAsync(string fileId) =>
+        public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) =>
         TryCatch(async () =>
         {
             ValidateFileId(fileId);
@@ -25,13 +24,23 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
             return ConvertToFile(removedFile);
         });
 
-        private static File ConvertToFile(ExternalAIFileResponse externalFile)
+        private static AIFile ConvertToFile(ExternalAIFileResponse externalAIFileResponse)
         {
-            return new File()
+            return new AIFile
             {
-                Id = externalFile.Id,
-                Type = externalFile.Object,
-                Deleted = externalFile.Deleted
+                Response = ConvertToFileResponse(externalAIFileResponse)
+            };
+        }
+
+        private static AIFileResponse ConvertToFileResponse(ExternalAIFileResponse externalAIFileResponse)
+        {
+            return new AIFileResponse
+            {
+                Id = externalAIFileResponse.Id,
+                Type = externalAIFileResponse.Object,
+                Size = externalAIFileResponse.Bytes,
+                Name = externalAIFileResponse.FileName,
+                Purpose = externalAIFileResponse.Purpose,
             };
         }
     }

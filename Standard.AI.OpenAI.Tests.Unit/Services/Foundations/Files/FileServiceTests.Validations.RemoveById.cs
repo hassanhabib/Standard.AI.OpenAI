@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
 using Xunit;
@@ -34,7 +35,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                 new FileValidationException(invalidFileException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
+            ValueTask<AIFile> removeFileByIdTask =
                 this.fileService.RemoveFileByIdAsync(invalidFileId);
 
             FileValidationException actualFileValidationException =

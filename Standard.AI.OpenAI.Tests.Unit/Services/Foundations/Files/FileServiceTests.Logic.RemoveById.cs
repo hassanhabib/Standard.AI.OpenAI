@@ -7,7 +7,6 @@ using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
@@ -32,26 +31,31 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
                 Deleted = fileRandomProperties.Deleted,
             };
 
-            var randomFile = new File
+            var randomAIFileResponse = new AIFileResponse
             {
                 Id = fileRandomProperties.Id,
                 Type = fileRandomProperties.Type,
                 Deleted = fileRandomProperties.Deleted
             };
 
+            var randomAIFile = new AIFile
+            {
+                Response = randomAIFileResponse
+            };
+
             ExternalAIFileResponse removedExternalAIFileResponse = randomExternalAIFileResponse.DeepClone();
-            File expectedFile = randomFile;
+            AIFile expectedAIFile = randomAIFile;
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(inputFileId))
                     .ReturnsAsync(removedExternalAIFileResponse);
 
             // when
-            File actualFile = await this.fileService.RemoveFileByIdAsync(
+            AIFile actualFile = await this.fileService.RemoveFileByIdAsync(
                 inputFileId);
 
             // then
-            actualFile.Should().BeEquivalentTo(expectedFile);
+            actualFile.Should().BeEquivalentTo(expectedAIFile);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(inputFileId),
