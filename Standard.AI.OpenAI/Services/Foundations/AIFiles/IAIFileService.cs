@@ -7,7 +7,7 @@ using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {
-    internal interface IFileService
+    internal interface IAIFileService
     {
         ValueTask<AIFile> UploadFileAsync(AIFile file);
     }

@@ -4,9 +4,9 @@
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
-    internal class File
+    internal class AIFile
     {
-        public FileRequest Request { get; set; }
-        public FileResponse Response { get; set; }
+        public AIFileRequest Request { get; set; }
+        public AIFileResponse Response { get; set; }
     }
 }
