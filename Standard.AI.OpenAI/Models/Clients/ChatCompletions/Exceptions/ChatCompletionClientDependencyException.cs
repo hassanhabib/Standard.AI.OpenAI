@@ -6,6 +6,10 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Clients.ChatCompletions.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when a dependency error occurs while using the Chat completion client.
+    /// For example, if a required dependency is unavailable or incompatible.
+    /// </summary>
     public class ChatCompletionClientDependencyException : Xeption
     {
         public ChatCompletionClientDependencyException(Xeption innerException)
