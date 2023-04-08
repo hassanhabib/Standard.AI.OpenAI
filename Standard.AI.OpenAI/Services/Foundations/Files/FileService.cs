@@ -4,7 +4,7 @@
 
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Files
@@ -20,12 +20,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
         TryCatch(async () =>
         {
             ValidateFileId(fileId);
-            ExternalFile removedFile = await this.openAIBroker.DeleteFileByIdAsync(fileId);
+            ExternalAIFileResponse removedFile = await this.openAIBroker.DeleteFileByIdAsync(fileId);
 
             return ConvertToFile(removedFile);
         });
 
-        private static File ConvertToFile(ExternalFile externalFile)
+        private static File ConvertToFile(ExternalAIFileResponse externalFile)
         {
             return new File()
             {
