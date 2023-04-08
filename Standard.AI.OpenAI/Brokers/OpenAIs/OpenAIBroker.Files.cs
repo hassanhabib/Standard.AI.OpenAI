@@ -11,5 +11,9 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     {
         public async ValueTask<ExternalFile> DeleteFileByIdAsync(string fileId) =>
             await DeleteAsync<ExternalFile>(relativeUrl: $"v1/files/{fileId}");
+
+        public async ValueTask<ExternalUploadFileResponse> UploadFileAsync(
+            ExternalUploadFileRequest request) =>
+            await PostAsync<ExternalUploadFileRequest,ExternalUploadFileResponse>(relativeUrl: "v1/files", request);
     }
 }

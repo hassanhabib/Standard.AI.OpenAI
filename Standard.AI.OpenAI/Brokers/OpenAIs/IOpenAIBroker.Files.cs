@@ -10,5 +10,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     internal partial interface IOpenAIBroker
     {
         ValueTask<ExternalFile> DeleteFileByIdAsync(string fileId);
+        ValueTask<ExternalUploadFileResponse> UploadFileAsync(ExternalUploadFileRequest request);
     }
 }
