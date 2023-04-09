@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
+using Standard.AI.OpenAI.Models.Clients.Files.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files;
 using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.Files;
@@ -25,22 +26,22 @@ namespace Standard.AI.OpenAI.Clients.Files
             }
             catch (FileValidationException fileValidationException)
             {
-                throw new FileValidationException(
+                throw new FileClientValidationException(
                     fileValidationException.InnerException as Xeption);
             }
             catch (FileDependencyValidationException fileDependencyValidationException)
             {
-                throw new FileValidationException(
+                throw new FileClientValidationException(
                     fileDependencyValidationException.InnerException as Xeption);
             }
             catch (FileDependencyException fileDependencyException)
             {
-                throw new FileDependencyException(
+                throw new FileClientDependencyException(
                     fileDependencyException.InnerException as Xeption);
             }
             catch (FileServiceException fileServiceException)
             {
-                throw new FileServiceException(
+                throw new FileClientServiceException(
                     fileServiceException.InnerException as Xeption);
             }
         }
