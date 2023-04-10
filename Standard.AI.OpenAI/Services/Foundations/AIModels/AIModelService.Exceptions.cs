@@ -33,19 +33,19 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyException(invalidConfigurationAIModelException);
             }
-            catch(HttpResponseBadRequestException httpResponseBadRequestException)
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
-                var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(httpResponseBadRequestException);
+                var invalidAIModelException =
+                    new InvalidAIModelException(httpResponseBadRequestException);
 
-                throw new AIModelDependencyException(invalidConfigurationAIModelException);
+                throw new AIModelDependencyValidationException(invalidAIModelException);
             }
-            catch(HttpResponseNotFoundException httpResponseNotFoundException)
+            catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
-                var modelDoesNotExistException = 
-                    new ModelDoesNotExistException(httpResponseNotFoundException);
+                var notFoundAIModelException =
+                    new NotFoundAIModelException(httpResponseNotFoundException);
 
-                throw new AIModelDependencyException(modelDoesNotExistException);
+                throw new AIModelDependencyValidationException(notFoundAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {

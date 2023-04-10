@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------------------- 
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+// ----------------------------------------------------------------------------------
+
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
@@ -18,6 +22,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             // given
             var invalidAIModelException =
                 new InvalidAIModelException();
+
+            invalidAIModelException.AddData(
+                key: nameof(AIModel.Name),
+                values: "Value is required");
 
             var expectedAIModelValidationException =
                 new AIModelValidationException(invalidAIModelException);

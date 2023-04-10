@@ -3,9 +3,9 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
 {
-    public class ModelDoesNotExistException : Xeption
+    public class NotFoundAIModelException : Xeption
     {
-        public ModelDoesNotExistException(Exception innerException)
+        public NotFoundAIModelException(Exception innerException)
             : base(message: "Model does not exist error occurred, check that the model name is correct.", innerException)
         { }
     }

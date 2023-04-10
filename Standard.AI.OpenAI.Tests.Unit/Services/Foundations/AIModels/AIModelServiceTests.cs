@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
