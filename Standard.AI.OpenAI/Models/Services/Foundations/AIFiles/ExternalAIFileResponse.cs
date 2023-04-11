@@ -25,5 +25,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 
         [JsonProperty("purpose")]
         public string Purpose { get; set; }
+
+        [JsonProperty("deleted")]
+        public bool Deleted { get; set; }
     }
 }

@@ -5,7 +5,6 @@
 using System;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
@@ -17,7 +16,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
             throw new NotImplementedException();
         }
 
-        public async ValueTask<ExternalFile> DeleteFileByIdAsync(string fileId) =>
-            await DeleteAsync<ExternalFile>(relativeUrl: $"v1/files/{fileId}");
+        public async ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId) =>
+            await DeleteAsync<ExternalAIFileResponse>(relativeUrl: $"v1/files/{fileId}");
     }
 }

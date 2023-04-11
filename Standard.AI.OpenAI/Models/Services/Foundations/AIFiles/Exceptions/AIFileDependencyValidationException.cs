@@ -2,15 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
-    public class NotFoundFileException : Xeption
+    public class AIFileDependencyValidationException : Xeption
     {
-        public NotFoundFileException(Exception innerException)
-            : base(message: "Not found file error occurred, fix errors and try again.",
+        public AIFileDependencyValidationException(Xeption innerException)
+            : base(message: "AI file dependency validation error occurred, contact support.",
                   innerException)
         { }
     }

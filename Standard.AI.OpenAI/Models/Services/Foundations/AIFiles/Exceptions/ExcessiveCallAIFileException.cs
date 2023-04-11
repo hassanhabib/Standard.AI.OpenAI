@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
-    public class FailedServerFileException : Xeption
+    public class ExcessiveCallAIFileException : Xeption
     {
-        public FailedServerFileException(Exception innerException)
-            : base(message: "Failed file server error occurred, contact support.",
+        public ExcessiveCallAIFileException(Exception innerException)
+            : base(message: "Excessive call error occurred, limit your calls.",
                   innerException)
         { }
     }

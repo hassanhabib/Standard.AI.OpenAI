@@ -5,13 +5,13 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Xunit;
 
-namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
+namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 {
-    public partial class FileServiceTests
+    public partial class AIFileServiceTests
     {
         [Theory]
         [InlineData(null)]
@@ -24,32 +24,33 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
             string invalidFileId = invalidId;
 
             var invalidFileException =
-                new InvalidFileException();
+                new InvalidAIFileException();
 
             invalidFileException.AddData(
-                key: nameof(File.Id),
+                key: nameof(AIFile.Response.Id),
                 values: "Value is required");
 
             var expectedFileValidationException =
-                new FileValidationException(invalidFileException);
+                new AIFileValidationException(invalidFileException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(invalidFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(invalidFileId);
 
-            FileValidationException actualFileValidationException =
-                await Assert.ThrowsAsync<FileValidationException>(
+            AIFileValidationException actualFileValidationException =
+                await Assert.ThrowsAsync<AIFileValidationException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileValidationException.Should().BeEquivalentTo(
                 expectedFileValidationException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

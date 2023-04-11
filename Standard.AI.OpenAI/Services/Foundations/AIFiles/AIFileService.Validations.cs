@@ -3,15 +3,15 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 
-namespace Standard.AI.OpenAI.Services.Foundations.Files
+namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {
-    internal partial class FileService
+    internal partial class AIFileService
     {
         private static void ValidateFileId(string fileId) =>
-            Validate((Rule: IsInvalid(fileId), Parameter: nameof(File.Id)));
+            Validate((Rule: IsInvalid(fileId), Parameter: nameof(AIFile.Response.Id)));
 
         private static dynamic IsInvalid(string fileId) => new
         {
@@ -21,19 +21,19 @@ namespace Standard.AI.OpenAI.Services.Foundations.Files
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidFileException = new InvalidFileException();
+            var invalidAIFileException = new InvalidAIFileException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {
                 if (rule.Condition)
                 {
-                    invalidFileException.UpsertDataList(
+                    invalidAIFileException.UpsertDataList(
                         key: parameter,
                         value: rule.Message);
                 }
             }
 
-            invalidFileException.ThrowIfContainsErrors();
+            invalidAIFileException.ThrowIfContainsErrors();
         }
     }
 }

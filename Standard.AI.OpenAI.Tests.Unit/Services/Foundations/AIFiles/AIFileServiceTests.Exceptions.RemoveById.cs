@@ -7,52 +7,53 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using RESTFulSense.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files;
-using Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Xunit;
 
-namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
+namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 {
-    public partial class FileServiceTests
+    public partial class AIFileServiceTests
     {
         [Fact]
         public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUrlNotFoundAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
 
             var httpResponseUrlNotFoundException =
                 new HttpResponseUrlNotFoundException();
 
             var invalidConfigurationFileException =
-                new InvalidConfigurationFileException(
+                new InvalidConfigurationAIFileException(
                     httpResponseUrlNotFoundException);
 
             var expectedFileDependencyException =
-                new FileDependencyException(
+                new AIFileDependencyException(
                     invalidConfigurationFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyException actualFileDependencyException =
-                await Assert.ThrowsAsync<FileDependencyException>(
+            AIFileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -61,229 +62,235 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Files
             HttpResponseException unauthorizedException)
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
 
             var unauthorizedFileException =
-                new UnauthorizedFileException(unauthorizedException);
+                new UnauthorizedAIFileException(unauthorizedException);
 
             var expectedFileDependencyException =
-                new FileDependencyException(unauthorizedFileException);
+                new AIFileDependencyException(unauthorizedFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(unauthorizedException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyException actualFileDependencyException =
-                await Assert.ThrowsAsync<FileDependencyException>(
+            AIFileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfFileNotFoundOccurredAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
 
             var httpResponseNotFoundException =
                 new HttpResponseNotFoundException();
 
             var notFoundFileException =
-                new NotFoundFileException(
+                new NotFoundAIFileException(
                     httpResponseNotFoundException);
 
             var expectedFileDependencyValidationException =
-                new FileDependencyValidationException(
+                new AIFileDependencyValidationException(
                     notFoundFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseNotFoundException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyValidationException actualFileDependencyValidationException =
-                await Assert.ThrowsAsync<FileDependencyValidationException>(
+            AIFileDependencyValidationException actualFileDependencyValidationException =
+                await Assert.ThrowsAsync<AIFileDependencyValidationException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfBadRequestOccurredAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
 
             var httpResponseBadRequestException =
                 new HttpResponseBadRequestException();
 
             var invalidFileException =
-                new InvalidFileException(
+                new InvalidAIFileException(
                     httpResponseBadRequestException);
 
             var expectedFileDependencyValidationException =
-                new FileDependencyValidationException(
+                new AIFileDependencyValidationException(
                     invalidFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseBadRequestException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyValidationException actualFileDependencyValidationException =
-                await Assert.ThrowsAsync<FileDependencyValidationException>(
+            AIFileDependencyValidationException actualFileDependencyValidationException =
+                await Assert.ThrowsAsync<AIFileDependencyValidationException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfTooManyRequestsOccurredAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
 
             var httpResponseTooManyRequestsException =
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallFileException =
-                new ExcessiveCallFileException(
+                new ExcessiveCallAIFileException(
                     httpResponseTooManyRequestsException);
 
             var expectedFileDependencyValidationException =
-                new FileDependencyValidationException(
+                new AIFileDependencyValidationException(
                     excessiveCallFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseTooManyRequestsException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyValidationException actualFileDependencyValidationException =
-                await Assert.ThrowsAsync<FileDependencyValidationException>(
+            AIFileDependencyValidationException actualFileDependencyValidationException =
+                await Assert.ThrowsAsync<AIFileDependencyValidationException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfHttpResponseErrorOccurredAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
             var httpResponseException = new HttpResponseException();
 
             var failedServerFileException =
-                new FailedServerFileException(
+                new FailedServerAIFileException(
                     httpResponseException);
 
             var expectedFileDependencyException =
-                new FileDependencyException(failedServerFileException);
+                new AIFileDependencyException(failedServerFileException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileDependencyException actualFileDependencyException =
-                await Assert.ThrowsAsync<FileDependencyException>(
+            AIFileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldThrowServiceExceptionOnRemoveByIdIfServiceErrorOccurredAsync()
         {
             // given
-            string someFileId = GetRandomString();
+            string someFileId = CreateRandomString();
             var serviceException = new Exception();
 
             var failedFileServiceException =
-                new FailedFileServiceException(serviceException);
+                new FailedAIFileServiceException(serviceException);
 
             var expectedFileServiceException =
-                new FileServiceException(
+                new AIFileServiceException(
                     failedFileServiceException);
 
-            this.openAIBrokerMock.Setup(broker =>
+            this.openAiBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<File> removeFileByIdTask =
-                this.fileService.RemoveFileByIdAsync(someFileId);
+            ValueTask<AIFile> removeFileByIdTask =
+                this.aiFileService.RemoveFileByIdAsync(someFileId);
 
-            FileServiceException actualFileServiceException =
-                await Assert.ThrowsAsync<FileServiceException>(
+            AIFileServiceException actualFileServiceException =
+                await Assert.ThrowsAsync<AIFileServiceException>(
                     removeFileByIdTask.AsTask);
 
             // then
             actualFileServiceException.Should().BeEquivalentTo(
                 expectedFileServiceException);
 
-            this.openAIBrokerMock.Verify(broker =>
+            this.openAiBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
