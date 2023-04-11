@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
@@ -11,7 +12,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
     {
         ValueTask<ExternalAIFileResponse> PostFileFormAsync(
             ExternalAIFileRequest externalFileRequest);
-
-        ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId);
+     
+        ValueTask<ExternalFile> DeleteFileByIdAsync(string fileId);
     }
 }
