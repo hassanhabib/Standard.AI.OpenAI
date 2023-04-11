@@ -5,8 +5,6 @@
 using System;
 using System.IO;
 using System.Linq.Expressions;
-using System.Net.Http;
-using System.Text;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Standard.AI.OpenAI.Brokers.DateTimes;
@@ -44,7 +42,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             return new
             {
-                ExternalFile = new StreamContent(randomStream),
+                ExternalFile = randomStream,
                 Content = randomStream,
                 FileName = randomFileName,
                 Name = randomFileName,
@@ -64,7 +62,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         {
             return actualExternalAIFileRequest =>
                 this.compareLogic.Compare(
-                    expectedExternalAIFileRequest, 
+                    expectedExternalAIFileRequest,
                     actualExternalAIFileRequest)
                         .AreEqual;
         }
@@ -80,16 +78,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         private Stream CreateRandomStream()
         {
-            int randomWordCount = GetRandomNumber();
+            var mockStream = new Mock<MemoryStream>();
 
-            string randomContent =
-                new MnemonicString(randomWordCount)
-                    .GetValue();
+            mockStream.SetupGet(stream =>
+                stream.ReadTimeout)
+                    .Returns(0);
 
-            byte[] buffer = Encoding.UTF8.GetBytes(randomContent);
-            var memoryStream = new MemoryStream(buffer);
+            mockStream.SetupGet(stream =>
+                stream.WriteTimeout)
+                    .Returns(0);
 
-            return memoryStream;
+            return mockStream.Object;
         }
     }
 }

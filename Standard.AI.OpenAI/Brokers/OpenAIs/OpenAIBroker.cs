@@ -8,7 +8,6 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using RESTFulSense.Clients;
 using Standard.AI.OpenAI.Models.Configurations;
-using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
