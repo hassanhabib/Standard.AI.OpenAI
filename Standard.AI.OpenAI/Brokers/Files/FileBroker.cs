@@ -8,7 +8,7 @@ namespace Standard.AI.OpenAI.Brokers.Files
 {
     internal class FileBroker : IFileBroker
     {
-        public Stream ReadFile(string path) =>
+        public FileStream ReadFile(string path) =>
             File.OpenRead(path);
     }
 }

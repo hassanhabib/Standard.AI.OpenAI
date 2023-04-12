@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
         public LocalFileService(IFileBroker fileBroker) =>
             this.fileBroker = fileBroker;
 
-        public Stream ReadFile(string path) =>
+        public FileStream ReadFile(string path) =>
         TryCatch(() =>
         {
             ValidatePath(path);

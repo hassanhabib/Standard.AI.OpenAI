@@ -10,9 +10,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 {
     internal partial class LocalFileService
     {
-        private delegate Stream ReturningStreamFunction();
+        private delegate FileStream ReturningStreamFunction();
 
-        private Stream TryCatch(ReturningStreamFunction returningStreamFunction)
+        private FileStream TryCatch(ReturningStreamFunction returningStreamFunction)
         {
             try
             {

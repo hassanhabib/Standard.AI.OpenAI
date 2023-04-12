@@ -17,16 +17,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             // given
             string randomFilePath = CreateRandomFilePath();
             string inputFilePath = randomFilePath;
-            using Stream randomStream = CreateRandomStream();
-            using Stream readStream = randomStream;
-            using Stream expectedStream = readStream;
+            using FileStream randomStream = CreateRandomFileStream();
+            using FileStream readStream = randomStream;
+            using FileStream expectedStream = readStream;
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(inputFilePath))
                     .Returns(readStream);
 
             // when
-            using Stream actualStream =
+            using FileStream actualStream =
                 this.localFileService.ReadFile(
                     inputFilePath);
 

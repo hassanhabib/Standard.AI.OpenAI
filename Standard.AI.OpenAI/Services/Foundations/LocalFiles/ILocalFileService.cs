@@ -8,6 +8,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 {
     internal interface ILocalFileService
     {
-        Stream ReadFile(string path);
+        FileStream ReadFile(string path);
     }
 }

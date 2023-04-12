@@ -8,6 +8,6 @@ namespace Standard.AI.OpenAI.Brokers.Files
 {
     internal interface IFileBroker
     {
-        Stream ReadFile(string path);
+        FileStream ReadFile(string path);
     }
 }

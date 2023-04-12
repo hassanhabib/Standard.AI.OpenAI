@@ -59,18 +59,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
-        private Stream CreateRandomStream()
+        private FileStream CreateRandomFileStream()
         {
             int randomWordCount = GetRandomNumber();
 
+            string randomFilePath = CreateRandomFilePath();
             string randomContent =
                 new MnemonicString(randomWordCount)
                     .GetValue();
 
             byte[] buffer = Encoding.UTF8.GetBytes(randomContent);
-            var memoryStream = new MemoryStream(buffer);
+            var fileStream = new FileStream(randomFilePath, FileMode.Create);
+            fileStream.Write(buffer, offset: 0, count: buffer.Length);
 
-            return memoryStream;
+            return fileStream;
         }
     }
 }
