@@ -95,17 +95,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfFileNotFoundOccurredAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfBadRequestErrorOccurredAsync()
         {
             // given
             AIFile someAIFile = CreateRandomAIFile();
 
-            var httpResponseNotFoundException =
-                new HttpResponseNotFoundException();
+            var httpResponseBadRequestException =
+                new HttpResponseBadRequestException();
 
             var notFoundFileException =
-                new NotFoundAIFileException(
-                    httpResponseNotFoundException);
+                new InvalidAIFileException(
+                    httpResponseBadRequestException);
 
             var expectedFileDependencyValidationException =
                 new AIFileDependencyValidationException(
@@ -113,7 +113,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             this.openAiBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
-                    .ThrowsAsync(httpResponseNotFoundException);
+                    .ThrowsAsync(httpResponseBadRequestException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
