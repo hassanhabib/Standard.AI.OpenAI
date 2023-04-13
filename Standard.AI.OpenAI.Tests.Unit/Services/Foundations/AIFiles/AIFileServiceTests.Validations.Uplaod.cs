@@ -40,5 +40,41 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAiBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnUploadIfAIFileRquestIsNull()
+        {
+            // given
+            var invalidAIFile = new AIFile();
+            invalidAIFile.Request = null;
+
+            var invalidAIFileException =
+                new InvalidAIFileException();
+
+            invalidAIFileException.AddData(
+                key: nameof(AIFile.Request),
+                values: "Value is required");
+
+            var expectedAIFileValidationException =
+                new AIFileValidationException(invalidAIFileException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask = 
+                this.aiFileService.UploadFileAsync(invalidAIFile);
+
+            AIFileValidationException actualAIFileValidationException =
+                await Assert.ThrowsAsync<AIFileValidationException>(uploadFileTask.AsTask);
+
+            // then
+            actualAIFileValidationException.Should().BeEquivalentTo(
+                expectedAIFileValidationException);
+
+            this.openAiBrokerMock.Verify(broker =>
+                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
+                    Times.Never);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
