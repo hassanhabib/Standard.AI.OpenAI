@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using RESTFulSense.Exceptions;
@@ -116,6 +117,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     .Returns(0);
 
             return mockStream.Object;
+        }
+
+        private AIFile CreateRandomAIFile() =>
+            CreateAIFileFiller().Create();
+
+        private Filler<AIFile> CreateAIFileFiller()
+        {
+            var filler = new Filler<AIFile>();
+
+            filler.Setup()
+                .OnType<DateTimeOffset>().IgnoreIt()
+                .OnType<Stream>().Use(CreateRandomStream);
+
+            return filler;
         }
     }
 }
