@@ -54,5 +54,44 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAiBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnUploadIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
+        {
+            // given
+            AIFile someAIFile = CreateRandomAIFile();
+
+            var unauthorizedFileException =
+                new UnauthorizedAIFileException(unauthorizedException);
+
+            var expectedFileDependencyException =
+                new AIFileDependencyException(
+                    unauthorizedFileException);
+
+            this.openAiBrokerMock.Setup(broker =>
+                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
+                    .ThrowsAsync(unauthorizedException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileService.UploadFileAsync(someAIFile);
+
+            AIFileDependencyException actualFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
+                    uploadFileTask.AsTask);
+
+            // then
+            actualFileDependencyException.Should().BeEquivalentTo(
+                expectedFileDependencyException);
+
+            this.openAiBrokerMock.Verify(broker =>
+               broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
+                   Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
