@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -126,6 +127,45 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             // then
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
+
+            this.openAiBrokerMock.Verify(broker =>
+               broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
+                   Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnUploadIfServicetErrorOccurredAsync()
+        {
+            // given
+            AIFile someAIFile = CreateRandomAIFile();
+            var serviceException = new Exception();
+
+            var failedAIFileServiceException =
+                new FailedAIFileServiceException(
+                    serviceException);
+
+            var expectedFileServiceException =
+                new AIFileServiceException(
+                    failedAIFileServiceException);
+
+            this.openAiBrokerMock.Setup(broker =>
+                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileService.UploadFileAsync(someAIFile);
+
+            AIFileServiceException actualAIFileServiceException =
+                await Assert.ThrowsAsync<AIFileServiceException>(
+                    uploadFileTask.AsTask);
+
+            // then
+            actualAIFileServiceException.Should().BeEquivalentTo(
+                expectedFileServiceException);
 
             this.openAiBrokerMock.Verify(broker =>
                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
