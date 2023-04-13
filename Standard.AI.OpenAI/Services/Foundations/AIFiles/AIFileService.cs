@@ -24,13 +24,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             this.dateTimeBroker = dateTimeBroker;
         }
 
-        public async ValueTask<AIFile> UploadFileAsync(AIFile file)
+        public ValueTask<AIFile> UploadFileAsync(AIFile file) =>
+        TryCatch(async () =>
         {
+            ValidateAIFileNotNull(file);
             ExternalAIFileResponse externalAIFileResponse = await PostFileAsync(file);
             file.Response = ConvertToFileResponse(externalAIFileResponse);
 
             return file;
-        }
+        });
 
         public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) =>
         TryCatch(async () =>

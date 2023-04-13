@@ -20,6 +20,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             {
                 return await returningAIFileFunction();
             }
+            catch (NullAIFileException nullAIFileException)
+            {
+                throw new AIFileValidationException(nullAIFileException);
+            }
             catch (InvalidAIFileException invalidFileException)
             {
                 throw new AIFileValidationException(invalidFileException);

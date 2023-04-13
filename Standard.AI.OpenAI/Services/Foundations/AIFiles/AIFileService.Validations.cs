@@ -10,6 +10,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {
     internal partial class AIFileService
     {
+        private static void ValidateAIFileNotNull(AIFile aiFile)
+        {
+            if (aiFile is null)
+            {
+                throw new NullAIFileException(); 
+            }
+        }
+
         private static void ValidateFileId(string fileId) =>
             Validate((Rule: IsInvalid(fileId), Parameter: nameof(AIFile.Response.Id)));
 
