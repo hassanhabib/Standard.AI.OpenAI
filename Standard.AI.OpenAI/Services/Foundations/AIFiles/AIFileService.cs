@@ -27,7 +27,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         public ValueTask<AIFile> UploadFileAsync(AIFile file) =>
         TryCatch(async () =>
         {
-            ValidateAIFileNotNull(file);
+            ValidateAIFile(file);
             ExternalAIFileResponse externalAIFileResponse = await PostFileAsync(file);
             file.Response = ConvertToFileResponse(externalAIFileResponse);
 
