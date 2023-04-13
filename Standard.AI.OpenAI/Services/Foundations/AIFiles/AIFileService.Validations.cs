@@ -18,6 +18,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             Validate(
                 (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFile.Request)));
 
+            Validate(
+                (Rule: IsInvalid(aiFile.Request.Name), Parameter: nameof(AIFileRequest.Name)),
+                (Rule: IsInvalid(aiFile.Request.Content), Parameter: nameof(AIFileRequest.Content)),
+                (Rule: IsInvalid(aiFile.Request.Purpose), Parameter: nameof(AIFileRequest.Purpose)));
         }
 
         private static void ValidateAIFileNotNull(AIFile aiFile)
@@ -37,9 +41,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         private static void ValidateFileId(string fileId) =>
             Validate((Rule: IsInvalid(fileId), Parameter: nameof(AIFile.Response.Id)));
 
-        private static dynamic IsInvalid(string fileId) => new
+        private static dynamic IsInvalid(string text) => new
         {
-            Condition = String.IsNullOrWhiteSpace(fileId),
+            Condition = String.IsNullOrWhiteSpace(text),
             Message = "Value is required"
         };
 
