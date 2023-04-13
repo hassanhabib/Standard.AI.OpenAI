@@ -93,5 +93,46 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAiBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfFileNotFoundOccurredAsync()
+        {
+            // given
+            AIFile someAIFile = CreateRandomAIFile();
+
+            var httpResponseNotFoundException =
+                new HttpResponseNotFoundException();
+
+            var notFoundFileException =
+                new NotFoundAIFileException(
+                    httpResponseNotFoundException);
+
+            var expectedFileDependencyValidationException =
+                new AIFileDependencyValidationException(
+                    notFoundFileException);
+
+            this.openAiBrokerMock.Setup(broker =>
+                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
+                    .ThrowsAsync(httpResponseNotFoundException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileService.UploadFileAsync(someAIFile);
+
+            AIFileDependencyValidationException actualFileDependencyValidationException =
+                await Assert.ThrowsAsync<AIFileDependencyValidationException>(
+                    uploadFileTask.AsTask);
+
+            // then
+            actualFileDependencyValidationException.Should().BeEquivalentTo(
+                expectedFileDependencyValidationException);
+
+            this.openAiBrokerMock.Verify(broker =>
+               broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
+                   Times.Once);
+
+            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
