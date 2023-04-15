@@ -150,11 +150,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         public async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given 
-            dynamic aiModelRandomProperties = 
+            dynamic aiModelRandomProperties =
                 CreateRandomAIModelProperties();
 
-            string randomAIModelId = aiModelRandomProperties.Id;
-            string inputAIModelId = randomAIModelId;
+            string randomAIModelName = aiModelRandomProperties.Id;
+            string inputAIModelName = randomAIModelName;
 
             var externalAIModel = new ExternalAIModel
             {
@@ -183,7 +183,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                             IsBlocking = randomPermissionProperty.IsBlocking
                         };
                     }).ToArray()
-             };
+            };
 
             var expectedAIModel = new AIModel
             {
@@ -230,13 +230,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             });
 
             this.openAIBrokerMock.Setup(broker =>
-                broker.GetAIModelByIdAsync(inputAIModelId))
+                broker.GetAIModelByIdAsync(inputAIModelName))
                     .ReturnsAsync(externalAIModel);
 
             // when
             AIModel actualAIModel =
-                await this.aiModelService.RetrieveAIModelByNameAsync(
-                    aiModelName: inputAIModelId);
+                await this.aiModelService.RetrieveAIModelByNameAsync(inputAIModelName);
 
             // then
             actualAIModel.Should().BeEquivalentTo(expectedAIModel);
@@ -255,7 +254,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             });
 
             this.openAIBrokerMock.Verify(broker =>
-                broker.GetAIModelByIdAsync(inputAIModelId),
+                broker.GetAIModelByIdAsync(inputAIModelName),
                     Times.Once);
 
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
