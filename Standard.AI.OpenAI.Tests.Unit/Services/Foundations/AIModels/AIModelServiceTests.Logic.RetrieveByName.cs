@@ -18,11 +18,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         public async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given 
+            string randomString = CreateRandomString();
+            string randomAIModelName = randomString;
+            string inputAIModelName = randomAIModelName;
+
             dynamic aiModelRandomProperties =
                 CreateRandomAIModelProperties();
-
-            string randomAIModelName = aiModelRandomProperties.Id;
-            string inputAIModelName = randomAIModelName;
 
             var externalAIModel = new ExternalAIModel
             {

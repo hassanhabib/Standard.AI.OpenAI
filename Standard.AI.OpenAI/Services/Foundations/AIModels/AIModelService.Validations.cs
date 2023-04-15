@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
     internal partial class AIModelService
     {
         private static void ValidateAIModelName(string aiModelName) =>
-    Validate((Rule: IsInvalidName(aiModelName), Parameter: nameof(AIModel.Name)));
+            Validate((Rule: IsInvalidName(aiModelName), Parameter: nameof(AIModel.Name)));
 
         private static dynamic IsInvalidName(string aiModelName) => new
         {

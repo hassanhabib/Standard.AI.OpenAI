@@ -40,7 +40,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             ValidateAIModelName(aiModelName);
 
             ExternalAIModel externalAIModel =
-                await this.openAIBroker.GetAIModelByIdAsync(aiModelId: aiModelName);
+                await this.openAIBroker.GetAIModelByIdAsync(aiModelName);
 
             return ConvertToAIModel(externalAIModel);
         });
