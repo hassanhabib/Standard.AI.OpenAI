@@ -222,7 +222,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfServerErrorOccurredAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfHttpResponseErrorOccurredAsync()
         {
             // given
             string someAIModelId = CreateRandomString();
