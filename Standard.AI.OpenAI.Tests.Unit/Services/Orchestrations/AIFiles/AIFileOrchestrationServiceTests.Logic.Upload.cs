@@ -20,6 +20,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             // given
             AIFile randomAIFile = CreateRandomAIFile();
             AIFile inputAIFile = randomAIFile;
+            inputAIFile.Request.Content = null;
             Stream randomStream = CreateRandomStream();
             Stream readStream = randomStream;
             AIFile expectedInputAIFile = inputAIFile.DeepClone();
