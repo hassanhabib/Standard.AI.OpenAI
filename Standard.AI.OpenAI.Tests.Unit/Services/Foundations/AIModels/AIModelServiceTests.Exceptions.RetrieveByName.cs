@@ -57,6 +57,45 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
+        [Theory]
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfUnauthorizedAsync(
+            HttpResponseException unauthorizedException)
+        {
+            // given
+            string someAIModelId = CreateRandomString();
+
+            var unauthorizedAIModelException =
+                new UnauthorizedAIModelException(unauthorizedException);
+
+            var expectedAIModelDependencyException =
+                new AIModelDependencyException(unauthorizedAIModelException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                 broker.GetAIModelByIdAsync(someAIModelId))
+                     .ThrowsAsync(unauthorizedException);
+
+            // when
+            ValueTask<AIModel> retrieveAIModelByNameTask =
+               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAIModelId);
+
+            AIModelDependencyException
+                actualAIModelDependencyException =
+                    await Assert.ThrowsAsync<AIModelDependencyException>(
+                        retrieveAIModelByNameTask.AsTask);
+
+            // then
+            actualAIModelDependencyException.Should().BeEquivalentTo(
+                expectedAIModelDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAIModelByIdAsync(someAIModelId),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAIModelByNameIfNotFoundOccurredAsync()
         {
@@ -132,45 +171,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             // then
             actualAIModelDependencyValidationException.Should().BeEquivalentTo(
                 expectedAIModelDependencyValidationException);
-
-            this.openAIBrokerMock.Verify(broker =>
-                broker.GetAIModelByIdAsync(someAIModelId),
-                    Times.Once);
-
-            this.openAIBrokerMock.VerifyNoOtherCalls();
-            this.dateTimeBrokerMock.VerifyNoOtherCalls();
-        }
-
-        [Theory]
-        [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAIModelByNameIfUnauthorizedAsync(
-            HttpResponseException unauthorizedException)
-        {
-            // given
-            string someAIModelId = CreateRandomString();
-
-            var unauthorizedAIModelException =
-                new UnauthorizedAIModelException(unauthorizedException);
-
-            var expectedAIModelDependencyException =
-                new AIModelDependencyException(unauthorizedAIModelException);
-
-            this.openAIBrokerMock.Setup(broker =>
-                 broker.GetAIModelByIdAsync(someAIModelId))
-                     .ThrowsAsync(unauthorizedException);
-
-            // when
-            ValueTask<AIModel> retrieveAIModelByNameTask =
-               this.aiModelService.RetrieveAIModelByNameAsync(aiModelName: someAIModelId);
-
-            AIModelDependencyException
-                actualAIModelDependencyException =
-                    await Assert.ThrowsAsync<AIModelDependencyException>(
-                        retrieveAIModelByNameTask.AsTask);
-
-            // then
-            actualAIModelDependencyException.Should().BeEquivalentTo(
-                expectedAIModelDependencyException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAIModelByIdAsync(someAIModelId),

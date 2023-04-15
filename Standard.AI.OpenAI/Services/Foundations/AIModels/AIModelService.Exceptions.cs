@@ -33,20 +33,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
                 throw new AIModelDependencyException(invalidConfigurationAIModelException);
             }
-            catch (HttpResponseBadRequestException httpResponseBadRequestException)
-            {
-                var invalidAIModelException =
-                    new InvalidAIModelException(httpResponseBadRequestException);
-
-                throw new AIModelDependencyValidationException(invalidAIModelException);
-            }
-            catch (HttpResponseNotFoundException httpResponseNotFoundException)
-            {
-                var notFoundAIModelException =
-                    new NotFoundAIModelException(httpResponseNotFoundException);
-
-                throw new AIModelDependencyValidationException(notFoundAIModelException);
-            }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
@@ -60,6 +46,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     new UnauthorizedAIModelException(httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
+            }
+            catch (HttpResponseNotFoundException httpResponseNotFoundException)
+            {
+                var notFoundAIModelException =
+                    new NotFoundAIModelException(httpResponseNotFoundException);
+
+                throw new AIModelDependencyValidationException(notFoundAIModelException);
+            }
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
+            {
+                var invalidAIModelException =
+                    new InvalidAIModelException(httpResponseBadRequestException);
+
+                throw new AIModelDependencyValidationException(invalidAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
