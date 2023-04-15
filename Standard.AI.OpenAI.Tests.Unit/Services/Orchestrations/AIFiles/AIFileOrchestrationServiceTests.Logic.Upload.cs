@@ -18,9 +18,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         public async Task ShouldUploadFileAsync()
         {
             // given
+            Stream noStream = null;
             AIFile randomAIFile = CreateRandomAIFile();
             AIFile inputAIFile = randomAIFile;
-            inputAIFile.Request.Content = null;
+            inputAIFile.Request.Content = noStream;
             Stream randomStream = CreateRandomStream();
             Stream readStream = randomStream;
             AIFile expectedInputAIFile = inputAIFile.DeepClone();

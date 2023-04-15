@@ -25,11 +25,17 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
         public async ValueTask<AIFile> UploadFileAsync(AIFile aiFile)
         {
-            if (aiFile.Request.Content is null)
+            return aiFile.Request.Content switch
             {
-                Stream readStream = this.localFileService.ReadFile(aiFile.Request.Name);
-                aiFile.Request.Content = readStream;
-            }
+                { } => await this.aiFileService.UploadFileAsync(aiFile),
+                _ => await ReadUploadFileAsync(aiFile)
+            };
+        }
+
+        private async ValueTask<AIFile> ReadUploadFileAsync(AIFile aiFile)
+        {
+            Stream readStream = this.localFileService.ReadFile(aiFile.Request.Name);
+            aiFile.Request.Content = readStream;
 
             return await this.aiFileService.UploadFileAsync(aiFile);
         }
