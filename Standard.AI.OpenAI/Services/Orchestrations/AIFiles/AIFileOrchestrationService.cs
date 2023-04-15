@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System.IO;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
@@ -22,9 +23,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             this.aiFileService = aiFileService;
         }
 
-        public ValueTask<AIFile> UploadFileAsync(AIFile aiFile)
+        public async ValueTask<AIFile> UploadFileAsync(AIFile aiFile)
         {
-            throw new System.NotImplementedException();
+            Stream readStream = this.localFileService.ReadFile(aiFile.Request.Name);
+            aiFile.Request.Content = readStream;
+
+            return await this.aiFileService.UploadFileAsync(aiFile);
         }
     }
 }
