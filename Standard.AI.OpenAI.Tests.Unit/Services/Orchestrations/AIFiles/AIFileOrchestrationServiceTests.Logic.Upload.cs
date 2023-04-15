@@ -56,5 +56,38 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.localFileServiceMock.VerifyNoOtherCalls();
             this.aiFileServiceMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldUploadStreamAsync()
+        {
+            // given
+            AIFile randomAIFile = CreateRandomAIFile();
+            AIFile inputAIFile = randomAIFile;
+            AIFile uploadedAIFile = inputAIFile;
+            AIFile expectedAIFile = uploadedAIFile.DeepClone();
+
+            this.aiFileServiceMock.Setup(service =>
+                service.UploadFileAsync(inputAIFile))
+                    .ReturnsAsync(uploadedAIFile);
+
+            // when
+            AIFile actualAIFile =
+                await this.aiFileOrchestrationService.UploadFileAsync(
+                    inputAIFile);
+
+            // then
+            actualAIFile.Should().BeEquivalentTo(expectedAIFile);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.UploadFileAsync(inputAIFile),
+                    Times.Once);
+
+            this.localFileServiceMock.Verify(service =>
+                service.ReadFile(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
     }
 }
