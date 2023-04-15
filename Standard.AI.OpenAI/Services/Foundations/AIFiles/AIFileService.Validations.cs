@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Data;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 
@@ -28,7 +27,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         {
             if (aiFile is null)
             {
-                throw new NullAIFileException(); 
+                throw new NullAIFileException();
             }
         }
 

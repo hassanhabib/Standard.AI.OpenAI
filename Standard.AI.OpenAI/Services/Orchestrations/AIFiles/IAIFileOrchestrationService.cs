@@ -5,13 +5,10 @@
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
-namespace Standard.AI.OpenAI.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 {
-    internal partial interface IOpenAIBroker
+    internal interface IAIFileOrchestrationService
     {
-        ValueTask<ExternalAIFileResponse> PostFileFormAsync(
-            ExternalAIFileRequest externalFileRequest);
-
-        ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId);
+        ValueTask<AIFile> UploadFileAsync(AIFile aiFile);
     }
 }

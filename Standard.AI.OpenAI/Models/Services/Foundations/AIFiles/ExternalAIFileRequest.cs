@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System.IO;
-using System.Net.Http;
 using Newtonsoft.Json;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
