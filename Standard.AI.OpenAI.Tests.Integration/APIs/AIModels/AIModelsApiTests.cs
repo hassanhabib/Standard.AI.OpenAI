@@ -16,8 +16,8 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIModels
         {
             var openAIConfigurations = new OpenAIConfigurations
             {
-                ApiKey = Environment.GetEnvironmentVariable("OpenAIApiKey"),
-                OrganizationId = Environment.GetEnvironmentVariable("OpenAIOrgId"),
+                ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
+                OrganizationId = Environment.GetEnvironmentVariable("OrgId"),
                 ApiUrl = "https://api.openai.com/"
             };
 
