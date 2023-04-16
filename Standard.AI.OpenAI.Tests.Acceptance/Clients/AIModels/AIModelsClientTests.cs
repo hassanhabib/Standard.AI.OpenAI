@@ -40,41 +40,49 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
         private static string CreateRandomString() =>
             new MnemonicString().GetValue();
 
-        private IEnumerable<AIModel> ConvertToAIModels(ExternalAIModelsResult externalAIModelsResult)
-        {
-            return externalAIModelsResult.AIModels.Select(externalAIModel =>
-               new AIModel
-               {
-                   Name = externalAIModel.Id,
-                   CreatedDate = DateTimeOffset.FromUnixTimeSeconds(externalAIModel.Created),
-                   Type = externalAIModel.Object,
-                   OwnedBy = externalAIModel.OwnedBy,
-                   Parent = externalAIModel.Parent,
-                   OriginModel = externalAIModel.Root,
+        private static IEnumerable<AIModel> ConvertToAIModels(ExternalAIModelsResult externalAIModelsResult) =>
+            externalAIModelsResult.AIModels.Select(ConvertToAIModel).ToArray();
 
-                   Permissions = externalAIModel.Permissions.Select(
-                       externalPermission =>
-                       {
-                           return new AIModelPermission
-                           {
-                               Id = externalPermission.Id,
-                               Type = externalPermission.Object,
-                               CreatedDate = DateTimeOffset.FromUnixTimeSeconds(externalPermission.Created),
-                               AllowCreateEngine = externalPermission.AllowCreateEngine,
-                               AllowSampling = externalPermission.AllowSampling,
-                               AllowLogProbabilities = externalPermission.AllowLogprobs,
-                               AllowSearchIndices = externalPermission.AllowSearchIndices,
-                               AllowView = externalPermission.AllowView,
-                               AllowFineTuning = externalPermission.AllowFineTuning,
-                               Organization = externalPermission.Organization,
-                               IsBlocking = externalPermission.IsBlocking
-                           };
-                       }).ToArray()
-               }).ToArray();
+        private static AIModel ConvertToAIModel(ExternalAIModel externalAIModel)
+        {
+            return new AIModel
+            {
+                Name = externalAIModel.Id,
+                CreatedDate = DateTimeOffset.FromUnixTimeSeconds(externalAIModel.Created),
+                Type = externalAIModel.Object,
+                OwnedBy = externalAIModel.OwnedBy,
+                Parent = externalAIModel.Parent,
+                OriginModel = externalAIModel.Root,
+
+                Permissions = externalAIModel.Permissions.Select(
+                    externalPermission =>
+                    {
+                        return new AIModelPermission
+                        {
+                            Id = externalPermission.Id,
+                            Type = externalPermission.Object,
+                            CreatedDate = DateTimeOffset.FromUnixTimeSeconds(externalPermission.Created),
+                            AllowCreateEngine = externalPermission.AllowCreateEngine,
+                            AllowSampling = externalPermission.AllowSampling,
+                            AllowLogProbabilities = externalPermission.AllowLogprobs,
+                            AllowSearchIndices = externalPermission.AllowSearchIndices,
+                            AllowView = externalPermission.AllowView,
+                            AllowFineTuning = externalPermission.AllowFineTuning,
+                            Organization = externalPermission.Organization,
+                            IsBlocking = externalPermission.IsBlocking
+                        };
+                    }).ToArray()
+            };
         }
+
+        private static ExternalAIModel CreateRandomExternalAIModel() =>
+            CreateExternalAIModelFiller().Create();
 
         private static ExternalAIModelsResult CreateRandomExternalAIModelsResult() =>
             CreateExternalAIModelResultFiller().Create();
+
+        private static Filler<ExternalAIModel> CreateExternalAIModelFiller() =>
+            new Filler<ExternalAIModel>();
 
         private static Filler<ExternalAIModelsResult> CreateExternalAIModelResultFiller() =>
             new Filler<ExternalAIModelsResult>();
