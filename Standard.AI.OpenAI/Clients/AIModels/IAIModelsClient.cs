@@ -25,5 +25,10 @@ namespace Standard.AI.OpenAI.Clients.AIModels
         /// <exception cref="AIModelClientDependencyException" />
         /// <exception cref="AIModelClientServiceException" />
         ValueTask<IEnumerable<AIModel>> RetrieveAIModelsAsync();
+
+        /// <exception cref="AIModelClientValidationException" />
+        /// <exception cref="AIModelClientDependencyException" />
+        /// <exception cref="AIModelClientServiceException" />
+        ValueTask<AIModel> RetrieveAIModelByNameAsync(string aiModelName);
     }
 }
