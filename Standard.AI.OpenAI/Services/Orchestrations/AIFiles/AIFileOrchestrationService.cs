@@ -10,7 +10,7 @@ using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 
 namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 {
-    internal class AIFileOrchestrationService : IAIFileOrchestrationService
+    internal partial class AIFileOrchestrationService : IAIFileOrchestrationService
     {
         private readonly ILocalFileService localFileService;
         private readonly IAIFileService aiFileService;
@@ -23,14 +23,17 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             this.aiFileService = aiFileService;
         }
 
-        public async ValueTask<AIFile> UploadFileAsync(AIFile aiFile)
+        public ValueTask<AIFile> UploadFileAsync(AIFile aiFile) =>
+        TryCatch(async () =>
         {
+            ValidateAIFileNotNull(aiFile);
+
             return aiFile.Request.Content switch
             {
                 { } => await this.aiFileService.UploadFileAsync(aiFile),
                 _ => await ReadUploadFileAsync(aiFile)
             };
-        }
+        });
 
         private async ValueTask<AIFile> ReadUploadFileAsync(AIFile aiFile)
         {
