@@ -51,5 +51,48 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.localFileServiceMock.VerifyNoOtherCalls();
             this.aiFileServiceMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnUploadIfRequestIsNullAsync()
+        {
+            // given
+            var invalidAIFile = new AIFile();
+
+            var invalidAIFileOrchestrationException =
+                new InvalidAIFileOrchestrationException();
+
+            invalidAIFileOrchestrationException.AddData(
+                key: nameof(AIFileRequest),
+                values: "Object is required");
+
+            var expectedAIFileOrchestrationValidationException =
+                new AIFileOrchestrationValidationException(
+                    invalidAIFileOrchestrationException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileOrchestrationService.UploadFileAsync(
+                    invalidAIFile);
+
+            AIFileOrchestrationValidationException
+                actualAIFileOrchestrationValidatioNException =
+                    await Assert.ThrowsAsync<AIFileOrchestrationValidationException>(
+                        uploadFileTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationValidatioNException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationValidationException);
+
+            this.localFileServiceMock.Verify(service =>
+                service.ReadFile(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()),
+                    Times.Never);
+
+            this.localFileServiceMock.VerifyNoOtherCalls();
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+        }
     }
 }
