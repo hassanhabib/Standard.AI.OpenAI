@@ -26,7 +26,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         public ValueTask<AIFile> UploadFileAsync(AIFile aiFile) =>
         TryCatch(async () =>
         {
-            ValidateAIFileNotNull(aiFile);
+            ValidateAIFile(aiFile);
 
             return aiFile.Request.Content switch
             {

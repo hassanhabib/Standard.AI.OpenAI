@@ -23,6 +23,10 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 throw new AIFileOrchestrationValidationException(
                     nullAIFileOrchestrationException);
             }
+            catch (InvalidAIFileOrchestrationException invalidAIFileOrchestrationException)
+            {
+                throw new AIFileOrchestrationValidationException(invalidAIFileOrchestrationException);
+            }
         }
     }
 }
