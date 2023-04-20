@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -85,6 +86,49 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             // then
             actualAIFileOrchestrationDependencyException.Should().BeEquivalentTo(
                 expectedAIFileOrchestrationDependencyException);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()),
+                    Times.Once);
+
+            this.localFileServiceMock.Verify(service =>
+                service.ReadFile(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnUploadIfExceptionOccursAsync()
+        {
+            // given
+            AIFile someAIFile = CreateRandomAIFile();
+            var serviceException = new Exception();
+
+            var failedAIFileOrchestrationServiceException =
+                new FailedAIFileOrchestrationServiceException(serviceException);
+
+            var expectedAIFileOrchestrationServiceException =
+                new AIFileOrchestrationServiceException(
+                    failedAIFileOrchestrationServiceException);
+
+            this.aiFileServiceMock.Setup(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileOrchestrationService.UploadFileAsync(
+                    someAIFile);
+
+            AIFileOrchestrationServiceException actualAIFileOrchestrationServiceException =
+                await Assert.ThrowsAsync<AIFileOrchestrationServiceException>(
+                    uploadFileTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationServiceException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Verify(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()),
