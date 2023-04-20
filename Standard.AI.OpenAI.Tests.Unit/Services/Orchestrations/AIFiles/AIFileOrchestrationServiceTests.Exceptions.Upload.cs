@@ -55,5 +55,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.localFileServiceMock.VerifyNoOtherCalls();
             this.aiFileServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(DependencyExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnUploadIfDependencyValidationErrorOccursAsync(
+            Xeption dependencyValidationException)
+        {
+            // given
+            AIFile someAIFile = CreateRandomAIFile();
+
+            var expectedAIFileOrchestrationDependencyException =
+                new AIFileOrchestrationDependencyException(
+                    dependencyValidationException.InnerException as Xeption);
+
+            this.aiFileServiceMock.Setup(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()))
+                    .ThrowsAsync(dependencyValidationException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileOrchestrationService.UploadFileAsync(
+                    someAIFile);
+
+            AIFileOrchestrationDependencyException
+                actualAIFileOrchestrationDependencyException =
+                    await Assert.ThrowsAsync<AIFileOrchestrationDependencyException>(
+                        uploadFileTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationDependencyException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationDependencyException);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()),
+                    Times.Once);
+
+            this.localFileServiceMock.Verify(service =>
+                service.ReadFile(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
     }
 }

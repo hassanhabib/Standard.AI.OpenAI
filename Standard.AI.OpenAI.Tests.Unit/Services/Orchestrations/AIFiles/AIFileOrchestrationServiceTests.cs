@@ -51,6 +51,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             };
         }
 
+        public static TheoryData DependencyExceptions()
+        {
+            var someInnerException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new LocalFileDependencyException(someInnerException),
+                new LocalFileServiceException(someInnerException),
+                new AIFileDependencyException(someInnerException),
+                new AIFileServiceException(someInnerException),
+            };
+        }
+
         private AIFile CreateRandomAIFile() =>
             CreateAIFileFiller().Create();
 
