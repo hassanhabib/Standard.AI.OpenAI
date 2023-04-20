@@ -40,6 +40,16 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 throw new AIFileOrchestrationDependencyValidationException(
                     localFileDependencyValidationException.InnerException as Xeption);
             }
+            catch (LocalFileDependencyException localFileDependencyException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    localFileDependencyException.InnerException as Xeption);
+            }
+            catch (LocalFileServiceException localFileServiceException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    localFileServiceException.InnerException as Xeption);
+            }
             catch (AIFileValidationException aIFileValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
@@ -49,6 +59,16 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             {
                 throw new AIFileOrchestrationDependencyValidationException(
                     aIFileDependencyValidationException.InnerException as Xeption);
+            }
+            catch (AIFileDependencyException aIFileDependencyException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    aIFileDependencyException.InnerException as Xeption);
+            }
+            catch (AIFileServiceException aIFileServiceException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    aIFileServiceException.InnerException as Xeption);
             }
         }
     }
