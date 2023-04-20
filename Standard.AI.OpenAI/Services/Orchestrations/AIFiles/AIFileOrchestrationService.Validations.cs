@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 
@@ -12,9 +13,10 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         private static void ValidateAIFile(AIFile aiFile)
         {
             ValidateAIFileNotNull(aiFile);
+            ValidateAIFileRequestNotNull(aiFile);
 
             Validate(
-               (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFileRequest)));
+               (Rule: IsInvalid(aiFile.Request.Name), Parameter: nameof(AIFileRequest.Name)));
         }
 
         private static void ValidateAIFileNotNull(AIFile aiFile)
@@ -24,6 +26,24 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 throw new NullAIFileOrchestrationException();
             }
         }
+
+        private static void ValidateAIFileRequestNotNull(AIFile aiFile)
+        {
+            Validate(
+                (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFileRequest)));
+        }
+
+        private static dynamic IsInvalid(string text) => new
+        {
+            Condition = String.IsNullOrWhiteSpace(text),
+            Message = "Value is required"
+        };
+
+        private static dynamic IsInvalid(object @object) => new
+        {
+            Condition = @object is null,
+            Message = "Object is required"
+        };
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
@@ -41,11 +61,5 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
             invalidAIFileException.ThrowIfContainsErrors();
         }
-
-        private static dynamic IsInvalid(object @object) => new
-        {
-            Condition = @object is null,
-            Message = "Object is required"
-        };
     }
 }
