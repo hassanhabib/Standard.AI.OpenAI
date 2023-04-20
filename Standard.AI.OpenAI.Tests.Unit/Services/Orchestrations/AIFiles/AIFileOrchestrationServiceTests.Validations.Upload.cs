@@ -94,5 +94,54 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.localFileServiceMock.VerifyNoOtherCalls();
             this.aiFileServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("   ")]
+        public async Task ShouldThrowValidationExceptionIfRequestIsInvalidAsync(
+            string invalidName)
+        {
+            // given
+            AIFile randomAIFile = CreateRandomAIFile();
+            AIFile invalidAIFile = randomAIFile;
+            invalidAIFile.Request.Name = invalidName;
+
+            var invalidAIFileOrchestrationException =
+                new InvalidAIFileOrchestrationException();
+
+            invalidAIFileOrchestrationException.AddData(
+                key: nameof(AIFileRequest.Name),
+                "Value is required");
+
+            var expectedAIFileOrchestrationValidationException =
+                new AIFileOrchestrationValidationException(
+                    invalidAIFileOrchestrationException);
+
+            // when
+            ValueTask<AIFile> uploadFileTask =
+                this.aiFileOrchestrationService.UploadFileAsync(
+                    invalidAIFile);
+
+            AIFileOrchestrationValidationException
+                actualAIFileOrchestrationValidatioNException =
+                    await Assert.ThrowsAsync<AIFileOrchestrationValidationException>(
+                        uploadFileTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationValidatioNException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationValidationException);
+
+            this.localFileServiceMock.Verify(service =>
+                service.ReadFile(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.UploadFileAsync(It.IsAny<AIFile>()),
+                    Times.Never);
+
+            this.localFileServiceMock.VerifyNoOtherCalls();
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+        }
     }
 }
