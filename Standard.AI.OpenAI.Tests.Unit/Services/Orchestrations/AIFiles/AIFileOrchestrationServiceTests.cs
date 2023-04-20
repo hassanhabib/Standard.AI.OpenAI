@@ -7,11 +7,16 @@ using System.IO;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 {
@@ -31,6 +36,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.aiFileOrchestrationService = new AIFileOrchestrationService(
                 localFileService: this.localFileServiceMock.Object,
                 aiFileService: this.aiFileServiceMock.Object);
+        }
+
+        public static TheoryData DependencyValidationExceptions()
+        {
+            var someInnerException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new LocalFileValidationException(someInnerException),
+                new LocalFileDependencyValidationException(someInnerException),
+                new AIFileValidationException(someInnerException),
+                new AIFileDependencyValidationException(someInnerException)
+            };
         }
 
         private AIFile CreateRandomAIFile() =>
