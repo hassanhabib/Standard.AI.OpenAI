@@ -12,6 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles
     {
         [JsonProperty(propertyName: "data")]
         public List<File> ListFiles { get; set; }
+
         [JsonProperty(propertyName: "object")]
         public string Object {get;set;}
     }
