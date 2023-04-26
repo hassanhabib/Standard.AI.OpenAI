@@ -9,6 +9,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial interface IOpenAIBroker
     {
-        ValueTask<ExternalListFilesResponse> ListFilesAsync(ExternalListFilesRequest externalListFilesRequest);
+        ValueTask<ExternalListofAIFiles> ListofFilesAsync();
     }
 }

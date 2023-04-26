@@ -9,7 +9,7 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker
     {
-        public async ValueTask<ExternalListFilesResponse> GetListFilesRequestAsync() =>
-           await GetAsync<ExternalListFilesResponse>(relativeUrl: "v1/files");
+        public async ValueTask<ExternalListofAIFiles> ListofFilesAsync() =>
+           await GetAsync<ExternalListofAIFiles>(relativeUrl: "v1/files");
     }
 }
