@@ -2,12 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files
+using System.IO;
+
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
-    public class File
+    internal class AIFileRequest
     {
-        public string Id { get; set; }
-        public string Type { get; set; }
-        public bool Deleted { get; set; }
+        public string Name { get; set; }
+        public Stream Content { get; set; }
+        public string Purpose { get; set; }
     }
 }

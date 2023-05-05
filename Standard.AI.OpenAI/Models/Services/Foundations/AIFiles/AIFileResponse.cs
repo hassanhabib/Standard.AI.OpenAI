@@ -2,19 +2,18 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
+using System;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
-    internal class ExternalFile
+    internal class AIFileResponse
     {
-        [JsonProperty(propertyName: "id")]
         public string Id { get; set; }
-
-        [JsonProperty(propertyName: "object")]
-        public string Object { get; set; }
-
-        [JsonProperty(propertyName: "deleted")]
+        public string Type { get; set; }
+        public int Size { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
+        public string Name { get; set; }
+        public string Purpose { get; set; }
         public bool Deleted { get; set; }
     }
 }

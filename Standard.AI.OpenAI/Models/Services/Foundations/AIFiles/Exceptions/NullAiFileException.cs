@@ -4,13 +4,12 @@
 
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
-    public class FileDependencyException : Xeption
+    public partial class NullAIFileException : Xeption
     {
-        public FileDependencyException(Xeption innerException)
-            : base(message: "File dependency error occurred, contact support.",
-                  innerException)
+        public NullAIFileException()
+            : base(message: "Ai file is null.")
         { }
     }
 }

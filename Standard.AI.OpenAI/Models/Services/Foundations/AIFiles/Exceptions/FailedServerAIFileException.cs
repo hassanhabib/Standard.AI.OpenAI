@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.Files.Exceptions
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
-    public class UnauthorizedFileException : Xeption
+    public class FailedServerAIFileException : Xeption
     {
-        public UnauthorizedFileException(Exception innerException)
-            : base(message: "Unauthorized file request, fix errors and try again.",
+        public FailedServerAIFileException(Exception innerException)
+            : base(message: "Failed AI file server error occurred, contact support.",
                   innerException)
         { }
     }

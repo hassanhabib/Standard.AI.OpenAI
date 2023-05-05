@@ -39,6 +39,14 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
                 ignoreDefaultValues: true);
         }
 
+        private async ValueTask<TResult> PostFormAsync<TRequest, TResult>(string relativeUrl, TRequest content)
+            where TRequest : class
+        {
+            return await this.apiClient.PostFormAsync<TRequest, TResult>(
+                relativeUrl,
+                content);
+        }
+
         private async ValueTask<T> PutAsync<T>(string relativeUrl, T content) =>
             await this.apiClient.PutContentAsync(relativeUrl, content);
 

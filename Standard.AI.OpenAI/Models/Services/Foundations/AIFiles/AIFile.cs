@@ -2,13 +2,11 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFiles;
-
-namespace Standard.AI.OpenAI.Brokers.OpenAIs
+namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
-    internal partial interface IOpenAIBroker
+    internal class AIFile
     {
-        ValueTask<ExternalFile> DeleteFileByIdAsync(string fileId);
+        public AIFileRequest Request { get; set; }
+        public AIFileResponse Response { get; set; }
     }
 }
