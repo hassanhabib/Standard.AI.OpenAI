@@ -6,7 +6,7 @@ using System;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
-    internal class AIFileResponse
+    public class AIFileResponse
     {
         public string Id { get; set; }
         public string Type { get; set; }

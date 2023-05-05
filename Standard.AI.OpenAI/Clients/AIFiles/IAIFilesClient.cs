@@ -2,14 +2,13 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.IO;
+using System.Threading.Tasks;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
+namespace Standard.AI.OpenAI.Clients.AIFiles
 {
-    public class AIFileRequest
+    public interface IAIFilesClient
     {
-        public string Name { get; set; }
-        public Stream Content { get; set; }
-        public string Purpose { get; set; }
+        ValueTask<AIFile> UploadFileAsync(AIFile aiFile);
     }
 }
