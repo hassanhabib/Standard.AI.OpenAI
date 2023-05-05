@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.Files;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Clients.AIFiles;
 using Standard.AI.OpenAI.Clients.AIModels;
 using Standard.AI.OpenAI.Clients.ChatCompletions;
 using Standard.AI.OpenAI.Clients.Completions;
@@ -34,6 +35,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         public IChatCompletionsClient ChatCompletions { get; private set; }
         public IImageGenerationsClient ImageGenerations { get; private set; }
         public IAIModelsClient AIModels { get; private set; }
+        public IAIFilesClient AIFiles { get; private set; }
 
         private void InitializeClients(IServiceProvider serviceProvider)
         {
@@ -41,6 +43,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             ChatCompletions = serviceProvider.GetRequiredService<IChatCompletionsClient>();
             ImageGenerations = serviceProvider.GetRequiredService<IImageGenerationsClient>();
             AIModels = serviceProvider.GetRequiredService<IAIModelsClient>();
+            AIFiles = serviceProvider.GetRequiredService<IAIFilesClient>();
         }
 
         private static IServiceProvider RegisterServices(OpenAIConfigurations openAIConfigurations)
@@ -60,6 +63,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<IChatCompletionsClient, ChatCompletionsClient>()
                 .AddTransient<IImageGenerationsClient, ImageGenerationsClient>()
                 .AddTransient<IAIModelsClient, AIModelsClient>()
+                .AddTransient<IAIFilesClient, AIFilesClient>()
                 .AddSingleton(openAIConfigurations);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
