@@ -53,6 +53,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -88,6 +89,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -113,12 +115,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             ValueTask<IEnumerable<AIModel>> retrieveAllAIModelsTask =
                 this.aiModelService.RetrieveAllAIModelsAsync();
 
-            AIModelDependencyValidationException actualAIModelDependencyException =
+            AIModelDependencyValidationException actualAIModelDependencyValidationException =
                 await Assert.ThrowsAsync<AIModelDependencyValidationException>(
                     retrieveAllAIModelsTask.AsTask);
 
             // then
-            actualAIModelDependencyException.Should().BeEquivalentTo(
+            actualAIModelDependencyValidationException.Should().BeEquivalentTo(
                 expectedAIModelDependencyValidationException);
 
             this.openAIBrokerMock.Verify(broker =>
@@ -126,6 +128,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -164,6 +167,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -199,6 +203,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                     Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

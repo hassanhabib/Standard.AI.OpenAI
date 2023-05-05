@@ -10,13 +10,17 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
     internal partial class OpenAIBroker
     {
-        public ValueTask<ExternalAIFileResponse> PostFileFormAsync(
+        private const string FilesRelativeUrl = "v1/files";
+
+        public async ValueTask<ExternalAIFileResponse> PostFileFormAsync(
             ExternalAIFileRequest externalFileRequest)
         {
-            throw new NotImplementedException();
+            return await PostFormAsync<ExternalAIFileRequest, ExternalAIFileResponse>(
+                relativeUrl: FilesRelativeUrl,
+                externalFileRequest);
         }
 
         public async ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId) =>
-            await DeleteAsync<ExternalAIFileResponse>(relativeUrl: $"v1/files/{fileId}");
+            await DeleteAsync<ExternalAIFileResponse>(relativeUrl: $"{FilesRelativeUrl}/{fileId}");
     }
 }

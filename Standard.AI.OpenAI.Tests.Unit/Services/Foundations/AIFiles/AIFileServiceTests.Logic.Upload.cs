@@ -54,7 +54,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var randomExternalAIFileRequest = new ExternalAIFileRequest
             {
                 File = randomFileProperties.ExternalFile,
-                Purpose = randomFileProperties.Purpose
+                Purpose = randomFileProperties.Purpose,
+                FileName = randomFileProperties.FileName
             };
 
             var randomExternalAIFileResponse = new ExternalAIFileResponse

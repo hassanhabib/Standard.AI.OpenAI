@@ -22,7 +22,7 @@ In order to use this library there are prerequists that you must complete before
 
 ### OpenAI Account
 You must create an OpenAI account with the following link:
-https://platform.openai.com/signup
+[Click here](https://platform.openai.com/signup)
 
 ### Nuget Package 
 Install the Standard.AI.OpenAI library in your project.
@@ -32,7 +32,7 @@ Use the method best suited for your development preference listed at the Nuget L
 
 ### API Keys
 Once you've created an OpenAI account. Now, go ahead and generate an API key from the following link:
-https://platform.openai.com/account/api-keys
+[Click here](https://platform.openai.com/account/api-keys)
 
 ### Hello, World!
 Once you've completed the aforementioned steps, let's write our very first program with Standard.AI.OpenAI as follows:

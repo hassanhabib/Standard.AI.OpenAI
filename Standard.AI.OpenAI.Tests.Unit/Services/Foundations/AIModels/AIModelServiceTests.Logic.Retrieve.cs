@@ -22,7 +22,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             List<dynamic> aiModelRandomPropertiesList =
                 CreateRandomAIModelsPropertiesList();
 
-            var externalAiModelResult = new ExternalAIModelsResult
+            var externalAIModelResult = new ExternalAIModelsResult
             {
                 AIModels = aiModelRandomPropertiesList.Select(item =>
                 {
@@ -111,7 +111,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
-                    .ReturnsAsync(externalAiModelResult);
+                    .ReturnsAsync(externalAIModelResult);
 
             // when
             IEnumerable<AIModel> actualAIModels =
