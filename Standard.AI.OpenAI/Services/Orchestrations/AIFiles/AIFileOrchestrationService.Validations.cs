@@ -4,41 +4,34 @@
 
 using System;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 
-namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
+namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 {
-    internal partial class AIFileService
+    internal partial class AIFileOrchestrationService
     {
         private static void ValidateAIFile(AIFile aiFile)
         {
             ValidateAIFileNotNull(aiFile);
+            ValidateAIFileRequestNotNull(aiFile);
 
             Validate(
-                (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFile.Request)));
-
-            Validate(
-                (Rule: IsInvalid(aiFile.Request.Name), Parameter: nameof(AIFileRequest.Name)),
-                (Rule: IsInvalid(aiFile.Request.Content), Parameter: nameof(AIFileRequest.Content)),
-                (Rule: IsInvalid(aiFile.Request.Purpose), Parameter: nameof(AIFileRequest.Purpose)));
+               (Rule: IsInvalid(aiFile.Request.Name), Parameter: nameof(AIFileRequest.Name)));
         }
 
         private static void ValidateAIFileNotNull(AIFile aiFile)
         {
             if (aiFile is null)
             {
-                throw new NullAIFileException();
+                throw new NullAIFileOrchestrationException();
             }
         }
 
-        private static dynamic IsInvalid(object @object) => new
+        private static void ValidateAIFileRequestNotNull(AIFile aiFile)
         {
-            Condition = @object is null,
-            Message = "Value is required"
-        };
-
-        private static void ValidateFileId(string fileId) =>
-            Validate((Rule: IsInvalid(fileId), Parameter: nameof(AIFile.Response.Id)));
+            Validate(
+                (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFileRequest)));
+        }
 
         private static dynamic IsInvalid(string text) => new
         {
@@ -46,9 +39,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             Message = "Value is required"
         };
 
+        private static dynamic IsInvalid(object @object) => new
+        {
+            Condition = @object is null,
+            Message = "Object is required"
+        };
+
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidAIFileException = new InvalidAIFileException();
+            var invalidAIFileException = new InvalidAIFileOrchestrationException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {

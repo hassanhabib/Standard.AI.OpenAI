@@ -12,10 +12,13 @@ using Standard.AI.OpenAI.Clients.ChatCompletions;
 using Standard.AI.OpenAI.Clients.Completions;
 using Standard.AI.OpenAI.Clients.ImageGenerations;
 using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Services.Foundations.ImageGenerations;
+using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
+using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
 
 namespace Standard.AI.OpenAI.Clients.OpenAIs
 {
@@ -50,6 +53,9 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<IChatCompletionService, ChatCompletionService>()
                 .AddTransient<IImageGenerationService, ImageGenerationService>()
                 .AddTransient<IAIModelService, AIModelService>()
+                .AddTransient<ILocalFileService, LocalFileService>()
+                .AddTransient<IAIFileService, AIFileService>()
+                .AddTransient<IAIFileOrchestrationService, AIFileOrchestrationService>()
                 .AddTransient<ICompletionsClient, CompletionsClient>()
                 .AddTransient<IChatCompletionsClient, ChatCompletionsClient>()
                 .AddTransient<IImageGenerationsClient, ImageGenerationsClient>()

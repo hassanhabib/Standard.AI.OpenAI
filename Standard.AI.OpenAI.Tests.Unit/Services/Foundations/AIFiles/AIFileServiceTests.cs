@@ -5,7 +5,6 @@
 using System;
 using System.IO;
 using System.Linq.Expressions;
-using System.Security.Cryptography;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
 using RESTFulSense.Exceptions;
