@@ -3,17 +3,19 @@
 // ----------------------------------------------------------------------------------
 
 using System.IO;
-using System.Net.Http;
-using Newtonsoft.Json;
+using RESTFulSense.Models.Attributes;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
 {
     internal class ExternalAIFileRequest
     {
-        [JsonProperty("file")]
+        [RESTFulStreamContent("file")]
         public Stream File { get; set; }
 
-        [JsonProperty("purpose")]
+        [RESTFulFileName("file")]
+        public string FileName { get; set; }
+
+        [RESTFulStringContent("purpose")]
         public string Purpose { get; set; }
     }
 }
