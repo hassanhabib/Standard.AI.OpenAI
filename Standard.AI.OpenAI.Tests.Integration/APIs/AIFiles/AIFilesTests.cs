@@ -18,8 +18,8 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
         {
             var openAIConfigurations = new OpenAIConfigurations
             {
-                ApiKey = "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",
-                OrganizationId = "org-ZnnUBA47iF2DKorQ9GllX5Aw",
+                ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
+                OrganizationId = Environment.GetEnvironmentVariable("OrgId"),
                 ApiUrl = "https://api.openai.com/"
             };
 
@@ -29,9 +29,8 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
         private static MemoryStream CreateRandomStream()
         {
             string content = "{\"prompt\": \"<prompt text>\", \"completion\": \"<ideal generated text>\"}";
-            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            return memoryStream;
-        }
 
+            return new MemoryStream(Encoding.UTF8.GetBytes(content));
+        }
     }
 }

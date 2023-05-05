@@ -3,17 +3,15 @@
 // ----------------------------------------------------------------------------------
 
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
 {
     public partial class AIFilesTests
     {
-        [Fact]
+        [Fact(Skip = "This test is only for releases")]
         public async Task ShouldUploadFileAsync()
         {
             // given
