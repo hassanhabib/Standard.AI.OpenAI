@@ -48,7 +48,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             var externalAIFileRequest = new ExternalAIFileRequest()
             {
                 File = file.Request.Content,
-                Purpose = file.Request.Purpose
+                Purpose = file.Request.Purpose,
+                FileName = file.Request.Name
             };
 
             return await this.openAIBroker.PostFileFormAsync(externalAIFileRequest);
