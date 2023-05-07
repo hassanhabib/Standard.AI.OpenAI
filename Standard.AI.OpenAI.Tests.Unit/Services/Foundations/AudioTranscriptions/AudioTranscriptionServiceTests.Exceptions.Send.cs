@@ -99,5 +99,47 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfBadRequestErrorOccurredAsync()
+        {
+            // given
+            AudioTranscription someAudioTranscription =
+                CreateRandomAudioTranscription();
+
+            var httpResponseBadRequestException =
+                new HttpResponseBadRequestException();
+
+            var invalidAudioTranscriptionException =
+                new InvalidAudioTranscriptionException(
+                    httpResponseBadRequestException);
+
+            var expectedAudioTranscriptionDependencyValidationException =
+                new AudioTranscriptionDependencyValidationException(
+                    invalidAudioTranscriptionException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()))
+                        .ThrowsAsync(httpResponseBadRequestException);
+
+            // when
+            ValueTask<AudioTranscription> sendAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(someAudioTranscription);
+
+            AudioTranscriptionDependencyValidationException actualAudioTranscriptionDependencyValidationException =
+                await Assert.ThrowsAsync<AudioTranscriptionDependencyValidationException>(
+                    sendAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionDependencyValidationException.Should().BeEquivalentTo(
+                expectedAudioTranscriptionDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+               broker.PostAudioTranscriptionRequestAsync(It.IsAny<ExternalAudioTranscriptionRequest>()),
+                   Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
