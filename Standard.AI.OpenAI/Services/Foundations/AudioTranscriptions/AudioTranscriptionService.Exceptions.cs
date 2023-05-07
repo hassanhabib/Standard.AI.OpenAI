@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
@@ -55,6 +56,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                     new InvalidAudioTranscriptionException(httpResponseBadRequestException);
 
                 throw new AudioTranscriptionDependencyValidationException(invalidAudioTranscriptionException);
+            }
+            catch (Exception exception)
+            {
+                var failedAudioTranscriptionServiceException =
+                    new FailedAudioTranscriptionServiceException(exception);
+
+                throw new AudioTranscriptionServiceException(failedAudioTranscriptionServiceException);
             }
         }
     }
