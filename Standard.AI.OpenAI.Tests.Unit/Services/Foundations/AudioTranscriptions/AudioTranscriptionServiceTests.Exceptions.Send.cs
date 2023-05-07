@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -138,6 +139,48 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             this.openAIBrokerMock.Verify(broker =>
                broker.PostAudioTranscriptionRequestAsync(It.IsAny<ExternalAudioTranscriptionRequest>()),
                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
+        {
+            // given
+            AudioTranscription someAudioTranscription =
+                CreateRandomAudioTranscription();
+
+            var serviceException = new Exception();
+
+            var failedAudioTranscriptionServiceException =
+                new FailedAudioTranscriptionServiceException(serviceException);
+
+            var expectedAudioTranscriptionServiceException =
+                new AudioTranscriptionServiceException(
+                    failedAudioTranscriptionServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()))
+                        .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<AudioTranscription> sendAudioTranscriptionTask =
+                this.audioTranscriptionService.SendAudioTranscriptionAsync(someAudioTranscription);
+
+            AudioTranscriptionServiceException
+                actualAudioTranscriptionServiceException =
+                    await Assert.ThrowsAsync<AudioTranscriptionServiceException>(
+                        sendAudioTranscriptionTask.AsTask);
+
+            // then
+            actualAudioTranscriptionServiceException.Should().BeEquivalentTo(
+                expectedAudioTranscriptionServiceException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostAudioTranscriptionRequestAsync(
+                    It.IsAny<ExternalAudioTranscriptionRequest>()),
+                        Times.Once);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
         }
