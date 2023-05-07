@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAiFiles;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {

@@ -8,6 +8,7 @@ using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAiFiles;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
