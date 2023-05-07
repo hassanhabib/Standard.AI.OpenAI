@@ -13,7 +13,6 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
             ExternalAIFileRequest externalFileRequest);
 
         ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId);
-
         ValueTask<ExternalAIFilesResult> GetAllFilesAsync();
     }
 }
