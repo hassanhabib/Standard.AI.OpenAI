@@ -2,6 +2,7 @@
 // Copyright (c) Coalition of the Good-Hearted Engineers 
 // ---------------------------------------------------------------
 
+using System;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 
@@ -16,6 +17,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             Validate(
                 (Rule: IsInvalid(audioTranscription.Request),
                 Parameter: nameof(AudioTranscription.Request)));
+
+            Validate(
+                (Rule: IsInvalid(audioTranscription.Request.FileName),
+                Parameter: nameof(AudioTranscriptionRequest.FileName)),
+
+                (Rule: IsInvalid(audioTranscription.Request.Model),
+                Parameter: nameof(AudioTranscriptionRequest.Model)));
         }
 
         private static void ValidateAudioTranscriptionIsNotNull(AudioTranscription audioTranscription)
@@ -29,6 +37,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static dynamic IsInvalid(object @object) => new
         {
             Condition = @object is null,
+            Message = "Value is required"
+        };
+
+        private static dynamic IsInvalid(string text) => new
+        {
+            Condition = String.IsNullOrWhiteSpace(text),
             Message = "Value is required"
         };
 
