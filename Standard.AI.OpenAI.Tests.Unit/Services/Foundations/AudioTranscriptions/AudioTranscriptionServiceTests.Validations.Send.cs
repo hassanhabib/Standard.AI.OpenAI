@@ -21,10 +21,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             // given
             AudioTranscription audioTranscription = null;
 
-            NullAudioTranscriptionException nullAudioTranscriptionException = new();
+            var nullAudioTranscriptionException = new NullAudioTranscriptionException();
 
-            AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
-                new(nullAudioTranscriptionException);
+            var exceptedAudioTranscriptionValidationException =
+                new AudioTranscriptionValidationException(nullAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =
@@ -50,19 +50,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsNullAsync()
         {
             // given
-            AudioTranscription audioTranscription = new()
+            var audioTranscription = new AudioTranscription()
             {
                 Request = null
             };
 
-            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new();
+            var invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscription.Request),
                 values: "Value is required");
 
-            AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
-                new(invalidAudioTranscriptionException);
+            var exceptedAudioTranscriptionValidationException =
+                new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =
@@ -91,7 +91,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsInvalidAsync(string invalidText)
         {
             // given
-            AudioTranscription audioTranscription = new()
+            var audioTranscription = new AudioTranscription()
             {
                 Request = new AudioTranscriptionRequest
                 {
@@ -100,7 +100,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 }
             };
 
-            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new();
+            var invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscriptionRequest.FileName),
@@ -110,8 +110,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 key: nameof(AudioTranscriptionRequest.Model),
                 values: "Value is required");
 
-            AudioTranscriptionValidationException exceptedAudioTranscriptionValidationException =
-                new(invalidAudioTranscriptionException);
+            var exceptedAudioTranscriptionValidationException =
+                new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =

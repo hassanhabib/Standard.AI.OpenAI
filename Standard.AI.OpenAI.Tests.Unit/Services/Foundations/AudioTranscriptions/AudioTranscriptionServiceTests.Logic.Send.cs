@@ -19,7 +19,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             // given
             dynamic audioTranscriptionProperties = CreateRandomAudioTranscriptionProperties();
 
-            AudioTranscriptionRequest randomAudioTranscriptionRequest = new()
+            var randomAudioTranscriptionRequest = new AudioTranscriptionRequest()
             {
                 Content = audioTranscriptionProperties.Content,
                 FileName = audioTranscriptionProperties.FileName,
@@ -29,17 +29,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 Language = audioTranscriptionProperties.Language,
             };
 
-            AudioTranscriptionResponse randomAudioTranscriptionResponse = new()
+            var randomAudioTranscriptionResponse = new AudioTranscriptionResponse()
             {
                 Text = audioTranscriptionProperties.Text
             };
 
-            AudioTranscription randomAudioTranscription = new()
+            var randomAudioTranscription = new AudioTranscription()
             {
                 Request = randomAudioTranscriptionRequest
             };
 
-            ExternalAudioTranscriptionRequest randomExternalAudioTranscriptionRequest = new()
+            var randomExternalAudioTranscriptionRequest = new ExternalAudioTranscriptionRequest()
             {
                 File = audioTranscriptionProperties.ExternalFile,
                 FileName = audioTranscriptionProperties.FileName,
@@ -49,7 +49,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 Language = audioTranscriptionProperties.Language
             };
 
-            ExternalAudioTranscriptionResponse randomExternalAudioTranscriptionResponse = new()
+            var randomExternalAudioTranscriptionResponse = new ExternalAudioTranscriptionResponse()
             {
                 Text = audioTranscriptionProperties.Text
             };
