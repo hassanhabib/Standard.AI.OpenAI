@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -160,6 +161,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             // then
             actualAIFileDependencyException.Should().BeEquivalentTo(
                 expectedAIFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllFilesAsync(),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveAllFilesIfServiceErrorOccurredAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedAIFileServiceException =
+                new FailedAIFileServiceException(serviceException);
+
+            var expectedAIFileServiceException =
+                new AIFileServiceException(failedAIFileServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllFilesAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
+                this.aiFileService.RetrieveAllFilesAsync();
+
+            AIFileServiceException actualAIFileServiceException =
+                await Assert.ThrowsAsync<AIFileServiceException>(
+                    retrieveAllFilesTask.AsTask);
+
+            // then
+            actualAIFileServiceException.Should().BeEquivalentTo(
+                expectedAIFileServiceException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllFilesAsync(),
