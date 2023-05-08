@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
@@ -43,9 +44,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             return ConvertToFile(removedFile);
         });
 
-        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
+        public async ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
         {
-            throw new System.NotImplementedException();
+            ExternalAIFilesResult externalAIFilesResult = await this.openAIBroker.GetAllFilesAsync();
+
+            return externalAIFilesResult.Files.Select(ConvertToFileResponse).ToArray();
         }
 
         private async ValueTask<ExternalAIFileResponse> PostFileAsync(AIFile file)

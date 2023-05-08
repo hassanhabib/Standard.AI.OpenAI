@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -58,7 +59,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         public dynamic CreateRandomFileProperties()
         {
-            int randomCreated = GetRandomNumber();
+            int randomCreated = GetRandomDateNumber();
             DateTimeOffset randomCreatedDate = CreateRandomDateTimeOffset();
 
             dynamic randomFileProperties = CreateRandomFileProperties(
@@ -115,6 +116,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
+
+        private static int GetRandomDateNumber() =>
+            new Random((int)Stopwatch.GetTimestamp()).Next(int.MinValue, int.MaxValue);
 
         private Stream CreateRandomStream()
         {
