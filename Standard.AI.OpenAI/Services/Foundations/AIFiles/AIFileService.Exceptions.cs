@@ -129,6 +129,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
                 throw new AIFileDependencyException(failedServerAIFileException);
             }
+            catch (Exception exception)
+            {
+                var failedAIFileServiceException =
+                    new FailedAIFileServiceException(exception);
+
+                throw new AIFileServiceException(failedAIFileServiceException);
+            }
         }
     }
 }
