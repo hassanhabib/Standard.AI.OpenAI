@@ -115,6 +115,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
                 throw new AIFileDependencyException(unauthorizedAIFileException);
             }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallAIFileException =
+                    new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
+
+                throw new AIFileDependencyException(excessiveCallAIFileException);
+            }
         }
     }
 }
