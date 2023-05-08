@@ -122,6 +122,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
                 throw new AIFileDependencyException(excessiveCallAIFileException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedServerAIFileException =
+                    new FailedServerAIFileException(httpResponseException);
+
+                throw new AIFileDependencyException(failedServerAIFileException);
+            }
         }
     }
 }
