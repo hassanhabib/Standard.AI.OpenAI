@@ -101,6 +101,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
                 throw new AIFileDependencyException(invalidConfigurationAIFileException);
             }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedAIFileException =
+                    new UnauthorizedAIFileException(httpResponseUnauthorizedException);
+
+                throw new AIFileDependencyException(unauthorizedAIFileException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedAIFileException =
+                    new UnauthorizedAIFileException(httpResponseForbiddenException);
+
+                throw new AIFileDependencyException(unauthorizedAIFileException);
+            }
         }
     }
 }
