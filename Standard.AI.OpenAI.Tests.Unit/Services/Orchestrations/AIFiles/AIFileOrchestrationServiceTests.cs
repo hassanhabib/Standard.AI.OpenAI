@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
-using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
