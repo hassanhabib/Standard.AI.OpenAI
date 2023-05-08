@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAiFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles

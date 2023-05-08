@@ -5,7 +5,7 @@
 using System.IO;
 using RESTFulSense.Models.Attributes;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAiFiles
+namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles
 {
     internal class ExternalAIFileRequest
     {

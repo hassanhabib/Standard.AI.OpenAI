@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAiFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
