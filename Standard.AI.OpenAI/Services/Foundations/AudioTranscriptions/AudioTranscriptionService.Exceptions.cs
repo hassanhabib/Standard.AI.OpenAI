@@ -57,6 +57,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 throw new AudioTranscriptionDependencyValidationException(invalidAudioTranscriptionException);
             }
+            catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
+            {
+                var excessiveCallAudioTranscriptionException =
+                    new ExcessiveCallAudioTranscriptionException(httpResponseTooManyRequestsException);
+
+                throw new AudioTranscriptionDependencyValidationException(excessiveCallAudioTranscriptionException);
+            }
             catch (Exception exception)
             {
                 var failedAudioTranscriptionServiceException =
