@@ -90,5 +90,44 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfTooManyRequestsOccurredAsync()
+        {
+            // given
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallAIFileException =
+                new ExcessiveCallAIFileException(
+                    httpResponseTooManyRequestsException);
+
+            var expectedAIFileDependencyException =
+                new AIFileDependencyException(
+                    excessiveCallAIFileException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllFilesAsync())
+                    .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
+                this.aiFileService.RetrieveAllFilesAsync();
+
+            AIFileDependencyException actualAIFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
+                    retrieveAllFilesTask.AsTask);
+
+            // then
+            actualAIFileDependencyException.Should().BeEquivalentTo(
+                expectedAIFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllFilesAsync(),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
