@@ -4,7 +4,7 @@
 
 using Newtonsoft.Json;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
+namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles
 {
     internal class ExternalAIFileResponse
     {
