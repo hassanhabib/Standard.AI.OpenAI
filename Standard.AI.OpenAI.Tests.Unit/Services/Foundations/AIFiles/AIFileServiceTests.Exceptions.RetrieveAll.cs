@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------------------
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers
 // ----------------------------------------------------------------------------------
 
@@ -109,6 +109,45 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
                     .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
+                this.aiFileService.RetrieveAllFilesAsync();
+
+            AIFileDependencyException actualAIFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
+                    retrieveAllFilesTask.AsTask);
+
+            // then
+            actualAIFileDependencyException.Should().BeEquivalentTo(
+                expectedAIFileDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.GetAllFilesAsync(),
+                    Times.Once);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfServerErrorOccurredAsync()
+        {
+            // given
+            var httpResponseException =
+                new HttpResponseException();
+
+            var failedServerAIFileException =
+                new FailedServerAIFileException(
+                    httpResponseException);
+
+            var expectedAIFileDependencyException =
+                new AIFileDependencyException(
+                    failedServerAIFileException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.GetAllFilesAsync())
+                    .ThrowsAsync(httpResponseException);
 
             // when
             ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
