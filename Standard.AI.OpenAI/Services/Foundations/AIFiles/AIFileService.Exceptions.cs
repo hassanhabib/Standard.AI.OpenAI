@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
@@ -13,6 +14,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
     internal partial class AIFileService
     {
         private delegate ValueTask<AIFile> ReturningAIFileFunction();
+        private delegate ValueTask<IEnumerable<AIFileResponse>> ReturningAIFilesFunction();
 
         private async ValueTask<AIFile> TryCatch(ReturningAIFileFunction returningAIFileFunction)
         {
@@ -83,6 +85,21 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                     new FailedAIFileServiceException(exception);
 
                 throw new AIFileServiceException(failedAIFileServiceException);
+            }
+        }
+
+        private async ValueTask<IEnumerable<AIFileResponse>> TryCatch(ReturningAIFilesFunction returningAIFilesFunction)
+        {
+            try
+            {
+                return await returningAIFilesFunction();
+            }
+            catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
+            {
+                var invalidConfigurationAIFileException =
+                    new InvalidConfigurationAIFileException(httpResponseUrlNotFoundException);
+
+                throw new AIFileDependencyException(invalidConfigurationAIFileException);
             }
         }
     }

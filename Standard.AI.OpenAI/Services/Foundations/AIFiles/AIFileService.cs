@@ -44,12 +44,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             return ConvertToFile(removedFile);
         });
 
-        public async ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
+        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync() =>
+        TryCatch(async () =>
         {
             ExternalAIFilesResult externalAIFilesResult = await this.openAIBroker.GetAllFilesAsync();
 
             return externalAIFilesResult.Files.Select(ConvertToFileResponse).ToArray();
-        }
+        });
 
         private async ValueTask<ExternalAIFileResponse> PostFileAsync(AIFile file)
         {
