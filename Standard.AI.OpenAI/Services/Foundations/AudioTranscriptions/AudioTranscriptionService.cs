@@ -48,10 +48,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             AudioTranscription audioTranscription,
             ExternalAudioTranscriptionResponse externalAudioTranscriptionResponse)
         {
-            audioTranscription.Response = new AudioTranscriptionResponse
-            {
-                Text = externalAudioTranscriptionResponse.Text
-            };
+            var audioTranscriptionResponse = new AudioTranscriptionResponse();
+            audioTranscriptionResponse.Text = externalAudioTranscriptionResponse.Text;
+            audioTranscription.Response = audioTranscriptionResponse;
 
             return audioTranscription;
         }
