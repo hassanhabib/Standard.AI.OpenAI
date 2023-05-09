@@ -22,7 +22,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions
         /// <summary>
         /// ID of the model to use. Only whisper-1 is currently available.
         /// </summary>
-        public AudioTranscriptionModel Model { get; set; }
+        public string Model { get; set; }
 
         /// <summary>
         /// An optional text to guide the model's style or continue a previous

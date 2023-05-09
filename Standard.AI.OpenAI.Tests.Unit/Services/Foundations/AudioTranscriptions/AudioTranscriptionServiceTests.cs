@@ -46,7 +46,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         {
             Stream randomStream = CreateRandomStream();
             string randomFileName = CreateRandomString();
-            AudioTranscriptionModel randomAudioTranscriptionModel = CreateRandomAudioTranscriptionModel();
+            string randomAudioTranscriptionModel = CreateRandomString();
 
             return new
             {
@@ -77,12 +77,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         private static string CreateRandomString()
             => new MnemonicString().GetValue();
 
-        private static AudioTranscriptionModel CreateRandomAudioTranscriptionModel()
-        {
-            string randomString = CreateRandomString();
-            return AudioTranscriptionModel.Create(randomString);
-        }
-
         private static Stream CreateRandomStream()
         {
             var mockStream = new Mock<MemoryStream>();
@@ -107,15 +101,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             filler.Setup()
                 .OnType<Stream>().Use(CreateRandomStream);
-
-            filler.Setup()
-                .OnType<AudioTranscriptionModel>()
-                .Use(new AudioTranscriptionModel[]
-                {
-                    AudioTranscriptionModel.Create(CreateRandomString()),
-                    AudioTranscriptionModel.Create(CreateRandomString()),
-                    AudioTranscriptionModel.Create(CreateRandomString())
-                });
 
             return filler;
         }
