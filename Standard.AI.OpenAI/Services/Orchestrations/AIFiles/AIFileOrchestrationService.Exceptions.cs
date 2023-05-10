@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
@@ -15,6 +16,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
     internal partial class AIFileOrchestrationService
     {
         private delegate ValueTask<AIFile> ReturningAIFileFunction();
+        private delegate ValueTask<IEnumerable<AIFileResponse>> ReturningAIFilesFunction();
 
         private async ValueTask<AIFile> TryCatch(ReturningAIFileFunction returningAIFileFunction)
         {
@@ -79,6 +81,24 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
                 throw new AIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
+            }
+        }
+
+        private async ValueTask<IEnumerable<AIFileResponse>> TryCatch(ReturningAIFilesFunction returningAIFilesFunction)
+        {
+            try
+            {
+                return await returningAIFilesFunction();
+            }
+            catch (AIFileDependencyException aIFileDependencyException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    aIFileDependencyException.InnerException as Xeption);
+            }
+            catch (AIFileServiceException aIFileServiceException)
+            {
+                throw new AIFileOrchestrationDependencyException(
+                    aIFileServiceException.InnerException as Xeption);
             }
         }
     }
