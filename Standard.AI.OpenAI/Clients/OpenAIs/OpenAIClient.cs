@@ -15,6 +15,7 @@ using Standard.AI.OpenAI.Clients.ImageGenerations;
 using Standard.AI.OpenAI.Models.Configurations;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIModels;
+using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Services.Foundations.ImageGenerations;
@@ -56,6 +57,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<IChatCompletionService, ChatCompletionService>()
                 .AddTransient<IImageGenerationService, ImageGenerationService>()
                 .AddTransient<IAIModelService, AIModelService>()
+                .AddTransient<IAudioTranscriptionService, AudioTranscriptionService>()
                 .AddTransient<ILocalFileService, LocalFileService>()
                 .AddTransient<IAIFileService, AIFileService>()
                 .AddTransient<IAIFileOrchestrationService, AIFileOrchestrationService>()
