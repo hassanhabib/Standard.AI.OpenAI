@@ -47,7 +47,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             ExternalAIFileResponse removedExternalAIFileResponse = randomExternalAIFileResponse.DeepClone();
             AIFile expectedAIFile = randomAIFile;
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(inputFileId))
                     .ReturnsAsync(removedExternalAIFileResponse);
 
@@ -57,11 +57,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             // then
             actualFile.Should().BeEquivalentTo(expectedAIFile);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(inputFileId),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }

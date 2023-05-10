@@ -1,7 +1,8 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
@@ -42,6 +43,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             return ConvertToFile(removedFile);
         });
 
+        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private async ValueTask<ExternalAIFileResponse> PostFileAsync(AIFile file)
         {
             var externalAIFileRequest = new ExternalAIFileRequest()
@@ -71,7 +77,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Size = externalAIFileResponse.Bytes,
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
-                Deleted = externalAIFileResponse.Deleted
+                Deleted = externalAIFileResponse.Deleted,
+                Status = externalAIFileResponse.Status
             };
         }
 
@@ -84,6 +91,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Size = externalAIFileResponse.Bytes,
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
+                Deleted = externalAIFileResponse.Deleted,
+                Status = externalAIFileResponse.Status,
 
                 CreatedDate =
                     this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIFileResponse.CreatedDate),

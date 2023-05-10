@@ -28,5 +28,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles
 
         [JsonProperty("deleted")]
         public bool Deleted { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

@@ -3,7 +3,9 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
@@ -20,19 +22,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 {
     public partial class AIFileServiceTests
     {
-        private readonly Mock<IOpenAIBroker> openAiBrokerMock;
+        private readonly Mock<IOpenAIBroker> openAIBrokerMock;
         private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         private readonly ICompareLogic compareLogic;
         private readonly IAIFileService aiFileService;
 
         public AIFileServiceTests()
         {
-            this.openAiBrokerMock = new Mock<IOpenAIBroker>();
+            this.openAIBrokerMock = new Mock<IOpenAIBroker>();
             this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.compareLogic = new CompareLogic();
 
             this.aiFileService = new AIFileService(
-                openAIBroker: this.openAiBrokerMock.Object,
+                openAIBroker: this.openAIBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
@@ -43,6 +45,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseUnauthorizedException(),
                 new HttpResponseForbiddenException()
             };
+        }
+
+        private List<dynamic> CreateRandomFilesPropertiesList()
+        {
+            return Enumerable.Range(start: 0, count: GetRandomNumber())
+                .Select(item =>
+                {
+                    return CreateRandomFileProperties();
+                }).ToList();
         }
 
         public dynamic CreateRandomFileProperties()
@@ -78,7 +89,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Bytes = randomBytesSize,
                 Created = created,
                 CreatedDate = createdDate,
-                Deleted = GetRandomBoolean()
+                Deleted = GetRandomBoolean(),
+                Status = CreateRandomString()
             };
         }
 
