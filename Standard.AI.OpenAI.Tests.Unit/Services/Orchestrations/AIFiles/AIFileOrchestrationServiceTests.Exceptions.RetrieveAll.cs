@@ -1,5 +1,5 @@
-﻿// ---------------------------------------------------------------------------------- 
-// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+﻿// ----------------------------------------------------------------------------------
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers
 // ----------------------------------------------------------------------------------
 
 using System;
@@ -42,6 +42,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             // then
             actualAIFileOrchestrationDependencyException.Should().BeEquivalentTo(
                 expectedAIFileOrchestrationDependencyException);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.RetrieveAllFilesAsync(),
+                Times.Once);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveAllIfExceptionOccursAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedAIFileOrchestrationServiceException =
+                new FailedAIFileOrchestrationServiceException(serviceException);
+
+            var expectedAIFileOrchestrationServiceException =
+                new AIFileOrchestrationServiceException(
+                    failedAIFileOrchestrationServiceException);
+
+            this.aiFileServiceMock.Setup(service =>
+                service.RetrieveAllFilesAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
+                this.aiFileOrchestrationService.RetrieveAllFilesAsync();
+
+            AIFileOrchestrationServiceException actualAIFileOrchestrationServiceException =
+                await Assert.ThrowsAsync<AIFileOrchestrationServiceException>(
+                    retrieveAllFilesTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationServiceException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Verify(service =>
                 service.RetrieveAllFilesAsync(),
