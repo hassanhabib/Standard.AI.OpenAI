@@ -2,7 +2,9 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
 
 namespace Standard.AI.OpenAI.Brokers.OpenAIs
 {
@@ -16,6 +18,11 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
             return await PostFormAsync<ExternalAIFileRequest, ExternalAIFileResponse>(
                 relativeUrl: FilesRelativeUrl,
                 externalFileRequest);
+        }
+
+        public ValueTask<ExternalAIFilesResult> GetAllFilesAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public async ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId) =>
