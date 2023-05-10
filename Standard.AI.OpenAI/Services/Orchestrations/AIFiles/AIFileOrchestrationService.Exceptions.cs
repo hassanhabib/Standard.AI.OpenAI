@@ -1,4 +1,4 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
@@ -99,6 +99,15 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             {
                 throw new AIFileOrchestrationDependencyException(
                     aIFileServiceException.InnerException as Xeption);
+            }
+            catch (Exception exception)
+            {
+                var failedAIFileOrchestrationServiceException =
+                    new FailedAIFileOrchestrationServiceException(
+                        exception);
+
+                throw new AIFileOrchestrationServiceException(
+                    failedAIFileOrchestrationServiceException);
             }
         }
     }
