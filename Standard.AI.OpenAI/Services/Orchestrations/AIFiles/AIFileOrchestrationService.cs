@@ -36,9 +36,9 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             };
         });
 
-        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
+        public async ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
         {
-            throw new System.NotImplementedException();
+            return await this.aiFileService.RetrieveAllFilesAsync();
         }
 
         private async ValueTask<AIFile> ReadUploadFileAsync(AIFile aiFile)
