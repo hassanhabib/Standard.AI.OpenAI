@@ -9,6 +9,7 @@ using Standard.AI.OpenAI.Brokers.Files;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Clients.AIFiles;
 using Standard.AI.OpenAI.Clients.AIModels;
+using Standard.AI.OpenAI.Clients.AudioTranscriptions;
 using Standard.AI.OpenAI.Clients.ChatCompletions;
 using Standard.AI.OpenAI.Clients.Completions;
 using Standard.AI.OpenAI.Clients.ImageGenerations;
@@ -37,6 +38,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         public IImageGenerationsClient ImageGenerations { get; private set; }
         public IAIModelsClient AIModels { get; private set; }
         public IAIFilesClient AIFiles { get; private set; }
+        public IAudioTranscriptionsClient AudioTranscriptions { get; private set; }
 
         private void InitializeClients(IServiceProvider serviceProvider)
         {
@@ -45,6 +47,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             ImageGenerations = serviceProvider.GetRequiredService<IImageGenerationsClient>();
             AIModels = serviceProvider.GetRequiredService<IAIModelsClient>();
             AIFiles = serviceProvider.GetRequiredService<IAIFilesClient>();
+            AudioTranscriptions = serviceProvider.GetRequiredService<IAudioTranscriptionsClient>();
         }
 
         private static IServiceProvider RegisterServices(OpenAIConfigurations openAIConfigurations)
@@ -66,6 +69,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<IImageGenerationsClient, ImageGenerationsClient>()
                 .AddTransient<IAIModelsClient, AIModelsClient>()
                 .AddTransient<IAIFilesClient, AIFilesClient>()
+                .AddTransient<IAudioTranscriptionsClient, AudioTranscriptionsClient>()
                 .AddSingleton(openAIConfigurations);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();

@@ -4,6 +4,7 @@
 
 using Standard.AI.OpenAI.Clients.AIFiles;
 using Standard.AI.OpenAI.Clients.AIModels;
+using Standard.AI.OpenAI.Clients.AudioTranscriptions;
 using Standard.AI.OpenAI.Clients.ChatCompletions;
 using Standard.AI.OpenAI.Clients.Completions;
 using Standard.AI.OpenAI.Clients.ImageGenerations;
@@ -17,5 +18,6 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         IImageGenerationsClient ImageGenerations { get; }
         IAIModelsClient AIModels { get; }
         IAIFilesClient AIFiles { get; }
+        IAudioTranscriptionsClient AudioTranscriptions { get; }
     }
 }
