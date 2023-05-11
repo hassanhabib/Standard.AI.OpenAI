@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes
 {
-    public class ExternalEvent
+    internal class ExternalEvent
     {
         [JsonProperty("object")]
         public string Object { get; set; }
