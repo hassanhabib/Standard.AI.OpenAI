@@ -4,7 +4,6 @@
 
 using System.Threading.Tasks;
 using FluentAssertions;
-using Force.DeepCloner;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
