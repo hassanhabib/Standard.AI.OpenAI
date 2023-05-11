@@ -37,12 +37,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             // when
             ValueTask<IEnumerable<AIFileResponse>> getAllFilesTask =
-               this.aiFileService.RetrieveAllFilesAsync();
+                this.aiFileService.RetrieveAllFilesAsync();
 
-            AIFileDependencyException
-                actualAIFileDependencyException =
-                    await Assert.ThrowsAsync<AIFileDependencyException>(
-                        getAllFilesTask.AsTask);
+            AIFileDependencyException actualAIFileDependencyException =
+                await Assert.ThrowsAsync<AIFileDependencyException>(
+                    getAllFilesTask.AsTask);
 
             // then
             actualAIFileDependencyException.Should().BeEquivalentTo(
@@ -59,7 +58,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
         public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfUnauthorizedAsync(
-           HttpResponseException unauthorizedException)
+            HttpResponseException unauthorizedException)
         {
             // given
             var unauthorizedAIFileException =
@@ -74,7 +73,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             // when
             ValueTask<IEnumerable<AIFileResponse>> getAllFilesTask =
-               this.aiFileService.RetrieveAllFilesAsync();
+                this.aiFileService.RetrieveAllFilesAsync();
 
             AIFileDependencyException actualAIFileDependencyException =
                 await Assert.ThrowsAsync<AIFileDependencyException>(
@@ -93,7 +92,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfTooManyRequestsOccurredAsync()
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfTooManyRequestsOccurredAsync()
         {
             // given
             var httpResponseTooManyRequestsException =
@@ -103,8 +102,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new ExcessiveCallAIFileException(
                     httpResponseTooManyRequestsException);
 
-            var expectedAIFileDependencyException =
-                new AIFileDependencyException(
+            var expectedAIFileDependencyValidationException =
+                new AIFileDependencyValidationException(
                     excessiveCallAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -115,13 +114,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
                 this.aiFileService.RetrieveAllFilesAsync();
 
-            AIFileDependencyException actualAIFileDependencyException =
-                await Assert.ThrowsAsync<AIFileDependencyException>(
+            AIFileDependencyValidationException actualAIFileDependencyValidationException =
+                await Assert.ThrowsAsync<AIFileDependencyValidationException>(
                     retrieveAllFilesTask.AsTask);
 
             // then
-            actualAIFileDependencyException.Should().BeEquivalentTo(
-                expectedAIFileDependencyException);
+            actualAIFileDependencyValidationException.Should().BeEquivalentTo(
+                expectedAIFileDependencyValidationException);
 
             this.openAIBrokerMock.Verify(broker =>
                 broker.GetAllFilesAsync(),
@@ -132,7 +131,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfServerErrorOccurredAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfHttpResponseErrorOccurredAsync()
         {
             // given
             var httpResponseException =
@@ -171,7 +170,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAllFilesIfServiceErrorOccurredAsync()
+        public async Task ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();

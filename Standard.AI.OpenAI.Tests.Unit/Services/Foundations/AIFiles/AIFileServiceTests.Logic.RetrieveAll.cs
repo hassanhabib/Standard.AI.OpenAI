@@ -21,7 +21,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             // given
             List<dynamic> filesRandomPropertiesList = CreateRandomFilesPropertiesList();
 
-            ExternalAIFilesResult externalAIFilesResult = new ExternalAIFilesResult
+            var externalAIFilesResult = new ExternalAIFilesResult
             {
                 Files = filesRandomPropertiesList.Select(item =>
                     new ExternalAIFileResponse
@@ -61,8 +61,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         .Returns(item.CreatedDate);
             });
 
-            this.openAIBrokerMock.Setup(broker => broker.GetAllFilesAsync())
-                .ReturnsAsync(externalAIFilesResult);
+            this.openAIBrokerMock.Setup(broker => 
+                broker.GetAllFilesAsync())
+                    .ReturnsAsync(externalAIFilesResult);
 
             // when
             IEnumerable<AIFileResponse> actualAIFiles =

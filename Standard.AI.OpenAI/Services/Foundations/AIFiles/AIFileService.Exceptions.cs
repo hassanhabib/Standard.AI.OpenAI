@@ -120,7 +120,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var excessiveCallAIFileException =
                     new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
 
-                throw new AIFileDependencyException(excessiveCallAIFileException);
+                throw new AIFileDependencyValidationException(excessiveCallAIFileException);
             }
             catch (HttpResponseException httpResponseException)
             {
