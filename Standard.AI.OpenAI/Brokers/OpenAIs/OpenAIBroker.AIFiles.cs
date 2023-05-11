@@ -19,10 +19,10 @@ namespace Standard.AI.OpenAI.Brokers.OpenAIs
                 externalFileRequest);
         }
 
+        public async ValueTask<ExternalAIFilesResult> GetAllFilesAsync() =>
+            await GetAsync<ExternalAIFilesResult>(FilesRelativeUrl);
+
         public async ValueTask<ExternalAIFileResponse> DeleteFileByIdAsync(string fileId) =>
             await DeleteAsync<ExternalAIFileResponse>(relativeUrl: $"{FilesRelativeUrl}/{fileId}");
-
-        public async ValueTask<ExternalAIFilesResult> GetAllFilesAsync() =>
-            await GetAsync<ExternalAIFilesResult>(relativeUrl: "v1/files");
     }
 }
