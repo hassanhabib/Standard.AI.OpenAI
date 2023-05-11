@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes
 {
-    public class ExternalHyperparams
+    internal class ExternalHyperparams
     {
         [JsonProperty("n_epochs")]
         public int EpochsCount { get; set; }
