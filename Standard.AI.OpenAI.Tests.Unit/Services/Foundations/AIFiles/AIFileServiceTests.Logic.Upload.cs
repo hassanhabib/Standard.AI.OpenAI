@@ -41,7 +41,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 CreatedDate = randomFileProperties.CreatedDate,
                 Name = randomFileProperties.Name,
                 Purpose = randomFileProperties.Purpose,
-                Status = randomFileProperties.Status
+                Status = randomFileProperties.Status,
+                StatusDetails = randomFileProperties.StatusDetails
             };
 
             var randomAIFile = new AIFile
@@ -68,7 +69,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 CreatedDate = randomFileProperties.Created,
                 FileName = randomFileProperties.FileName,
                 Purpose = randomFileProperties.Purpose,
-                Status = randomFileProperties.Status
+                Status = randomFileProperties.ExternalStatus,
+                StatusDetails = randomFileProperties.StatusDetails
             };
 
             this.dateTimeBrokerMock.Setup(broker =>

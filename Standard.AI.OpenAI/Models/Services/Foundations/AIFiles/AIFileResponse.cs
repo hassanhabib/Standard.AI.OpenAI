@@ -15,6 +15,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles
         public string Name { get; set; }
         public string Purpose { get; set; }
         public bool Deleted { get; set; }
-        public string Status { get; set; }
+        public AIFileStatus Status { get; set; }
+        public string StatusDetails { get; set; }
     }
 }

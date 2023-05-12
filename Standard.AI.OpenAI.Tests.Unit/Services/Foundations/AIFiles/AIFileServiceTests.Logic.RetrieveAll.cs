@@ -33,7 +33,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         FileName = item.FileName,
                         Purpose = item.Purpose,
                         Deleted = item.Deleted,
-                        Status = item.Status
+                        Status = item.ExternalStatus,
+                        StatusDetails = item.StatusDetails
                     }).ToArray()
             };
 
@@ -47,7 +48,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     Name = item.Name,
                     Purpose = item.Purpose,
                     Deleted = item.Deleted,
-                    Status = item.Status
+                    Status = item.Status,
+                    StatusDetails = item.StatusDetails
                 }).ToArray();
 
             IEnumerable<AIFileResponse> expectedAIFiles = randomAIFiles;
@@ -61,7 +63,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         .Returns(item.CreatedDate);
             });
 
-            this.openAIBrokerMock.Setup(broker => 
+            this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
                     .ReturnsAsync(externalAIFilesResult);
 

@@ -82,7 +82,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
                 Deleted = externalAIFileResponse.Deleted,
-                Status = externalAIFileResponse.Status
+                Status = ConvertToAIFileStatus(externalAIFileResponse.Status),
+                StatusDetails = externalAIFileResponse.StatusDetails
             };
         }
 
@@ -96,10 +97,22 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
                 Deleted = externalAIFileResponse.Deleted,
-                Status = externalAIFileResponse.Status,
+                Status = ConvertToAIFileStatus(externalAIFileResponse.Status),
+                StatusDetails = externalAIFileResponse.StatusDetails,
 
                 CreatedDate =
                     this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIFileResponse.CreatedDate),
+            };
+        }
+
+        private static AIFileStatus ConvertToAIFileStatus(string externalStatus)
+        {
+            return externalStatus?.ToLowerInvariant() switch
+            {
+                "uploaded" => AIFileStatus.Uploaded,
+                "processed" => AIFileStatus.Processed,
+                "error" => AIFileStatus.Error,
+                _ => AIFileStatus.Unknown
             };
         }
     }

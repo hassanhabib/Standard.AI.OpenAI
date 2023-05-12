@@ -75,6 +75,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             string randomFileName = CreateRandomString();
             string randomFileType = CreateRandomString();
             int randomBytesSize = GetRandomNumber();
+            AIFileStatus randomAIFileStatus = GetRandomAIFileStatus();
+            string randomExternalStatus = Enum.GetName(randomAIFileStatus);
 
             return new
             {
@@ -91,7 +93,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Created = created,
                 CreatedDate = createdDate,
                 Deleted = GetRandomBoolean(),
-                Status = CreateRandomString()
+                ExternalStatus = randomExternalStatus,
+                Status = randomAIFileStatus,
+                StatusDetails = CreateRandomString()
             };
         }
 
@@ -104,6 +108,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                     actualExternalAIFileRequest)
                         .AreEqual;
         }
+
+        private static AIFileStatus GetRandomAIFileStatus() =>
+            new RandomListItem<AIFileStatus>(Enum.GetValues<AIFileStatus>()).GetValue();
 
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
