@@ -6,7 +6,6 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Clients.AudioTranscriptions.Exceptions
 {
-#pragma warning disable RCS1194 // Implement exception constructors.
     public class AudioTranscriptionClientDependencyException : Xeption
     {
         public AudioTranscriptionClientDependencyException(Xeption innerException)
