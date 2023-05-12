@@ -34,10 +34,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
         }
 
-        private static dynamic CreateRandomFineTuneProperties(
-            DateTimeOffset createdDate,
-            int createdDateNumber)
+        private static dynamic CreateRandomFineTuneProperties()
         {
+            DateTimeOffset randomCreatedDateTime = GetRandomDate();
+            DateTimeOffset randomUpdatedDateTime = GetRandomDate();
+            int randomCreatedUnixEpoch = GetRandomNumber();
+            int randomUpdatedUnixEpoch = GetRandomNumber();
+
             return new
             {
                 FileId = GetRandomString(),
@@ -59,10 +62,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 TrainingFile = CreateRandomTrainingFileProperties(),
                 ValidationFiles = CreateRandomObjectArray(),
                 ResultFiles = CreateRandomObjectArray(),
-                Created = createdDateNumber,
-                CreatedDate = createdDate,
-                Updated = createdDateNumber,
-                UpdatedDate = createdDate,
+                Created = randomCreatedUnixEpoch,
+                CreatedDate = randomCreatedDateTime,
+                Updated = randomUpdatedUnixEpoch,
+                UpdatedDate = randomUpdatedDateTime,
                 Status = GetRandomString(),
                 FineTunedModel = GetRandomObject(),
                 Events = CreateRandomEventProperties()
@@ -82,6 +85,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
         private static dynamic[] CreateRandomTrainingFileProperties()
         {
+            DateTimeOffset randomCreatedDateTime = GetRandomDate();
+            int randomCreatedUnixEpoch = GetRandomNumber();
+
             return Enumerable.Range(0, GetRandomNumber()).Select(item =>
                 new
                 {
@@ -90,7 +96,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     Purpose = GetRandomString(),
                     Filename = GetRandomString(),
                     Bytes = GetRandomNumber(),
-                    CreatedDate = GetRandomNumber(),
+                    CreatedDate = randomCreatedDateTime,
+                    Created = randomCreatedUnixEpoch,
                     Status = GetRandomString(),
                     StatusDetails = GetRandomObject()
                 }).ToArray();
@@ -98,13 +105,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
         private static dynamic[] CreateRandomEventProperties()
         {
+            DateTimeOffset randomCreatedDateTime = GetRandomDate();
+            int randomCreatedUnixEpoch = GetRandomNumber();
+
             return Enumerable.Range(0, GetRandomNumber()).Select(item =>
                 new
                 {
                     Type = GetRandomString(),
                     Level = GetRandomString(),
                     Message = GetRandomString(),
-                    CreatedDate = GetRandomNumber()
+                    Created = randomCreatedUnixEpoch,
+                    CreatedDate = randomCreatedDateTime
                 }).ToArray();
         }
 
@@ -127,8 +138,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
 
-        private static object GetRandomObject()
-            => GetRandomString();
+        private static object GetRandomObject() => 
+            GetRandomString();
 
         private Expression<Func<ExternalFineTuneRequest, bool>> SameExternalFineTuneRequestAs(
            ExternalFineTuneRequest expectedExternalFineTuneRequest)

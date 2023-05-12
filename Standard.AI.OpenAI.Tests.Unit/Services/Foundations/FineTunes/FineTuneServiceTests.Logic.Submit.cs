@@ -20,11 +20,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         public async Task ShouldSubmitFineTuneAsync()
         {
             // given
-            DateTimeOffset randomDate = GetRandomDate();
-            DateTimeOffset inputDate = randomDate;
-            int inputUnixTime = (int)inputDate.ToUnixTimeSeconds();
-
-            dynamic randomFineTuneProperties = CreateRandomFineTuneProperties(inputDate, inputUnixTime);
+            dynamic randomFineTuneProperties = CreateRandomFineTuneProperties();
 
             var inputFineTuneRequest = new FineTuneRequest
             {
@@ -58,39 +54,40 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 Suffix = randomFineTuneProperties.Suffix
             };
 
-            FineTune inputFineTune = new FineTune
-            {
-                Request = inputFineTuneRequest,
-            };
-
+            var inputFineTune = new FineTune();
+            inputFineTune.Request = inputFineTuneRequest;
             FineTune expectedFineTune = inputFineTune.DeepClone();
-
             dynamic[] trainingFileProperties = randomFineTuneProperties.TrainingFile;
 
-            TrainingFile[] trainingFiles = trainingFileProperties.Select(trainingFileProperty => new TrainingFile
-            {
-                Id = trainingFileProperty.Id,
-                Type = trainingFileProperty.Type,
-                Purpose = trainingFileProperty.Purpose,
-                Filename = trainingFileProperty.Filename,
-                Bytes = trainingFileProperty.Bytes,
-                CreatedDate = trainingFileProperty.CreatedDate,
-                Status = trainingFileProperty.Status,
-                StatusDetails = trainingFileProperty.StatusDetails
-            }).ToArray();
+            TrainingFile[] trainingFiles = trainingFileProperties.Select(trainingFileProperty =>
+                new TrainingFile
+                {
+                    Id = trainingFileProperty.Id,
+                    Type = trainingFileProperty.Type,
+                    Purpose = trainingFileProperty.Purpose,
+                    Filename = trainingFileProperty.Filename,
+                    Bytes = trainingFileProperty.Bytes,
+                    CreatedDate = (DateTimeOffset)trainingFileProperty.CreatedDate,
+                    Status = trainingFileProperty.Status,
+                    StatusDetails = trainingFileProperty.StatusDetails
+                }).ToArray();
 
-            Event[] events = ((dynamic[])randomFineTuneProperties.Events).Select(eventProperties => new Event
-            {
-                CreatedDate = eventProperties.CreatedDate,
-                Level = eventProperties.Level,
-                Message = eventProperties.Message,
-                Type = eventProperties.Type
-            }).ToArray();
+            dynamic[] randomEventProperties = (dynamic[])randomFineTuneProperties.Events;
+
+            Event[] events = randomEventProperties.Select(eventProperties =>
+                new Event
+                {
+                    CreatedDate = (DateTimeOffset)eventProperties.CreatedDate,
+                    Level = eventProperties.Level,
+                    Message = eventProperties.Message,
+                    Type = eventProperties.Type
+                }).ToArray();
 
             expectedFineTune.Response = new FineTuneResponse
             {
                 Id = randomFineTuneProperties.Id,
                 Type = randomFineTuneProperties.Type,
+
                 HyperParameters = new HyperParameter
                 {
                     EpochsCount = randomFineTuneProperties.HyperParameters.EpochsCount,
@@ -98,37 +95,40 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     PromptLossWeight = randomFineTuneProperties.HyperParameters.PromptLossWeight,
                     LearningRateMultiplier = randomFineTuneProperties.HyperParameters.LearningRateMultiplier
                 },
+
                 OrganizationId = randomFineTuneProperties.OrganizationId,
                 Model = randomFineTuneProperties.Model,
                 TrainingFile = trainingFiles,
                 ValidationFiles = randomFineTuneProperties.ValidationFiles,
                 ResultFiles = randomFineTuneProperties.ResultFiles,
-                CreatedDate = randomFineTuneProperties.Created,
-                UpdatedDate = randomFineTuneProperties.Updated,
+                CreatedDate = (DateTimeOffset)randomFineTuneProperties.CreatedDate,
+                UpdatedDate = (DateTimeOffset)randomFineTuneProperties.UpdatedDate,
                 Status = randomFineTuneProperties.Status,
                 FineTunedModel = randomFineTuneProperties.FineTunedModel,
                 Events = events
             };
 
-            ExternalTrainingFile[] externalTrainingFiles = trainingFileProperties.Select(trainingFileProperty => new ExternalTrainingFile
-            {
-                Id = trainingFileProperty.Id,
-                Object = trainingFileProperty.Type,
-                Purpose = trainingFileProperty.Purpose,
-                Filename = trainingFileProperty.Filename,
-                Bytes = trainingFileProperty.Bytes,
-                CreatedDate = trainingFileProperty.CreatedDate,
-                Status = trainingFileProperty.Status,
-                StatusDetails = trainingFileProperty.StatusDetails
-            }).ToArray();
+            ExternalTrainingFile[] externalTrainingFiles = trainingFileProperties.Select(trainingFileProperty =>
+                new ExternalTrainingFile
+                {
+                    Id = trainingFileProperty.Id,
+                    Object = trainingFileProperty.Type,
+                    Purpose = trainingFileProperty.Purpose,
+                    Filename = trainingFileProperty.Filename,
+                    Bytes = trainingFileProperty.Bytes,
+                    CreatedDate = (int)trainingFileProperty.Created,
+                    Status = trainingFileProperty.Status,
+                    StatusDetails = trainingFileProperty.StatusDetails
+                }).ToArray();
 
-            ExternalEvent[] externalEvents = ((dynamic[])randomFineTuneProperties.Events).Select(eventProperties => new ExternalEvent
-            {
-                CreatedDate = eventProperties.CreatedDate,
-                Level = eventProperties.Level,
-                Message = eventProperties.Message,
-                Object = eventProperties.Type
-            }).ToArray();
+            ExternalEvent[] externalRandomEventProperties = randomEventProperties.Select(eventProperties =>
+                new ExternalEvent
+                {
+                    CreatedDate = (int) eventProperties.Created,
+                    Level = eventProperties.Level,
+                    Message = eventProperties.Message,
+                    Object = eventProperties.Type
+                }).ToArray();
 
             var externalHyperParameters = new ExternalHyperParameters
             {
@@ -148,11 +148,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 TrainingFile = externalTrainingFiles,
                 ValidationFiles = randomFineTuneProperties.ValidationFiles,
                 ResultFiles = randomFineTuneProperties.ResultFiles,
-                CreatedDate = randomFineTuneProperties.Created,
-                UpdatedDate = randomFineTuneProperties.Updated,
+                CreatedDate = (int)randomFineTuneProperties.Created,
+                UpdatedDate = (int)randomFineTuneProperties.Updated,
                 Status = randomFineTuneProperties.Status,
                 FineTunedModel = randomFineTuneProperties.FineTunedModel,
-                Events = externalEvents
+                Events = externalRandomEventProperties
             };
 
             this.openAIBrokerMock.Setup(broker =>
@@ -161,11 +161,36 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         .ReturnsAsync(value: externalFineTuneResponse);
 
             this.dateTimeBrokerMock.Setup(broker =>
-                broker.ConvertToDateTimeOffSet(inputUnixTime))
-                    .Returns(inputDate);
+                broker.ConvertToDateTimeOffSet(externalFineTuneResponse.CreatedDate))
+                    .Returns(expectedFineTune.Response.CreatedDate);
+
+            foreach (var fineTuneFileProperties in trainingFileProperties)
+            {
+                int inputEpochCreated = (int)fineTuneFileProperties.Created;
+
+                DateTimeOffset expectedEpochConvertedDate =
+                    (DateTimeOffset)fineTuneFileProperties.CreatedDate;
+
+                this.dateTimeBrokerMock.Setup(broker =>
+                    broker.ConvertToDateTimeOffSet(inputEpochCreated))
+                        .Returns(expectedEpochConvertedDate);
+            }
+
+            foreach (var fineTuneEventProperty in randomEventProperties)
+            {
+                int inputEpochCreated = (int)fineTuneEventProperty.Created;
+
+                DateTimeOffset expectedEpochConvertedDate =
+                    (DateTimeOffset)fineTuneEventProperty.CreatedDate;
+
+                this.dateTimeBrokerMock.Setup(broker =>
+                    broker.ConvertToDateTimeOffSet(inputEpochCreated))
+                        .Returns(expectedEpochConvertedDate);
+            }
 
             // when
-            var actualFineTune = await this.fineTuneService.SubmitFineTuneAsync(inputFineTune);
+            FineTune actualFineTune =
+                await this.fineTuneService.SubmitFineTuneAsync(inputFineTune);
 
             // then
             actualFineTune.Should().BeEquivalentTo(expectedFineTune);
@@ -176,8 +201,32 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         Times.Once());
 
             this.dateTimeBrokerMock.Verify(broker =>
-                broker.ConvertToDateTimeOffSet(inputUnixTime),
-                    Times.Once());
+                broker.ConvertToDateTimeOffSet(externalFineTuneResponse.CreatedDate),
+                    Times.Once);
+
+            foreach (var fineTuneFileProperties in trainingFileProperties)
+            {
+                int inputEpochCreated = (int)fineTuneFileProperties.Created;
+
+                DateTimeOffset expectedEpochConvertedDate =
+                    (DateTimeOffset)fineTuneFileProperties.CreatedDate;
+
+                this.dateTimeBrokerMock.Verify(broker =>
+                    broker.ConvertToDateTimeOffSet(inputEpochCreated),
+                        Times.Once);
+            }
+
+            foreach (var fineTuneEventProperty in randomEventProperties)
+            {
+                int inputEpochCreated = (int)fineTuneEventProperty.Created;
+
+                DateTimeOffset expectedEpochConvertedDate =
+                    (DateTimeOffset)fineTuneEventProperty.CreatedDate;
+
+                this.dateTimeBrokerMock.Verify(broker =>
+                    broker.ConvertToDateTimeOffSet(inputEpochCreated),
+                        Times.Once);
+            }
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
