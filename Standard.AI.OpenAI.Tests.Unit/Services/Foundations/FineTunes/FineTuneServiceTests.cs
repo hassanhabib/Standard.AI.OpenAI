@@ -3,14 +3,13 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using KellermanSoftware.CompareNetObjects;
 using Moq;
+using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
-using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Tynamix.ObjectFiller;
 
@@ -19,14 +18,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
     public partial class FineTuneServiceTests
     {
         private readonly Mock<IOpenAIBroker> openAIBrokerMock;
+        private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
+        private readonly ICompareLogic compareLogic;
         private readonly IFineTuneService fineTuneService;
 
         public FineTuneServiceTests()
         {
             this.openAIBrokerMock = new Mock<IOpenAIBroker>();
+            this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
+            this.compareLogic = new CompareLogic();
 
             this.fineTuneService = new FineTuneService(
-                openAIBroker: this.openAIBrokerMock.Object);
+                openAIBroker: this.openAIBrokerMock.Object,
+                dateTimeBroker: this.dateTimeBrokerMock.Object);
+
         }
 
         private static dynamic CreateRandomFineTuneProperties(
@@ -49,7 +54,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 Suffix = GetRandomString(),
                 Id = GetRandomString(),
                 Type = GetRandomString(),
-                Hyperparams = CreateRandomHyperParameterProperties(),
+                HyperParameters = CreateRandomHyperParameterProperties(),
                 OrganizationId = GetRandomString(),
                 TrainingFile = CreateRandomTrainingFileProperties(),
                 ValidationFiles = CreateRandomObjectArray(),
@@ -112,13 +117,27 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
-        private static object[] CreateRandomObjectArray() =>
-            new Filler<object[]>().Create();
+        private static object[] CreateRandomObjectArray()
+        {
+            return Enumerable.Range(0, GetRandomNumber())
+                .Select(i => GetRandomObject())
+                    .ToArray();
+        }
 
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
 
-        private static object GetRandomObject() =>
-            Randomizer<object>.Create();
+        private static object GetRandomObject()
+            => GetRandomString();
+
+        private Expression<Func<ExternalFineTuneRequest, bool>> SameExternalFineTuneRequestAs(
+           ExternalFineTuneRequest expectedExternalFineTuneRequest)
+        {
+            return actualExternalFineTuneRequest =>
+                this.compareLogic.Compare(
+                    expectedExternalFineTuneRequest,
+                    actualExternalFineTuneRequest)
+                        .AreEqual;
+        }
     }
 }

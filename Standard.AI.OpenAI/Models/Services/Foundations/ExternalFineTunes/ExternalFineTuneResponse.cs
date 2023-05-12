@@ -14,8 +14,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonProperty("hyperparams")]
-        public ExternalHyperparams Hyperparams { get; set; }
+        [JsonProperty("HyperParameters")]
+        public ExternalHyperParameters HyperParameters { get; set; }
 
         [JsonProperty("organization_id")]
         public string OrganizationId { get; set; }

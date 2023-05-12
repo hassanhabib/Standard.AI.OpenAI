@@ -8,7 +8,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes
     {
         public string Id { get; set; }
         public string Type { get; set; }
-        public HyperParameter Hyperparams { get; set; }
+        public HyperParameter HyperParameters { get; set; }
         public string OrganizationId { get; set; }
         public string Model { get; set; }
         public TrainingFile[] TrainingFile { get; set; }
