@@ -98,7 +98,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
                 OrganizationId = randomFineTuneProperties.OrganizationId,
                 Model = randomFineTuneProperties.Model,
-                TrainingFile = trainingFiles,
+                TrainingFiles = trainingFiles,
                 ValidationFiles = randomFineTuneProperties.ValidationFiles,
                 ResultFiles = randomFineTuneProperties.ResultFiles,
                 CreatedDate = (DateTimeOffset)randomFineTuneProperties.CreatedDate,
@@ -124,7 +124,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             ExternalEvent[] externalRandomEventProperties = randomEventProperties.Select(eventProperties =>
                 new ExternalEvent
                 {
-                    CreatedDate = (int) eventProperties.Created,
+                    CreatedDate = (int)eventProperties.Created,
                     Level = eventProperties.Level,
                     Message = eventProperties.Message,
                     Object = eventProperties.Type
@@ -145,7 +145,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 HyperParameters = externalHyperParameters,
                 OrganizationId = randomFineTuneProperties.OrganizationId,
                 Model = randomFineTuneProperties.Model,
-                TrainingFile = externalTrainingFiles,
+                TrainingFiles = externalTrainingFiles,
                 ValidationFiles = randomFineTuneProperties.ValidationFiles,
                 ResultFiles = randomFineTuneProperties.ResultFiles,
                 CreatedDate = (int)randomFineTuneProperties.Created,
@@ -164,16 +164,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 broker.ConvertToDateTimeOffSet(externalFineTuneResponse.CreatedDate))
                     .Returns(expectedFineTune.Response.CreatedDate);
 
+            this.dateTimeBrokerMock.Setup(broker =>
+                broker.ConvertToDateTimeOffSet(externalFineTuneResponse.UpdatedDate))
+                    .Returns(expectedFineTune.Response.UpdatedDate);
+
             foreach (var fineTuneFileProperties in trainingFileProperties)
             {
                 int inputEpochCreated = (int)fineTuneFileProperties.Created;
 
-                DateTimeOffset expectedEpochConvertedDate =
+                DateTimeOffset expectedEpochConvertedCreatedDate =
                     (DateTimeOffset)fineTuneFileProperties.CreatedDate;
 
                 this.dateTimeBrokerMock.Setup(broker =>
                     broker.ConvertToDateTimeOffSet(inputEpochCreated))
-                        .Returns(expectedEpochConvertedDate);
+                        .Returns(expectedEpochConvertedCreatedDate);
             }
 
             foreach (var fineTuneEventProperty in randomEventProperties)
@@ -202,6 +206,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
             this.dateTimeBrokerMock.Verify(broker =>
                 broker.ConvertToDateTimeOffSet(externalFineTuneResponse.CreatedDate),
+                    Times.Once);
+
+            this.dateTimeBrokerMock.Verify(broker =>
+                broker.ConvertToDateTimeOffSet(externalFineTuneResponse.UpdatedDate),
                     Times.Once);
 
             foreach (var fineTuneFileProperties in trainingFileProperties)

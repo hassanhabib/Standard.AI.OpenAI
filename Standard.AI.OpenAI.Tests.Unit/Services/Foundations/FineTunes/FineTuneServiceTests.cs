@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
@@ -38,8 +39,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         {
             DateTimeOffset randomCreatedDateTime = GetRandomDate();
             DateTimeOffset randomUpdatedDateTime = GetRandomDate();
-            int randomCreatedUnixEpoch = GetRandomNumber();
-            int randomUpdatedUnixEpoch = GetRandomNumber();
+            int randomCreatedUnixEpoch = GetRandomDateNumber();
+            int randomUpdatedUnixEpoch = GetRandomDateNumber();
 
             return new
             {
@@ -85,11 +86,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
         private static dynamic[] CreateRandomTrainingFileProperties()
         {
-            DateTimeOffset randomCreatedDateTime = GetRandomDate();
-            int randomCreatedUnixEpoch = GetRandomNumber();
-
             return Enumerable.Range(0, GetRandomNumber()).Select(item =>
-                new
+            {
+                DateTimeOffset randomCreatedDateTime = GetRandomDate();
+                int randomCreatedUnixEpoch = GetRandomDateNumber();
+
+                return new
                 {
                     Id = GetRandomString(),
                     Type = GetRandomString(),
@@ -100,23 +102,27 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     Created = randomCreatedUnixEpoch,
                     Status = GetRandomString(),
                     StatusDetails = GetRandomObject()
-                }).ToArray();
+                };
+
+            }).ToArray();
         }
 
         private static dynamic[] CreateRandomEventProperties()
         {
-            DateTimeOffset randomCreatedDateTime = GetRandomDate();
-            int randomCreatedUnixEpoch = GetRandomNumber();
-
             return Enumerable.Range(0, GetRandomNumber()).Select(item =>
-                new
+            {
+                DateTimeOffset randomCreatedDateTime = GetRandomDate();
+                int randomCreatedUnixEpoch = GetRandomDateNumber();
+
+                return new
                 {
                     Type = GetRandomString(),
                     Level = GetRandomString(),
                     Message = GetRandomString(),
                     Created = randomCreatedUnixEpoch,
                     CreatedDate = randomCreatedDateTime
-                }).ToArray();
+                };
+            }).ToArray(); ;
         }
 
         private static DateTimeOffset GetRandomDate() =>
@@ -128,6 +134,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
+        private static int GetRandomDateNumber() =>
+            new Random((int)Stopwatch.GetTimestamp()).Next(int.MinValue, int.MaxValue);
+
         private static object[] CreateRandomObjectArray()
         {
             return Enumerable.Range(0, GetRandomNumber())
@@ -138,7 +147,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
 
-        private static object GetRandomObject() => 
+        private static object GetRandomObject() =>
             GetRandomString();
 
         private Expression<Func<ExternalFineTuneRequest, bool>> SameExternalFineTuneRequestAs(

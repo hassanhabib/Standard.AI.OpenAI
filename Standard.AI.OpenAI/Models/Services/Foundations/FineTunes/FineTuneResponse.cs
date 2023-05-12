@@ -13,7 +13,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes
         public HyperParameter HyperParameters { get; set; }
         public string OrganizationId { get; set; }
         public string Model { get; set; }
-        public TrainingFile[] TrainingFile { get; set; }
+        public TrainingFile[] TrainingFiles { get; set; }
         public object[] ValidationFiles { get; set; }
         public object[] ResultFiles { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
