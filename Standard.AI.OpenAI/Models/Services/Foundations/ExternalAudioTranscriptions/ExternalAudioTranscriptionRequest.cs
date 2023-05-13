@@ -22,7 +22,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalAudioTranscript
         public string Prompt { get; set; }
 
         [RESTFulStringContent(name: "temperature")]
-        public decimal Temperature { get; set; }
+        public double Temperature { get; set; }
 
         [RESTFulStringContent(name: "language")]
         public string Language { get; set; }

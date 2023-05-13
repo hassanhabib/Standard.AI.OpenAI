@@ -55,7 +55,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 FileName = randomFileName,
                 Model = randomAudioTranscriptionModel,
                 Prompt = CreateRandomString(),
-                Temperature = CreateRandomDecimal(),
+                Temperature = CreateRandomDouble(),
                 Language = CreateRandomString(),
                 Text = CreateRandomString()
             };
@@ -71,8 +71,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         .AreEqual;
         }
 
-        private static decimal CreateRandomDecimal()
-            => new SequenceGeneratorDecimal().GetValue();
+        private static double CreateRandomDouble()
+            => new SequenceGeneratorDouble().GetValue();
 
         private static string CreateRandomString()
             => new MnemonicString().GetValue();

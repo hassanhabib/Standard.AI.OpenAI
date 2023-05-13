@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions
         /// use log probability to automatically increase the temperature until
         /// certain thresholds are hit.
         /// </summary>
-        public decimal Temperature { get; set; }
+        public double Temperature { get; set; }
 
         /// <summary>
         /// The language of the input audio. Supplying the input language in
