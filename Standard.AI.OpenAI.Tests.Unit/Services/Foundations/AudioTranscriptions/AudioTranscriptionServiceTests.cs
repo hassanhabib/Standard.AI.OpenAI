@@ -71,8 +71,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         .AreEqual;
         }
 
-        private static double CreateRandomDouble()
-            => new SequenceGeneratorDouble().GetValue();
+        private static double CreateRandomDouble() => 
+            new SequenceGeneratorDouble().GetValue();
 
         private static string CreateRandomString()
             => new MnemonicString().GetValue();
