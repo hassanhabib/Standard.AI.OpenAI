@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
     {
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSendIfFineTuneIsNullAsync()
+        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneIsNullAsync()
         {
             // given
             FineTune nullFineTune = null;
@@ -48,5 +48,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
-    } 
+    }
 }
