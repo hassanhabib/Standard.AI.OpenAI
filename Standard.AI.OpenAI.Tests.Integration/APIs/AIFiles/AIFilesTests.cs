@@ -2,9 +2,9 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.IO;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Standard.AI.OpenAI.Clients.OpenAIs;
 using Standard.AI.OpenAI.Models.Configurations;
 
@@ -16,12 +16,10 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
 
         public AIFilesTests()
         {
-            var openAIConfigurations = new OpenAIConfigurations
-            {
-                ApiKey = Environment.GetEnvironmentVariable("ApiKey"),
-                OrganizationId = Environment.GetEnvironmentVariable("OrgId"),
-                ApiUrl = "https://api.openai.com/"
-            };
+            IConfiguration config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+
+            OpenAIConfigurations openAIConfigurations =
+                config.GetSection(key: "OpenAI").Get<OpenAIConfigurations>();
 
             this.openAIClient = new OpenAIClient(openAIConfigurations);
         }
