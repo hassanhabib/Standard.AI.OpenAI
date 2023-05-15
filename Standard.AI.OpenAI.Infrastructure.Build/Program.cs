@@ -40,8 +40,9 @@ namespace Standard.AI.OpenAI.Infrastructure.Build
                     {
                         EnvironmentVariables = new Dictionary<string, string>
                         {
-                            { "ApiKey", "${{ secrets.APIKEY }}" },
-                            { "OrgId", "${{ secrets.ORGID }}" }
+                            { "OpenAI__ApiKey", "${{ secrets.APIKEY }}" },
+                            { "OpenAI__OrganizationId", "${{ secrets.ORGID }}" },
+                            { "OpenAI__ApiUrl", "https://api.openai.com/" }
                         },
 
                         RunsOn = BuildMachines.WindowsLatest,
