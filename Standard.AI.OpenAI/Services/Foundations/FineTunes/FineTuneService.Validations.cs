@@ -17,6 +17,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             Validate(
                 (Rule: IsInvalid(fineTune.Request),
                 Parameter: nameof(FineTune.Request)));
+
+            Validate(
+                (Rule: IsInvalid(fineTune.Request.FileId),
+                Parameter: nameof(FineTuneRequest.FileId)));
         }
 
         private static void ValidateFineTuneNotNull(FineTune fineTune)

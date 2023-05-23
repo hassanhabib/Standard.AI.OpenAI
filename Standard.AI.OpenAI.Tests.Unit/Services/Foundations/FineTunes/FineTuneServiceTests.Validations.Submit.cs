@@ -5,13 +5,10 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
 using Xunit;
-using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 {
