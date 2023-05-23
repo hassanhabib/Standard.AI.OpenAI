@@ -6,7 +6,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
 {
-    internal class NullFineTuneException : Xeption
+    public class NullFineTuneException : Xeption
     {
         public NullFineTuneException()
             : base(message: "Fine tune is null.")
