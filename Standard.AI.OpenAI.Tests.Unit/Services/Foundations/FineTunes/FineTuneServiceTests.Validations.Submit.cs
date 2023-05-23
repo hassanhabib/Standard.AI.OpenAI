@@ -5,12 +5,13 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
 using Xunit;
+using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 {
@@ -92,6 +93,50 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsInvalidAsync(string invalidText)
+        {
+            // given
+            var invalidFineTune = new FineTune()
+            {
+                Request = new FineTuneRequest
+                {
+                    FileId = invalidText,
+                }
+            };
+
+            var invalidFineTuneException = new InvalidFineTuneException();
+
+            invalidFineTuneException.AddData(
+                key: nameof(FineTuneRequest.FileId),
+                values: "Value is required");
+
+            var exceptedFineTuneValidationException =
+                new FineTuneValidationException(invalidFineTuneException);
+
+            // when
+            ValueTask<FineTune> sendFineTuneTask =
+                this.fineTuneService.SubmitFineTuneAsync(invalidFineTune);
+
+            FineTuneValidationException actualFineTuneValidationException =
+                await Assert.ThrowsAsync<FineTuneValidationException>(
+                    sendFineTuneTask.AsTask);
+
+            // then
+            actualFineTuneValidationException.Should()
+                .BeEquivalentTo(exceptedFineTuneValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostFineTuneAsync(
+                    It.IsAny<ExternalFineTuneRequest>()),
+                        Times.Never);
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
