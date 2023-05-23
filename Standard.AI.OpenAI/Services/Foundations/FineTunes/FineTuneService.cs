@@ -23,8 +23,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             this.dateTimeBroker = dateTimeBroker;
         }
 
-        public async ValueTask<FineTune> SubmitFineTuneAsync(FineTune fineTune)
+        public ValueTask<FineTune> SubmitFineTuneAsync(FineTune fineTune) =>
+        TryCatch(async () =>
         {
+            ValidateFineTune(fineTune);
+
             ExternalFineTuneRequest externalFineTuneRequest =
                 ConvertToFineTuneRequest(fineTune);
 
@@ -32,7 +35,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 await this.openAIBroker.PostFineTuneAsync(externalFineTuneRequest);
 
             return ConvertToFineTune(fineTune, externalFineTuneResponse);
-        }
+        });
 
         private static ExternalFineTuneRequest ConvertToFineTuneRequest(FineTune fineTune)
         {
