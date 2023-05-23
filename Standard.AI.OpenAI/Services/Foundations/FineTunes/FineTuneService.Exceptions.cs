@@ -22,6 +22,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 throw new FineTuneValidationException(nullFineTuneException);
             }
+            catch (InvalidFineTuneException invalidFineTuneException)
+            {
+                throw new FineTuneValidationException(invalidFineTuneException);
+            }
         }
     }
 }
