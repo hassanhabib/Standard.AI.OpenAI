@@ -27,14 +27,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             // when
             IEnumerable<AIFileResponse> actualAIFiles =
-                 await this.aiFileOrchestrationService.RetrieveAllFilesAsync();
+                await this.aiFileOrchestrationService.RetrieveAllFilesAsync();
 
             // then
             actualAIFiles.Should().BeEquivalentTo(expectedAIFiles);
 
             this.aiFileServiceMock.Verify(service =>
                 service.RetrieveAllFilesAsync(),
-                Times.Once);
+                    Times.Once);
 
             this.localFileServiceMock.VerifyNoOtherCalls();
             this.aiFileServiceMock.VerifyNoOtherCalls();

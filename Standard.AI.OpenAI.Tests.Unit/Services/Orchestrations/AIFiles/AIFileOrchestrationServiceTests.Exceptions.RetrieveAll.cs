@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 using Xeptions;
 using Xunit;
@@ -46,6 +47,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.aiFileServiceMock.Verify(service =>
                 service.RetrieveAllFilesAsync(),
                 Times.Once);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfDependencyValidationErrorOccursAsync()
+        {
+            // given
+            var someInnerException = new Xeption();
+            var dependencyValidationException = 
+                new AIFileDependencyValidationException(someInnerException);
+
+            var expectedAIFileOrchestrationDependencyValidationException =
+                new AIFileOrchestrationDependencyValidationException(
+                    dependencyValidationException.InnerException as Xeption);
+
+            this.aiFileServiceMock.Setup(service =>
+                service.RetrieveAllFilesAsync())
+                    .ThrowsAsync(dependencyValidationException);
+
+            // when
+            ValueTask<IEnumerable<AIFileResponse>> retrieveAllFilesTask =
+                this.aiFileOrchestrationService.RetrieveAllFilesAsync();
+
+            AIFileOrchestrationDependencyValidationException
+                actualAIFileOrchestrationDependencyValidationException =
+                    await Assert.ThrowsAsync<AIFileOrchestrationDependencyValidationException>(
+                        retrieveAllFilesTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationDependencyValidationException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationDependencyValidationException);
+
+            this.aiFileServiceMock.Verify(service =>
+                service.RetrieveAllFilesAsync(),
+                    Times.Once);
 
             this.aiFileServiceMock.VerifyNoOtherCalls();
             this.localFileServiceMock.VerifyNoOtherCalls();
