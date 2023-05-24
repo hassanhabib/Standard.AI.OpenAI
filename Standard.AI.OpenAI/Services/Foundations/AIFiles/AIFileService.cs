@@ -1,7 +1,9 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
@@ -42,6 +44,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             return ConvertToFile(removedFile);
         });
 
+        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync() =>
+        TryCatch(async () =>
+        {
+            ExternalAIFilesResult externalAIFilesResult = await this.openAIBroker.GetAllFilesAsync();
+
+            return externalAIFilesResult.Files.Select(ConvertToFileResponse).ToArray();
+        });
+
         private async ValueTask<ExternalAIFileResponse> PostFileAsync(AIFile file)
         {
             var externalAIFileRequest = new ExternalAIFileRequest()
@@ -71,7 +81,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Size = externalAIFileResponse.Bytes,
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
-                Deleted = externalAIFileResponse.Deleted
+                Deleted = externalAIFileResponse.Deleted,
+                Status = ConvertToAIFileStatus(externalAIFileResponse.Status),
+                StatusDetails = externalAIFileResponse.StatusDetails
             };
         }
 
@@ -84,9 +96,23 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 Size = externalAIFileResponse.Bytes,
                 Name = externalAIFileResponse.FileName,
                 Purpose = externalAIFileResponse.Purpose,
+                Deleted = externalAIFileResponse.Deleted,
+                Status = ConvertToAIFileStatus(externalAIFileResponse.Status),
+                StatusDetails = externalAIFileResponse.StatusDetails,
 
                 CreatedDate =
                     this.dateTimeBroker.ConvertToDateTimeOffSet(externalAIFileResponse.CreatedDate),
+            };
+        }
+
+        private static AIFileStatus ConvertToAIFileStatus(string externalStatus)
+        {
+            return externalStatus?.ToLowerInvariant() switch
+            {
+                "uploaded" => AIFileStatus.Uploaded,
+                "processed" => AIFileStatus.Processed,
+                "error" => AIFileStatus.Error,
+                _ => AIFileStatus.Unknown
             };
         }
     }

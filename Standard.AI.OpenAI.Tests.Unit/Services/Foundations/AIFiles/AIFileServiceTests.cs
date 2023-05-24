@@ -3,7 +3,10 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
@@ -20,19 +23,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 {
     public partial class AIFileServiceTests
     {
-        private readonly Mock<IOpenAIBroker> openAiBrokerMock;
+        private readonly Mock<IOpenAIBroker> openAIBrokerMock;
         private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         private readonly ICompareLogic compareLogic;
         private readonly IAIFileService aiFileService;
 
         public AIFileServiceTests()
         {
-            this.openAiBrokerMock = new Mock<IOpenAIBroker>();
+            this.openAIBrokerMock = new Mock<IOpenAIBroker>();
             this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.compareLogic = new CompareLogic();
 
             this.aiFileService = new AIFileService(
-                openAIBroker: this.openAiBrokerMock.Object,
+                openAIBroker: this.openAIBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
         }
 
@@ -45,9 +48,18 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             };
         }
 
+        private List<dynamic> CreateRandomFilesPropertiesList()
+        {
+            return Enumerable.Range(start: 0, count: GetRandomNumber())
+                .Select(item =>
+                {
+                    return CreateRandomFileProperties();
+                }).ToList();
+        }
+
         public dynamic CreateRandomFileProperties()
         {
-            int randomCreated = GetRandomNumber();
+            int randomCreated = GetRandomDateNumber();
             DateTimeOffset randomCreatedDate = CreateRandomDateTimeOffset();
 
             dynamic randomFileProperties = CreateRandomFileProperties(
@@ -63,6 +75,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             string randomFileName = CreateRandomString();
             string randomFileType = CreateRandomString();
             int randomBytesSize = GetRandomNumber();
+            AIFileStatus randomAIFileStatus = GetRandomAIFileStatus();
+            string randomExternalStatus = Enum.GetName(randomAIFileStatus);
 
             return new
             {
@@ -78,7 +92,10 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Bytes = randomBytesSize,
                 Created = created,
                 CreatedDate = createdDate,
-                Deleted = GetRandomBoolean()
+                Deleted = GetRandomBoolean(),
+                ExternalStatus = randomExternalStatus,
+                Status = randomAIFileStatus,
+                StatusDetails = CreateRandomString()
             };
         }
 
@@ -92,6 +109,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         .AreEqual;
         }
 
+        private static AIFileStatus GetRandomAIFileStatus() =>
+            new RandomListItem<AIFileStatus>(Enum.GetValues<AIFileStatus>()).GetValue();
+
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
 
@@ -103,6 +123,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
+
+        private static int GetRandomDateNumber() =>
+            new Random((int)Stopwatch.GetTimestamp()).Next(int.MinValue, int.MaxValue);
 
         private Stream CreateRandomStream()
         {

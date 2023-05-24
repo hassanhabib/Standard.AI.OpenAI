@@ -33,7 +33,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyException(
                     invalidConfigurationFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
@@ -49,11 +49,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                    Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -72,7 +72,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyException(
                     unauthorizedFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
                     .ThrowsAsync(unauthorizedException);
 
@@ -88,11 +88,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                    Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -113,7 +113,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyValidationException(
                     notFoundFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
                     .ThrowsAsync(httpResponseBadRequestException);
 
@@ -129,11 +129,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                    Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -152,7 +152,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileServiceException(
                     failedAIFileServiceException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()))
                     .ThrowsAsync(serviceException);
 
@@ -168,11 +168,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualAIFileServiceException.Should().BeEquivalentTo(
                 expectedFileServiceException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                    Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }

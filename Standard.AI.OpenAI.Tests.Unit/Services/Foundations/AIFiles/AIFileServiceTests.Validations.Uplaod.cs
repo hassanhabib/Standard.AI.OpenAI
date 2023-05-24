@@ -34,11 +34,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualAIFileValidationException.Should().BeEquivalentTo(
                 expectedAIFileValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                     Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -70,11 +70,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualAIFileValidationException.Should().BeEquivalentTo(
                 expectedAIFileValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                     Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -124,11 +124,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualAIFileValidationException.Should().BeEquivalentTo(
                 expectedAIFileValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostFileFormAsync(It.IsAny<ExternalAIFileRequest>()),
                     Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }

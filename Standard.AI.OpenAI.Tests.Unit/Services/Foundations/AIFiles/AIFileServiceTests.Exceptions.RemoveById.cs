@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyException(
                     invalidConfigurationFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
 
@@ -48,11 +48,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -70,7 +70,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedFileDependencyException =
                 new AIFileDependencyException(unauthorizedFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(unauthorizedException);
 
@@ -86,11 +86,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -111,7 +111,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyValidationException(
                     notFoundFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseNotFoundException);
 
@@ -127,11 +127,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -152,7 +152,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyValidationException(
                     invalidFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseBadRequestException);
 
@@ -168,11 +168,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -193,7 +193,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileDependencyValidationException(
                     excessiveCallFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseTooManyRequestsException);
 
@@ -209,11 +209,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyValidationException.Should().BeEquivalentTo(
                 expectedFileDependencyValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -231,7 +231,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedFileDependencyException =
                 new AIFileDependencyException(failedServerFileException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(httpResponseException);
 
@@ -247,11 +247,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileDependencyException.Should().BeEquivalentTo(
                 expectedFileDependencyException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
@@ -269,7 +269,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new AIFileServiceException(
                     failedFileServiceException);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(serviceException);
 
@@ -285,11 +285,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileServiceException.Should().BeEquivalentTo(
                 expectedFileServiceException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }

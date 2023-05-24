@@ -40,7 +40,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Size = randomFileProperties.Size,
                 CreatedDate = randomFileProperties.CreatedDate,
                 Name = randomFileProperties.Name,
-                Purpose = randomFileProperties.Purpose
+                Purpose = randomFileProperties.Purpose,
+                Status = randomFileProperties.Status,
+                StatusDetails = randomFileProperties.StatusDetails
             };
 
             var randomAIFile = new AIFile
@@ -66,14 +68,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 Bytes = randomFileProperties.Bytes,
                 CreatedDate = randomFileProperties.Created,
                 FileName = randomFileProperties.FileName,
-                Purpose = randomFileProperties.Purpose
+                Purpose = randomFileProperties.Purpose,
+                Status = randomFileProperties.ExternalStatus,
+                StatusDetails = randomFileProperties.StatusDetails
             };
 
             this.dateTimeBrokerMock.Setup(broker =>
                 broker.ConvertToDateTimeOffSet(randomCreated))
                     .Returns(randomCreatedDate);
 
-            this.openAiBrokerMock.Setup(broker =>
+            this.openAIBrokerMock.Setup(broker =>
                 broker.PostFileFormAsync(It.Is(
                     SameExternalAIFileRequestAs(randomExternalAIFileRequest))))
                         .ReturnsAsync(randomExternalAIFileResponse);
@@ -89,13 +93,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 broker.ConvertToDateTimeOffSet(randomCreated),
                     Times.Once);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.PostFileFormAsync(It.Is(
                     SameExternalAIFileRequestAs(randomExternalAIFileRequest))),
                         Times.Once);
 
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

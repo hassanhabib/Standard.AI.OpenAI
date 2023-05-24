@@ -45,11 +45,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             actualFileValidationException.Should().BeEquivalentTo(
                 expectedFileValidationException);
 
-            this.openAiBrokerMock.Verify(broker =>
+            this.openAIBrokerMock.Verify(broker =>
                 broker.DeleteFileByIdAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.openAiBrokerMock.VerifyNoOtherCalls();
+            this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
