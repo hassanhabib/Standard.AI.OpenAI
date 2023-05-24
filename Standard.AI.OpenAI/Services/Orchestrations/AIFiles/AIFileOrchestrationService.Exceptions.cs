@@ -95,6 +95,11 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 throw new AIFileOrchestrationDependencyException(
                     aIFileDependencyException.InnerException as Xeption);
             }
+            catch (AIFileDependencyValidationException aIFileDependencyValidationException)
+            {
+                throw new AIFileOrchestrationDependencyValidationException(
+                    aIFileDependencyValidationException.InnerException as Xeption);
+            }
             catch (AIFileServiceException aIFileServiceException)
             {
                 throw new AIFileOrchestrationDependencyException(
