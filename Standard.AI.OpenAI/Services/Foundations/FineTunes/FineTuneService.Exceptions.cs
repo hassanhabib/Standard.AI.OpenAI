@@ -29,10 +29,26 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
-                var invalidFineTuneConfigurationException = 
+                var invalidFineTuneConfigurationException =
                     new InvalidFineTuneConfigurationException(httpResponseUrlNotFoundException);
 
                 throw new FineTuneDependencyException(invalidFineTuneConfigurationException);
+            }
+            catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
+            {
+                var unauthorizedFineTuneException =
+                    new UnauthorizedFineTuneException(
+                        httpResponseUnauthorizedException);
+
+                throw new FineTuneDependencyException(unauthorizedFineTuneException);
+            }
+            catch (HttpResponseForbiddenException httpResponseForbiddenException)
+            {
+                var unauthorizedFineTuneException =
+                    new UnauthorizedFineTuneException(
+                        httpResponseForbiddenException);
+
+                throw new FineTuneDependencyException(unauthorizedFineTuneException);
             }
         }
     }
