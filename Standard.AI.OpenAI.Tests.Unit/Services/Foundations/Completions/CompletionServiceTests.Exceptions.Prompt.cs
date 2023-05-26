@@ -184,8 +184,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
 
-
-
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnPromptIfTooManyRequestsOccurredAsync()
         {

@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes
         public string Id { get; set; }
 
         [JsonProperty("hyperparams")]
-        public ExternalHyperparams Hyperparams { get; set; }
+        public ExternalHyperParameters HyperParameters { get; set; }
 
         [JsonProperty("organization_id")]
         public string OrganizationId { get; set; }
@@ -24,7 +24,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes
         public string Model { get; set; }
 
         [JsonProperty("training_files")]
-        public ExternalTrainingFile[] TrainingFile { get; set; }
+        public ExternalTrainingFile[] TrainingFiles { get; set; }
 
         [JsonProperty("validation_files")]
         public object[] ValidationFiles { get; set; }
