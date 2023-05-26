@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
@@ -71,6 +72,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new FailedServerFineTuneException(httpResponseException);
 
                 throw new FineTuneDependencyException(failedServerFineTuneException);
+            }
+            catch (Exception exception)
+            {
+                var failedFineTuneServiceException =
+                    new FailedFineTuneServiceException(exception);
+
+                throw new FineTuneServiceException(failedFineTuneServiceException);
             }
         }
     }
