@@ -55,10 +55,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             // given
             FineTuneRequest nullFineTuneRequest = null;
 
-            FineTune fineTune = new FineTune
-            {
-                Request = nullFineTuneRequest
-            };
+            var fineTune = new FineTune();
+            fineTune.Request = nullFineTuneRequest;
 
             var invalidFineTuneException =
                 new InvalidFineTuneException();
@@ -71,13 +69,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new FineTuneValidationException(invalidFineTuneException);
 
             // when
-            ValueTask<FineTune> sendFineTuneTask =
+            ValueTask<FineTune> submitFineTuneTask =
                 this.fineTuneService.SubmitFineTuneAsync(
                     fineTune);
 
             FineTuneValidationException actualFineTuneValidationException =
                 await Assert.ThrowsAsync<FineTuneValidationException>(
-                    sendFineTuneTask.AsTask);
+                    submitFineTuneTask.AsTask);
 
             // then
             actualFineTuneValidationException.Should()
@@ -96,17 +94,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsInvalidAsync(string invalidText)
+        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsInvalidAsync(
+            string invalidText)
         {
             // given
-            var invalidFineTune = new FineTune()
-            {
-                Request = new FineTuneRequest
-                {
-                    FileId = invalidText,
-                }
-            };
-
+            var invalidFineTune = new FineTune();
+            invalidFineTune.Request = new FineTuneRequest();
+            invalidFineTune.Request.FileId = invalidText;
             var invalidFineTuneException = new InvalidFineTuneException();
 
             invalidFineTuneException.AddData(
@@ -134,6 +128,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         Times.Never);
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
