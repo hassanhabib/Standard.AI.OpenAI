@@ -37,10 +37,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         });
 
         public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync() =>
-        TryCatch(async () =>
-        {
-            return await this.aiFileService.RetrieveAllFilesAsync();
-        });
+        TryCatch(async () => await this.aiFileService.RetrieveAllFilesAsync());
 
         private async ValueTask<AIFile> ReadUploadFileAsync(AIFile aiFile)
         {
