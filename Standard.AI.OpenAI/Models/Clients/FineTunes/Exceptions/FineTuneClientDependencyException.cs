@@ -2,15 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using Xeptions;
 
-namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
+namespace Standard.AI.OpenAI.Models.Clients.FineTunes.Exceptions
 {
-    public class InvalidFineTuneConfigurationException : Xeption
+    public class FineTuneClientDependencyException : Xeption
     {
-        public InvalidFineTuneConfigurationException(Exception innerException)
-            : base(message: "Invalid fine tune configuration error ocurred, contact support.",
+        public FineTuneClientDependencyException(Xeption innerException)
+            : base(message: "Fine tune client dependency error occurred, contact support.",
                   innerException)
         { }
     }
