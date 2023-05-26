@@ -50,6 +50,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneDependencyException(unauthorizedFineTuneException);
             }
+            catch (HttpResponseBadRequestException httpResponseBadRequestException)
+            {
+                var invalidFineTuneException =
+                    new InvalidFineTuneException(
+                        httpResponseBadRequestException);
+
+                throw new FineTuneDependencyValidationException(invalidFineTuneException);
+            }
         }
     }
 }
