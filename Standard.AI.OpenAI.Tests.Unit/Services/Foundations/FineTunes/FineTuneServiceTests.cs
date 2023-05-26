@@ -8,12 +8,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
 using Moq;
+using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 {
@@ -34,6 +36,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 openAIBroker: this.openAIBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object);
 
+        }
+
+        public static TheoryData UnauthorizedExceptions()
+        {
+            return new TheoryData<HttpResponseException>
+            {
+                new HttpResponseUnauthorizedException(),
+                new HttpResponseForbiddenException()
+            };
         }
 
         private static dynamic CreateRandomFineTuneProperties()

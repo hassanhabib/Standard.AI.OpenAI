@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -35,6 +36,46 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
                     .ThrowsAsync(httpResponseUrlNotFoundException);
+
+            // when
+            ValueTask<FineTune> submitFineTuneTask =
+                this.fineTuneService.SubmitFineTuneAsync(someFineTune);
+
+            FineTuneDependencyException actualFineTuneDependencyException =
+                await Assert.ThrowsAsync<FineTuneDependencyException>(
+                    submitFineTuneTask.AsTask);
+
+            // then
+            actualFineTuneDependencyException.Should().BeEquivalentTo(
+                expectedFineTuneDependencyException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()),
+                    Times.Once());
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [MemberData(nameof(UnauthorizedExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnSubmitIfUnauthorizedExceptionAsync(
+            Exception unauthorizedException)
+        {
+            // given
+            FineTune someFineTune = CreateRandomFineTune();
+
+            var unauthorizedFineTuneException =
+                new UnauthorizedFineTuneException(
+                    unauthorizedException);
+
+            var expectedFineTuneDependencyException =
+                new FineTuneDependencyException(
+                    unauthorizedFineTuneException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
+                    .ThrowsAsync(unauthorizedException);
 
             // when
             ValueTask<FineTune> submitFineTuneTask =
