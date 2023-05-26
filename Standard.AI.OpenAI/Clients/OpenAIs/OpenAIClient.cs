@@ -11,6 +11,7 @@ using Standard.AI.OpenAI.Clients.AIFiles;
 using Standard.AI.OpenAI.Clients.AIModels;
 using Standard.AI.OpenAI.Clients.ChatCompletions;
 using Standard.AI.OpenAI.Clients.Completions;
+using Standard.AI.OpenAI.Clients.FineTunes;
 using Standard.AI.OpenAI.Clients.ImageGenerations;
 using Standard.AI.OpenAI.Models.Configurations;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
@@ -18,6 +19,7 @@ using Standard.AI.OpenAI.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
@@ -37,6 +39,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
         public IImageGenerationsClient ImageGenerations { get; private set; }
         public IAIModelsClient AIModels { get; private set; }
         public IAIFilesClient AIFiles { get; private set; }
+        public IFineTuneClient FineTuneClient { get; set; }
 
         private void InitializeClients(IServiceProvider serviceProvider)
         {
@@ -45,6 +48,7 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
             ImageGenerations = serviceProvider.GetRequiredService<IImageGenerationsClient>();
             AIModels = serviceProvider.GetRequiredService<IAIModelsClient>();
             AIFiles = serviceProvider.GetRequiredService<IAIFilesClient>();
+            FineTuneClient = serviceProvider.GetService<IFineTuneClient>();
         }
 
         private static IServiceProvider RegisterServices(OpenAIConfigurations openAIConfigurations)
@@ -60,12 +64,14 @@ namespace Standard.AI.OpenAI.Clients.OpenAIs
                 .AddTransient<IAudioTranscriptionService, AudioTranscriptionService>()
                 .AddTransient<ILocalFileService, LocalFileService>()
                 .AddTransient<IAIFileService, AIFileService>()
+                .AddTransient<IFineTuneService, FineTuneService>()
                 .AddTransient<IAIFileOrchestrationService, AIFileOrchestrationService>()
                 .AddTransient<ICompletionsClient, CompletionsClient>()
                 .AddTransient<IChatCompletionsClient, ChatCompletionsClient>()
                 .AddTransient<IImageGenerationsClient, ImageGenerationsClient>()
                 .AddTransient<IAIModelsClient, AIModelsClient>()
                 .AddTransient<IAIFilesClient, AIFilesClient>()
+                .AddTransient<IFineTuneClient, FineTuneClient>()
                 .AddSingleton(openAIConfigurations);
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();

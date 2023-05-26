@@ -6,7 +6,7 @@ using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
 {
-    internal class FineTuneServiceException : Xeption
+    public class FineTuneServiceException : Xeption
     {
         public FineTuneServiceException(Xeption innerException)
             : base(message: "Fine tune error ocurred, contact support.",
