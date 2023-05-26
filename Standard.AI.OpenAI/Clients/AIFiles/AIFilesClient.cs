@@ -1,7 +1,8 @@
-﻿// ---------------------------------------------------------------------------------- 
-// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+﻿// ----------------------------------------------------------------------------------
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers
 // ----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Clients.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
@@ -28,6 +29,29 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             {
                 throw new AIFileClientValidationException(
                     aiFileOrchestrationValidationException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
+            {
+                throw new AIFileClientValidationException(
+                    aiFileOrchestrationDependencyValidationException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
+            {
+                throw new AIFileClientDependencyException(
+                    aiFileOrchestrationDependencyException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
+            {
+                throw new AIFileClientServiceException(
+                    aiFileOrchestrationServiceException.InnerException as Xeption);
+            }
+        }
+
+        public async ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync()
+        {
+            try
+            {
+                return await this.aiFileOrchestrationService.RetrieveAllFilesAsync();
             }
             catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
             {
