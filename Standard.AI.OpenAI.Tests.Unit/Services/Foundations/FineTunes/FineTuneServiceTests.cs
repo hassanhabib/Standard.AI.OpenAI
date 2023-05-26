@@ -11,6 +11,7 @@ using Moq;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
+using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Tynamix.ObjectFiller;
 
@@ -72,6 +73,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 Events = CreateRandomEventProperties()
             };
         }
+
+        private static FineTune CreateRandomFineTune() =>
+            CreateRandomFineTuneFiller().Create();
 
         private static dynamic CreateRandomHyperParameterProperties()
         {
@@ -158,6 +162,18 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     expectedExternalFineTuneRequest,
                     actualExternalFineTuneRequest)
                         .AreEqual;
+        }
+
+        private static Filler<FineTune> CreateRandomFineTuneFiller()
+        {
+            var filler = new Filler<FineTune>();
+
+            filler.Setup()
+                .OnProperty(fineTune => fineTune.Response).IgnoreIt()
+                .OnProperty(fineTune => fineTune.Request.ClassificationBetas)
+                    .Use(CreateRandomObjectArray);
+
+            return filler;
         }
     }
 }
