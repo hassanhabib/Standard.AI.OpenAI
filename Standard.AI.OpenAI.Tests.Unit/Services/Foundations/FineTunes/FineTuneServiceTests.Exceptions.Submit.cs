@@ -138,5 +138,45 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnSubmitIfTooManyRequestsErrorOccursAsync()
+        {
+            // given
+            FineTune someFineTune = CreateRandomFineTune();
+
+            var httpResponseTooManyRequestsException =
+                new HttpResponseTooManyRequestsException();
+
+            var excessiveCallFineTuneException =
+                new ExcessiveCallFineTuneException(httpResponseTooManyRequestsException);
+
+            var expectedFineTuneDependencyValidationException =
+                new FineTuneDependencyValidationException(excessiveCallFineTuneException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
+                    .ThrowsAsync(httpResponseTooManyRequestsException);
+
+            // when
+            ValueTask<FineTune> submitFineTuneTask =
+                this.fineTuneService.SubmitFineTuneAsync(someFineTune);
+
+            FineTuneDependencyValidationException actualFineTuneDependencyValidationException =
+                await Assert.ThrowsAsync<FineTuneDependencyValidationException>(
+                    submitFineTuneTask.AsTask);
+
+            // then
+            actualFineTuneDependencyValidationException.Should().BeEquivalentTo(
+                expectedFineTuneDependencyValidationException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostFineTuneAsync(
+                    It.IsAny<ExternalFineTuneRequest>()),
+                        Times.Once());
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
