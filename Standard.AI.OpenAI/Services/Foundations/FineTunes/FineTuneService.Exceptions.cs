@@ -65,6 +65,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneDependencyValidationException(excessiveCallFineTuneException);
             }
+            catch (HttpResponseException httpResponseException)
+            {
+                var failedServerFineTuneException =
+                    new FailedServerFineTuneException(httpResponseException);
+
+                throw new FineTuneDependencyException(failedServerFineTuneException);
+            }
         }
     }
 }
