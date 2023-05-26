@@ -218,5 +218,43 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnSubmitIfExceptionOccursAsync()
+        {
+            // given
+            FineTune someFineTune = CreateRandomFineTune();
+            var serviceException = new Exception();
+
+            var failedFineTuneServiceException =
+                new FailedFineTuneServiceException(serviceException);
+
+            var expectedFineTuneServiceException =
+                new FineTuneServiceException(failedFineTuneServiceException);
+
+            this.openAIBrokerMock.Setup(broker =>
+                broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<FineTune> submitFineTuneTask =
+                this.fineTuneService.SubmitFineTuneAsync(someFineTune);
+
+            FineTuneServiceException actualFineTuneServiceException =
+                await Assert.ThrowsAsync<FineTuneServiceException>(
+                    submitFineTuneTask.AsTask);
+
+            // then
+            actualFineTuneServiceException.Should().BeEquivalentTo(
+                expectedFineTuneServiceException);
+
+            this.openAIBrokerMock.Verify(broker =>
+                broker.PostFineTuneAsync(
+                    It.IsAny<ExternalFineTuneRequest>()),
+                        Times.Once());
+
+            this.openAIBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
