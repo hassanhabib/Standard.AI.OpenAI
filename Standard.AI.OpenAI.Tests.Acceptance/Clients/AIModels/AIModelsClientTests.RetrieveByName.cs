@@ -36,7 +36,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
                 .UsingGet()
                     .WithPath($"/v1/models/{inputAIModelName}")
                     .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                    .WithHeader("OpenAI-Organization", $"{this.organizationId}"))
+                    .WithHeader("OpenAI-Organization", this.organizationId))
                 .RespondWith(
                     Response.Create()
                     .WithBodyAsJson(retrievedExternalAIModel));

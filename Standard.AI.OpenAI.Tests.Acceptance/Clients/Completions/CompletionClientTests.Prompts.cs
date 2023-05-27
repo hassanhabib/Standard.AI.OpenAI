@@ -40,7 +40,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
                 .UsingPost()
                     .WithPath("/v1/completions")
                     .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                    .WithHeader("OpenAI-Organization", $"{this.organizationId}")
+                    .WithHeader("OpenAI-Organization", this.organizationId)
                     .WithHeader("Content-Type", "application/json; charset=utf-8")
                     .WithBody(JsonConvert.SerializeObject(
                         completionRequest,

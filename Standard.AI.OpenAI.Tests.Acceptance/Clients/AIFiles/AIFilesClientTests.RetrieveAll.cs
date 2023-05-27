@@ -33,7 +33,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 .UsingGet()
                     .WithPath("/v1/files")
                     .WithHeader("Authorization", $"Bearer {this.apiKey}")
-                    .WithHeader("OpenAI-Organization", $"{this.organizationId}"))
+                    .WithHeader("OpenAI-Organization", this.organizationId))
                 .RespondWith(
                     Response.Create()
                     .WithBodyAsJson(retrievedAIFilesResult));
