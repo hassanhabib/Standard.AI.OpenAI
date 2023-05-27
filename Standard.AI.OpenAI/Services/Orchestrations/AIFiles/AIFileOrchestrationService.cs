@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
@@ -34,6 +35,9 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 _ => await ReadUploadFileAsync(aiFile)
             };
         });
+
+        public ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync() =>
+        TryCatch(async () => await this.aiFileService.RetrieveAllFilesAsync());
 
         private async ValueTask<AIFile> ReadUploadFileAsync(AIFile aiFile)
         {

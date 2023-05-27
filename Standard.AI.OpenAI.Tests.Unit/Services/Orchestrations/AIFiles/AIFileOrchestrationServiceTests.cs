@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
@@ -63,8 +64,22 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             };
         }
 
+        public static TheoryData AIFileServiceDependencyExceptions()
+        {
+            var someInnerException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new AIFileDependencyException(someInnerException),
+                new AIFileServiceException(someInnerException),
+            };
+        }
+
         private AIFile CreateRandomAIFile() =>
             CreateAIFileFiller().Create();
+
+        private IEnumerable<AIFileResponse> CreateRandomAIFileResponses() =>
+            CreateAIFileResponseFiller().Create(GetRandomNumber());
 
         private Expression<Func<AIFile, bool>> SameAIFileAs(
             AIFile expectedAIFile)
@@ -92,6 +107,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             return mockStream.Object;
         }
 
+        private static int GetRandomNumber() =>
+            new IntRange(min: 2, max: 10).GetValue();
+
         private Filler<AIFile> CreateAIFileFiller()
         {
             var filler = new Filler<AIFile>();
@@ -99,6 +117,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             filler.Setup()
                 .OnType<DateTimeOffset>().IgnoreIt()
                 .OnType<Stream>().Use(CreateRandomStream);
+
+            return filler;
+        }
+
+        private Filler<AIFileResponse> CreateAIFileResponseFiller()
+        {
+            var filler = new Filler<AIFileResponse>();
+
+            filler.Setup()
+                .OnType<DateTimeOffset>().IgnoreIt();
 
             return filler;
         }
