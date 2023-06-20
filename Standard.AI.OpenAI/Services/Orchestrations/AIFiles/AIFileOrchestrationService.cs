@@ -46,5 +46,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
             return await this.aiFileService.UploadFileAsync(aiFile);
         }
+
+        public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) => throw new System.NotImplementedException();
     }
 }
