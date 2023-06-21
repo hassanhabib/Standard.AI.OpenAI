@@ -90,5 +90,42 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             this.aiFileServiceMock.VerifyNoOtherCalls();
             this.localFileServiceMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRemoveFileIfExceptionOccursAsync()
+        {
+            // given 
+            string someFileId = CreateRandomFileId();
+            var serviceException = new Exception();
+
+            var failedAIFileOrchestrationServiceException = 
+                new FailedAIFileOrchestrationServiceException(serviceException);
+            
+            var expectedAIFileOrchestrationServiceException = 
+                new AIFileOrchestrationServiceException(failedAIFileOrchestrationServiceException);
+
+            this.aiFileServiceMock.Setup(service => 
+                service.RemoveFileByIdAsync(It.IsAny<string>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<AIFile> removeFileTask = 
+                this.aiFileOrchestrationService.RemoveFileByIdAsync(someFileId);
+
+            AIFileOrchestrationServiceException actualAIFileOrchestrationServiceException =
+                await Assert.ThrowsAsync<AIFileOrchestrationServiceException>(
+                    removeFileTask.AsTask);
+
+            // then
+            actualAIFileOrchestrationServiceException.Should().BeEquivalentTo(
+                expectedAIFileOrchestrationServiceException);
+
+            this.aiFileServiceMock.Verify(service => 
+                service.RemoveFileByIdAsync(It.IsAny<string>()), 
+                Times.Once);
+
+            this.aiFileServiceMock.VerifyNoOtherCalls();
+            this.localFileServiceMock.VerifyNoOtherCalls();
+        }
     }
 }
