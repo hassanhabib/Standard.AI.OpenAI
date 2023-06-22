@@ -12,12 +12,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles;
 
 public partial class AIFileOrchestrationServiceTests
 {
-    [Fact]
-    public async Task ShouldThrowValidationExceptionOnRemoveFileIfFileIdIsInvalid()
+    [Theory]
+    [InlineData(null)]
+    public async Task ShouldThrowValidationExceptionOnRemoveFileIfFileIdIsInvalid(string invalidFileId)
     {
         // given
-        var invalidFileId = default(string);
-
         var invalidAiFileOrchestrationException = 
             new InvalidAIFileOrchestrationException();
         

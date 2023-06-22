@@ -89,10 +89,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     .AreEqual;
         }
 
-        private Expression<Func<string, bool>> SameFileIdAs(string fileId)
-        {
-            return actualFileId => actualFileId.Equals(fileId);
-        }
+        private Expression<Func<string, bool>> SameFileIdAs(string fileId) => 
+            actualFileId => actualFileId.Equals(fileId);
 
         private static string CreateRandomFilePath() =>
             new MnemonicString().GetValue();
@@ -140,6 +138,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         {
             var randomGuid = Guid.NewGuid();
             var randomId = $"file-{randomGuid.ToString("N").Substring(0, 22)}";
+            
             return randomId;
         }
     }

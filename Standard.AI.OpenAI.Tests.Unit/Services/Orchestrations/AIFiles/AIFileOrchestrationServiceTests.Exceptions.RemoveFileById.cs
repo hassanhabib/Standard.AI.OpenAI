@@ -18,8 +18,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         [Theory]
         [MemberData(nameof(DependencyValidationExceptions))]
         public async Task ShouldThrowDependencyValidationExceptionOnRemoveFileIfDependencyValidationErrorOccursAsync(
-            Xeption dependencyValidationException
-        )
+            Xeption dependencyValidationException)
         {
             // given 
             string someFileId = CreateRandomFileId();
@@ -56,7 +55,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
         [Theory]
         [MemberData(nameof(DependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRemoveFileIfDependencyExceptionErrorOccursAsync(Xeption dependencyException)
+        public async Task ShouldThrowDependencyExceptionOnRemoveFileIfDependencyExceptionErrorOccursAsync(
+            Xeption dependencyException)
         {
             // given 
             string someFileId = CreateRandomFileId();
