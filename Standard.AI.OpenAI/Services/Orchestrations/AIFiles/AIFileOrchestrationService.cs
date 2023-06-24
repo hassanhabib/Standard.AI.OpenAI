@@ -53,6 +53,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             ValidateAIFileIdNotNull(fileId);
             
             AIFile aiFile = await this.aiFileService.RemoveFileByIdAsync(fileId);
+            
             return aiFile;
         });
     }
