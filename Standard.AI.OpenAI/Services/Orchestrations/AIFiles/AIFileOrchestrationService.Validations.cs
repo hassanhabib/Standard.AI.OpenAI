@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Data;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 
@@ -31,6 +32,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             Validate(
                 (Rule: IsInvalid(aiFile.Request), Parameter: nameof(AIFileRequest)));
+        }
+
+        private static void ValidateAIFileIdNotNull(string fileId)
+        {
+            Validate(
+                (Rule: IsInvalid(fileId), Parameter: nameof(AIFile.Response.Id)));
         }
 
         private static dynamic IsInvalid(string text) => new

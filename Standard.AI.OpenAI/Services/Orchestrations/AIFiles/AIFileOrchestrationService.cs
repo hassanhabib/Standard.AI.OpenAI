@@ -1,4 +1,4 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
@@ -46,5 +46,15 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
             return await this.aiFileService.UploadFileAsync(aiFile);
         }
+
+        public ValueTask<AIFile> RemoveFileByIdAsync(string fileId) =>
+        TryCatch(async () =>
+        {
+            ValidateAIFileIdNotNull(fileId);
+            
+            AIFile aiFile = await this.aiFileService.RemoveFileByIdAsync(fileId);
+            
+            return aiFile;
+        });
     }
 }

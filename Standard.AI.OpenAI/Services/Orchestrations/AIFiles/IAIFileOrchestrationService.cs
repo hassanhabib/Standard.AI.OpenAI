@@ -12,5 +12,6 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
     {
         ValueTask<AIFile> UploadFileAsync(AIFile aiFile);
         ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync();
+        ValueTask<AIFile> RemoveFileByIdAsync(string fileId);
     }
 }
