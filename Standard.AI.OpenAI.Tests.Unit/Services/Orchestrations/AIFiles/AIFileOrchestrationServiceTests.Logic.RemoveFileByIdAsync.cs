@@ -27,7 +27,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     .ReturnsAsync(expectedAIFile);
 
             // when 
-            AIFile actualAIFile = await this.aiFileOrchestrationService.RemoveFileByIdAsync(inputFileId);
+            AIFile actualAIFile = 
+                await this.aiFileOrchestrationService.RemoveFileByIdAsync(inputFileId);
 
             // then
             actualAIFile.Should().BeEquivalentTo(expectedAIFile);
