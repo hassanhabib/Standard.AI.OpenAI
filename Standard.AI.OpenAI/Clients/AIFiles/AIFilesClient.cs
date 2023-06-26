@@ -93,7 +93,8 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(aiFileOrchestrationServiceException.InnerException as Xeption);
+                throw new AIFileClientServiceException(
+                    aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
     }
