@@ -69,5 +69,32 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
+
+        public async ValueTask<AIFile> RemoveFileByIdAsync(string fileId)
+        {
+            try
+            {
+                return await this.aiFileOrchestrationService.RemoveFileByIdAsync(fileId);
+            }
+            catch (AIFileOrchestrationValidationException aiFileOrchestrationValidationException)
+            {
+                throw new AIFileClientValidationException(
+                    aiFileOrchestrationValidationException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
+            {
+                throw new AIFileClientValidationException(
+                    aiFileOrchestrationDependencyValidationException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
+            {
+                throw new AIFileClientDependencyException(
+                    aiFileOrchestrationDependencyException.InnerException as Xeption);
+            }
+            catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
+            {
+                throw new AIFileClientServiceException(aiFileOrchestrationServiceException.InnerException as Xeption);
+            }
+        }
     }
 }
