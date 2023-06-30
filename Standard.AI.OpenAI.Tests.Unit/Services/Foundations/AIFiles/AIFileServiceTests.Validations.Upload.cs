@@ -18,14 +18,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         public async Task ShouldThrowValidationExceptionOnUploadIfAIFileIsNull()
         {
             // given
-            AIFile noAIFile = null;
+            AIFile nullAIFile = null;
             var nullAIFileException = new NullAIFileException();
 
             var expectedAIFileValidationException =
                 new AIFileValidationException(nullAIFileException);
 
             // when
-            ValueTask<AIFile> uploadFileTask = this.aiFileService.UploadFileAsync(noAIFile);
+            ValueTask<AIFile> uploadFileTask = this.aiFileService.UploadFileAsync(nullAIFile);
 
             AIFileValidationException actualAIFileValidationException =
                 await Assert.ThrowsAsync<AIFileValidationException>(uploadFileTask.AsTask);
@@ -43,7 +43,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnUploadIfAIFileRquestIsNull()
+        public async Task ShouldThrowValidationExceptionOnUploadIfAIFileRequestIsNull()
         {
             // given
             var invalidAIFile = new AIFile();
@@ -82,8 +82,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnUploadIfAIFileRquestIsInvalid(
-            string invalidString)
+        public async Task ShouldThrowValidationExceptionOnUploadIfAIFileRequestIsInvalid(string invalidString)
         {
             // given
             var invalidAIFile = new AIFile();
