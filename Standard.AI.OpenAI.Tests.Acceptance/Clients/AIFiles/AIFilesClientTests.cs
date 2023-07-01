@@ -59,6 +59,17 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
             };
         }
 
+        private static AIFile ConvertToAIFileOnDelete(ExternalAIFileResponse externalAiFileResponse)
+        {
+            AIFileResponse response = ConvertToAIFileResponse(externalAiFileResponse);
+            response.CreatedDate = default;
+
+            var aiFile = new AIFile();
+            aiFile.Response = response;
+
+            return aiFile;
+        }
+
         private static AIFileStatus ConvertToAIFileStatus(string externalStatus)
         {
             return externalStatus?.ToLowerInvariant() switch
@@ -70,11 +81,38 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
             };
         }
 
+        private static ExternalAIFileResponse CreateRandomDeletedAIFileResponse()
+        {
+            var filler = CreateExternalAIFileResponseFiller();
+            filler.Setup()
+                .OnProperty(response => response.Bytes)
+                    .IgnoreIt()
+                .OnProperty(response => response.CreatedDate)
+                    .IgnoreIt()
+                .OnProperty(response => response.FileName)
+                    .IgnoreIt()
+                .OnProperty(response => response.Purpose)
+                    .IgnoreIt()
+                .OnProperty(response => response.Status)
+                    .IgnoreIt()
+                .OnProperty(response => response.StatusDetails)
+                    .IgnoreIt();
+
+            filler.Setup()
+                .OnProperty(response => response.Deleted)
+                    .Use(true);
+
+            return filler.Create();
+        }
+
         private static ExternalAIFilesResult CreateRandomExternalAIFilesResult() =>
             CreateExternalAIFilesResultFiller().Create();
-
+        
         private static Filler<ExternalAIFilesResult> CreateExternalAIFilesResultFiller() =>
             new Filler<ExternalAIFilesResult>();
+
+        private static Filler<ExternalAIFileResponse> CreateExternalAIFileResponseFiller() =>
+            new Filler<ExternalAIFileResponse>();
 
         public void Dispose() => this.wireMockServer.Stop();
     }
