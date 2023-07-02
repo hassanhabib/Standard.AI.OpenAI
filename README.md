@@ -138,6 +138,73 @@ namespace ExampleOpenAIDotNet
 }
 ```
 
+### Fine-Tunes
+The following example demonstrate how you can write your first Fine-tunes program.
+
+#### Program.cs
+```csharp
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Standard.AI.OpenAI.Clients.OpenAIs;
+using Standard.AI.OpenAI.Models.Configurations;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
+
+namespace Examples.Standard.AI.OpenAI.Clients.FineTunes
+{
+    internal class Program
+    {
+        static async Task Main(string[] args)
+        {
+            var openAIConfigurations = new OpenAIConfigurations
+            {
+                ApiKey = "YOUR_API_KEY_HERE",
+                ApiUrl = "https://api.openai.com"
+            };
+
+            IOpenAIClient openAIClient =
+                new OpenAIClient(openAIConfigurations);
+
+            MemoryStream memoryStream = CreateRandomStream();
+
+            var aiFile = new AIFile
+            {
+                Request = new AIFileRequest
+                {
+                    Name = "Test",
+                    Content = memoryStream,
+                    Purpose = "fine-tune"
+                }
+            };
+
+            AIFile file = await openAIClient.AIFiles
+                .UploadFileAsync(aiFile);
+
+            var fineTune = new FineTune();
+            fineTune.Request = new FineTuneRequest();
+
+            fineTune.Request.FileId =
+                file.Response.Id;
+
+            FineTune fineTuneResult =
+                await openAIClient.FineTuneClient
+                    .SubmitFineTuneAsync(fineTune);
+
+            Console.WriteLine(fineTuneResult);
+        }
+
+        private static MemoryStream CreateRandomStream()
+        {
+            string content = "{\"prompt\": \"<prompt text>\", \"completion\": \"<ideal generated text>\"}";
+
+            return new MemoryStream(Encoding.UTF8.GetBytes(content));
+        }
+    }
+}
+```
+
 #### Exceptions
 
 Standard.AI.OpenAI may throw following exceptions:
@@ -147,6 +214,9 @@ Standard.AI.OpenAI may throw following exceptions:
 | `ChatCompletionClientValidationException` | This exception is thrown when a validation error occurs while using the chat completion client. For example, if required data is missing or invalid. |
 | `ChatCompletionClientDependencyException` | This exception is thrown when a dependency error occurs while using the chat completion client. For example, if a required dependency is unavailable or incompatible. |
 | `ChatCompletionClientServiceException` | This exception is thrown when a service error occurs while using the chat completion client. For example, if there is a problem with the server or any other service failure. |
+| `FineTuneClientValidationException` | This exception is thrown when a validation error occurs while using the fine-tunes client. For example, if required data is missing or invalid. |
+| `FineTuneClientDependencyException` | This exception is thrown when a dependency error occurs while using the fine-tunes client. For example, if a required dependency is unavailable or incompatible. |
+| `FineTuneClientDependencyException` | This exception is thrown when a service error occurs while using the fine-tunes client. For example, if there is a problem with the server or any other service failure. |
 
 
 ## How to Contribute
