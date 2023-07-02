@@ -1,4 +1,4 @@
-﻿// ---------------------------------------------------------------------------------- 
+// ---------------------------------------------------------------------------------- 
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
@@ -28,8 +28,8 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
             };
 
             AIFile uploadedFile = 
-                await this.openAIClient.AIFiles.UploadFileAsync(
-                    aiFile);
+                await this.openAIClient.AIFiles.UploadFileAsync(aiFile);
+
 
             // when
             AIFile responseFile =
