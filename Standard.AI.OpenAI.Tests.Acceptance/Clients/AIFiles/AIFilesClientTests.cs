@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Moq;
 using Standard.AI.OpenAI.Clients.OpenAIs;
 using Standard.AI.OpenAI.Models.Configurations;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
@@ -58,7 +60,19 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 StatusDetails = externalAIFileResponse.StatusDetails
             };
         }
+        
+        private static ExternalAIFileRequest ConvertToExternalAIFileRequest(AIFileRequest aiFileRequest)
+        {
+            var externalAIFileRequest = new ExternalAIFileRequest
+            {
+                Purpose = aiFileRequest.Purpose,
+                FileName = aiFileRequest.Name,
+                File = aiFileRequest.Content
+            };
 
+            return externalAIFileRequest;
+        }
+        
         private static AIFile ConvertToAIFileOnDelete(ExternalAIFileResponse externalAiFileResponse)
         {
             AIFileResponse response = ConvertToAIFileResponse(externalAiFileResponse);
@@ -80,7 +94,31 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 _ => AIFileStatus.Unknown
             };
         }
+        
+        private static ExternalAIFileResponse CreateExternalAiFileResponseOnUpload(
+            ExternalAIFileRequest externalAiFileRequest
+        )
+        {
+            Filler<ExternalAIFileResponse> externalAiFileResponseFiller = CreateExternalAIFileResponseFiller();
+            externalAiFileResponseFiller.Setup()
+                .OnProperty(response => response.FileName)
+                .Use(externalAiFileRequest.FileName)
+                .OnProperty(response => response.Purpose)
+                .Use(externalAiFileRequest.Purpose);
 
+            return externalAiFileResponseFiller.Create();
+        }
+
+        private static AIFileRequest CreateRandomAIFileRequest()
+        {
+            var aiFileRequestFiller = CreateRandomAIFileRequestFiller();
+            aiFileRequestFiller.Setup()
+                .OnProperty(request => request.Content)
+                    .Use(CreateRandomStream());
+
+            return aiFileRequestFiller.Create();
+        }
+        
         private static ExternalAIFileResponse CreateRandomDeletedAIFileResponse()
         {
             var filler = CreateExternalAIFileResponseFiller();
@@ -104,9 +142,27 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
 
             return filler.Create();
         }
+        
+        private static Stream CreateRandomStream()
+        {
+            var mockStream = new Mock<MemoryStream>();
+
+            mockStream.SetupGet(stream =>
+                    stream.ReadTimeout)
+                .Returns(0);
+
+            mockStream.SetupGet(stream =>
+                    stream.WriteTimeout)
+                .Returns(0);
+
+            return mockStream.Object;
+        }
 
         private static ExternalAIFilesResult CreateRandomExternalAIFilesResult() =>
             CreateExternalAIFilesResultFiller().Create();
+        
+        private static Filler<AIFileRequest> CreateRandomAIFileRequestFiller() =>
+            new Filler<AIFileRequest>();
         
         private static Filler<ExternalAIFilesResult> CreateExternalAIFilesResultFiller() =>
             new Filler<ExternalAIFilesResult>();
