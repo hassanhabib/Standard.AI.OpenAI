@@ -3,11 +3,12 @@
 ![Standard.AI.OpenAI](https://raw.githubusercontent.com/hassanhabib/Standard.AI.OpenAI/main/Standard.AI.OpenAI/standard-ai-openai-cover-big.png)
 
 
-[![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
-[![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget)](https://www.nuget.org/packages/Standard.AI.OpenAI)
-![Nuget](https://img.shields.io/nuget/dt/Standard.AI.OpenAI?color=blue&label=Downloads)
-[![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f)](https://github.com/hassanhabib/The-Standard)
-[![The Standard Community](https://img.shields.io/discord/934130100008538142?color=%237289da&label=The%20Standard%20Community&logo=Discord)](https://discord.gg/vdPZ7hS52X)
+[![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg?style=plastic)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
+[![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget?style=plastic)](https://www.nuget.org/packages/Standard.AI.OpenAI)
+![Nuget](https://img.shields.io/nuget/dt/Standard.AI.OpenAI?style=plastic?color=blue&label=Downloads)
+[![The Standard - COMPLIANT](https://img.shields.io/badge/The_Standard-COMPLIANT-2ea44f?style=plastic)](https://github.com/hassanhabib/The-Standard)
+[![The Standard](https://img.shields.io/github/v/release/hassanhabib/The-Standard?style=plastic&label=Standard%20Version&labelColor=00BCD3&color=0D1117)](https://github.com/hassanhabib/The-Standard/tree/1444.09.08)
+[![The Standard Community](https://img.shields.io/discord/934130100008538142?style=plastic?color=%237289da&label=The%20Standard%20Community&logo=Discord)](https://discord.gg/vdPZ7hS52X)
 
 ## Introduction
 Standard.AI.OpenAI is a Standard-Compliant .NET library built on top of OpenAI API RESTful endpoints to enable software engineers to develop AI-Powered solutions in .NET.
