@@ -2,7 +2,6 @@
 
 ![Standard.AI.OpenAI](https://raw.githubusercontent.com/hassanhabib/Standard.AI.OpenAI/main/Standard.AI.OpenAI/standard-ai-openai-cover-big.png)
 
-
 [![.NET](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/OpenAI.NET/actions/workflows/dotnet.yml)
 [![Nuget](https://img.shields.io/nuget/v/Standard.AI.OpenAI?logo=nuget&style=default&color=blue)](https://www.nuget.org/packages/Standard.AI.OpenAI)
 ![Nuget](https://img.shields.io/nuget/dt/Standard.AI.OpenAI?color=blue&label=Downloads)
