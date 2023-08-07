@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
@@ -12,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "AI file dependency error occurred, contact support.",
                   innerException)
         { }
-    }
+
+        public AIFileDependencyException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
+       }
 }

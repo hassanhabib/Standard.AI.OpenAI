@@ -29,7 +29,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var expectedAIFileDependencyException =
                 new AIFileDependencyException(
-                    invalidConfigurationAIFileException);
+                    message: "AI file dependency error occurred, contact support.",
+                        invalidConfigurationAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -65,7 +66,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new UnauthorizedAIFileException(unauthorizedException);
 
             var expectedAIFileDependencyException =
-                new AIFileDependencyException(unauthorizedAIFileException);
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
+                        unauthorizedAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -104,7 +107,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var expectedAIFileDependencyValidationException =
                 new AIFileDependencyValidationException(
-                    excessiveCallAIFileException);
+                    message: "AI file dependency validation error occurred, contact support.",
+                        excessiveCallAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -143,7 +147,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var expectedAIFileDependencyException =
                 new AIFileDependencyException(
-                    failedServerAIFileException);
+                    message: "AI file dependency error occurred, contact support.",
+                        failedServerAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -179,7 +184,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new FailedAIFileServiceException(serviceException);
 
             var expectedAIFileServiceException =
-                new AIFileServiceException(failedAIFileServiceException);
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
+                        failedAIFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
