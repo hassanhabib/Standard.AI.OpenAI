@@ -13,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "Failed AI file service error occurred, contact support.",
                   innerException)
         { }
+
+        public FailedAIFileServiceException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }

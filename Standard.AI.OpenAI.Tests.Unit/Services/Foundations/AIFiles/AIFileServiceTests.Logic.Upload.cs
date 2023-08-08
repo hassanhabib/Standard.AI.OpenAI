@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
     public partial class AIFileServiceTests
     {
         [Fact]
-        public async Task ShouldUploadFileAsync()
+        private async Task ShouldUploadFileAsync()
         {
             // given
             int randomCreated = GetRandomNumber();

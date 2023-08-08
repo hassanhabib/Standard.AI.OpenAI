@@ -13,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "Not found AI file error occurred, fix errors and try again.",
                   innerException)
         { }
+
+        public NotFoundAIFileException(string message, Exception innerException)
+            : base(message: message, innerException)
+        { }
     }
 }

@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
     public partial class AIFileServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnRetrieveAllIfUrlNotFoundAsync()
         {
             // given
             var httpResponseUrlNotFoundException =
@@ -25,11 +25,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var invalidConfigurationAIFileException =
                 new InvalidConfigurationAIFileException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid AI file configuration error occurred, contact support.",
+                        httpResponseUrlNotFoundException);
 
             var expectedAIFileDependencyException =
                 new AIFileDependencyException(
-                    invalidConfigurationAIFileException);
+                    message: "AI file dependency error occurred, contact support.",
+                        invalidConfigurationAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -57,15 +59,19 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveAllIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
             var unauthorizedAIFileException =
-                new UnauthorizedAIFileException(unauthorizedException);
+                new UnauthorizedAIFileException(
+                    message: "Unauthorized AI file request, fix errors and try again.", 
+                        unauthorizedException);
 
             var expectedAIFileDependencyException =
-                new AIFileDependencyException(unauthorizedAIFileException);
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
+                        unauthorizedAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -92,7 +98,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfTooManyRequestsOccurredAsync()
         {
             // given
             var httpResponseTooManyRequestsException =
@@ -100,11 +106,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var excessiveCallAIFileException =
                 new ExcessiveCallAIFileException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        httpResponseTooManyRequestsException);
 
             var expectedAIFileDependencyValidationException =
                 new AIFileDependencyValidationException(
-                    excessiveCallAIFileException);
+                    message: "AI file dependency validation error occurred, contact support.",
+                        excessiveCallAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -131,7 +139,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfHttpResponseErrorOccurredAsync()
+        private async Task ShouldThrowDependencyExceptionOnRetrieveAllIfHttpResponseErrorOccurredAsync()
         {
             // given
             var httpResponseException =
@@ -139,11 +147,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var failedServerAIFileException =
                 new FailedServerAIFileException(
-                    httpResponseException);
+                    message: "Failed AI file server error occurred, contact support.",
+                        httpResponseException);
 
             var expectedAIFileDependencyException =
                 new AIFileDependencyException(
-                    failedServerAIFileException);
+                    message: "AI file dependency error occurred, contact support.",
+                        failedServerAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())
@@ -170,16 +180,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveAllIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();
 
             var failedAIFileServiceException =
-                new FailedAIFileServiceException(serviceException);
+                new FailedAIFileServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
+                        serviceException);
 
             var expectedAIFileServiceException =
-                new AIFileServiceException(failedAIFileServiceException);
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
+                        failedAIFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllFilesAsync())

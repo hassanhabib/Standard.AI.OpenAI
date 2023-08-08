@@ -12,5 +12,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "AI file validation error occurred, fix errors and try again.",
                   innerException)
         { }
+
+        public AIFileValidationException(string message, Xeption innerException)
+            : base(message, innerException) { }
     }
 }

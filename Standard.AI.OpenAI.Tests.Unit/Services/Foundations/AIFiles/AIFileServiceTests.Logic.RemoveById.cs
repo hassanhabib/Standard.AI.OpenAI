@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
     public partial class AIFileServiceTests
     {
         [Fact]
-        public async Task ShouldRemoveFileByIdAsync()
+        private async Task ShouldRemoveFileByIdAsync()
         {
             // given
             string randomString = CreateRandomString();

@@ -12,5 +12,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "AI file dependency validation error occurred, contact support.",
                   innerException)
         { }
+
+        public AIFileDependencyValidationException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }
