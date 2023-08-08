@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
     public partial class AIFileServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUrlNotFoundAsync()
         {
             // given
             string someFileId = CreateRandomString();
@@ -26,7 +26,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var invalidConfigurationFileException =
                 new InvalidConfigurationAIFileException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid AI file configuration error occurred, contact support.",
+                        httpResponseUrlNotFoundException);
 
             var expectedFileDependencyException =
                 new AIFileDependencyException(
@@ -59,7 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnRemoveByIdIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
@@ -98,7 +99,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfFileNotFoundOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfFileNotFoundOccurredAsync()
         {
             // given
             string someFileId = CreateRandomString();
@@ -108,7 +109,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var notFoundFileException =
                 new NotFoundAIFileException(
-                    httpResponseNotFoundException);
+                    message: "Not found AI file error occurred, fix errors and try again.",
+                        httpResponseNotFoundException);
 
             var expectedFileDependencyValidationException =
                 new AIFileDependencyValidationException(
@@ -140,7 +142,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfBadRequestOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfBadRequestOccurredAsync()
         {
             // given
             string someFileId = CreateRandomString();
@@ -150,7 +152,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var invalidFileException =
                 new InvalidAIFileException(
-                    httpResponseBadRequestException);
+                    message: "Invalid AI file error occurred, fix errors and try again.",
+                        httpResponseBadRequestException);
 
             var expectedFileDependencyValidationException =
                 new AIFileDependencyValidationException(
@@ -182,7 +185,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRemoveByIdIfTooManyRequestsOccurredAsync()
         {
             // given
             string someFileId = CreateRandomString();
@@ -192,7 +195,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var excessiveCallFileException =
                 new ExcessiveCallAIFileException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        httpResponseTooManyRequestsException);
 
             var expectedFileDependencyValidationException =
                 new AIFileDependencyValidationException(
@@ -224,7 +228,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRemoveByIdIfHttpResponseErrorOccurredAsync()
+        private async Task ShouldThrowDependencyExceptionOnRemoveByIdIfHttpResponseErrorOccurredAsync()
         {
             // given
             string someFileId = CreateRandomString();
@@ -232,6 +236,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             var failedServerFileException =
                 new FailedServerAIFileException(
+                    message: "Failed AI file server error occurred, contact support.",
                     httpResponseException);
 
             var expectedFileDependencyException =
@@ -264,14 +269,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRemoveByIdIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRemoveByIdIfServiceErrorOccurredAsync()
         {
             // given
             string someFileId = CreateRandomString();
             var serviceException = new Exception();
 
             var failedFileServiceException =
-                new FailedAIFileServiceException(serviceException);
+                new FailedAIFileServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
+                        serviceException);
 
             var expectedFileServiceException =
                 new AIFileServiceException(

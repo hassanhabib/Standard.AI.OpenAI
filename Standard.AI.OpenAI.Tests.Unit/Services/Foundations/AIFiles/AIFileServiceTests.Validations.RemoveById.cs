@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnRemoveByIdIfIdIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRemoveByIdIfIdIsInvalidAsync(
             string invalidId)
         {
             // given

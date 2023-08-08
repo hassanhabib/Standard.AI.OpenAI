@@ -13,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "Invalid AI file configuration error occurred, contact support.",
                   innerException)
         { }
+
+        public InvalidConfigurationAIFileException(string message, Exception innerException)
+            : base (message, innerException)
+        { }
     }
 }

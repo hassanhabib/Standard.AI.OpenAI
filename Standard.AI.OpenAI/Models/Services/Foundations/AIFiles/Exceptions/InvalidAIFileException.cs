@@ -17,5 +17,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "Invalid AI file error occurred, fix errors and try again.",
                   innerException)
         { }
+
+        public InvalidAIFileException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }

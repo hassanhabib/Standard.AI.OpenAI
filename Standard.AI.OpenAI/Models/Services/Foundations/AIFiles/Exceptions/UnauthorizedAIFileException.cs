@@ -13,5 +13,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message: "Unauthorized AI file request, fix errors and try again.",
                   innerException)
         { }
+
+        public UnauthorizedAIFileException(string message, Exception innerException)
+            : base(message, innerException) { }
     }
 }
