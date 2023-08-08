@@ -9,7 +9,12 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
     public class AIModelServiceException : Xeption
     {
         public AIModelServiceException(Xeption innerException)
-            : base(message: "AI Model service error occurred, contact support.", innerException)
+            : base(message: "AI Model service error occurred, contact support.",
+                  innerException)
+        { }
+
+        public AIModelServiceException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

@@ -13,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
             : base(message: "Unauthorized AI Model error occurred, fix errors and try again.",
                   innerException)
         { }
+
+        public UnauthorizedAIModelException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }

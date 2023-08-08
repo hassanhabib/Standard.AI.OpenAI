@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
     public partial class AIModelServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveAIModelByNameAsync()
+        private async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given 
             string randomString = CreateRandomString();

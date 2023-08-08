@@ -17,7 +17,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnRetrieveModelByNameIfModelNameIsInvalidAsync(string invalidAIModelName)
+        private async Task ShouldThrowValidationExceptionOnRetrieveModelByNameIfModelNameIsInvalidAsync(
+            string invalidAIModelName)
         {
             // given
             var invalidAIModelException =
@@ -28,7 +29,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 values: "Value is required");
 
             var expectedAIModelValidationException =
-                new AIModelValidationException(invalidAIModelException);
+                new AIModelValidationException(
+                    message: "AI Model validation error occurred, fix errors and try again.",
+                    invalidAIModelException);
 
             // when
             ValueTask<AIModel> retrieveAIModelByNameTask =

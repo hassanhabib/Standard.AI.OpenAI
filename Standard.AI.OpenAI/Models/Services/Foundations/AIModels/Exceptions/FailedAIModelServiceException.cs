@@ -13,5 +13,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
             : base(message: "Failed AI Model Service Exception occurred, please contact support for assistance.",
                 innerException)
         { }
+
+        public FailedAIModelServiceException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }
