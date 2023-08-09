@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
     public partial class AIModelServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfUrlNotFoundAsync()
         {
             // given
             var httpResponseUrlNotFoundException =
@@ -25,11 +25,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             var invalidConfigurationAIModelException =
                 new InvalidConfigurationAIModelException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid AI Model configuration error occurred, contact support.",
+                        httpResponseUrlNotFoundException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(
-                    invalidConfigurationAIModelException);
+                    message: "AI Model dependency error occurred, contact support.",
+                        invalidConfigurationAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
@@ -58,12 +60,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
             var unauthorizedAIModelException =
-                new UnauthorizedAIModelException(unauthorizedException);
+                new UnauthorizedAIModelException(
+                    message: "Unauthorized AI Model error occurred, fix errors and try again.",
+                        unauthorizedException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(unauthorizedAIModelException);
@@ -93,7 +97,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfTooManyRequestsOccurredAsync()
         {
             // given
             var httpResponseTooManyRequestsException =
@@ -101,11 +105,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             var excessiveCallAIModelException =
                 new ExcessiveCallAIModelException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        httpResponseTooManyRequestsException);
 
             var expectedAIModelDependencyValidationException =
                 new AIModelDependencyValidationException(
-                    excessiveCallAIModelException);
+                    message: "AI Model dependency validation error occurred, fix errors and try again.",
+                        excessiveCallAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
@@ -132,7 +138,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfServerErrorOccurredAsync()
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfServerErrorOccurredAsync()
         {
             // given
             var httpResponseException =
@@ -140,11 +146,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             var failedServerAIModelException =
                 new FailedServerAIModelException(
-                    httpResponseException);
+                    message: "Failed AI Model server error occurred, contact support",
+                        httpResponseException);
 
             var expectedAIModelDependencyException =
                 new AIModelDependencyException(
-                    failedServerAIModelException);
+                    message: "AI Model dependency error occurred, contact support.",
+                        failedServerAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())
@@ -171,16 +179,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAllModelsIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveAllModelsIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();
 
             var failedAIModelServiceException =
-                new FailedAIModelServiceException(serviceException);
+                new FailedAIModelServiceException(
+                    message: "Failed AI Model Service Exception occurred, please contact support for assistance.",
+                        serviceException);
 
             var expectedAIModelServiceException =
-                new AIModelServiceException(failedAIModelServiceException);
+                new AIModelServiceException(
+                    "AI Model service error occurred, contact support.",
+                        failedAIModelServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.GetAllAIModelsAsync())

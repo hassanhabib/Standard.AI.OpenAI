@@ -14,7 +14,12 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
         { }
 
         public InvalidAIModelException(Exception innerException)
-           : base(message: $"AI Model is invalid.", innerException)
+           : base(message: "AI Model is invalid.",
+                 innerException)
+        { }
+
+        public InvalidAIModelException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

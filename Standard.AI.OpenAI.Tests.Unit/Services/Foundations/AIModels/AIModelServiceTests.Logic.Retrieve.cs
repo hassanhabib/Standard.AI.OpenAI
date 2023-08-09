@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
     public partial class AIModelServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveAllAIModelsAsync()
+        private async Task ShouldRetrieveAllAIModelsAsync()
         {
             // given
             List<dynamic> aiModelRandomPropertiesList =

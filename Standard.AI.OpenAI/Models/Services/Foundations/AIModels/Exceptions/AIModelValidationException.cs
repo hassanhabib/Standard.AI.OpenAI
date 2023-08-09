@@ -12,5 +12,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
             : base(message: "AI Model validation error occurred, fix errors and try again.",
                 innerException)
         { }
+
+        public AIModelValidationException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }
