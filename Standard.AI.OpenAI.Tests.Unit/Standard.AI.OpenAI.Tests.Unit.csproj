@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CleanMoq" Version="42.42.42" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageReference Include="Moq" Version="4.18.4" />
 	<PackageReference Include="CompareNETObjects" Version="4.79.0" />
 	<PackageReference Include="DeepCloner" Version="0.10.4" />
 	<PackageReference Include="FluentAssertions" Version="6.10.0" />
