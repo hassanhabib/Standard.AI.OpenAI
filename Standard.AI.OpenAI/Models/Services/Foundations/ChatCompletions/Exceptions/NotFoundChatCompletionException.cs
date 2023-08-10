@@ -10,7 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
     public class NotFoundChatCompletionException : Xeption
     {
         public NotFoundChatCompletionException(Exception innerException)
-            : base(message: "Chat completion not found.", innerException)
+            : base(
+                message: "Chat completion not found.",
+                    innerException: innerException)
+        { }
+
+        public NotFoundChatCompletionException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

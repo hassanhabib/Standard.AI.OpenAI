@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
     public partial class ChatCompletionServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSendIfChatCompletionIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSendIfChatCompletionIsNullAsync()
         {
             // given
             ChatCompletion nullChatCompletion = null;
@@ -24,7 +24,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 new NullChatCompletionException();
 
             var expectedChatCompletionValidationException =
-                new ChatCompletionValidationException(nullChatCompletionException);
+                new ChatCompletionValidationException(
+                    message: "Chat completion validation error occurred, fix errors and try again.",
+                        innerException: nullChatCompletionException);
 
             // when
             ValueTask<ChatCompletion> sendChatCompletionTask =
@@ -49,7 +51,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSendIfRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSendIfRequestIsNullAsync()
         {
             // given
             var invalidChatCompletion = new ChatCompletion();
@@ -63,7 +65,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 values: "Value is required");
 
             var expectedChatCompletionValidationException =
-                new ChatCompletionValidationException(invalidChatCompletionException);
+                new ChatCompletionValidationException(
+                    message: "Chat completion validation error occurred, fix errors and try again.",
+                        innerException: invalidChatCompletionException);
 
             // when
             ValueTask<ChatCompletion> sendChatCompletionTask =
@@ -89,7 +93,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnSendIfRequestIsInvalidAsync(string invalidText)
+        private async Task ShouldThrowValidationExceptionOnSendIfRequestIsInvalidAsync(string invalidText)
         {
             // given
             var invalidChatCompletion = new ChatCompletion()
@@ -113,7 +117,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 values: "Value is required");
 
             var expectedChatCompletionValidationException =
-                new ChatCompletionValidationException(invalidChatCompletionException);
+                new ChatCompletionValidationException(
+                    message: "Chat completion validation error occurred, fix errors and try again.",
+                        innerException: invalidChatCompletionException);
 
             // when
             ValueTask<ChatCompletion> sendChatCompletionTask =

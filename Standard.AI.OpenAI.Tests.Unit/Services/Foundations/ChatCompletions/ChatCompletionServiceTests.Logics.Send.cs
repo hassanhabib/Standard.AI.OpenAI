@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
     public partial class ChatCompletionServiceTests
     {
         [Fact]
-        public async Task ShouldSendChatCompletionAsync()
+        private async Task ShouldSendChatCompletionAsync()
         {
             // given
             DateTimeOffset randomDate = GetRandomDate();
