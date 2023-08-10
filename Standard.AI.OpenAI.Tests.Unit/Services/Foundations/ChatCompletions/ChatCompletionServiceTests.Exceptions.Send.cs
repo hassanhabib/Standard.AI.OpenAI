@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
     public partial class ChatCompletionServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSendIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnSendIfUrlNotFoundAsync()
         {
             // given
             ChatCompletion someChatCompletion =
@@ -28,11 +28,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             var invalidConfigurationChatCompletionException =
                 new InvalidConfigurationChatCompletionException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid chat completion configuration error occurred, contact support.",
+                        innerException: httpResponseUrlNotFoundException);
 
             var expectedChatCompletionDependencyException =
                 new ChatCompletionDependencyException(
-                    invalidConfigurationChatCompletionException);
+                    message: "Chat completion dependency error occurred, contact support.",
+                        innerException: invalidConfigurationChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -63,7 +65,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnSendIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnSendIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
@@ -71,10 +73,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 CreateRandomChatCompletion();
 
             var unauthorizedChatCompletionException =
-                new UnauthorizedChatCompletionException(unauthorizedException);
+                new UnauthorizedChatCompletionException(
+                    message: "Unauthorized chat completion request, fix errors and try again.",
+                        innerException: unauthorizedException);
 
             var expectedChatCompletionDependencyException =
-                new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+                new ChatCompletionDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.",
+                        innerException: unauthorizedChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -104,7 +110,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfChatCompletionNotFoundOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSendIfChatCompletionNotFoundOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion =
@@ -115,11 +121,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             var notFoundChatCompletionException =
                 new NotFoundChatCompletionException(
-                    httpResponseNotFoundException);
+                    message: "Chat completion not found.",
+                        innerException: httpResponseNotFoundException);
 
             var expectedChatCompletionDependencyValidationException =
                 new ChatCompletionDependencyValidationException(
-                    notFoundChatCompletionException);
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: notFoundChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -148,7 +156,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfBadRequestErrorOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSendIfBadRequestErrorOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion = CreateRandomChatCompletion();
@@ -158,11 +166,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             var invalidChatCompletionException =
                 new InvalidChatCompletionException(
-                    httpResponseBadRequestException);
+                    message: "Chat completion is invalid.",
+                        innerException: httpResponseBadRequestException);
 
             var expectedChatCompletionDependencyValidationException =
                 new ChatCompletionDependencyValidationException(
-                    invalidChatCompletionException);
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: invalidChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -192,7 +202,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion =
@@ -203,11 +213,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             var excessiveCallChatCompletionException =
                 new ExcessiveCallChatCompletionException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        innerException: httpResponseTooManyRequestsException);
 
             var expectedChatCompletionDependencyValidationException =
                 new ChatCompletionDependencyValidationException(
-                    excessiveCallChatCompletionException);
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: excessiveCallChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -236,7 +248,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSendIfHttpResponseErrorOccurredAsync()
+        private async Task ShouldThrowDependencyExceptionOnSendIfHttpResponseErrorOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion = CreateRandomChatCompletion();
@@ -244,11 +256,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             var failedServerChatCompletionException =
                 new FailedServerChatCompletionException(
-                    httpResponseException);
+                    message: "Failed chat completion server error occurred, contact support.",
+                        innerException: httpResponseException);
 
             var expectedChatCompletionDependencyException =
                 new ChatCompletionDependencyException(
-                    failedServerChatCompletionException);
+                    message: "Chat completion dependency error occurred, contact support.",
+                        innerException: failedServerChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -278,18 +292,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
         {
             // given
             ChatCompletion someChatCompletion = CreateRandomChatCompletion();
             var serviceException = new Exception();
 
             var failedChatCompletionServiceException =
-                new FailedChatCompletionServiceException(serviceException);
+                new FailedChatCompletionServiceException(
+                    message: "Failed Chat Completion Service Exception occurred, please contact support for assistance.",
+                        innerException: serviceException);
 
             var expectedChatCompletionServiceException =
                 new ChatCompletionServiceException(
-                    failedChatCompletionServiceException);
+                    message: "Chat completion service error occurred, contact support.",
+                        innerException: failedChatCompletionServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(

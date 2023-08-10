@@ -11,5 +11,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
         public NullChatCompletionException()
             : base(message: "Chat completion is null.")
         { }
+
+        public NullChatCompletionException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }
