@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
     public partial class AudioTranscriptionServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSendIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnSendIfUrlNotFoundAsync()
         {
             // given
             AudioTranscription someAudioTranscription =
@@ -28,11 +28,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             var invalidConfigurationAudioTranscriptionException =
                 new InvalidConfigurationAudioTranscriptionException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid audio transcription configuration error occurred, contact support.",
+                        innerException: httpResponseUrlNotFoundException);
 
             var expectedAudioTranscriptionDependencyException =
                 new AudioTranscriptionDependencyException(
-                    invalidConfigurationAudioTranscriptionException);
+                    message: "Audio transcription dependency error occurred, contact support.",
+                        innerException: invalidConfigurationAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostAudioTranscriptionRequestAsync(
@@ -62,7 +64,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
         [Theory]
         [MemberData(nameof(UnAuthorizationExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnSendIfUnAuthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnSendIfUnAuthorizedAsync(
             HttpResponseException unAuthorizationException)
         {
             // given
@@ -70,10 +72,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 CreateRandomAudioTranscription();
 
             var unauthorizedAudioTranscriptionException =
-                new UnauthorizedAudioTranscriptionException(unAuthorizationException);
+                new UnauthorizedAudioTranscriptionException(
+                    message: "Unauthorized audio transcription request, fix errors and try again.",
+                        innerException: unAuthorizationException);
 
             var expectedAudioTranscriptionDependencyException =
-                new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+                new AudioTranscriptionDependencyException(
+                    message: "Audio transcription dependency error occurred, contact support.",
+                        innerException: unauthorizedAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostAudioTranscriptionRequestAsync(
@@ -102,7 +108,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfBadRequestErrorOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnUploadIfBadRequestErrorOccurredAsync()
         {
             // given
             AudioTranscription someAudioTranscription =
@@ -113,11 +119,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             var invalidAudioTranscriptionException =
                 new InvalidAudioTranscriptionException(
-                    httpResponseBadRequestException);
+                    message: "Audio transcription is invalid.",
+                        innerException: httpResponseBadRequestException);
 
             var expectedAudioTranscriptionDependencyValidationException =
                 new AudioTranscriptionDependencyValidationException(
-                    invalidAudioTranscriptionException);
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: invalidAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostAudioTranscriptionRequestAsync(
@@ -144,7 +152,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnSendIfServiceErrorOccurredAsync()
         {
             // given
             AudioTranscription someAudioTranscription =
@@ -153,11 +161,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             var serviceException = new Exception();
 
             var failedAudioTranscriptionServiceException =
-                new FailedAudioTranscriptionServiceException(serviceException);
+                new FailedAudioTranscriptionServiceException(
+                    message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.",
+                        innerException: serviceException);
 
             var expectedAudioTranscriptionServiceException =
                 new AudioTranscriptionServiceException(
-                    failedAudioTranscriptionServiceException);
+                    message: "Audio transcription service error occurred, contact support.",
+                        innerException: failedAudioTranscriptionServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostAudioTranscriptionRequestAsync(
@@ -186,7 +197,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSendIfTooManyRequestsOccurredAsync()
         {
             // given
             AudioTranscription someAudioTranscription =
@@ -197,11 +208,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             var excessiveCallAudioTranscriptionException =
                 new ExcessiveCallAudioTranscriptionException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        innerException: httpResponseTooManyRequestsException);
 
             var expectedAudioTranscriptionDependencyValidationException =
                 new AudioTranscriptionDependencyValidationException(
-                    excessiveCallAudioTranscriptionException);
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: excessiveCallAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostAudioTranscriptionRequestAsync(

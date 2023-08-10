@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
     public partial class AudioTranscriptionServiceTests
     {
         [Fact]
-        public async Task ShouldSendAudioTranscriptionAsync()
+        private async Task ShouldSendAudioTranscriptionAsync()
         {
             // given
             dynamic audioTranscriptionProperties = CreateRandomAudioTranscriptionProperties();
