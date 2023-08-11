@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        private void ShouldThrowValidationExceptionOnReadIfFilePathIsInvalid(
+        public void ShouldThrowValidationExceptionOnReadIfFilePathIsInvalid(
             string invalidFilePath)
         {
             // given
@@ -28,9 +28,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
                 "Value is required");
 
             var expectedFileValidationException =
-                new LocalFileValidationException(
-                    message: "Local file validation error occurred, fix error and try again.",
-                    innerException:invalidFileException);
+                new LocalFileValidationException(invalidFileException);
 
             // when
             Action readFileAction = () =>

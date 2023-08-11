@@ -14,19 +14,15 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
     {
         [Theory]
         [MemberData(nameof(FileValidationExceptions))]
-        private void ShouldThrowDependencyValidationExceptionOnReadIfDepedencyErrorOccurs(
+        public void ShouldThrowDependencyValidationExceptionOnReadIfDepedencyErrorOccurs(
             Exception dependencyValidationException)
         {
             // given
             string someFilePath = CreateRandomFilePath();
-            var invalidFileException = new InvalidLocalFileException(
-                message: "Invalid local file error occurred, fix error and try again.",
-                innerException:dependencyValidationException);
+            var invalidFileException = new InvalidLocalFileException(dependencyValidationException);
 
             var expectedFileDependencyValidationException =
-                new LocalFileDependencyValidationException(
-                    message: "Local file dependency validation error occurred, fix the errors and try again.",
-                    innerException:invalidFileException);
+                new LocalFileDependencyValidationException(invalidFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -52,21 +48,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
 
         [Theory]
         [MemberData(nameof(FileNotFoundExceptions))]
-        private void ShouldThrowDependencyExceptionOnReadIfFileNotFoundExceptionOccurs(
+        public void ShouldThrowDependencyExceptionOnReadIfFileNotFoundExceptionOccurs(
             Exception fileNotFoundException)
         {
             // given
             string someFilePath = CreateRandomFilePath();
 
             var notFoundLocalFileException =
-                new NotFoundLocalFileException(
-                    message: "Not found local file error occurred, fix error and try again.",
-                    fileNotFoundException);
+                new NotFoundLocalFileException(fileNotFoundException);
 
             var expectedFileDependencyValidationException =
-                new LocalFileDependencyValidationException(
-                    message: "Local file dependency validation error occurred, fix the errors and try again.",
-                    innerException:notFoundLocalFileException);
+                new LocalFileDependencyValidationException(notFoundLocalFileException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -92,21 +84,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
 
         [Theory]
         [MemberData(nameof(FileDependencyExceptions))]
-        private void ShouldThrowDependencyExceptionOnReadIfFileErrorOccurs(
+        public void ShouldThrowDependencyExceptionOnReadIfFileErrorOccurs(
             Exception fileDependencyException)
         {
             // given
             string someFilePath = CreateRandomFilePath();
 
             var failedLocalFileDependencyException =
-                new FailedLocalFileDependencyException(
-                    message: "Failed local file error occurred, contact support.",
-                    innerException:fileDependencyException);
+                new FailedLocalFileDependencyException(fileDependencyException);
 
             var expectedFileDependencyException =
-                new LocalFileDependencyException(
-                    message: "Local file dependency error occurred, contact support.",
-                    innerException:failedLocalFileDependencyException);
+                new LocalFileDependencyException(failedLocalFileDependencyException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(someFilePath))
@@ -131,21 +119,17 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         }
 
         [Fact]
-        private void ShouldThrowFailedServiceException()
+        public void ShouldThrowFailedServiceException()
         {
             // given            
             string someFilePath = CreateRandomFilePath();
             var serviceException = new Exception();
 
             var failedLocalFileServiceException =
-                new FailedLocalFileServiceException(
-                    message: "Failed local file service error occurred, contact support.",
-                    innerException:serviceException);
+                new FailedLocalFileServiceException(serviceException);
 
             var expectedLocalFileServiceException =
-                new LocalFileServiceException(
-                    message: "Local file service error occurred, contact support.",
-                    innerException:failedLocalFileServiceException);
+                new LocalFileServiceException(failedLocalFileServiceException);
 
             this.fileBrokerMock.Setup(broker =>
                 broker.ReadFile(It.IsAny<string>()))

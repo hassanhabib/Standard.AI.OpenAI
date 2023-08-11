@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
     public partial class LocalFileServiceTests
     {
         [Fact]
-        private void ShouldReadFile()
+        public void ShouldReadFile()
         {
             // given
             string randomFilePath = CreateRandomFilePath();

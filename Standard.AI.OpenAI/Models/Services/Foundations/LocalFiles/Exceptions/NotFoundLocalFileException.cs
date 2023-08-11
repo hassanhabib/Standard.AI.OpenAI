@@ -13,9 +13,5 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
             : base(message: "Not found local file error occurred, fix error and try again.",
                   innerException)
         { }
-
-        public NotFoundLocalFileException(string message, Exception innerException)
-            : base(message, innerException) 
-        { }
     }
 }
