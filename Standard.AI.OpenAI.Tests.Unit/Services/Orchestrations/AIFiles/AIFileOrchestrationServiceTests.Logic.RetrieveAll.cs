@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     public partial class AIFileOrchestrationServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveAllFilesAsync()
+        private async Task ShouldRetrieveAllFilesAsync()
         {
             // given
             IEnumerable<AIFileResponse> randomAIFiles = CreateRandomAIFileResponses();

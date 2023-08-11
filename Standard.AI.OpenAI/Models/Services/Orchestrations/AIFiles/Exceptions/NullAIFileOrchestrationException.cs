@@ -9,6 +9,11 @@ namespace Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions
     internal class NullAIFileOrchestrationException : Xeption
     {
         public NullAIFileOrchestrationException()
-            : base(message: "AI file is null.") { }
+            : base(message: "AI file is null.")
+        { }
+
+        public NullAIFileOrchestrationException(string message, Xeption innerException)
+           : base(message, innerException)
+        { }
     }
 }

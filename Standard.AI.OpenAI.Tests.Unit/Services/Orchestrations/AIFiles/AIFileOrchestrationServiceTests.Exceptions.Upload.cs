@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     {
         [Theory]
         [MemberData(nameof(DependencyValidationExceptions))]
-        public async Task ShouldThrowDependencyValidationExceptionOnUploadIfDependencyValidationErrorOccursAsync(
+        private async Task ShouldThrowDependencyValidationExceptionOnUploadIfDependencyValidationErrorOccursAsync(
             Xeption dependencyValidationException)
         {
             // given
@@ -25,7 +25,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             var expectedAIFileOrchestrationDependencyValidationException =
                 new AIFileOrchestrationDependencyValidationException(
-                    dependencyValidationException.InnerException as Xeption);
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
+                        innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()))
@@ -59,7 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
         [Theory]
         [MemberData(nameof(DependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnUploadIfDependencyValidationErrorOccursAsync(
+        private async Task ShouldThrowDependencyExceptionOnUploadIfDependencyValidationErrorOccursAsync(
             Xeption dependencyValidationException)
         {
             // given
@@ -67,7 +68,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             var expectedAIFileOrchestrationDependencyException =
                 new AIFileOrchestrationDependencyException(
-                    dependencyValidationException.InnerException as Xeption);
+                    message: "AI File dependency error occurred, contact support.",
+                        innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()))
@@ -100,18 +102,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnUploadIfExceptionOccursAsync()
+        private async Task ShouldThrowServiceExceptionOnUploadIfExceptionOccursAsync()
         {
             // given
             AIFile someAIFile = CreateRandomAIFile();
             var serviceException = new Exception();
 
             var failedAIFileOrchestrationServiceException =
-                new FailedAIFileOrchestrationServiceException(serviceException);
+                new FailedAIFileOrchestrationServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedAIFileOrchestrationServiceException =
                 new AIFileOrchestrationServiceException(
-                    failedAIFileOrchestrationServiceException);
+                    message: "AI File error occurred, contact support.",
+                        innerException: failedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Setup(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()))

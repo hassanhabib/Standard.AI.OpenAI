@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     public partial class AIFileOrchestrationServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnUploadIfFileIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnUploadIfFileIsNullAsync()
         {
             // given
             AIFile nullAIFile = null;
@@ -24,7 +24,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             var expectedAIFileOrchestrationValidationException =
                 new AIFileOrchestrationValidationException(
-                    nullAIFileOrchestrationException);
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: nullAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
@@ -53,7 +54,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnUploadIfRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnUploadIfRequestIsNullAsync()
         {
             // given
             var invalidAIFile = new AIFile();
@@ -67,7 +68,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             var expectedAIFileOrchestrationValidationException =
                 new AIFileOrchestrationValidationException(
-                    invalidAIFileOrchestrationException);
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: invalidAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
@@ -99,7 +101,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public async Task ShouldThrowValidationExceptionIfRequestIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionIfRequestIsInvalidAsync(
             string invalidName)
         {
             // given
@@ -116,7 +118,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             var expectedAIFileOrchestrationValidationException =
                 new AIFileOrchestrationValidationException(
-                    invalidAIFileOrchestrationException);
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: invalidAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =

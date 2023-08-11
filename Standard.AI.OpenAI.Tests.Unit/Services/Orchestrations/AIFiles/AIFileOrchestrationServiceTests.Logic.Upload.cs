@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     public partial class AIFileOrchestrationServiceTests
     {
         [Fact]
-        public async Task ShouldUploadFileAsync()
+        private async Task ShouldUploadFileAsync()
         {
             // given
             Stream noStream = null;
@@ -60,7 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldUploadStreamAsync()
+        private async Task ShouldUploadStreamAsync()
         {
             // given
             AIFile randomAIFile = CreateRandomAIFile();
