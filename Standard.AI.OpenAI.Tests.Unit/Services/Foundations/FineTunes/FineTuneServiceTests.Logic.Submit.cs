@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
     public partial class FineTuneServiceTests
     {
         [Fact]
-        public async Task ShouldSubmitFineTuneAsync()
+        private async Task ShouldSubmitFineTuneAsync()
         {
             // given
             dynamic randomFineTuneProperties = CreateRandomFineTuneProperties();

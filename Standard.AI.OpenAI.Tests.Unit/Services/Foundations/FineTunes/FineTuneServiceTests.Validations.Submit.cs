@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
     public partial class FineTuneServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneIsNullAsync()
         {
             // given
             FineTune nullFineTune = null;
@@ -24,7 +24,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new NullFineTuneException();
 
             var expectedFineTuneValidationException =
-                new FineTuneValidationException(nullFineTuneException);
+                new FineTuneValidationException(
+                    message: "Fine tune validation error occurred, fix errors and try again.",
+                        innerException: nullFineTuneException);
 
             // when
             ValueTask<FineTune> sendFineTuneTask =
@@ -49,7 +51,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsNullAsync()
         {
             // given
             FineTuneRequest nullFineTuneRequest = null;
@@ -65,7 +67,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 values: "Value is required");
 
             var expectedFineTuneValidationException =
-                new FineTuneValidationException(invalidFineTuneException);
+                new FineTuneValidationException(
+                    message: "Fine tune validation error occurred, fix errors and try again.",
+                        innerException: invalidFineTuneException);
 
             // when
             ValueTask<FineTune> submitFineTuneTask =
@@ -93,7 +97,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnSubmitIfFineTuneRequestIsInvalidAsync(
             string invalidText)
         {
             // given
@@ -107,7 +111,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 values: "Value is required");
 
             var exceptedFineTuneValidationException =
-                new FineTuneValidationException(invalidFineTuneException);
+                new FineTuneValidationException(
+                    message: "Fine tune validation error occurred, fix errors and try again.",
+                        innerException: invalidFineTuneException);
 
             // when
             ValueTask<FineTune> sendFineTuneTask =

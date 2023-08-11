@@ -16,8 +16,11 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
         public InvalidFineTuneException(Exception innerException)
             : base(
                 message: "Fine tune is invalid.",
-                innerException)
+                    innerException: innerException)
+        { }
+
+        public InvalidFineTuneException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
-
 }

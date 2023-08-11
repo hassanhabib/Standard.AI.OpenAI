@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
     public partial class FineTuneServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSubmitIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnSubmitIfUrlNotFoundAsync()
         {
             // given
             FineTune someFineTune = CreateRandomFineTune();
@@ -27,11 +27,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
             var invalidFineTuneConfigurationException =
                 new InvalidFineTuneConfigurationException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid fine tune configuration error ocurred, contact support.",
+                        innerException: httpResponseUrlNotFoundException);
 
             var expectedFineTuneDependencyException =
                 new FineTuneDependencyException(
-                    invalidFineTuneConfigurationException);
+                    message: "Fine tune dependency error ocurred, contact support.",
+                        innerException: invalidFineTuneConfigurationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -60,7 +62,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnSubmitIfUnauthorizedExceptionAsync(
+        private async Task ShouldThrowDependencyExceptionOnSubmitIfUnauthorizedExceptionAsync(
             Exception unauthorizedException)
         {
             // given
@@ -68,11 +70,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
             var unauthorizedFineTuneException =
                 new UnauthorizedFineTuneException(
-                    unauthorizedException);
+                    message: "Unauthorized fine tune request, fix errors and try again.",
+                        innerException: unauthorizedException);
 
             var expectedFineTuneDependencyException =
                 new FineTuneDependencyException(
-                    unauthorizedFineTuneException);
+                    message: "Fine tune dependency error ocurred, contact support.",
+                        innerException: unauthorizedFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -100,7 +104,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSubmitIfBadRequestErrorOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSubmitIfBadRequestErrorOccursAsync()
         {
             // given
             FineTune someFineTune = CreateRandomFineTune();
@@ -109,10 +113,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new HttpResponseBadRequestException();
 
             var invalidFineTuneException =
-                new InvalidFineTuneException(httpResponseBadRequestException);
+                new InvalidFineTuneException(
+                    message: "Fine tune is invalid.",
+                        innerException: httpResponseBadRequestException);
 
             var expectedFineTuneDependencyValidationException =
-                new FineTuneDependencyValidationException(invalidFineTuneException);
+                new FineTuneDependencyValidationException(
+                    message: "Fine tune dependency validation error occurred, fix errors and try again",
+                        innerException: invalidFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -140,7 +148,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSubmitIfTooManyRequestsErrorOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnSubmitIfTooManyRequestsErrorOccursAsync()
         {
             // given
             FineTune someFineTune = CreateRandomFineTune();
@@ -149,10 +157,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallFineTuneException =
-                new ExcessiveCallFineTuneException(httpResponseTooManyRequestsException);
+                new ExcessiveCallFineTuneException(
+                    message: "Excessive call error occurred, limit your calls.",
+                        innerException: httpResponseTooManyRequestsException);
 
             var expectedFineTuneDependencyValidationException =
-                new FineTuneDependencyValidationException(excessiveCallFineTuneException);
+                new FineTuneDependencyValidationException(
+                    message: "Fine tune dependency validation error occurred, fix errors and try again",
+                        innerException: excessiveCallFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -180,7 +192,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSubmitIfServerErrorOccursAsync()
+        private async Task ShouldThrowDependencyExceptionOnSubmitIfServerErrorOccursAsync()
         {
             // given
             FineTune someFineTune = CreateRandomFineTune();
@@ -189,10 +201,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new HttpResponseException();
 
             var failedServerFineTuneException =
-                new FailedServerFineTuneException(httpResponseException);
+                new FailedServerFineTuneException(
+                    message: "Failed fine tune server error occurred, contact support.",
+                        innerException: httpResponseException);
 
             var expectedFineTuneDependencyException =
-                new FineTuneDependencyException(failedServerFineTuneException);
+                new FineTuneDependencyException(
+                    message: "Fine tune dependency error ocurred, contact support.",
+                        innerException: failedServerFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -220,17 +236,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnSubmitIfExceptionOccursAsync()
+        private async Task ShouldThrowServiceExceptionOnSubmitIfExceptionOccursAsync()
         {
             // given
             FineTune someFineTune = CreateRandomFineTune();
             var serviceException = new Exception();
 
             var failedFineTuneServiceException =
-                new FailedFineTuneServiceException(serviceException);
+                new FailedFineTuneServiceException(
+                    message: "Failed fine tune error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedFineTuneServiceException =
-                new FineTuneServiceException(failedFineTuneServiceException);
+                new FineTuneServiceException(
+                    message: "Fine tune error ocurred, contact support.",
+                        innerException: failedFineTuneServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
