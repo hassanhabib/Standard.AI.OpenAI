@@ -11,5 +11,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
         public NullFineTuneException()
             : base(message: "Fine tune is null.")
         { }
+
+        public NullFineTuneException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }

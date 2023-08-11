@@ -10,8 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
     public class FailedFineTuneServiceException : Xeption
     {
         public FailedFineTuneServiceException(Exception innerException)
-            : base(message: "Failed fine tune error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Failed fine tune error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public FailedFineTuneServiceException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

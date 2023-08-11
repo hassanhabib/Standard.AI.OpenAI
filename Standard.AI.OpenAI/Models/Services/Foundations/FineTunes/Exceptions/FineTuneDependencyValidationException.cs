@@ -9,8 +9,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
     public class FineTuneDependencyValidationException : Xeption
     {
         public FineTuneDependencyValidationException(Xeption innerException)
-            : base(message: "Fine tune dependency validation error occurred, fix errors and try again",
-                  innerException)
+            : base(
+                message: "Fine tune dependency validation error occurred, fix errors and try again",
+                    innerException: innerException)
+        { }
+
+        public FineTuneDependencyValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }
