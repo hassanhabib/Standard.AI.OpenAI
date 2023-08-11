@@ -11,5 +11,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
         public NullCompletionException()
             : base(message: "Completion is null.")
         { }
+
+        public NullCompletionException(string message, Xeption innerException) 
+            : base(message, innerException)
+        { }
     }
 }
