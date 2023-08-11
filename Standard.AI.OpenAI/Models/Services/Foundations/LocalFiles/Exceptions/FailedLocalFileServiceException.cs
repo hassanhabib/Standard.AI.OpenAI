@@ -12,5 +12,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
         public FailedLocalFileServiceException(Exception innerException)
             : base(message: "Failed local file service error occurred, contact support.", innerException)
         { }
+
+        public FailedLocalFileServiceException(string message, Exception innerException) 
+            : base(message, innerException)
+        { }
     }
 }

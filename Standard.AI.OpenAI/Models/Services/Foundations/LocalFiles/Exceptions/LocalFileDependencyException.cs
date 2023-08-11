@@ -12,5 +12,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
             : base(message: "Local file dependency error occurred, contact support.",
                   innerException)
         { }
+
+        public LocalFileDependencyException(string message , Xeption innerException)
+            : base(message, innerException) 
+        { }
     }
 }

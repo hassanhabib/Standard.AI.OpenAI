@@ -16,5 +16,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
         public InvalidLocalFileException(Exception innerException)
             : base(message: "Invalid local file error occurred, fix error and try again.", innerException)
         { }
+
+        public InvalidLocalFileException(string message, Exception innerException)
+            : base(message: message, innerException)
+        { }
     }
 }

@@ -12,5 +12,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
             : base(message: "Local file validation error occurred, fix error and try again.",
                   innerException)
         { }
+
+        public LocalFileValidationException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }

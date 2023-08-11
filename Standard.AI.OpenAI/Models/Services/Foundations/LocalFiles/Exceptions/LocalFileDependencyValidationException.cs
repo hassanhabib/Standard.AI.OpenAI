@@ -9,8 +9,12 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
     internal class LocalFileDependencyValidationException : Xeption
     {
         public LocalFileDependencyValidationException(Xeption innerException)
-            : base(message: "Local file dependency validation error occurred, fix the errors and try again",
+            : base(message: "Local file dependency validation error occurred, fix the errors and try again.",
                   innerException)
+        { }
+
+        public LocalFileDependencyValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }
