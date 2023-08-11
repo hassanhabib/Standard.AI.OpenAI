@@ -10,8 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
     public class AudioTranscriptionDependencyValidationException : Xeption
     {
         public AudioTranscriptionDependencyValidationException(Xeption innerException)
-            : base(message: "Chat completion dependency validation error occurred, fix errors and try again.",
-                  innerException)
+            : base(
+                  message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                    innerException)
+        { }
+
+        public AudioTranscriptionDependencyValidationException(string message, Xeption innerException )
+            : base(message, innerException)
         { }
     }
 }

@@ -10,8 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
     public class AudioTranscriptionValidationException : Xeption
     {
         public AudioTranscriptionValidationException(Xeption innerException)
-            : base(message: "Audio transcription validation error occurred, fix errors and try again.",
-                  innerException)
+            : base(
+                  message: "Audio transcription validation error occurred, fix errors and try again.",
+                    innerException)
+        { }
+
+        public AudioTranscriptionValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

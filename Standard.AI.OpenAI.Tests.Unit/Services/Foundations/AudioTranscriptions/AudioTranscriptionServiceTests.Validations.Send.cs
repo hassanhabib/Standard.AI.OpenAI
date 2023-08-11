@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
     public partial class AudioTranscriptionServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionIsNullAsync()
         {
             // given
             AudioTranscription audioTranscription = null;
@@ -23,7 +23,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             var nullAudioTranscriptionException = new NullAudioTranscriptionException();
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(nullAudioTranscriptionException);
+                new AudioTranscriptionValidationException(
+                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                        innerException: nullAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =
@@ -46,7 +48,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsNullAsync()
         {
             // given
             var audioTranscription = new AudioTranscription()
@@ -61,7 +63,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 values: "Value is required");
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+                new AudioTranscriptionValidationException(
+                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                        innerException: invalidAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =
@@ -87,7 +91,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsInvalidAsync(string invalidText)
+        private async Task ShouldThrowValidationExceptionOnSendIfAudioTranscriptionRequestIsInvalidAsync(string invalidText)
         {
             // given
             var audioTranscription = new AudioTranscription()
@@ -110,7 +114,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 values: "Value is required");
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+                new AudioTranscriptionValidationException(
+                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                        innerException: invalidAudioTranscriptionException);
 
             // when
             ValueTask<AudioTranscription> sendAudioTranscriptionTask =

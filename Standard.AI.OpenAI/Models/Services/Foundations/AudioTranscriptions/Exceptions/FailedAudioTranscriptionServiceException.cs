@@ -15,5 +15,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
                 message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.",
                 innerException)
         { }
+
+        public FailedAudioTranscriptionServiceException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }
