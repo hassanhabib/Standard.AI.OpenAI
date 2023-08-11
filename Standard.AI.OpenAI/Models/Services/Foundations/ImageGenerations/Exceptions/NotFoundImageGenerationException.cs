@@ -10,8 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     public class NotFoundImageGenerationException : Xeption
     {
         public NotFoundImageGenerationException(Exception innerException)
-            : base(message: "Not found image generation error occurred, fix errors and try again.",
-                  innerException)
+            : base(
+                message: "Not found image generation error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public NotFoundImageGenerationException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

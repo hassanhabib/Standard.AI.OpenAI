@@ -14,8 +14,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
         { }
 
         public InvalidImageGenerationException(Exception innerException)
-            : base(message: "Invalid image generation error occurred, fix errors and try again.",
-                  innerException)
+            : base(
+                message: "Invalid image generation error occurred, fix errors and try again.",
+                innerException: innerException)
+        { }
+
+        public InvalidImageGenerationException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

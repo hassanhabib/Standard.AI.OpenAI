@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
     public partial class ImageGenerationServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnGenerateIfUrlNotFoundAsync()
+        private async Task ShouldThrowDependencyExceptionOnGenerateIfUrlNotFoundAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
@@ -27,11 +27,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var invalidConfigurationImageGenerationException =
                 new InvalidConfigurationImageGenerationException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid image generation configuration error occurred, contact support.",
+                        innerException: httpResponseUrlNotFoundException);
 
             var expectedImageGenerationDependencyException =
                 new ImageGenerationDependencyException(
-                    invalidConfigurationImageGenerationException);
+                    message: "Image generation dependency error occurred, contact support.",
+                        innerException: invalidConfigurationImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -61,17 +63,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnGenerateIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnGenerateIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
 
             var unauthorizedImageGenerationException =
-                new UnauthorizedImageGenerationException(unauthorizedException);
+                new UnauthorizedImageGenerationException(
+                    message: "Unauthorized image generation request, fix errors and try again.",
+                        innerException: unauthorizedException);
 
             var expectedImageGenerationDependencyException =
-                new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+                new ImageGenerationDependencyException(
+                    message: "Image generation dependency error occurred, contact support.",
+                        innerException: unauthorizedImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -100,7 +106,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfImageGenerationNotFoundOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnGenerateIfImageGenerationNotFoundOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
@@ -110,11 +116,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var notFoundImageGenerationException =
                 new NotFoundImageGenerationException(
-                    httpResponseNotFoundException);
+                    message: "Not found image generation error occurred, fix errors and try again.",
+                        innerException: httpResponseNotFoundException);
 
             var expectedImageGenerationDependencyValidationException =
                 new ImageGenerationDependencyValidationException(
-                    notFoundImageGenerationException);
+                    message: "Image generation dependency validation error occurred, fix errors and try again.",
+                        innerException: notFoundImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -143,7 +151,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfBadRequestOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnGenerateIfBadRequestOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
@@ -153,11 +161,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var invalidImageGenerationException =
                 new InvalidImageGenerationException(
-                    httpResponseBadRequestException);
+                    message: "Invalid image generation error occurred, fix errors and try again.",
+                        innerException: httpResponseBadRequestException);
 
             var expectedImageGenerationDependencyValidationException =
                 new ImageGenerationDependencyValidationException(
-                    invalidImageGenerationException);
+                    message: "Image generation dependency validation error occurred, fix errors and try again.",
+                        innerException: invalidImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -186,7 +196,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnGenerateIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnGenerateIfTooManyRequestsOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
@@ -196,11 +206,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var excessiveCallImageGenerationException =
                 new ExcessiveCallImageGenerationException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        innerException: httpResponseTooManyRequestsException);
 
             var expectedImageGenerationDependencyValidationException =
                 new ImageGenerationDependencyValidationException(
-                    excessiveCallImageGenerationException);
+                    message: "Image generation dependency validation error occurred, fix errors and try again.",
+                        innerException: excessiveCallImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -229,7 +241,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnGenerateIfHttpResponseErrorOccurredAsync()
+        private async Task ShouldThrowDependencyExceptionOnGenerateIfHttpResponseErrorOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
@@ -237,11 +249,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
 
             var failedServerImageGenerationException =
                 new FailedServerImageGenerationException(
-                    httpResponseException);
+                    message: "Failed image generation server error occurred, contact support.",
+                        innerException: httpResponseException);
 
             var expectedImageGenerationDependencyException =
                 new ImageGenerationDependencyException(
-                    failedServerImageGenerationException);
+                    message: "Image generation dependency error occurred, contact support.",
+                        innerException: failedServerImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -270,18 +284,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnGenerateIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnGenerateIfServiceErrorOccurredAsync()
         {
             // given
             ImageGeneration someImageGeneration = CreateRandomImageGeneration();
             var serviceException = new Exception();
 
             var failedImageGenerationServiceException =
-                new FailedImageGenerationServiceException(serviceException);
+                new FailedImageGenerationServiceException(
+                    message: "Failed image generation service error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedImageGenerationServiceException =
                 new ImageGenerationServiceException(
-                    failedImageGenerationServiceException);
+                    message: "Image generation service error occurred, contact support.",
+                        innerException: failedImageGenerationServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(

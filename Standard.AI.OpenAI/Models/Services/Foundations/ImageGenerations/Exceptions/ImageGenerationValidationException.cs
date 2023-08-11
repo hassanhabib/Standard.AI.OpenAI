@@ -9,8 +9,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     public class ImageGenerationValidationException : Xeption
     {
         public ImageGenerationValidationException(Xeption innerException)
-            : base(message: "Image generation validation error occurred, fix errors and try again.",
-                  innerException)
+            : base(
+                message: "Image generation validation error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public ImageGenerationValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }
