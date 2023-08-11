@@ -30,7 +30,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             var expectedFileValidationException =
                 new LocalFileValidationException(
                     message: "Local file validation error occurred, fix error and try again.",
-                    innerException:invalidFileException);
+                    innerException: invalidFileException);
 
             // when
             Action readFileAction = () =>
