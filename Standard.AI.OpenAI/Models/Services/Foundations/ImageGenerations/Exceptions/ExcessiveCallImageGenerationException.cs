@@ -10,8 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     public class ExcessiveCallImageGenerationException : Xeption
     {
         public ExcessiveCallImageGenerationException(Exception innerException)
-            : base(message: "Excessive call error occurred, limit your calls.",
-                  innerException)
+            : base(
+                message: "Excessive call error occurred, limit your calls.",
+                    innerException: innerException)
+        { }
+
+        public ExcessiveCallImageGenerationException(string message, Exception innerException)
+            : base (message, innerException)
         { }
     }
 }

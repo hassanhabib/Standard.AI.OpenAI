@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
     public partial class ImageGenerationServiceTests
     {
         [Fact]
-        public async Task ShouldGenerateImageAsync()
+        private async Task ShouldGenerateImageAsync()
         {
             // given
             DateTimeOffset randomDateTime = GetRandomDate();

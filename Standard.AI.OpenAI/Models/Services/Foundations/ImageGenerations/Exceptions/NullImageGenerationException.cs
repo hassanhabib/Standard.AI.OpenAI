@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions
@@ -10,6 +11,10 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     {
         public NullImageGenerationException()
             : base(message: "Image generation is null.")
+        { }
+
+        public NullImageGenerationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

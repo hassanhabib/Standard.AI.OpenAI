@@ -9,8 +9,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
     public class ImageGenerationDependencyException : Xeption
     {
         public ImageGenerationDependencyException(Xeption innerException)
-            : base(message: "Image generation dependency error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Image generation dependency error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public ImageGenerationDependencyException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

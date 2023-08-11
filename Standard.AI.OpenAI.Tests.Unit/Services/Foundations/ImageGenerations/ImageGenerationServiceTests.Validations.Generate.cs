@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
     public partial class ImageGenerationServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnGenerateIfImageGenerationIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnGenerateIfImageGenerationIsNullAsync()
         {
             // given
             ImageGeneration nullImageGeneration = null;
@@ -24,7 +24,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 new NullImageGenerationException();
 
             var expectedImageGenerationValidationException =
-                new ImageGenerationValidationException(nullImageGenerationException);
+                new ImageGenerationValidationException(
+                    message: "Image generation validation error occurred, fix errors and try again.",
+                        innerException: nullImageGenerationException);
 
             // when
             ValueTask<ImageGeneration> generateImageTask =
@@ -49,7 +51,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnGenerateIfRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnGenerateIfRequestIsNullAsync()
         {
             // given
             var invalidImageGeneration = new ImageGeneration();
@@ -63,7 +65,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 values: "Value is required");
 
             var expectedImageGenerationValidationException =
-                new ImageGenerationValidationException(invalidImageGenerationException);
+                new ImageGenerationValidationException(
+                    message: "Image generation validation error occurred, fix errors and try again.",
+                        innerException: invalidImageGenerationException);
 
             // when
             ValueTask<ImageGeneration> generateImageTask =
@@ -90,7 +94,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnGenerateIfRequestIsInvalidAsync(string invalidText)
+        private async Task ShouldThrowValidationExceptionOnGenerateIfRequestIsInvalidAsync(string invalidText)
         {
             // given
             var invalidImageGeneration = new ImageGeneration
@@ -109,7 +113,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                     values: "Value is required");
 
             var expectedImageGenerationValidationException =
-                new ImageGenerationValidationException(invalidImageGenerationException);
+               new ImageGenerationValidationException(
+                   message: "Image generation validation error occurred, fix errors and try again.",
+                       innerException: invalidImageGenerationException);
 
             // when
             ValueTask<ImageGeneration> generateImageTask =
