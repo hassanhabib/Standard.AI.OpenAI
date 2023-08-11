@@ -13,8 +13,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
                   innerException)
         { }
 
-        public LocalFileDependencyException(string message , Xeption innerException)
-            : base(message, innerException) 
+        public LocalFileDependencyException(string message, Xeption innerException)
+            : base(message: message, innerException) 
         { }
     }
 }

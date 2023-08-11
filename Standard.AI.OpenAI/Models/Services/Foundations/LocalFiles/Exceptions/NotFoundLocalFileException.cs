@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
                   innerException)
         { }
 
-        public NotFoundLocalFileException(string message, Exception innerException)
+        public NotFoundLocalFileException(string message,Exception innerException)
             : base(message, innerException) 
         { }
     }

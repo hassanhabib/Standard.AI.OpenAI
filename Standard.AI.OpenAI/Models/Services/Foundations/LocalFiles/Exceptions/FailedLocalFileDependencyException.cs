@@ -10,7 +10,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
     internal class FailedLocalFileDependencyException : Xeption
     {
         public FailedLocalFileDependencyException(Exception innerException)
-            : base(message: "Failed local file error occurred, contact support.", innerException)
+            : base(message: "Failed local file error occurred, contact support.",
+                  innerException)
         { }
 
         public FailedLocalFileDependencyException(string message, Exception innerException)

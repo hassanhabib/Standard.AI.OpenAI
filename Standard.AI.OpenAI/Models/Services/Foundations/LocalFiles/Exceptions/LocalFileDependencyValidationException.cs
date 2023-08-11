@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
         { }
 
         public LocalFileDependencyValidationException(string message, Xeption innerException)
-            : base(message, innerException)
+            :base(message, innerException)
         { }
     }
 }
