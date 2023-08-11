@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
     public partial class CompletionServiceTests
     {
         [Fact]
-        public async Task ShouldPromptsCompletionAsync()
+        private async Task ShouldPromptsCompletionAsync()
         {
             // given
             DateTimeOffset randomDate = GetRandomDate();

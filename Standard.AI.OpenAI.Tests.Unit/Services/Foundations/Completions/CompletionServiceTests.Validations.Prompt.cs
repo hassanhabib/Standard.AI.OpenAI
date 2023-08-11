@@ -16,14 +16,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
     public partial class CompletionServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsNullAsync()
         {
             // given
             Completion nullCompletion = null;
             var nullCompletionException = new NullCompletionException();
 
             var exceptedCompletionValidationException =
-                new CompletionValidationException(nullCompletionException);
+                new CompletionValidationException(
+                    message: "Completion validation error occurred, fix errors and try again.",
+                        innerException: nullCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -47,7 +49,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnPromptIfRequestIsNullAsync()
+        private async Task ShouldThrowValidationExceptionOnPromptIfRequestIsNullAsync()
         {
             // given
             var invalidCompletion = new Completion();
@@ -62,7 +64,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             var expectedCompletionValidationException =
                 new CompletionValidationException(
-                    invalidCompletionException);
+                    message: "Completion validation error occurred, fix errors and try again.",
+                        innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -89,7 +92,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsInvalidAsync(string invalidText)
+        private async Task ShouldThrowValidationExceptionOnPromptIfCompletionIsInvalidAsync(string invalidText)
         {
             // given
             var completion = new Completion
@@ -111,7 +114,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             var expectedCompletionValidationException =
-                new CompletionValidationException(invalidCompletionException);
+                new CompletionValidationException(
+                    message: "Completion validation error occurred, fix errors and try again.",
+                        innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -129,7 +134,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnPromptIfPromptIsEmptyAsync()
+        private async Task ShouldThrowValidationExceptionOnPromptIfPromptIsEmptyAsync()
         {
             // given
             var completion = new Completion
@@ -148,7 +153,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             var expectedCompletionValidationException =
-                new CompletionValidationException(invalidCompletionException);
+                new CompletionValidationException(
+                    message: "Completion validation error occurred, fix errors and try again.",
+                        innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =

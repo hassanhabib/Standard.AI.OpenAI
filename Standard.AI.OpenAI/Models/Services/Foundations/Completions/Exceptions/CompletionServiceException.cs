@@ -9,8 +9,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
     public class CompletionServiceException : Xeption
     {
         public CompletionServiceException(Xeption innerException)
-            : base(message: "Completion service error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Completion service error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public CompletionServiceException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

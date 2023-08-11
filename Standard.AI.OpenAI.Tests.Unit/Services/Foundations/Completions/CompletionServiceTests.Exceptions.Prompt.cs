@@ -16,9 +16,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 {
     public partial class CompletionServiceTests
     {
-
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnPromptIfUrlNotFoundErrorOccursAsync()
+        private async Task ShouldThrowDependencyExceptionOnPromptIfUrlNotFoundErrorOccursAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
@@ -28,11 +27,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             var invalidConfigurationCompletionException =
                 new InvalidConfigurationCompletionException(
-                    httpResponseUrlNotFoundException);
+                    message: "Invalid configuration error occurred, fix errors and try again.",
+                        innerException: httpResponseUrlNotFoundException);
 
             var expectedCompletionDependencyException =
                 new CompletionDependencyException(
-                    invalidConfigurationCompletionException);
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: invalidConfigurationCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
@@ -61,7 +62,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
         [Theory]
         [MemberData(nameof(UnauthorizedExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnPromptIfUnauthorizedAsync(
+        private async Task ShouldThrowDependencyExceptionOnPromptIfUnauthorizedAsync(
             HttpResponseException unauthorizedException)
         {
             // given
@@ -69,11 +70,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             var unauthorizedCompletionException =
                 new UnauthorizedCompletionException(
-                    unauthorizedException);
+                    message: "Unauthorized completion request, fix errors and try again.",
+                        innerException: unauthorizedException);
 
             var expectedCompletionDependencyException =
                 new CompletionDependencyException(
-                    unauthorizedCompletionException);
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: unauthorizedCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
@@ -102,7 +105,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnPromptIfCompletionNotFoundAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnPromptIfCompletionNotFoundAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
@@ -112,11 +115,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             var notFoundCompletionException =
                 new NotFoundCompletionException(
-                    httpResponseNotFoundException);
+                    message: "Not found completion error occurred, fix errors and try again.",
+                        innerException: httpResponseNotFoundException);
 
             var expectedCompletionDependencyValidationException =
                 new CompletionDependencyValidationException(
-                    notFoundCompletionException);
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
+                        innerException: notFoundCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
@@ -145,7 +150,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnPromptIfBadRequestOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnPromptIfBadRequestOccursAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
@@ -154,10 +159,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new HttpResponseBadRequestException();
 
             var invalidCompletionException =
-                new InvalidCompletionException(httpResponseBadRequestException);
+                new InvalidCompletionException(
+                    message: "Invalid completion error occurred, fix errors and try again.",
+                        innerException: httpResponseBadRequestException);
 
             var expectedCompletionDependencyValidationException =
-                new CompletionDependencyValidationException(invalidCompletionException);
+                new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
+                        innerException: invalidCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
@@ -185,7 +194,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnPromptIfTooManyRequestsOccurredAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnPromptIfTooManyRequestsOccurredAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
@@ -195,11 +204,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             var excessiveCallCompletionException =
                 new ExcessiveCallCompletionException(
-                    httpResponseTooManyRequestsException);
+                    message: "Excessive call error occurred, limit your calls.",
+                        innerException: httpResponseTooManyRequestsException);
 
             var expectedCompletionDependencyValidationException =
                 new CompletionDependencyValidationException(
-                    excessiveCallCompletionException);
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
+                        innerException: excessiveCallCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
@@ -227,7 +238,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnPromptIfHttpErrorOccursAsync()
+        private async Task ShouldThrowDependencyExceptionOnPromptIfHttpErrorOccursAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
@@ -236,11 +247,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 new HttpResponseException();
 
             var failedServerCompletionException =
-                new FailedServerCompletionException(httpResponseException);
+                new FailedServerCompletionException(
+                    message: "Failed server completion error occurred, contact support.",
+                        innerException: httpResponseException);
 
             var expectedCompletionDependencyException =
                 new CompletionDependencyException(
-                    failedServerCompletionException);
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: failedServerCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
@@ -268,18 +282,21 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnPromptIfServiceErrorOccursAsync()
+        private async Task ShouldThrowServiceExceptionOnPromptIfServiceErrorOccursAsync()
         {
             // given
             Completion someCompletion = CreateRandomCompletion();
             var serviceException = new Exception();
 
             var failedCompletionServiceException =
-                new FailedCompletionServiceException(serviceException);
+                new FailedCompletionServiceException(
+                    message: "Failed completion error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedCompletionServiceException =
                 new CompletionServiceException(
-                    failedCompletionServiceException);
+                    message: "Completion service error occurred, contact support.",
+                        innerException: failedCompletionServiceException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
