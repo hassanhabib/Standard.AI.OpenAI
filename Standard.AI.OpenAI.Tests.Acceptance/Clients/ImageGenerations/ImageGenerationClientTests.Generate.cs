@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
     public partial class ImageGenerationClientTests
     {
         [Fact]
-        public async Task ShouldGenerateImageAsync()
+        private async Task ShouldGenerateImageAsync()
         {
             // given
             ImageGeneration randomImageGeneration = CreateRandomImageGeneration();
@@ -30,7 +30,9 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ImageGenerations
                 CreateRandomExternalImageGenerationResponse();
 
             ImageGeneration expectedImageGeneration = inputImageGeneration.DeepClone();
-            expectedImageGeneration = ConvertToImageGeneration(expectedImageGeneration, imageGenerationResponse);
+
+            expectedImageGeneration = ConvertToImageGeneration(
+                expectedImageGeneration, imageGenerationResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;

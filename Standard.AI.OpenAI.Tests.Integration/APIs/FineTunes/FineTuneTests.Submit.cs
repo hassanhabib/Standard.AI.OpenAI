@@ -12,16 +12,16 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.FineTunes
     public partial class FineTuneTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldSubmitFineTuneAsync()
+        private async Task ShouldSubmitFineTuneAsync()
         {
             // given
-            AIFile randomAIFile = 
+            AIFile randomAIFile =
                 await SubmitRandomFileAsync();
-            
+
             var fineTune = new FineTune();
             fineTune.Request = new FineTuneRequest();
-            
-            fineTune.Request.FileId = 
+
+            fineTune.Request.FileId =
                 randomAIFile.Response.Id;
 
             // when

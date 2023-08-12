@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.Completions
     public partial class CompletionClientTests
     {
         [Fact]
-        public async Task ShouldPromptCompletionAsync()
+        private async Task ShouldPromptCompletionAsync()
         {
             // given
             Completion randomCompletion = CreateRandomCompletion();

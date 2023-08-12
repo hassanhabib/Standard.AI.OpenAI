@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
         public AudioTranscriptionDependencyException(Xeption innerException)
             : base(
                 message: "Audio transcription dependency error occurred, contact support.",
-                    innerException)
+                    innerException: innerException)
         { }
 
         public AudioTranscriptionDependencyException(string message, Xeption innerException)

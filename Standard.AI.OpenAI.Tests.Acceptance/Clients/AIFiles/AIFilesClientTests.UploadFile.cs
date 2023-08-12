@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
     public partial class AIFilesClientTests
     {
         [Fact]
-        public async Task ShouldUploadFileAsync()
+        private async Task ShouldUploadFileAsync()
         {
             AIFileRequest randomAIFileRequest =
                 CreateRandomAIFileRequest();
@@ -25,19 +25,19 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
             {
                 Request = randomAIFileRequest
             };
-            
+
             ExternalAIFileRequest externalAIFileRequest =
                 ConvertToExternalAIFileRequest(uploadAIFileRequest.Request);
-            
+
             ExternalAIFileResponse externalAIFileResponse =
                 CreateExternalAiFileResponseOnUpload(externalAIFileRequest);
 
-            AIFileResponse aiFileResponse = 
+            AIFileResponse aiFileResponse =
                 ConvertToAIFileResponse(externalAIFileResponse);
 
             AIFile expectedAIFile = uploadAIFileRequest.DeepClone();
             expectedAIFile.Response = aiFileResponse;
-            
+
             this.wireMockServer.Given(
                 Request.Create()
                 .UsingPost()
@@ -47,7 +47,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 .RespondWith(
                     Response.Create()
                         .WithBodyAsJson(externalAIFileResponse));
-            
+
             // when
             AIFile actualAIFile =
                 await this.openAIClient.AIFiles.UploadFileAsync(uploadAIFileRequest);

@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
     public partial class AIFilesClientTests
     {
         [Fact]
-        public async Task ShouldRetrieveAllFilesAsync()
+        private async Task ShouldRetrieveAllFilesAsync()
         {
             // given
             ExternalAIFilesResult randomExternalAIFilesResult =

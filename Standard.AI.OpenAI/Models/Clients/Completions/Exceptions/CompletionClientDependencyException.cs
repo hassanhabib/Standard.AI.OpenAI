@@ -13,8 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.Completions.Exceptions
     public class CompletionClientDependencyException : Xeption
     {
         public CompletionClientDependencyException(Xeption innerException)
-            : base(message: "Completion dependency error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Completion dependency error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public CompletionClientDependencyException(string message, Xeption innerException)
+           : base(message, innerException)
         { }
     }
 }

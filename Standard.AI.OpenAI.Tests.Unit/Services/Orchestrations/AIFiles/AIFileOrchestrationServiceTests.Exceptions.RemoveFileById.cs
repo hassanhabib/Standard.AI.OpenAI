@@ -28,16 +28,16 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     message: "AI file dependency validation error occurred, fix errors and try again.",
                         innerException: dependencyValidationException.InnerException as Xeption);
 
-            this.aiFileServiceMock.Setup(service => 
+            this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(dependencyValidationException);
 
             // when
-            ValueTask<AIFile> removeFileTask = 
+            ValueTask<AIFile> removeFileTask =
                 this.aiFileOrchestrationService.RemoveFileByIdAsync(
                     someFileId);
 
-            AIFileOrchestrationDependencyValidationException 
+            AIFileOrchestrationDependencyValidationException
                 actualAIFileOrchestrationDependencyValidationException =
                     await Assert.ThrowsAsync<AIFileOrchestrationDependencyValidationException>(
                         removeFileTask.AsTask);
@@ -46,8 +46,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             actualAIFileOrchestrationDependencyValidationException.Should().BeEquivalentTo(
                 expectedAIFileOrchestrationDependencyValidationException);
 
-            this.aiFileServiceMock.Verify(service => 
-                service.RemoveFileByIdAsync(It.IsAny<string>()), 
+            this.aiFileServiceMock.Verify(service =>
+                service.RemoveFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
             this.aiFileServiceMock.VerifyNoOtherCalls();
@@ -67,7 +67,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     message: "AI File dependency error occurred, contact support.",
                         innerException: dependencyException.InnerException as Xeption);
 
-            this.aiFileServiceMock.Setup(service => 
+            this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(dependencyException);
 
@@ -76,7 +76,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 this.aiFileOrchestrationService.RemoveFileByIdAsync(
                     someFileId);
 
-            AIFileOrchestrationDependencyException 
+            AIFileOrchestrationDependencyException
                 actualAIFileOrchestrationDependencyException =
                     await Assert.ThrowsAsync<AIFileOrchestrationDependencyException>(
                         removeFileTask.AsTask);
@@ -85,8 +85,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             actualAIFileOrchestrationDependencyException.Should().BeEquivalentTo(
                 expectedAIFileOrchestrationDependencyException);
 
-            this.aiFileServiceMock.Verify(service => 
-                service.RemoveFileByIdAsync(It.IsAny<string>()), 
+            this.aiFileServiceMock.Verify(service =>
+                service.RemoveFileByIdAsync(It.IsAny<string>()),
                     Times.Once);
 
             this.aiFileServiceMock.VerifyNoOtherCalls();
@@ -100,22 +100,22 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             string someFileId = CreateRandomFileId();
             var serviceException = new Exception();
 
-            var failedAIFileOrchestrationServiceException = 
+            var failedAIFileOrchestrationServiceException =
                 new FailedAIFileOrchestrationServiceException(
                     message: "Failed AI file service error occurred, contact support.",
                         innerException: serviceException);
-            
-            var expectedAIFileOrchestrationServiceException = 
+
+            var expectedAIFileOrchestrationServiceException =
                 new AIFileOrchestrationServiceException(
                     message: "AI File error occurred, contact support.",
                         innerException: failedAIFileOrchestrationServiceException);
 
-            this.aiFileServiceMock.Setup(service => 
+            this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<AIFile> removeFileTask = 
+            ValueTask<AIFile> removeFileTask =
                 this.aiFileOrchestrationService.RemoveFileByIdAsync(someFileId);
 
             AIFileOrchestrationServiceException actualAIFileOrchestrationServiceException =
@@ -126,8 +126,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             actualAIFileOrchestrationServiceException.Should().BeEquivalentTo(
                 expectedAIFileOrchestrationServiceException);
 
-            this.aiFileServiceMock.Verify(service => 
-                service.RemoveFileByIdAsync(It.IsAny<string>()), 
+            this.aiFileServiceMock.Verify(service =>
+                service.RemoveFileByIdAsync(It.IsAny<string>()),
                 Times.Once);
 
             this.aiFileServiceMock.VerifyNoOtherCalls();

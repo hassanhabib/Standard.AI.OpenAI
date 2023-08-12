@@ -13,8 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.Completions.Exceptions
     public class CompletionClientValidationException : Xeption
     {
         public CompletionClientValidationException(Xeption innerException)
-            : base(message: "Completion client validation error occurred, fix errors and try again.",
-                   innerException)
+            : base(
+                message: "Completion client validation error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public CompletionClientValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

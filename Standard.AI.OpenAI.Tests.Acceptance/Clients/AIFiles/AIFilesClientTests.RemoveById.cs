@@ -2,8 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
@@ -17,18 +15,18 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
     public partial class AIFilesClientTests
     {
         [Fact]
-        public async Task ShouldRemoveByIdAsync()
+        private async Task ShouldRemoveByIdAsync()
         {
             // given
-            ExternalAIFileResponse randomDeleteAIFileResponse = 
+            ExternalAIFileResponse randomDeleteAIFileResponse =
                 CreateRandomDeletedAIFileResponse();
 
-            ExternalAIFileResponse removedAIFileResponse = 
+            ExternalAIFileResponse removedAIFileResponse =
                 randomDeleteAIFileResponse;
-            
+
             string removedFileId = removedAIFileResponse.Id;
 
-            var expectedAIFile = 
+            var expectedAIFile =
                 ConvertToAIFileOnDelete(removedAIFileResponse);
 
             this.wireMockServer.Given(

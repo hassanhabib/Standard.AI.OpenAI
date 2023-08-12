@@ -9,8 +9,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
     internal class AIModelDependencyValidationException : Xeption
     {
         public AIModelDependencyValidationException(Xeption innerException)
-            : base(message: "AI Model dependency validation error occurred, fix errors and try again.",
-                innerException)
+            : base(
+                message: "AI Model dependency validation error occurred, fix errors and try again.",
+                    innerException: innerException)
         { }
 
         public AIModelDependencyValidationException(string message, Xeption innerException)

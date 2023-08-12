@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
     public partial class AIFilesTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldRetrieveAllAIFilesAsync()
+        private async Task ShouldRetrieveAllAIFilesAsync()
         {
             // given & when
             IEnumerable<AIFileResponse> responseAIFiles =

@@ -17,7 +17,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.ChatCompletions
     public partial class ChatCompletionClientTests
     {
         [Fact]
-        public async Task ShouldSendChatCompletionAsync()
+        private async Task ShouldSendChatCompletionAsync()
         {
             // given
             ChatCompletion randomChatCompletion = CreateRandomChatCompletion();

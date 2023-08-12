@@ -13,8 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.Completions.Exceptions
     public class CompletionClientServiceException : Xeption
     {
         public CompletionClientServiceException(Xeption innerException)
-            : base(message: "Completion client service error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Completion client service error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public CompletionClientServiceException(string message, Xeption innerException)
+            : base(message: message, innerException)
         { }
     }
 }

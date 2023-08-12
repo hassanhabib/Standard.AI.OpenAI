@@ -51,9 +51,9 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         TryCatch(async () =>
         {
             ValidateAIFileIdNotNull(fileId);
-            
+
             AIFile aiFile = await this.aiFileService.RemoveFileByIdAsync(fileId);
-            
+
             return aiFile;
         });
     }

@@ -10,8 +10,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
     public class InvalidConfigurationAIModelException : Xeption
     {
         public InvalidConfigurationAIModelException(Exception innerException)
-            : base(message: "Invalid AI Model configuration error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Invalid AI Model configuration error occurred, contact support.",
+                    innerException: innerException)
         { }
 
         public InvalidConfigurationAIModelException(string message, Exception innerException)

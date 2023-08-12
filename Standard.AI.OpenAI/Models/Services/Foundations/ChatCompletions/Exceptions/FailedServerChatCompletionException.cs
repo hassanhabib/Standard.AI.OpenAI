@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
         public FailedServerChatCompletionException(Exception innerException)
             : base(
                 message: "Failed chat completion server error occurred, contact support.",
-                    innerException:  innerException)
+                    innerException: innerException)
         { }
 
         public FailedServerChatCompletionException(string message, Exception innerException)

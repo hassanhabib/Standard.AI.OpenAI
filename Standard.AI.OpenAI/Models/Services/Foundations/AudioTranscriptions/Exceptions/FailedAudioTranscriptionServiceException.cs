@@ -13,7 +13,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
         public FailedAudioTranscriptionServiceException(Exception innerException)
             : base(
                 message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.",
-                innerException)
+                    innerException: innerException)
         { }
 
         public FailedAudioTranscriptionServiceException(string message, Exception innerException)

@@ -11,13 +11,14 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
     public class InvalidAudioTranscriptionException : Xeption
     {
         public InvalidAudioTranscriptionException()
-            : base(message: "Audio transcription is invalid.")
+            : base(
+                message: "Audio transcription is invalid.")
         { }
 
         public InvalidAudioTranscriptionException(Exception innerException)
             : base(
                 message: "Audio transcription is invalid.",
-                    innerException)
+                    innerException: innerException)
         { }
 
         public InvalidAudioTranscriptionException(string message, Exception innerException)

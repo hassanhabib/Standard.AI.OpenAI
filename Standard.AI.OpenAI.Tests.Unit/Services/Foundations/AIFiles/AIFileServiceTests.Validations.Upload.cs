@@ -24,7 +24,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedAIFileValidationException =
                 new AIFileValidationException(
                     message: "AI file validation error occurred, fix errors and try again.",
-                        nullAIFileException);
+                        innerException: nullAIFileException);
 
             // when
             ValueTask<AIFile> uploadFileTask = this.aiFileService.UploadFileAsync(nullAIFile);
@@ -61,7 +61,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedAIFileValidationException =
                 new AIFileValidationException(
                     message: "AI file validation error occurred, fix errors and try again.",
-                        invalidAIFileException);
+                        innerException: invalidAIFileException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
@@ -116,7 +116,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedAIFileValidationException =
                 new AIFileValidationException(
                     message: "AI file validation error occurred, fix errors and try again.",
-                        invalidAIFileException);
+                        innerException: invalidAIFileException);
 
             // when
             ValueTask<AIFile> uploadFileTask =

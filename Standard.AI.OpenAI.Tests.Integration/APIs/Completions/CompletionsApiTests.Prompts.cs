@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.Completions
     public partial class CompletionsApiTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldPromptCompletionAsync()
+        private async Task ShouldPromptCompletionAsync()
         {
             // given
             var inputCompletion = new Completion

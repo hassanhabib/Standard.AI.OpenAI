@@ -17,15 +17,22 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.FineTunes
     public partial class FineTuneClientTests
     {
         [Fact]
-        public async Task ShouldSubmitFineTuneAsync()
+        private async Task ShouldSubmitFineTuneAsync()
         {
             // given
             FineTune randomFineTune = CreateRandomFineTune();
             FineTune inputFineTune = randomFineTune;
-            ExternalFineTuneRequest externalFineTuneRequest = ConvertToFineTuneRequest(inputFineTune);
-            ExternalFineTuneResponse externalFineTuneResponse = CreateRandomExternalFineTuneResponse();
+
+            ExternalFineTuneRequest externalFineTuneRequest =
+                ConvertToFineTuneRequest(inputFineTune);
+
+            ExternalFineTuneResponse externalFineTuneResponse =
+                CreateRandomExternalFineTuneResponse();
+
             FineTune expectedFineTune = inputFineTune.DeepClone();
-            expectedFineTune = ConvertToFineTune(expectedFineTune, externalFineTuneResponse);
+
+            expectedFineTune = ConvertToFineTune(
+                expectedFineTune, externalFineTuneResponse);
 
             var jsonSerializationSettings = new JsonSerializerSettings();
             jsonSerializationSettings.DefaultValueHandling = DefaultValueHandling.Ignore;

@@ -31,7 +31,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             var expectedAIModelValidationException =
                 new AIModelValidationException(
                     message: "AI Model validation error occurred, fix errors and try again.",
-                    invalidAIModelException);
+                        innerException: invalidAIModelException);
 
             // when
             ValueTask<AIModel> retrieveAIModelByNameTask =

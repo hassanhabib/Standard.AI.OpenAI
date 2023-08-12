@@ -12,8 +12,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
     {
         public ExcessiveCallAudioTranscriptionException(Exception innerException)
             : base(
-                  message: "Excessive call error occurred, limit your calls.",
-                    innerException)
+                message: "Excessive call error occurred, limit your calls.",
+                    innerException: innerException)
         { }
 
         public ExcessiveCallAudioTranscriptionException(string message, Exception innerException)

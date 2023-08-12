@@ -33,7 +33,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var expectedFileValidationException =
                 new AIFileValidationException(
                     message: "AI file validation error occurred, fix errors and try again.",
-                        invalidFileException);
+                        innerException: invalidFileException);
 
             // when
             ValueTask<AIFile> removeFileByIdTask =

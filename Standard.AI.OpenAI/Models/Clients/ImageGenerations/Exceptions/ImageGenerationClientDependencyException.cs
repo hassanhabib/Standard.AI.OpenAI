@@ -13,8 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.ImageGenerations.Exceptions
     public class ImageGenerationClientDependencyException : Xeption
     {
         public ImageGenerationClientDependencyException(Xeption innerException)
-            : base(message: "Image generation client dependency error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Image generation client dependency error occurred, contact support.",
+                    innerException:  innerException)
+        { }
+
+        public ImageGenerationClientDependencyException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.ChatCompletions
     public partial class ChatCompletionsApiTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldSendChatCompletionAsync()
+        private async Task ShouldSendChatCompletionAsync()
         {
             // given
             var inputChatCompletion = new ChatCompletion

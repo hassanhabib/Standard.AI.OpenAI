@@ -13,7 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.AIModels.Exceptions
     public class AIModelClientValidationException : Xeption
     {
         public AIModelClientValidationException(Xeption innerException)
-            : base(message: "AI model client validation error occurred, fix errors and try again.", innerException)
+            : base(
+                message: "AI model client validation error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public AIModelClientValidationException(string message, Xeption innerException)
+            : base(message: message, innerException)
         { }
     }
 }

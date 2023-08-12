@@ -14,7 +14,13 @@ namespace Standard.AI.OpenAI.Models.Clients.AIModels.Exceptions
     public class AIModelClientServiceException : Xeption
     {
         public AIModelClientServiceException(Xeption innerException)
-            : base(message: "AI Model client service error occurred, contact support.", innerException)
+            : base(
+                message: "AI Model client service error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public AIModelClientServiceException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

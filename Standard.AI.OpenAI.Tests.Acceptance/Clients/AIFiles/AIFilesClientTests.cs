@@ -60,7 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 StatusDetails = externalAIFileResponse.StatusDetails
             };
         }
-        
+
         private static ExternalAIFileRequest ConvertToExternalAIFileRequest(AIFileRequest aiFileRequest)
         {
             var externalAIFileRequest = new ExternalAIFileRequest
@@ -72,7 +72,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
 
             return externalAIFileRequest;
         }
-        
+
         private static AIFile ConvertToAIFileOnDelete(ExternalAIFileResponse externalAiFileResponse)
         {
             AIFileResponse response = ConvertToAIFileResponse(externalAiFileResponse);
@@ -94,7 +94,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
                 _ => AIFileStatus.Unknown
             };
         }
-        
+
         private static ExternalAIFileResponse CreateExternalAiFileResponseOnUpload(
             ExternalAIFileRequest externalAiFileRequest
         )
@@ -118,7 +118,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
 
             return aiFileRequestFiller.Create();
         }
-        
+
         private static ExternalAIFileResponse CreateRandomDeletedAIFileResponse()
         {
             var filler = CreateExternalAIFileResponseFiller();
@@ -142,7 +142,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
 
             return filler.Create();
         }
-        
+
         private static Stream CreateRandomStream()
         {
             var mockStream = new Mock<MemoryStream>();
@@ -160,10 +160,10 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIFiles
 
         private static ExternalAIFilesResult CreateRandomExternalAIFilesResult() =>
             CreateExternalAIFilesResultFiller().Create();
-        
+
         private static Filler<AIFileRequest> CreateRandomAIFileRequestFiller() =>
             new Filler<AIFileRequest>();
-        
+
         private static Filler<ExternalAIFilesResult> CreateExternalAIFilesResultFiller() =>
             new Filler<ExternalAIFilesResult>();
 

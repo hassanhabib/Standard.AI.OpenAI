@@ -10,12 +10,13 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
     public class InvalidConfigurationAIFileException : Xeption
     {
         public InvalidConfigurationAIFileException(Exception innerException)
-            : base(message: "Invalid AI file configuration error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Invalid AI file configuration error occurred, contact support.",
+                    innerException: innerException)
         { }
 
         public InvalidConfigurationAIFileException(string message, Exception innerException)
-            : base (message, innerException)
+            : base(message, innerException)
         { }
     }
 }
