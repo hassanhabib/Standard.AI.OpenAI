@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.ImageGenerations
     public partial class ImageGenerationApiTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldGenerateImageAsync()
+        private async Task ShouldGenerateImageAsync()
         {
             // given
             var inputImageGeneration = new ImageGeneration

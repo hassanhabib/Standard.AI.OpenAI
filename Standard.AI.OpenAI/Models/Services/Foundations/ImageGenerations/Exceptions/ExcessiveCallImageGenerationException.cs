@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
         { }
 
         public ExcessiveCallImageGenerationException(string message, Exception innerException)
-            : base (message, innerException)
+            : base(message, innerException)
         { }
     }
 }

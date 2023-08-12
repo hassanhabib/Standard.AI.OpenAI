@@ -15,7 +15,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
     public partial class AIModelsClientTests
     {
         [Fact]
-        public async Task ShouldRetrieveAIModelByNameAsync()
+        private async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given
             string randomString = CreateRandomString();

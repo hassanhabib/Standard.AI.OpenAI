@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Tests.Acceptance.Clients.AIModels
     public partial class AIModelsClientTests
     {
         [Fact]
-        public async Task ShouldRetrieveAllAIModelsAsync()
+        private async Task ShouldRetrieveAllAIModelsAsync()
         {
             // given
             ExternalAIModelsResult randomExternalAIModelResult =

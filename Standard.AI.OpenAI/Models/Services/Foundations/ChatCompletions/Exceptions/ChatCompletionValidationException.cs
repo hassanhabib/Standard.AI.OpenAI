@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
         public ChatCompletionValidationException(Xeption innerException)
             : base(
                 message: "Chat completion validation error occurred, fix errors and try again.",
-                    innerException:  innerException)
+                    innerException: innerException)
         { }
 
         public ChatCompletionValidationException(string message, Xeption innerException)

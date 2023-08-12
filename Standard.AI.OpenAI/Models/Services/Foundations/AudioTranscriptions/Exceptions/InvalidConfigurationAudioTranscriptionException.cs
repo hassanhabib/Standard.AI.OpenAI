@@ -13,7 +13,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
         public InvalidConfigurationAudioTranscriptionException(Exception innerException)
             : base(
                 message: "Invalid audio transcription configuration error occurred, contact support.",
-                innerException: innerException)
+                    innerException: innerException)
         { }
 
         public InvalidConfigurationAudioTranscriptionException(string message, Exception innerException)

@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
         public ChatCompletionDependencyException(Xeption innerException)
             : base(
                 message: "Chat completion dependency error occurred, contact support.",
-                    innerException)
+                   innerException: innerException)
         { }
 
         public ChatCompletionDependencyException(string message, Xeption innerException)

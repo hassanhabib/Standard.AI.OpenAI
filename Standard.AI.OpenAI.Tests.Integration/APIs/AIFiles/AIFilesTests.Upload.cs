@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIFiles
     public partial class AIFilesTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldUploadFileAsync()
+        private async Task ShouldUploadFileAsync()
         {
             // given
             MemoryStream memoryStream = CreateRandomStream();

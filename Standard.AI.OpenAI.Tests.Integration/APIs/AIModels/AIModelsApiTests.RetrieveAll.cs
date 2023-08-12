@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIModels
     public partial class AIModelsApiTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldRetrieveAllAIModelsAsync()
+        private async Task ShouldRetrieveAllAIModelsAsync()
         {
             // given . when
             IEnumerable<AIModel> responseAIModels =

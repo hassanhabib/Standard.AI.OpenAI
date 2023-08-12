@@ -10,7 +10,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
     public class InvalidCompletionException : Xeption
     {
         public InvalidCompletionException()
-            : base(message: "Invalid completion error occurred, fix errors and try again.")
+            : base(
+                message: "Invalid completion error occurred, fix errors and try again.")
         { }
 
         public InvalidCompletionException(Exception innerException)

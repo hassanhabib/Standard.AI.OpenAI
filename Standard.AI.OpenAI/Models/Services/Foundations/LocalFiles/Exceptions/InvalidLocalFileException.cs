@@ -10,16 +10,18 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
     public class InvalidLocalFileException : Xeption
     {
         public InvalidLocalFileException()
-            : base(message: "Invalid local file error occurred, fix error and try again.")
+            : base(
+                message: "Invalid local file error occurred, fix error and try again.")
         { }
 
         public InvalidLocalFileException(Exception innerException)
-            : base(message: "Invalid local file error occurred, fix error and try again.",
-                  innerException)
+            : base(
+                message: "Invalid local file error occurred, fix error and try again.",
+                    innerException: innerException)
         { }
 
         public InvalidLocalFileException(string message, Exception innerException)
-            : base(message: message, innerException)
+            : base(message, innerException)
         { }
     }
 }

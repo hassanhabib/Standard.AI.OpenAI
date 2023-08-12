@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
     {
         public NullAudioTranscriptionException()
             : base(
-                  message: "Audio transcription is null.")
+                message: "Audio transcription is null.")
         { }
 
         public NullAudioTranscriptionException(string message, Xeption innerException)

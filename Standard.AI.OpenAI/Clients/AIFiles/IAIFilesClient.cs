@@ -16,7 +16,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
         /// <exception cref="AIFileClientServiceException"/>
         ValueTask<AIFile> UploadFileAsync(AIFile aiFile);
         ValueTask<IEnumerable<AIFileResponse>> RetrieveAllFilesAsync();
-        
+
         /// <exception cref="AIFileClientValidationException"/>
         /// <exception cref="AIFileClientDependencyException"/>
         /// <exception cref="AIFileClientServiceException"/>

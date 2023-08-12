@@ -11,7 +11,7 @@ namespace Standard.AI.OpenAI.Tests.Integration.APIs.AIModels
     public partial class AIModelsApiTests
     {
         [Fact(Skip = "This test is only for releases")]
-        public async Task ShouldRetrieveAIModelByNameAsync()
+        private async Task ShouldRetrieveAIModelByNameAsync()
         {
             // given
             string inputAIModelName = "text-davinci-003";

@@ -12,7 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
         public NotFoundCompletionException(Exception innerException)
             : base(
                 message: "Not found completion error occurred, fix errors and try again.",
-                innerException: innerException)
+                    innerException: innerException)
         { }
 
         public NotFoundCompletionException(string message, Exception innerException)
