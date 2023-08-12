@@ -13,7 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.AIFiles.Exceptions
     public class AIFileClientValidationException : Xeption
     {
         public AIFileClientValidationException(Xeption innerException)
-            : base(message: "AI file client validation error occurred, fix errors and try again.", innerException)
+            : base(
+                message: "AI file client validation error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public AIFileClientValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

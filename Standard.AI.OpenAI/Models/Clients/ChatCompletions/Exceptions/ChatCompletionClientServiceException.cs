@@ -13,8 +13,13 @@ namespace Standard.AI.OpenAI.Models.Clients.ChatCompletions.Exceptions
         /// For example, if there is a problem with the server or any other service failure.
         /// </summary>
         public ChatCompletionClientServiceException(Xeption innerException)
-            : base(message: "Chat completion client service error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "Chat completion client service error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public ChatCompletionClientServiceException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }
