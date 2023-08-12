@@ -14,7 +14,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     public partial class AIFileOrchestrationServiceTests
     {
         [Fact]
-        public async Task ShouldRemoveFileByIdAsync()
+        private async Task ShouldRemoveFileByIdAsync()
         {
             // given
             string inputFileId = CreateRandomFileId();

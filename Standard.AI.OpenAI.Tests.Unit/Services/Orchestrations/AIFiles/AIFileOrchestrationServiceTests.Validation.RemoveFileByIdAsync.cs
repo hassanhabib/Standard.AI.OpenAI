@@ -14,7 +14,7 @@ public partial class AIFileOrchestrationServiceTests
 {
     [Theory]
     [InlineData(null)]
-    public async Task ShouldThrowValidationExceptionOnRemoveFileIfFileIdIsInvalid(string invalidFileId)
+    private async Task ShouldThrowValidationExceptionOnRemoveFileIfFileIdIsInvalid(string invalidFileId)
     {
         // given
         var invalidAiFileOrchestrationException = 
@@ -26,7 +26,8 @@ public partial class AIFileOrchestrationServiceTests
         
         var expectedAIFileOrchestrationValidationException = 
             new AIFileOrchestrationValidationException(
-                invalidAiFileOrchestrationException);
+                message: "AI file validation error occurred, fix errors and try again.",
+                    innerException: invalidAiFileOrchestrationException);
 
         // when 
         ValueTask<AIFile> removeFileTask = 

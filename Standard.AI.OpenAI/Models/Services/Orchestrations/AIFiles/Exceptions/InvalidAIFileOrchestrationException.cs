@@ -11,5 +11,10 @@ namespace Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions
         public InvalidAIFileOrchestrationException()
             : base(message: "AI file is invalid.")
         { }
+
+        public InvalidAIFileOrchestrationException(
+            string message, Xeption innerException)
+                : base(message, innerException)
+        { }
     }
 }

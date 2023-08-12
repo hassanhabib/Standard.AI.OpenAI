@@ -9,7 +9,13 @@ namespace Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions
     public class AIFileOrchestrationServiceException : Xeption
     {
         public AIFileOrchestrationServiceException(Xeption innerException)
-            : base(message: "AI File error occurred, contact support.", innerException)
+            : base(
+                message: "AI File error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public AIFileOrchestrationServiceException(string message, Xeption innerException)
+           : base(message, innerException)
         { }
     }
 }

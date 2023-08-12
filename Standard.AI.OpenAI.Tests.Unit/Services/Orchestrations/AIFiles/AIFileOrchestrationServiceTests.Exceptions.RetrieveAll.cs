@@ -19,13 +19,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
     {
         [Theory]
         [MemberData(nameof(AIFileServiceDependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveAllIfDependencyErrorOccursAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveAllIfDependencyErrorOccursAsync(
             Xeption dependencyException)
         {
             // given
             var expectedAIFileOrchestrationDependencyException =
                 new AIFileOrchestrationDependencyException(
-                    dependencyException.InnerException as Xeption);
+                    message: "AI File dependency error occurred, contact support.",
+                        innerException: dependencyException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RetrieveAllFilesAsync())
@@ -53,16 +54,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfDependencyValidationErrorOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveAllIfDependencyValidationErrorOccursAsync()
         {
             // given
             var someInnerException = new Xeption();
+            
             var dependencyValidationException = 
-                new AIFileDependencyValidationException(someInnerException);
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
+                        innerException: someInnerException);
 
             var expectedAIFileOrchestrationDependencyValidationException =
                 new AIFileOrchestrationDependencyValidationException(
-                    dependencyValidationException.InnerException as Xeption);
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
+                        innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RetrieveAllFilesAsync())
@@ -90,17 +95,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveAllIfExceptionOccursAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveAllIfExceptionOccursAsync()
         {
             // given
             var serviceException = new Exception();
 
             var failedAIFileOrchestrationServiceException =
-                new FailedAIFileOrchestrationServiceException(serviceException);
+                new FailedAIFileOrchestrationServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedAIFileOrchestrationServiceException =
                 new AIFileOrchestrationServiceException(
-                    failedAIFileOrchestrationServiceException);
+                    message: "AI File error occurred, contact support.",
+                        innerException: failedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RetrieveAllFilesAsync())
