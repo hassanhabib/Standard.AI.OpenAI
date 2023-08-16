@@ -246,3 +246,6 @@ We broadcast on multiple platforms:
 Here's our live sessions to show you how this library was developed from scratch:
 
 [Standard.AI.OpenAI YouTube Playlist](https://www.youtube.com/watch?v=JQnTpGV-7YA&list=PLan3SCnsISTTl_MnGP6B78Nfu9Ix8G4mU)
+
+### Important Notice
+This library is a community effort - it is not associated or maintained by OpenAI in any capacity
