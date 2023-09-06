@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ADotNet" Version="2.1.2" />
+    <PackageReference Include="ADotNet" Version="3.0.2" />
   </ItemGroup>
 
 </Project>
