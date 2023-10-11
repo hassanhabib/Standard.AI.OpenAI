@@ -1,12 +1,13 @@
-﻿// ---------------------------------------------------------------------------------- 
-// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+﻿// ----------------------------------------------------------------------------------
+// Copyright (c) The Standard Organization: A coalition of the Good-Hearted Engineers
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.IO;
 using ADotNet.Clients;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
-using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
+using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV3s;
 
 namespace Standard.AI.OpenAI.Infrastructure.Build
 {
@@ -34,57 +35,68 @@ namespace Standard.AI.OpenAI.Infrastructure.Build
                     }
                 },
 
-                Jobs = new Jobs
+                Jobs = new Dictionary<string, Job>
                 {
-                    Build = new BuildJob
                     {
-                        EnvironmentVariables = new Dictionary<string, string>
+                        "build",
+                        new Job
                         {
-                            { "ApiKey", "${{ secrets.APIKEY }}" },
-                            { "OrgId", "${{ secrets.ORGID }}" }
-                        },
-
-                        RunsOn = BuildMachines.WindowsLatest,
-
-                        Steps = new List<GithubTask>
-                        {
-                            new CheckoutTaskV2
+                            EnvironmentVariables = new Dictionary<string, string>
                             {
-                                Name = "Pulling Code"
+                                { "ApiKey", "${{ secrets.APIKEY }}" },
+                                { "OrgId", "${{ secrets.ORGID }}" }
                             },
 
-                            new SetupDotNetTaskV1
-                            {
-                                Name = "Installing .NET",
+                            RunsOn = BuildMachines.WindowsLatest,
 
-                                TargetDotNetVersion = new TargetDotNetVersion
+                            Steps = new List<GithubTask>
+                            {
+                                new CheckoutTaskV3
                                 {
-                                    DotNetVersion = "7.0.201"
+                                    Name = "Pulling Code"
+                                },
+
+                                new SetupDotNetTaskV3
+                                {
+                                    Name = "Installing .NET",
+
+                                    With = new TargetDotNetVersionV3
+                                    {
+                                        DotNetVersion = "7.0.201"
+                                    }
+                                },
+
+                                new RestoreTask
+                                {
+                                    Name = "Restoring Packages"
+                                },
+
+                                new DotNetBuildTask
+                                {
+                                    Name = "Building Solution"
+                                },
+
+                                new TestTask
+                                {
+                                    Name = "Running Tests"
                                 }
-                            },
-
-                            new RestoreTask
-                            {
-                                Name = "Restoring Packages"
-                            },
-
-                            new DotNetBuildTask
-                            {
-                                Name = "Building Solution"
-                            },
-
-                            new TestTask
-                            {
-                                Name = "Running Tests"
                             }
                         }
                     }
                 }
             };
 
+            string buildScriptPath = "../../../../.github/workflows/dotnet.yml";
+            string directoryPath = Path.GetDirectoryName(buildScriptPath);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
             adoNetClient.SerializeAndWriteToFile(
                 adoPipeline: githubPipeline,
-                path: "../../../../.github/workflows/dotnet.yml");
+                path: buildScriptPath);
         }
     }
 }
