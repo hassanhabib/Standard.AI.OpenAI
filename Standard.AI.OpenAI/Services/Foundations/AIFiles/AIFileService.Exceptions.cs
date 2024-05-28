@@ -93,7 +93,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    new FailedServerAIFileException(httpResponseException);
+                    new FailedServerAIFileException(
+                        message: "Failed AI file server error occurred, contact support.", 
+                        httpResponseException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
@@ -159,7 +161,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    new FailedServerAIFileException(httpResponseException);
+                    new FailedServerAIFileException(
+                        message: "Failed AI file server error occurred, contact support.", 
+                        httpResponseException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
