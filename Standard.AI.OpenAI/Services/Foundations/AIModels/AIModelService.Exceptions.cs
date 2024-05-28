@@ -42,7 +42,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
@@ -51,7 +53,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
@@ -134,7 +138,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
@@ -143,7 +149,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
