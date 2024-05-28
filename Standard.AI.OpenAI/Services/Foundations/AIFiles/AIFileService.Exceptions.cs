@@ -24,11 +24,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             }
             catch (NullAIFileException nullAIFileException)
             {
-                throw new AIFileValidationException(nullAIFileException);
+                throw new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.", 
+                    nullAIFileException);
             }
             catch (InvalidAIFileException invalidFileException)
             {
-                throw new AIFileValidationException(invalidFileException);
+                throw new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.", 
+                    invalidFileException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
