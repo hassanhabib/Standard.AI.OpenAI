@@ -66,7 +66,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundAIFileException =
-                    new NotFoundAIFileException(httpResponseNotFoundException);
+                    new NotFoundAIFileException(
+                        message: "Not found AI file error occurred, fix errors and try again.", 
+                        httpResponseNotFoundException);
 
                 throw new AIFileDependencyValidationException(
                     message: "AI file dependency validation error occurred, contact support.",
