@@ -31,7 +31,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIModelException(
+                        message: "Invalid AI Model configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
@@ -119,7 +121,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIModelException(
+                        message: "Invalid AI Model configuration error occurred, contact support.",
+                        httpResponseUrlNotFoundException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
