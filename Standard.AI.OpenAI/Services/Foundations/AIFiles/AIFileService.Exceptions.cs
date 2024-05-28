@@ -98,7 +98,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var failedAIFileServiceException =
                     new FailedAIFileServiceException(exception);
 
-                throw new AIFileServiceException(failedAIFileServiceException);
+                throw new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.", 
+                    failedAIFileServiceException);
             }
         }
 
@@ -158,7 +160,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var failedAIFileServiceException =
                     new FailedAIFileServiceException(exception);
 
-                throw new AIFileServiceException(failedAIFileServiceException);
+                throw new AIFileServiceException(
+                   message: "AI file service error occurred, contact support.",
+                   failedAIFileServiceException);
             }
         }
     }
