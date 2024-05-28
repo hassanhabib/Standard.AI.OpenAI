@@ -82,7 +82,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIFileException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new AIFileDependencyValidationException(
                     message: "AI file dependency validation error occurred, contact support.",
@@ -144,7 +146,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIFileException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new AIFileDependencyValidationException(
                     message: "AI file dependency validation error occurred, contact support.", 
