@@ -96,7 +96,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(exception);
+                    new FailedAIModelServiceException(
+                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
+                        exception);
 
                 throw new AIModelServiceException(
                     message: "AI Model service error occurred, contact support.",
@@ -160,7 +162,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(exception);
+                    new FailedAIModelServiceException(
+                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
+                        exception);
 
                 throw new AIModelServiceException(
                     message: "AI Model service error occurred, contact support.",
