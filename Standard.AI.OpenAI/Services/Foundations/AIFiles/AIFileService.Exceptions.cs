@@ -62,21 +62,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var notFoundAIFileException =
                     new NotFoundAIFileException(httpResponseNotFoundException);
 
-                throw new AIFileDependencyValidationException(notFoundAIFileException);
+                throw new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
+                    notFoundAIFileException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidAIFileException =
                     new InvalidAIFileException(httpResponseBadRequestException);
 
-                throw new AIFileDependencyValidationException(invalidAIFileException);
+                throw new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
+                    invalidAIFileException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
                     new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
 
-                throw new AIFileDependencyValidationException(excessiveCallAIFileException);
+                throw new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
+                    excessiveCallAIFileException);
             }
             catch (HttpResponseException httpResponseException)
             {
@@ -134,7 +140,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var excessiveCallAIFileException =
                     new ExcessiveCallAIFileException(httpResponseTooManyRequestsException);
 
-                throw new AIFileDependencyValidationException(excessiveCallAIFileException);
+                throw new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.", 
+                    excessiveCallAIFileException);
             }
             catch (HttpResponseException httpResponseException)
             {

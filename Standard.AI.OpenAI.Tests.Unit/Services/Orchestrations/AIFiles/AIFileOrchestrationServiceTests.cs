@@ -47,7 +47,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 new LocalFileValidationException(someInnerException),
                 new LocalFileDependencyValidationException(someInnerException),
                 new AIFileValidationException(someInnerException),
-                new AIFileDependencyValidationException(someInnerException)
+                new AIFileDependencyValidationException(message: "AI file dependency validation error occurred, contact support.", someInnerException)
             };
         }
 
