@@ -37,7 +37,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationFileException =
-                    new InvalidConfigurationAIFileException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIFileException(
+                        message: "Invalid AI file configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
@@ -125,7 +127,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIFileException =
-                    new InvalidConfigurationAIFileException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIFileException(
+                        message: "Invalid AI file configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
