@@ -35,21 +35,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var invalidConfigurationFileException =
                     new InvalidConfigurationAIFileException(httpResponseUrlNotFoundException);
 
-                throw new AIFileDependencyException(invalidConfigurationFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    invalidConfigurationFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
                     new UnauthorizedAIFileException(httpResponseUnauthorizedException);
 
-                throw new AIFileDependencyException(unauthorizedAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
+                    unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
                     new UnauthorizedAIFileException(httpResponseForbiddenException);
 
-                throw new AIFileDependencyException(unauthorizedAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    unauthorizedAIFileException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
@@ -77,7 +83,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var failedServerAIFileException =
                     new FailedServerAIFileException(httpResponseException);
 
-                throw new AIFileDependencyException(failedServerAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    failedServerAIFileException);
             }
             catch (Exception exception)
             {
@@ -99,21 +107,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var invalidConfigurationAIFileException =
                     new InvalidConfigurationAIFileException(httpResponseUrlNotFoundException);
 
-                throw new AIFileDependencyException(invalidConfigurationAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    invalidConfigurationAIFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
                     new UnauthorizedAIFileException(httpResponseUnauthorizedException);
 
-                throw new AIFileDependencyException(unauthorizedAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
                     new UnauthorizedAIFileException(httpResponseForbiddenException);
 
-                throw new AIFileDependencyException(unauthorizedAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    unauthorizedAIFileException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
@@ -127,7 +141,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 var failedServerAIFileException =
                     new FailedServerAIFileException(httpResponseException);
 
-                throw new AIFileDependencyException(failedServerAIFileException);
+                throw new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.", 
+                    failedServerAIFileException);
             }
             catch (Exception exception)
             {
