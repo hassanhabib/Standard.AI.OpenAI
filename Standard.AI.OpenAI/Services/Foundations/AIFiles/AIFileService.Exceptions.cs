@@ -73,7 +73,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidAIFileException =
-                    new InvalidAIFileException(httpResponseBadRequestException);
+                    new InvalidAIFileException(
+                        message: "Invalid AI file error occurred, fix errors and try again.", 
+                        httpResponseBadRequestException);
 
                 throw new AIFileDependencyValidationException(
                     message: "AI file dependency validation error occurred, contact support.",

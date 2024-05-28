@@ -48,7 +48,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidAIFileException = new InvalidAIFileException();
+            var invalidAIFileException = new InvalidAIFileException(message: "Invalid AI file error occurred, fix errors and try again.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {
