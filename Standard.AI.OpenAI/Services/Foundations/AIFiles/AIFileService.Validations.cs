@@ -27,7 +27,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         {
             if (aiFile is null)
             {
-                throw new NullAIFileException();
+                throw new NullAIFileException(message: "Ai file is null.");
             }
         }
 
