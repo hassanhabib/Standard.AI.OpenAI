@@ -61,14 +61,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidAudioTranscriptionException =
                     new InvalidAudioTranscriptionException(httpResponseBadRequestException);
 
-                throw new AudioTranscriptionDependencyValidationException(invalidAudioTranscriptionException);
+                throw new AudioTranscriptionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                    invalidAudioTranscriptionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAudioTranscriptionException =
                     new ExcessiveCallAudioTranscriptionException(httpResponseTooManyRequestsException);
 
-                throw new AudioTranscriptionDependencyValidationException(excessiveCallAudioTranscriptionException);
+                throw new AudioTranscriptionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                    excessiveCallAudioTranscriptionException);
             }
             catch (Exception exception)
             {
