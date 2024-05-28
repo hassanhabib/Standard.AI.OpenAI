@@ -95,6 +95,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     new FailedAIModelServiceException(exception);
 
                 throw new AIModelServiceException(
+                    message: "AI Model service error occurred, contact support.",
                     failedAIModelServiceException);
             }
         }
@@ -156,6 +157,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     new FailedAIModelServiceException(exception);
 
                 throw new AIModelServiceException(
+                    message: "AI Model service error occurred, contact support.",
                     failedAIModelServiceException);
             }
         }
