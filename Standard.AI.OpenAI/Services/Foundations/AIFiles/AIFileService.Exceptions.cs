@@ -48,7 +48,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
-                    new UnauthorizedAIFileException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIFileException(
+                        message: "Unauthorized AI file request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.",
@@ -57,7 +59,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
-                    new UnauthorizedAIFileException(httpResponseForbiddenException);
+                    new UnauthorizedAIFileException(
+                        message: "Unauthorized AI file request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
@@ -140,7 +144,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
-                    new UnauthorizedAIFileException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIFileException(
+                        message: "Unauthorized AI file request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
@@ -149,7 +155,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
-                    new UnauthorizedAIFileException(httpResponseForbiddenException);
+                    new UnauthorizedAIFileException(
+                        message: "Unauthorized AI file request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.", 
