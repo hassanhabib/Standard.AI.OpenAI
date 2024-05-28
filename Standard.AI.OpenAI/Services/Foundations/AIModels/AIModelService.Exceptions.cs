@@ -87,7 +87,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(httpResponseException);
+                    new FailedServerAIModelException(
+                        message: "Failed AI Model server error occurred, contact support", 
+                        httpResponseException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
@@ -153,7 +155,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(httpResponseException);
+                    new FailedServerAIModelException(
+                        message: "Failed AI Model server error occurred, contact support", 
+                        httpResponseException);
 
                 throw new AIModelDependencyException(
                     message: "AI Model dependency error occurred, contact support.", 
