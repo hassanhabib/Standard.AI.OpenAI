@@ -23,11 +23,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             }
             catch (NullAudioTranscriptionException nullAudioTranscriptionException)
             {
-                throw new AudioTranscriptionValidationException(nullAudioTranscriptionException);
+                throw new AudioTranscriptionValidationException(
+                    message: "Audio transcription validation error occurred, fix errors and try again.", 
+                    nullAudioTranscriptionException);
             }
             catch (InvalidAudioTranscriptionException invalidAudioTranscriptionException)
             {
-                throw new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+                throw new AudioTranscriptionValidationException(
+                    message: "Audio transcription validation error occurred, fix errors and try again.", 
+                    invalidAudioTranscriptionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
