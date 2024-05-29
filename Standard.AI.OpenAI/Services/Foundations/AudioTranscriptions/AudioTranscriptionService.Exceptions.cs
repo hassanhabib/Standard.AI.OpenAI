@@ -39,14 +39,17 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAudioTranscriptionException =
-                    new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
+                    new UnauthorizedAudioTranscriptionException(
+                        message: "Unauthorized audio transcription request, fix errors and try again.",
+                        httpResponseUnauthorizedException);
 
                 throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
-                var unauthorizedAudioTranscriptionException =
-                    new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
+                var unauthorizedAudioTranscriptionException = new UnauthorizedAudioTranscriptionException(
+                    message: "Unauthorized audio transcription request, fix errors and try again.",
+                    httpResponseForbiddenException);
 
                 throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
             }
