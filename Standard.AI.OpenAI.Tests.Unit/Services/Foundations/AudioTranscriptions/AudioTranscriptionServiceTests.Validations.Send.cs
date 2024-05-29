@@ -20,7 +20,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             // given
             AudioTranscription audioTranscription = null;
 
-            var nullAudioTranscriptionException = new NullAudioTranscriptionException();
+            var nullAudioTranscriptionException = new NullAudioTranscriptionException(
+                message: "Audio transcription is null.");
 
             var exceptedAudioTranscriptionValidationException =
                 new AudioTranscriptionValidationException(
