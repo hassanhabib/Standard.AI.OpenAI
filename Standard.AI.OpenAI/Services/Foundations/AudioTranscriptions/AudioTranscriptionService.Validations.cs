@@ -48,7 +48,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
+            InvalidAudioTranscriptionException invalidAudioTranscriptionException = new InvalidAudioTranscriptionException(
+                message: "Audio transcription is invalid.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {

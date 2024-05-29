@@ -53,7 +53,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidAudioTranscriptionException =
-                    new InvalidAudioTranscriptionException(httpResponseBadRequestException);
+                    new InvalidAudioTranscriptionException(
+                        message: "Audio transcription is invalid.",
+                        httpResponseBadRequestException);
 
                 throw new AudioTranscriptionDependencyValidationException(invalidAudioTranscriptionException);
             }
