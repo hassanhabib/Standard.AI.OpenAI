@@ -69,7 +69,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var failedAudioTranscriptionServiceException =
                     new FailedAudioTranscriptionServiceException(exception);
 
-                throw new AudioTranscriptionServiceException(failedAudioTranscriptionServiceException);
+                throw new AudioTranscriptionServiceException(
+                    message: "Audio transcription service error occurred, contact support.",
+                    failedAudioTranscriptionServiceException);
             }
         }
     }
