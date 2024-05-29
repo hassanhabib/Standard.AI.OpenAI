@@ -60,7 +60,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAudioTranscriptionException =
-                    new ExcessiveCallAudioTranscriptionException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallAudioTranscriptionException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new AudioTranscriptionDependencyValidationException(excessiveCallAudioTranscriptionException);
             }
