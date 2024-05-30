@@ -12,12 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.AIFiles.Exceptions
     /// </summary>
     public class AIFileClientServiceException : Xeption
     {
-        public AIFileClientServiceException(Xeption innerException)
-            : base(
-                message: "AI file client service error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public AIFileClientServiceException(string message, Xeption innerException)
             : base(message, innerException)
         { }
