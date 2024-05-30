@@ -26,27 +26,35 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             {
                 var invalidFileException = new InvalidLocalFileException(argumentException);
 
-                throw new LocalFileDependencyValidationException(invalidFileException);
+                throw new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.", 
+                    invalidFileException);
             }
             catch (PathTooLongException pathTooLongException)
             {
                 var invalidFileException = new InvalidLocalFileException(pathTooLongException);
 
-                throw new LocalFileDependencyValidationException(invalidFileException);
+                throw new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.", 
+                    invalidFileException);
             }
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
                     new NotFoundLocalFileException(fileNotFoundException);
 
-                throw new LocalFileDependencyValidationException(notFoundFileException);
+                throw new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.", 
+                    notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
                     new NotFoundLocalFileException(directoryNotFoundException);
 
-                throw new LocalFileDependencyValidationException(notFoundFileException);
+                throw new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.", 
+                    notFoundFileException);
             }
             catch (IOException ioException)
             {
