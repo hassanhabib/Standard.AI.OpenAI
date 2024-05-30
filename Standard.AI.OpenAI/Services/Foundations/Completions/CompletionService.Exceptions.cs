@@ -82,7 +82,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (Exception exception)
             {
                 var failedCompletionServiceException =
-                    new FailedCompletionServiceException(exception);
+                    new FailedCompletionServiceException(
+                        message: "Failed completion error occurred, contact support.", 
+                        exception);
 
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
