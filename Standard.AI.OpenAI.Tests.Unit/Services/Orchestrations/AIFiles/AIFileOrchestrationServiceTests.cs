@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
 using KellermanSoftware.CompareNetObjects;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
@@ -66,11 +67,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 new LocalFileDependencyException(someInnerException),
                 new LocalFileServiceException(someInnerException),
                 createAIFileDependencyException(someInnerException),
-                
-                
-                new AIFileServiceException(
-                    message: "AI file service error occurred, contact support.", 
-                    someInnerException),
+                createAIFileServiceException(someInnerException),
             };
         }
 
@@ -81,11 +78,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             return new TheoryData<Xeption>
             {
                 createAIFileDependencyException(someInnerException),
-                
-                
-                new AIFileServiceException(
-                    message: "AI file service error occurred, contact support.", 
-                    someInnerException),
+                createAIFileServiceException(someInnerException),
             };
         }
 
@@ -162,6 +155,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 message: "AI file dependency error occurred, contact support.",
                 innerException);
         }
+        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        {
+            return new AIFileServiceException(
+                message: "AI file service error occurred, contact support.",
+                innerException);
+        }
+                    
 
     }
 }

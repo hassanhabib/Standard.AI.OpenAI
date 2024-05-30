@@ -112,8 +112,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Failed AI file service error occurred, contact support.", 
                         exception);
 
-                throw new AIFileServiceException(
-                    message: "AI file service error occurred, contact support.", 
+                throw createAIFileServiceException(
                     failedAIFileServiceException);
             }
         }
@@ -181,8 +180,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Failed AI file service error occurred, contact support.", 
                         exception);
 
-                throw new AIFileServiceException(
-                   message: "AI file service error occurred, contact support.",
+                throw createAIFileServiceException(
                    failedAIFileServiceException);
             }
         }
@@ -200,5 +198,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 message: "AI file dependency validation error occurred, contact support.",
                 innerException);
         }
+
+        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        {
+            return new AIFileServiceException(
+                message: "AI file service error occurred, contact support.",
+                innerException);
+        }
+
     }
 }
