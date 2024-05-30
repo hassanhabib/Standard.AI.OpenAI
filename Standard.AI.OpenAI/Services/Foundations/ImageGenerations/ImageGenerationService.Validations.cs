@@ -27,7 +27,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         {
             if (imageGeneration is null)
             {
-                throw new NullImageGenerationException();
+                throw new NullImageGenerationException(
+                    message: "Image generation is null.");
             }
         }
 
