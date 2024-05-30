@@ -22,11 +22,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             }
             catch (NullImageGenerationException nullImageGenerationException)
             {
-                throw new ImageGenerationValidationException(nullImageGenerationException);
+                throw new ImageGenerationValidationException(
+                    message: "Image generation validation error occurred, fix errors and try again.", 
+                    nullImageGenerationException);
             }
             catch (InvalidImageGenerationException invalidImageGenerationException)
             {
-                throw new ImageGenerationValidationException(invalidImageGenerationException);
+                throw new ImageGenerationValidationException(
+                    message: "Image generation validation error occurred, fix errors and try again.", 
+                    invalidImageGenerationException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
