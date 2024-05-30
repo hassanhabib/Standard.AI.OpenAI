@@ -55,14 +55,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var notFoundCompletionException =
                     new NotFoundCompletionException(httpResponseNotFoundException);
 
-                throw new CompletionDependencyValidationException(notFoundCompletionException);
+                throw new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                    notFoundCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidCompletionException =
                     new InvalidCompletionException(httpResponseBadRequestException);
 
-                throw new CompletionDependencyValidationException(invalidCompletionException);
+                throw new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                    invalidCompletionException);
             }
 
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -70,7 +74,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var excessiveCallCompletionException =
                     new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
 
-                throw new CompletionDependencyValidationException(excessiveCallCompletionException);
+                throw new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                    excessiveCallCompletionException);
             }
             catch (HttpResponseException httpResponseException)
             {
