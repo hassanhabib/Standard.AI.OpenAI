@@ -65,11 +65,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             {
                 new LocalFileDependencyException(someInnerException),
                 new LocalFileServiceException(someInnerException),
-                
-                
-                new AIFileDependencyException(
-                    message : "AI file dependency error occurred, contact support.", 
-                    someInnerException),
+                createAIFileDependencyException(someInnerException),
                 
                 
                 new AIFileServiceException(
@@ -84,9 +80,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                new AIFileDependencyException(
-                    message : "AI file dependency error occurred, contact support.", 
-                    someInnerException),
+                createAIFileDependencyException(someInnerException),
                 
                 
                 new AIFileServiceException(
@@ -161,5 +155,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return randomId;
         }
+
+        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        {
+            return new AIFileDependencyException(
+                message: "AI file dependency error occurred, contact support.",
+                innerException);
+        }
+
     }
 }

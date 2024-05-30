@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {
@@ -41,8 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Invalid AI file configuration error occurred, contact support.", 
                         httpResponseUrlNotFoundException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     invalidConfigurationFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -52,8 +52,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Unauthorized AI file request, fix errors and try again.", 
                         httpResponseUnauthorizedException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                throw createAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -63,8 +62,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Unauthorized AI file request, fix errors and try again.", 
                         httpResponseForbiddenException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -107,8 +105,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Failed AI file server error occurred, contact support.", 
                         httpResponseException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     failedServerAIFileException);
             }
             catch (Exception exception)
@@ -137,8 +134,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Invalid AI file configuration error occurred, contact support.", 
                         httpResponseUrlNotFoundException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     invalidConfigurationAIFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -148,8 +144,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Unauthorized AI file request, fix errors and try again.", 
                         httpResponseUnauthorizedException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -159,8 +154,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Unauthorized AI file request, fix errors and try again.", 
                         httpResponseForbiddenException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -181,8 +175,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Failed AI file server error occurred, contact support.", 
                         httpResponseException);
 
-                throw new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.", 
+                throw createAIFileDependencyException(
                     failedServerAIFileException);
             }
             catch (Exception exception)
@@ -197,5 +190,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                    failedAIFileServiceException);
             }
         }
+
+        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        {
+            return new AIFileDependencyException(
+                message: "AI file dependency error occurred, contact support.",
+                innerException);
+        }
+
     }
 }

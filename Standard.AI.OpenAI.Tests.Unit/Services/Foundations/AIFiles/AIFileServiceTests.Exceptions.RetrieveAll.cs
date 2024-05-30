@@ -10,6 +10,7 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -29,8 +30,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedAIFileDependencyException =
-                new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                createAIFileDependencyException(
                         innerException: invalidConfigurationAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -69,8 +69,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: unauthorizedException);
 
             var expectedAIFileDependencyException =
-                new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                createAIFileDependencyException(
                         innerException: unauthorizedAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -151,8 +150,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseException);
 
             var expectedAIFileDependencyException =
-                new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                createAIFileDependencyException(
                         innerException: failedServerAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -218,5 +216,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+
     }
 }

@@ -10,6 +10,7 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -31,8 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedFileDependencyException =
-                new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                createAIFileDependencyException(
                         innerException: invalidConfigurationFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -73,8 +73,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: unauthorizedException);
 
             var expectedFileDependencyException =
-                new AIFileDependencyException(
-                    message: "AI file dependency error occurred, contact support.",
+                createAIFileDependencyException(
                         innerException: unauthorizedFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -184,5 +183,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+
     }
 }
