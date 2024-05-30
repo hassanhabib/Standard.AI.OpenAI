@@ -27,11 +27,13 @@ namespace Standard.AI.OpenAI.Clients.Completions
             catch (CompletionValidationException completionValidationException)
             {
                 throw new CompletionClientValidationException(
+                    message: "Completion client validation error occurred, fix errors and try again.",
                     completionValidationException.InnerException as Xeption);
             }
             catch (CompletionDependencyValidationException completionDependencyValidationException)
             {
                 throw new CompletionClientValidationException(
+                    message: "Completion client validation error occurred, fix errors and try again.",
                     completionDependencyValidationException.InnerException as Xeption);
             }
             catch (CompletionDependencyException completionDependencyException)
