@@ -50,7 +50,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundAIModelException =
-                    new NotFoundAIModelException(httpResponseNotFoundException);
+                    new NotFoundAIModelException(
+                        message: "AI Model not found.", 
+                        httpResponseNotFoundException);
 
                 throw new AIModelDependencyValidationException(notFoundAIModelException);
             }
