@@ -20,7 +20,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             AIFile nullAIFile = null;
 
             var nullAIFileOrchestrationException =
-                new NullAIFileOrchestrationException();
+                new NullAIFileOrchestrationException(
+                    message: "AI file is null.");
 
             var expectedAIFileOrchestrationValidationException =
                 new AIFileOrchestrationValidationException(
