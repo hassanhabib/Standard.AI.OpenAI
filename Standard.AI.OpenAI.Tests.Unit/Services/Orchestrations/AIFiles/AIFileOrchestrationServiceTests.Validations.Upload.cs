@@ -60,7 +60,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             var invalidAIFile = new AIFile();
 
             var invalidAIFileOrchestrationException =
-                new InvalidAIFileOrchestrationException();
+                new InvalidAIFileOrchestrationException(
+                    message: "AI file is invalid.");
 
             invalidAIFileOrchestrationException.AddData(
                 key: nameof(AIFileRequest),
@@ -110,7 +111,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             invalidAIFile.Request.Name = invalidName;
 
             var invalidAIFileOrchestrationException =
-                new InvalidAIFileOrchestrationException();
+                new InvalidAIFileOrchestrationException(
+                    message: "AI file is invalid.");
 
             invalidAIFileOrchestrationException.AddData(
                 key: nameof(AIFileRequest.Name),
