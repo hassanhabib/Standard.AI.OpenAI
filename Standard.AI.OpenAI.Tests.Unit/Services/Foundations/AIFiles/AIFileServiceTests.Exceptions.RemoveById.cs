@@ -114,8 +114,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseNotFoundException);
 
             var expectedFileDependencyValidationException =
-                new AIFileDependencyValidationException(
-                    message: "AI file dependency validation error occurred, contact support.",
+                createAIFileDependencyValidationException(
                         innerException: notFoundFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -157,8 +156,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseBadRequestException);
 
             var expectedFileDependencyValidationException =
-                new AIFileDependencyValidationException(
-                    message: "AI file dependency validation error occurred, contact support.",
+                createAIFileDependencyValidationException(
                         innerException: invalidFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -200,8 +198,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedFileDependencyValidationException =
-                new AIFileDependencyValidationException(
-                    message: "AI file dependency validation error occurred, contact support.",
+                createAIFileDependencyValidationException(
                         innerException: excessiveCallFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -315,5 +312,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 message: "AI file dependency error occurred, contact support.",
                 innerException);
         }
+
+        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileDependencyValidationException(
+                message: "AI file dependency validation error occurred, contact support.",
+                innerException);
+        }
+
+
     }
 }
