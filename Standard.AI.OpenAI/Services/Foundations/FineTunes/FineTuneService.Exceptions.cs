@@ -22,11 +22,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
             catch (NullFineTuneException nullFineTuneException)
             {
-                throw new FineTuneValidationException(nullFineTuneException);
+                throw new FineTuneValidationException(
+                    message: "Fine tune validation error occurred, fix errors and try again.", 
+                    nullFineTuneException);
             }
             catch (InvalidFineTuneException invalidFineTuneException)
             {
-                throw new FineTuneValidationException(invalidFineTuneException);
+                throw new FineTuneValidationException(
+                    message: "Fine tune validation error occurred, fix errors and try again.", 
+                    invalidFineTuneException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
