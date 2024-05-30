@@ -38,14 +38,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseForbiddenException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
             }

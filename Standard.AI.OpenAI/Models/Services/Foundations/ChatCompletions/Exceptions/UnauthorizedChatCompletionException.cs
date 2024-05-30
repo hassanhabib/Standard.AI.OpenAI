@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class UnauthorizedChatCompletionException : Xeption
     {
-        public UnauthorizedChatCompletionException(Exception innerException)
-            : base(
-                message: "Unauthorized chat completion request, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public UnauthorizedChatCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }
