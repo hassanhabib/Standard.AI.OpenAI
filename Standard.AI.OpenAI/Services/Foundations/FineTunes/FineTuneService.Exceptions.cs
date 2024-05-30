@@ -33,7 +33,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var invalidFineTuneConfigurationException =
                     new InvalidFineTuneConfigurationException(httpResponseUrlNotFoundException);
 
-                throw new FineTuneDependencyException(invalidFineTuneConfigurationException);
+                throw new FineTuneDependencyException(
+                    message: "Fine tune dependency error ocurred, contact support.", 
+                    invalidFineTuneConfigurationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
@@ -41,7 +43,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseUnauthorizedException);
 
-                throw new FineTuneDependencyException(unauthorizedFineTuneException);
+                throw new FineTuneDependencyException(
+                    message: "Fine tune dependency error ocurred, contact support.", 
+                    unauthorizedFineTuneException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
@@ -49,7 +53,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseForbiddenException);
 
-                throw new FineTuneDependencyException(unauthorizedFineTuneException);
+                throw new FineTuneDependencyException(
+                    message: "Fine tune dependency error ocurred, contact support.", 
+                    unauthorizedFineTuneException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
@@ -71,7 +77,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var failedServerFineTuneException =
                     new FailedServerFineTuneException(httpResponseException);
 
-                throw new FineTuneDependencyException(failedServerFineTuneException);
+                throw new FineTuneDependencyException(
+                    message: "Fine tune dependency error ocurred, contact support.", 
+                    failedServerFineTuneException);
             }
             catch (Exception exception)
             {
