@@ -37,6 +37,7 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             catch (ImageGenerationDependencyException imageGenerationDependencyException)
             {
                 throw new ImageGenerationClientDependencyException(
+                    message: "Image generation client dependency error occurred, contact support.",
                     imageGenerationDependencyException.InnerException as Xeption);
             }
             catch (ImageGenerationServiceException imageGenerationServiceException)
