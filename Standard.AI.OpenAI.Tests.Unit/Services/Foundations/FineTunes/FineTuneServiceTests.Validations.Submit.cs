@@ -21,7 +21,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             FineTune nullFineTune = null;
 
             var nullFineTuneException =
-                new NullFineTuneException();
+                new NullFineTuneException(
+                    message: "Fine tune is null.");
 
             var expectedFineTuneValidationException =
                 new FineTuneValidationException(
