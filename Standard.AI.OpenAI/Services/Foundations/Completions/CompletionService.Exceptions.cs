@@ -32,7 +32,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationCompletionException =
-                    new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationCompletionException(
+                        message: "Invalid configuration error occurred, fix errors and try again.", 
+                        httpResponseUrlNotFoundException);
 
                 throw new CompletionDependencyException(invalidConfigurationCompletionException);
             }
