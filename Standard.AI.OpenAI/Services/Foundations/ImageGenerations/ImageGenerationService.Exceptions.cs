@@ -33,21 +33,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var invalidConfigurationImageGenerationException =
                     new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
 
-                throw new ImageGenerationDependencyException(invalidConfigurationImageGenerationException);
+                throw new ImageGenerationDependencyException(
+                    message: "Image generation dependency error occurred, contact support.", 
+                    invalidConfigurationImageGenerationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
 
-                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+                throw new ImageGenerationDependencyException(
+                    message: "Image generation dependency error occurred, contact support.", 
+                    unauthorizedImageGenerationException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseForbiddenException);
 
-                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+                throw new ImageGenerationDependencyException(
+                    message: "Image generation dependency error occurred, contact support.", 
+                    unauthorizedImageGenerationException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
@@ -75,7 +81,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var failedServerImageGenerationException =
                     new FailedServerImageGenerationException(httpResponseException);
 
-                throw new ImageGenerationDependencyException(failedServerImageGenerationException);
+                throw new ImageGenerationDependencyException(
+                    message: "Image generation dependency error occurred, contact support.", 
+                    failedServerImageGenerationException);
             }
             catch (Exception exception)
             {
