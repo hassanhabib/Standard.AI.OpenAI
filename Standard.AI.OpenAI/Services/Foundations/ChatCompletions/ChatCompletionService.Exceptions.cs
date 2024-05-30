@@ -54,21 +54,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var notFoundChatCompletionException =
                     new NotFoundChatCompletionException(httpResponseNotFoundException);
 
-                throw new ChatCompletionDependencyValidationException(notFoundChatCompletionException);
+                throw new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                    notFoundChatCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
                     new InvalidChatCompletionException(httpResponseBadRequestException);
 
-                throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
+                throw new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                    invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallChatCompletionException =
                     new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
 
-                throw new ChatCompletionDependencyValidationException(excessiveCallChatCompletionException);
+                throw new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                    excessiveCallChatCompletionException);
             }
             catch (HttpResponseException httpResponseException)
             {
