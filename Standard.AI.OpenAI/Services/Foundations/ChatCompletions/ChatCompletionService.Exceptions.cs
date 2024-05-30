@@ -80,7 +80,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (Exception exception)
             {
                 var failedChatCompletionServiceException =
-                    new FailedChatCompletionServiceException(exception);
+                    new FailedChatCompletionServiceException(
+                        message: "Failed Chat Completion Service Exception occurred, please contact support for assistance.", 
+                        exception);
 
                 throw new ChatCompletionServiceException(
                     failedChatCompletionServiceException);
