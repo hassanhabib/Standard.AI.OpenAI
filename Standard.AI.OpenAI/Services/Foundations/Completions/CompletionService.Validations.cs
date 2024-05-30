@@ -25,7 +25,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
         {
             if (completion is null)
             {
-                throw new NullCompletionException();
+                throw new NullCompletionException(
+                    message: "Completion is null.");
             }
         }
 
