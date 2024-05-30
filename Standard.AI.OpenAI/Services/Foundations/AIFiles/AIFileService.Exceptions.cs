@@ -36,8 +36,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationFileException =
-                    new InvalidConfigurationAIFileException(
-                        message: "Invalid AI file configuration error occurred, contact support.", 
+                    createInvalidConfigurationAIFileException(
                         httpResponseUrlNotFoundException);
 
                 throw createAIFileDependencyException(
@@ -95,8 +94,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    new FailedServerAIFileException(
-                        message: "Failed AI file server error occurred, contact support.", 
+                    createFailedServerAIFileException(
                         httpResponseException);
 
                 throw createAIFileDependencyException(
@@ -122,8 +120,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIFileException =
-                    new InvalidConfigurationAIFileException(
-                        message: "Invalid AI file configuration error occurred, contact support.", 
+                    createInvalidConfigurationAIFileException(
                         httpResponseUrlNotFoundException);
 
                 throw createAIFileDependencyException(
@@ -161,8 +158,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    new FailedServerAIFileException(
-                        message: "Failed AI file server error occurred, contact support.", 
+                    createFailedServerAIFileException(
                         httpResponseException);
 
                 throw createAIFileDependencyException(
@@ -220,5 +216,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 message: "Failed AI file service error occurred, contact support.",
                 innerException);
         }
+
+        private static FailedServerAIFileException createFailedServerAIFileException(Exception innerException)
+        {
+            return new FailedServerAIFileException(
+                message: "Failed AI file server error occurred, contact support.",
+                innerException);
+        }
+
+        private static InvalidConfigurationAIFileException createInvalidConfigurationAIFileException(Exception innerException)
+        {
+            return new InvalidConfigurationAIFileException(
+                message: "Invalid AI file configuration error occurred, contact support.",
+                innerException);
+        }
+
     }
 }
