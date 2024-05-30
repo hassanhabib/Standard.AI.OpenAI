@@ -59,7 +59,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
-                    new InvalidChatCompletionException(httpResponseBadRequestException);
+                    new InvalidChatCompletionException(
+                        message: "Chat completion is invalid.", 
+                        httpResponseBadRequestException);
 
                 throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
             }
