@@ -80,7 +80,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (Exception exception)
             {
                 var failedImageGenerationServiceException =
-                    new FailedImageGenerationServiceException(exception);
+                    new FailedImageGenerationServiceException(
+                        message: "Failed image generation service error occurred, contact support.", 
+                        exception);
 
                 throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
