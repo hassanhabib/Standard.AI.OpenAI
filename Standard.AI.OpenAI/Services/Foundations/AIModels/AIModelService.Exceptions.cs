@@ -36,14 +36,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
             }
@@ -101,14 +105,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(
+                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
             }
