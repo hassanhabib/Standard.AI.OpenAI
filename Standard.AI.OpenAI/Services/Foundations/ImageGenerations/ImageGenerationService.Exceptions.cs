@@ -66,7 +66,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallImageGenerationException =
-                    new ExcessiveCallImageGenerationException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallImageGenerationException(
+                        message: "Excessive call error occurred, limit your calls.",
+                        httpResponseTooManyRequestsException);
 
                 throw new ImageGenerationDependencyValidationException(excessiveCallImageGenerationException);
             }
