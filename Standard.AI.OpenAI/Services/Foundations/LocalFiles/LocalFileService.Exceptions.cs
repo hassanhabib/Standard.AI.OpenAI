@@ -37,14 +37,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundLocalFileException(fileNotFoundException);
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
+                        fileNotFoundException);
 
                 throw new LocalFileDependencyValidationException(notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundLocalFileException(directoryNotFoundException);
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
+                        directoryNotFoundException);
 
                 throw new LocalFileDependencyValidationException(notFoundFileException);
             }
