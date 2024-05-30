@@ -62,7 +62,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallFineTuneException =
-                    new ExcessiveCallFineTuneException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallFineTuneException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new FineTuneDependencyValidationException(excessiveCallFineTuneException);
             }
