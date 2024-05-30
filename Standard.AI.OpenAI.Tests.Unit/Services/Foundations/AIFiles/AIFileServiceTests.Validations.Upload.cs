@@ -8,6 +8,7 @@ using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -22,8 +23,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var nullAIFileException = new NullAIFileException(message: "Ai file is null.");
 
             var expectedAIFileValidationException =
-                new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.",
+                createAIFileValidationException(
                         innerException: nullAIFileException);
 
             // when
@@ -60,8 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 values: "Value is required");
 
             var expectedAIFileValidationException =
-                new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.",
+                createAIFileValidationException(
                         innerException: invalidAIFileException);
 
             // when
@@ -116,8 +115,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 values: "Value is required");
 
             var expectedAIFileValidationException =
-                new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.",
+                createAIFileValidationException(
                         innerException: invalidAIFileException);
 
             // when
@@ -138,5 +136,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
+
+        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
+        {
+            throw new AIFileValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
     }
 }

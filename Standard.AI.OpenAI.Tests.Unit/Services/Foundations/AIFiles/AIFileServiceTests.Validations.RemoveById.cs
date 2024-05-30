@@ -32,8 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 values: "Value is required");
 
             var expectedFileValidationException =
-                new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.",
+                createAIFileValidationException(
                         innerException: invalidFileException);
 
             // when

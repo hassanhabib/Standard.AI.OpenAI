@@ -25,14 +25,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             }
             catch (NullAIFileException nullAIFileException)
             {
-                throw new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.", 
+                throw createAIFileValidationException(
                     nullAIFileException);
             }
             catch (InvalidAIFileException invalidFileException)
             {
-                throw new AIFileValidationException(
-                    message: "AI file validation error occurred, fix errors and try again.", 
+                throw createAIFileValidationException(
                     invalidFileException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -88,8 +86,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    new ExcessiveCallAIFileException(
-                        message: "Excessive call error occurred, limit your calls.", 
+                    createExcessiveCallAIFileException(
                         httpResponseTooManyRequestsException);
 
                 throw createAIFileDependencyValidationException(
@@ -156,8 +153,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    new ExcessiveCallAIFileException(
-                        message: "Excessive call error occurred, limit your calls.", 
+                    createExcessiveCallAIFileException(
                         httpResponseTooManyRequestsException);
 
                 throw createAIFileDependencyValidationException(
@@ -203,6 +199,20 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         {
             return new AIFileServiceException(
                 message: "AI file service error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
+        {
+            throw new AIFileValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ExcessiveCallAIFileException createExcessiveCallAIFileException(Xeption innerException)
+        {
+            return new ExcessiveCallAIFileException(
+                message: "Excessive call error occurred, limit your calls.",
                 innerException);
         }
 
