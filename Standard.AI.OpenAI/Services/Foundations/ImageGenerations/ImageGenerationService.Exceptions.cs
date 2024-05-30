@@ -73,7 +73,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerImageGenerationException =
-                    new FailedServerImageGenerationException(httpResponseException);
+                    new FailedServerImageGenerationException(
+                        message: "Failed image generation server error occurred, contact support.", 
+                        httpResponseException);
 
                 throw new ImageGenerationDependencyException(failedServerImageGenerationException);
             }
