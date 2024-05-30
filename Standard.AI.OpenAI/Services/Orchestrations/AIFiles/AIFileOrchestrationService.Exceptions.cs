@@ -77,6 +77,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             {
                 var failedAIFileOrchestrationServiceException =
                     new FailedAIFileOrchestrationServiceException(
+                        message: "Failed AI file service error occurred, contact support.",
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
@@ -109,6 +110,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             {
                 var failedAIFileOrchestrationServiceException =
                     new FailedAIFileOrchestrationServiceException(
+                        message: "Failed AI file service error occurred, contact support.",
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
