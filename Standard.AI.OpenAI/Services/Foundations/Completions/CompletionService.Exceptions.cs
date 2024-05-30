@@ -34,21 +34,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var invalidConfigurationCompletionException =
                     new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
 
-                throw new CompletionDependencyException(invalidConfigurationCompletionException);
+                throw new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.", 
+                    invalidConfigurationCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseUnauthorizedException);
 
-                throw new CompletionDependencyException(unauthorizedCompletionException);
+                throw new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.", 
+                    unauthorizedCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseForbiddenException);
 
-                throw new CompletionDependencyException(unauthorizedCompletionException);
+                throw new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.", 
+                    unauthorizedCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
@@ -77,7 +83,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var failedServerCompletionException =
                     new FailedServerCompletionException(httpResponseException);
 
-                throw new CompletionDependencyException(failedServerCompletionException);
+                throw new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.", 
+                    failedServerCompletionException);
             }
             catch (Exception exception)
             {
