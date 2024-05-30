@@ -56,7 +56,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             invalidCompletion.Request = null;
 
             var invalidCompletionException =
-                new InvalidCompletionException();
+                new InvalidCompletionException(
+                    message: "Invalid completion error occurred, fix errors and try again.");
 
             invalidCompletionException.AddData(
                 key: nameof(Completion.Request),
@@ -103,7 +104,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 }
             };
 
-            var invalidCompletionException = new InvalidCompletionException();
+            var invalidCompletionException = 
+                new InvalidCompletionException(
+                    message: "Invalid completion error occurred, fix errors and try again.");
 
             invalidCompletionException.AddData(
                 key: nameof(CompletionRequest.Model),
@@ -146,7 +149,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 }
             };
 
-            var invalidCompletionException = new InvalidCompletionException();
+            var invalidCompletionException = 
+                new InvalidCompletionException(
+                    message: "Invalid completion error occurred, fix errors and try again.");
 
             invalidCompletionException.AddData(
                 key: nameof(CompletionRequest.Prompts),
