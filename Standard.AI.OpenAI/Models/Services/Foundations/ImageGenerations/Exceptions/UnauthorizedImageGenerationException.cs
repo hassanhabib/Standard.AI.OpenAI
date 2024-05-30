@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
 {
     public class UnauthorizedImageGenerationException : Xeption
     {
-        public UnauthorizedImageGenerationException(Exception innerException)
-            : base(
-                message: "Unauthorized image generation request, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public UnauthorizedImageGenerationException(string message, Exception innerException)
             : base(message, innerException)
         { }

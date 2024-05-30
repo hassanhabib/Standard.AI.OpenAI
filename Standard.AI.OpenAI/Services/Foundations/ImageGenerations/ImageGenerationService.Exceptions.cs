@@ -38,14 +38,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseForbiddenException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
             }
