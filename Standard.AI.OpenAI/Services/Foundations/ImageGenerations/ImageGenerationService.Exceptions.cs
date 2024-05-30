@@ -54,21 +54,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var notFoundImageGenerationException =
                     new NotFoundImageGenerationException(httpResponseNotFoundException);
 
-                throw new ImageGenerationDependencyValidationException(notFoundImageGenerationException);
+                throw new ImageGenerationDependencyValidationException(
+                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                    notFoundImageGenerationException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidImageGenerationException =
                     new InvalidImageGenerationException(httpResponseBadRequestException);
 
-                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException);
+                throw new ImageGenerationDependencyValidationException(
+                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                    invalidImageGenerationException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallImageGenerationException =
                     new ExcessiveCallImageGenerationException(httpResponseTooManyRequestsException);
 
-                throw new ImageGenerationDependencyValidationException(excessiveCallImageGenerationException);
+                throw new ImageGenerationDependencyValidationException(
+                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                    excessiveCallImageGenerationException);
             }
             catch (HttpResponseException httpResponseException)
             {
