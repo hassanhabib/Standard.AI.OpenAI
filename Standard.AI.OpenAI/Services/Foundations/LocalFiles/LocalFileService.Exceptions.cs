@@ -51,14 +51,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (IOException ioException)
             {
                 var failedFileException =
-                    new FailedLocalFileDependencyException(ioException);
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
+                        ioException);
 
                 throw new LocalFileDependencyException(failedFileException);
             }
             catch (NotSupportedException notSupportedException)
             {
                 var failedFileException =
-                    new FailedLocalFileDependencyException(notSupportedException);
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
+                        notSupportedException);
 
                 throw new LocalFileDependencyException(failedFileException);
             }
