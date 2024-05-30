@@ -27,11 +27,13 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             catch (ImageGenerationValidationException imageGenerationValidationException)
             {
                 throw new ImageGenerationClientValidationException(
+                    message: "Image generation client validation error occurred, fix errors and try again.",
                     imageGenerationValidationException.InnerException as Xeption);
             }
             catch (ImageGenerationDependencyValidationException imageGenerationDependencyValidationException)
             {
                 throw new ImageGenerationClientValidationException(
+                    message: "Image generation client validation error occurred, fix errors and try again.",
                     imageGenerationDependencyValidationException.InnerException as Xeption);
             }
             catch (ImageGenerationDependencyException imageGenerationDependencyException)
