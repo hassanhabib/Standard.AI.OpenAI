@@ -36,11 +36,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (LocalFileValidationException localFileValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
                     localFileValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyValidationException localFileDependencyValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
                     localFileDependencyValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyException localFileDependencyException)
@@ -56,11 +58,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (AIFileValidationException aIFileValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
                     aIFileValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyException aIFileDependencyException)
@@ -98,6 +102,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
                 throw new AIFileOrchestrationDependencyValidationException(
+                    message: "AI file dependency validation error occurred, fix errors and try again.",
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
