@@ -59,7 +59,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidImageGenerationException =
-                    new InvalidImageGenerationException(httpResponseBadRequestException);
+                    new InvalidImageGenerationException(
+                        message: "Invalid image generation error occurred, fix errors and try again.", 
+                        httpResponseBadRequestException);
 
                 throw new ImageGenerationDependencyValidationException(invalidImageGenerationException);
             }
