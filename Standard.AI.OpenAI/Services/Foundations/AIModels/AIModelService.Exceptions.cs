@@ -64,7 +64,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIModelException =
-                    new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIModelException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new AIModelDependencyValidationException(excessiveCallAIModelException);
             }
@@ -115,7 +117,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIModelException =
-                    new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIModelException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new AIModelDependencyValidationException(excessiveCallAIModelException);
             }
