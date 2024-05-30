@@ -39,6 +39,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 var unauthorizedFineTuneException =
                     new UnauthorizedFineTuneException(
+                        message: "Unauthorized fine tune request, fix errors and try again.",
                         httpResponseUnauthorizedException);
 
                 throw new FineTuneDependencyException(unauthorizedFineTuneException);
@@ -47,6 +48,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 var unauthorizedFineTuneException =
                     new UnauthorizedFineTuneException(
+                        message: "Unauthorized fine tune request, fix errors and try again.",
                         httpResponseForbiddenException);
 
                 throw new FineTuneDependencyException(unauthorizedFineTuneException);
