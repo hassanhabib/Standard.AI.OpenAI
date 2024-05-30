@@ -30,7 +30,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
         {
             if (chatCompletion is null)
             {
-                throw new NullChatCompletionException();
+                throw new NullChatCompletionException(
+                    message: "Chat completion is null.");
             }
         }
 

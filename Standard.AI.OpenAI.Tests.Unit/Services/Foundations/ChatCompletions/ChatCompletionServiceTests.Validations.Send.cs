@@ -21,7 +21,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             ChatCompletion nullChatCompletion = null;
 
             var nullChatCompletionException =
-                new NullChatCompletionException();
+                new NullChatCompletionException(
+                    message: "Chat completion is null.");
 
             var expectedChatCompletionValidationException =
                 new ChatCompletionValidationException(
