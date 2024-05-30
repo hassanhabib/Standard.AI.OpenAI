@@ -34,6 +34,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             catch (AIModelDependencyException aiModelDependencyException)
             {
                 throw new AIModelClientDependencyException(
+                    message: "AI model client dependency error occurred, contact support.",
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)
@@ -62,6 +63,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             catch (AIModelDependencyException aiModelDependencyException)
             {
                 throw new AIModelClientDependencyException(
+                    message: "AI model client dependency error occurred, contact support.",
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)
