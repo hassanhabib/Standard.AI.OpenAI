@@ -46,11 +46,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (LocalFileDependencyException localFileDependencyException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     localFileDependencyException.InnerException as Xeption);
             }
             catch (LocalFileServiceException localFileServiceException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     localFileServiceException.InnerException as Xeption);
             }
             catch (AIFileValidationException aIFileValidationException)
@@ -66,11 +68,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (AIFileDependencyException aIFileDependencyException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
@@ -93,6 +97,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (AIFileDependencyException aIFileDependencyException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
@@ -103,6 +108,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (AIFileServiceException aIFileServiceException)
             {
                 throw new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
