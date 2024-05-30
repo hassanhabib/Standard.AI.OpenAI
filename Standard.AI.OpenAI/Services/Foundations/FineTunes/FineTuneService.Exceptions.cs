@@ -55,6 +55,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 var invalidFineTuneException =
                     new InvalidFineTuneException(
+                        message: "Fine tune is invalid.",
                         httpResponseBadRequestException);
 
                 throw new FineTuneDependencyValidationException(invalidFineTuneException);

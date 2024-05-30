@@ -33,7 +33,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidFineTuneException = new InvalidFineTuneException();
+            var invalidFineTuneException = 
+                new InvalidFineTuneException(
+                    message: "Fine tune is invalid.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {
