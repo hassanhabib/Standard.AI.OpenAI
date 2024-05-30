@@ -33,21 +33,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var invalidConfigurationChatCompletionException =
                     new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
 
-                throw new ChatCompletionDependencyException(invalidConfigurationChatCompletionException);
+                throw new ChatCompletionDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.", 
+                    invalidConfigurationChatCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
 
-                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+                throw new ChatCompletionDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.", 
+                    unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseForbiddenException);
 
-                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+                throw new ChatCompletionDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.", 
+                    unauthorizedChatCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
@@ -75,7 +81,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var failedServerChatCompletionException =
                     new FailedServerChatCompletionException(httpResponseException);
 
-                throw new ChatCompletionDependencyException(failedServerChatCompletionException);
+                throw new ChatCompletionDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.", 
+                    failedServerChatCompletionException);
             }
             catch (Exception exception)
             {
