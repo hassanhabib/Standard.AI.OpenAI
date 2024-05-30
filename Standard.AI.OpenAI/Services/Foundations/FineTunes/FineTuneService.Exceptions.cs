@@ -76,7 +76,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (Exception exception)
             {
                 var failedFineTuneServiceException =
-                    new FailedFineTuneServiceException(exception);
+                    new FailedFineTuneServiceException(
+                        message: "Failed fine tune error occurred, contact support.", 
+                        exception);
 
                 throw new FineTuneServiceException(failedFineTuneServiceException);
             }
