@@ -37,6 +37,7 @@ namespace Standard.AI.OpenAI.Clients.Completions
             catch (CompletionDependencyException completionDependencyException)
             {
                 throw new CompletionClientDependencyException(
+                    message: "Completion dependency error occurred, contact support.",
                     completionDependencyException.InnerException as Xeption);
             }
             catch (CompletionServiceException completionServiceException)
