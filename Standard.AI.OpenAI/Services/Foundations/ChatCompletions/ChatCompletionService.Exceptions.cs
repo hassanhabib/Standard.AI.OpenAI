@@ -22,11 +22,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (NullChatCompletionException nullChatCompletionException)
             {
-                throw new ChatCompletionValidationException(nullChatCompletionException);
+                throw new ChatCompletionValidationException(
+                    message: "Chat completion validation error occurred, fix errors and try again.", 
+                    nullChatCompletionException);
             }
             catch (InvalidChatCompletionException invalidChatCompletionException)
             {
-                throw new ChatCompletionValidationException(invalidChatCompletionException);
+                throw new ChatCompletionValidationException(
+                    message: "Chat completion validation error occurred, fix errors and try again.", 
+                    invalidChatCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
