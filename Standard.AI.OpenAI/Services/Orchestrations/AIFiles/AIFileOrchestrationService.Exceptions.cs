@@ -27,11 +27,14 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (NullAIFileOrchestrationException nullAIFileOrchestrationException)
             {
                 throw new AIFileOrchestrationValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
                     nullAIFileOrchestrationException);
             }
             catch (InvalidAIFileOrchestrationException invalidAIFileOrchestrationException)
             {
-                throw new AIFileOrchestrationValidationException(invalidAIFileOrchestrationException);
+                throw new AIFileOrchestrationValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.", 
+                    invalidAIFileOrchestrationException);
             }
             catch (LocalFileValidationException localFileValidationException)
             {
