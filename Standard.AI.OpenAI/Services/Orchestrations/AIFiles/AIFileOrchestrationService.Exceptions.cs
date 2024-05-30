@@ -80,6 +80,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
+                    message: "AI File error occurred, contact support.",
                     failedAIFileOrchestrationServiceException);
             }
         }
@@ -112,6 +113,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
+                    message: "AI File error occurred, contact support.",
                     failedAIFileOrchestrationServiceException);
             }
         }
