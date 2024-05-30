@@ -9,7 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public class ExcessiveCallAIFileException : Xeption
     {
-
         public ExcessiveCallAIFileException(string message, Exception innerException)
             : base(message, innerException)
         { }

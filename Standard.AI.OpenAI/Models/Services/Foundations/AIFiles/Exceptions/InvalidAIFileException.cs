@@ -13,7 +13,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
             : base(message)
         { }
 
-
         public InvalidAIFileException(string message, Exception innerException)
             : base(message, innerException)
         { }

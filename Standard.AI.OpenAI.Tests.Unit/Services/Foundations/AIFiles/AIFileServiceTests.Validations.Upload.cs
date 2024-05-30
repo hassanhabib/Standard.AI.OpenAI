@@ -52,7 +52,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             invalidAIFile.Request = null;
 
             var invalidAIFileException =
-                new InvalidAIFileException(message: "Invalid AI file error occurred, fix errors and try again.");
+                new InvalidAIFileException(
+                    message: "Invalid AI file error occurred, fix errors and try again.");
 
             invalidAIFileException.AddData(
                 key: nameof(AIFile.Request),
@@ -99,7 +100,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             };
 
             var invalidAIFileException =
-                new InvalidAIFileException(message: "Invalid AI file error occurred, fix errors and try again.");
+                new InvalidAIFileException(
+                    message: "Invalid AI file error occurred, fix errors and try again.");
 
             invalidAIFileException.AddData(
                 key: nameof(AIFileRequest.Name),

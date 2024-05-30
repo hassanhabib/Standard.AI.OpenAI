@@ -8,8 +8,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public class AIFileDependencyValidationException : Xeption
     {
-
-
         public AIFileDependencyValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }
