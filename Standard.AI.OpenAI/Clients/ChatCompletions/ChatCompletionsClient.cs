@@ -37,6 +37,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
             catch (ChatCompletionDependencyException completionDependencyException)
             {
                 throw new ChatCompletionClientDependencyException(
+                    message: "Chat completion dependency error occurred, contact support.",
                     completionDependencyException.InnerException as Xeption);
             }
             catch (ChatCompletionServiceException completionServiceException)
