@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class InvalidConfigurationChatCompletionException : Xeption
     {
-        public InvalidConfigurationChatCompletionException(Exception innerException)
-            : base(
-                message: "Invalid chat completion configuration error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public InvalidConfigurationChatCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }
