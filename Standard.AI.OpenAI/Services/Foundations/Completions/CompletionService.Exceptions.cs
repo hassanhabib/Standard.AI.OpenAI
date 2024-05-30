@@ -39,14 +39,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedCompletionException =
-                    new UnauthorizedCompletionException(httpResponseUnauthorizedException);
+                    new UnauthorizedCompletionException(
+                        message: "Unauthorized completion request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw new CompletionDependencyException(unauthorizedCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedCompletionException =
-                    new UnauthorizedCompletionException(httpResponseForbiddenException);
+                    new UnauthorizedCompletionException(
+                        message: "Unauthorized completion request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw new CompletionDependencyException(unauthorizedCompletionException);
             }
