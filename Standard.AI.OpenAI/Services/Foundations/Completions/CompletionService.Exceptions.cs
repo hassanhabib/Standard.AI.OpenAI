@@ -22,11 +22,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             }
             catch (NullCompletionException nullCompletionException)
             {
-                throw new CompletionValidationException(nullCompletionException);
+                throw new CompletionValidationException(
+                    message: "Completion validation error occurred, fix errors and try again.", 
+                    nullCompletionException);
             }
             catch (InvalidCompletionException invalidCompletionException)
             {
                 throw new CompletionValidationException(
+                    message: "Completion validation error occurred, fix errors and try again.", 
                     invalidCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
