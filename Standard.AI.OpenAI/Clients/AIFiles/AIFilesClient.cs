@@ -28,11 +28,13 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             catch (AIFileOrchestrationValidationException aiFileOrchestrationValidationException)
             {
                 throw new AIFileClientValidationException(
+                    message: "AI file client validation error occurred, fix errors and try again.",
                     aiFileOrchestrationValidationException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
             {
                 throw new AIFileClientValidationException(
+                    message: "AI file client validation error occurred, fix errors and try again.",
                     aiFileOrchestrationDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
@@ -56,6 +58,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
             {
                 throw new AIFileClientValidationException(
+                    message: "AI file client validation error occurred, fix errors and try again.",
                     aiFileOrchestrationDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
@@ -79,11 +82,13 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             catch (AIFileOrchestrationValidationException aiFileOrchestrationValidationException)
             {
                 throw new AIFileClientValidationException(
+                    message: "AI file client validation error occurred, fix errors and try again.",
                     aiFileOrchestrationValidationException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationDependencyValidationException aiFileOrchestrationDependencyValidationException)
             {
                 throw new AIFileClientValidationException(
+                    message: "AI file client validation error occurred, fix errors and try again.",
                     aiFileOrchestrationDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
