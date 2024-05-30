@@ -66,7 +66,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallChatCompletionException =
-                    new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallChatCompletionException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw new ChatCompletionDependencyValidationException(excessiveCallChatCompletionException);
             }
