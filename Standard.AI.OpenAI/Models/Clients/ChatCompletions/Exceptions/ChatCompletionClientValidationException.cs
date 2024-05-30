@@ -12,11 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.ChatCompletions.Exceptions
         /// This exception is thrown when a validation error occurs while using the Chat completion client.
         /// For example, if required data is missing or invalid.
         /// </summary>
-        public ChatCompletionClientValidationException(Xeption innerException)
-            : base(
-                message: "Chat completion client validation error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
 
         public ChatCompletionClientValidationException(string message, Xeption innerException)
             : base(message, innerException )

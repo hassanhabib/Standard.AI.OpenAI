@@ -27,11 +27,13 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
             catch (ChatCompletionValidationException completionValidationException)
             {
                 throw new ChatCompletionClientValidationException(
+                    message: "Chat completion client validation error occurred, fix errors and try again.",
                     completionValidationException.InnerException as Xeption);
             }
             catch (ChatCompletionDependencyValidationException completionDependencyValidationException)
             {
                 throw new ChatCompletionClientValidationException(
+                    message: "Chat completion client validation error occurred, fix errors and try again.",
                     completionDependencyValidationException.InnerException as Xeption);
             }
             catch (ChatCompletionDependencyException completionDependencyException)
