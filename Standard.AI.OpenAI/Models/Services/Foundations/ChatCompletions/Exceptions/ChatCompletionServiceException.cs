@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class ChatCompletionServiceException : Xeption
     {
-        public ChatCompletionServiceException(Exception innerException)
-            : base(
-                message: "Chat completion service error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public ChatCompletionServiceException(string message, Exception innerException)
             : base(message, innerException)
         { }

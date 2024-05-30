@@ -83,6 +83,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                     new FailedChatCompletionServiceException(exception);
 
                 throw new ChatCompletionServiceException(
+                    message: "Chat completion service error occurred, contact support.",
                     failedChatCompletionServiceException);
             }
         }
