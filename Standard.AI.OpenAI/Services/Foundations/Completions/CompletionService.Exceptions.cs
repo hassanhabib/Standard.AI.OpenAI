@@ -84,7 +84,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var failedCompletionServiceException =
                     new FailedCompletionServiceException(exception);
 
-                throw new CompletionServiceException(failedCompletionServiceException);
+                throw new CompletionServiceException(
+                    message: "Completion service error occurred, contact support.", 
+                    failedCompletionServiceException);
             }
         }
     }
