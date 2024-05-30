@@ -34,21 +34,27 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidConfigurationAudioTranscriptionException =
                     new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
 
-                throw new AudioTranscriptionDependencyException(invalidConfigurationAudioTranscriptionException);
+                throw new AudioTranscriptionDependencyException(
+                    message: "Audio transcription dependency error occurred, contact support.", 
+                    invalidConfigurationAudioTranscriptionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
 
-                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+                throw new AudioTranscriptionDependencyException(
+                    message: "Audio transcription dependency error occurred, contact support.", 
+                    unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
 
-                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+                throw new AudioTranscriptionDependencyException(
+                    message: "Audio transcription dependency error occurred, contact support.", 
+                    unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
