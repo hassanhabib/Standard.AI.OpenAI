@@ -32,6 +32,7 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             catch (FineTuneDependencyException fineTuneDependencyException)
             {
                 throw new FineTuneClientDependencyException(
+                    message: "Fine tune client dependency error occurred, contact support.",
                     fineTuneDependencyException.InnerException as Xeption);
             }
             catch (FineTuneDependencyValidationException fineTuneDependencyValidationException)
