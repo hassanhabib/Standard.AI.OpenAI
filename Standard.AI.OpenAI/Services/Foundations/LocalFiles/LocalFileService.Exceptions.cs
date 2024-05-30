@@ -20,7 +20,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
             catch (InvalidLocalFileException invalidFileException)
             {
-                throw new LocalFileValidationException(invalidFileException);
+                throw new LocalFileValidationException(
+                    message: "Local file validation error occurred, fix error and try again.", 
+                    invalidFileException);
             }
             catch (ArgumentException argumentException)
             {
