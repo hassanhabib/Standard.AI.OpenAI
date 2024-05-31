@@ -134,18 +134,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
-
-        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
-        {
-            return new AIFileValidationException(
-                message: "AI file validation error occurred, fix errors and try again.",
-                innerException);
-        }
-
-        private static InvalidAIFileException createInvalidAIFileException()
-        {
-            return new InvalidAIFileException(message: "Invalid AI file error occurred, fix errors and try again.");
-
-        }
     }
 }

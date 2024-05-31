@@ -14,9 +14,11 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -155,5 +157,86 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
             return filler;
         }
+
+        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        {
+            return new AIFileDependencyException(
+                message: "AI file dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileDependencyValidationException(
+                message: "AI file dependency validation error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        {
+            return new AIFileServiceException(
+                message: "AI file service error occurred, contact support.",
+                innerException);
+        }
+
+        private static ExcessiveCallAIFileException createExcessiveCallAIFileException(Xeption innerException)
+        {
+            return new ExcessiveCallAIFileException(
+                message: "Excessive call error occurred, limit your calls.",
+                innerException);
+        }
+
+        private static FailedAIFileServiceException createFailedAIFileServiceException(Exception innerException)
+        {
+            return new FailedAIFileServiceException(
+                message: "Failed AI file service error occurred, contact support.",
+                innerException);
+        }
+
+        private static FailedServerAIFileException createFailedServerAIFileException(Exception innerException)
+        {
+            return new FailedServerAIFileException(
+                message: "Failed AI file server error occurred, contact support.",
+                innerException);
+        }
+
+        private static InvalidAIFileException createInvalidAIFileException(string message)
+        {
+            return new InvalidAIFileException(message);
+        }
+
+        private static InvalidAIFileException createInvalidAIFileException(string message, Exception innerException)
+        {
+            return new InvalidAIFileException(
+                message,
+                innerException);
+        }
+
+        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
+        {
+            return new AIFileValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static InvalidAIFileException createInvalidAIFileException()
+        {
+            return new InvalidAIFileException(message: "Invalid AI file error occurred, fix errors and try again.");
+        }
+
+        private static InvalidConfigurationAIFileException createInvalidConfigurationAIFileException(Exception innerException)
+        {
+            return new InvalidConfigurationAIFileException(
+                message: "Invalid AI file configuration error occurred, contact support.",
+                innerException);
+        }
+
+        private static UnauthorizedAIFileException createUnauthorizedAIFileException(Exception innerException)
+        {
+            return new UnauthorizedAIFileException(
+                message: "Unauthorized AI file request, fix errors and try again.",
+                innerException);
+        }
+
     }
 }

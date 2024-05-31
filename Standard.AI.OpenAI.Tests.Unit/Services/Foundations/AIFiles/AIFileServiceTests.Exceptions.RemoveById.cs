@@ -26,8 +26,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseUrlNotFoundException();
 
             var invalidConfigurationFileException =
-                new InvalidConfigurationAIFileException(
-                    message: "Invalid AI file configuration error occurred, contact support.",
+                createInvalidConfigurationAIFileException(
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedFileDependencyException =
@@ -67,8 +66,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             string someFileId = CreateRandomString();
 
             var unauthorizedFileException =
-                new UnauthorizedAIFileException(
-                    message: "Unauthorized AI file request, fix errors and try again.",
+                createUnauthorizedAIFileException(
                         innerException: unauthorizedException);
 
             var expectedFileDependencyException =
@@ -151,7 +149,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseBadRequestException();
 
             var invalidFileException =
-                new InvalidAIFileException(
+                createInvalidAIFileException(
                     message: "Invalid AI file error occurred, fix errors and try again.",
                         innerException: httpResponseBadRequestException);
 
@@ -193,8 +191,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallFileException =
-                new ExcessiveCallAIFileException(
-                    message: "Excessive call error occurred, limit your calls.",
+                createExcessiveCallAIFileException(
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedFileDependencyValidationException =
@@ -233,8 +230,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var httpResponseException = new HttpResponseException();
 
             var failedServerFileException =
-                new FailedServerAIFileException(
-                    message: "Failed AI file server error occurred, contact support.",
+                createFailedServerAIFileException(
                     innerException: httpResponseException);
 
             var expectedFileDependencyException =
@@ -273,13 +269,11 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var serviceException = new Exception();
 
             var failedFileServiceException =
-                new FailedAIFileServiceException(
-                    message: "Failed AI file service error occurred, contact support.",
+                createFailedAIFileServiceException(
                         innerException: serviceException);
 
             var expectedFileServiceException =
-                new AIFileServiceException(
-                    message: "AI file service error occurred, contact support.",
+                createAIFileServiceException(
                         innerException: failedFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -305,20 +299,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
-
-        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
-        {
-            return new AIFileDependencyException(
-                message: "AI file dependency error occurred, contact support.",
-                innerException);
-        }
-
-        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
-        {
-            return new AIFileDependencyValidationException(
-                message: "AI file dependency validation error occurred, contact support.",
-                innerException);
-        }
-
     }
 }

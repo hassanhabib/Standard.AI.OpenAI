@@ -52,8 +52,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     message: "AI file validation error occurred, fix errors and try again.", 
                     someInnerException),
 
-                new AIFileDependencyValidationException(
-                    message: "AI file dependency validation error occurred, contact support.", 
+                createAIFileDependencyValidationException(
                     someInnerException)
             };
         }
@@ -161,7 +160,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 message: "AI file service error occurred, contact support.",
                 innerException);
         }
-                    
 
+        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileDependencyValidationException(
+                message: "AI file dependency validation error occurred, contact support.",
+                innerException);
+        }
     }
 }
