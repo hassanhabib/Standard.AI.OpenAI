@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -22,14 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (NullChatCompletionException nullChatCompletionException)
             {
-                throw new ChatCompletionValidationException(
-                    message: "Chat completion validation error occurred, fix errors and try again.", 
+                throw createChatCompletionValidationException(
                     nullChatCompletionException);
             }
             catch (InvalidChatCompletionException invalidChatCompletionException)
             {
-                throw new ChatCompletionValidationException(
-                    message: "Chat completion validation error occurred, fix errors and try again.", 
+                throw createChatCompletionValidationException( 
                     invalidChatCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -89,6 +88,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 throw new ChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static ChatCompletionValidationException createChatCompletionValidationException(Xeption innerException)
+        {
+            return new ChatCompletionValidationException(
+                message: "Chat completion validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
