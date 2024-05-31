@@ -187,8 +187,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             var serviceException = new Exception();
 
             var failedAIModelServiceException =
-                new FailedAIModelServiceException(
-                    message: "Failed AI Model Service Exception occurred, please contact support for assistance.",
+                createFailedAIModelServiceException(
                         innerException: serviceException);
 
             var expectedAIModelServiceException =

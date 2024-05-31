@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
@@ -78,8 +79,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(
-                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
+                    createFailedAIModelServiceException(
                         exception);
 
                 throw new AIModelServiceException(
@@ -131,13 +131,19 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(
-                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
+                    createFailedAIModelServiceException(
                         exception);
 
                 throw new AIModelServiceException(
                     failedAIModelServiceException);
             }
+        }
+
+        private static FailedAIModelServiceException createFailedAIModelServiceException(Exception innerException)
+        {
+            return new FailedAIModelServiceException(
+                message: "Failed AI Model Service Exception occurred, please contact support for assistance.",
+                innerException);
         }
     }
 }
