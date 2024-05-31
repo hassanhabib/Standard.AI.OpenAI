@@ -45,14 +45,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (LocalFileDependencyException localFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     localFileDependencyException.InnerException as Xeption);
             }
             catch (LocalFileServiceException localFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     localFileServiceException.InnerException as Xeption);
             }
             catch (AIFileValidationException aIFileValidationException)
@@ -67,14 +65,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileDependencyException aIFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
@@ -96,8 +92,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileDependencyException aIFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
@@ -107,8 +102,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileServiceException aIFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
+                throw createAIFileOrchestrationDependencyException(
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
@@ -120,6 +114,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 throw new AIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
+        }
+
+        private static AIFileOrchestrationDependencyException createAIFileOrchestrationDependencyException(Xeption innerException)
+        {
+            return new AIFileOrchestrationDependencyException(
+                message: "AI File dependency error occurred, contact support.",
+                innerException);
         }
     }
 }
