@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 {
@@ -22,14 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
             catch (NullFineTuneException nullFineTuneException)
             {
-                throw new FineTuneValidationException(
-                    message: "Fine tune validation error occurred, fix errors and try again.", 
+                throw createFineTuneValidationException(
                     nullFineTuneException);
             }
             catch (InvalidFineTuneException invalidFineTuneException)
             {
-                throw new FineTuneValidationException(
-                    message: "Fine tune validation error occurred, fix errors and try again.", 
+                throw createFineTuneValidationException(
                     invalidFineTuneException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -84,6 +83,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneServiceException(failedFineTuneServiceException);
             }
+        }
+
+        private static FineTuneValidationException createFineTuneValidationException(Xeption innerException)
+        {
+            return new FineTuneValidationException(
+                message: "Fine tune validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }

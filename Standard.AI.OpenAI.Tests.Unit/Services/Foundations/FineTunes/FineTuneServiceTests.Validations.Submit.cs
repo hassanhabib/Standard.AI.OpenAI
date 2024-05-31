@@ -24,9 +24,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 new NullFineTuneException();
 
             var expectedFineTuneValidationException =
-                new FineTuneValidationException(
-                    message: "Fine tune validation error occurred, fix errors and try again.",
-                        innerException: nullFineTuneException);
+                createFineTuneValidationException(
+                    innerException: nullFineTuneException);
 
             // when
             ValueTask<FineTune> sendFineTuneTask =
@@ -67,9 +66,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 values: "Value is required");
 
             var expectedFineTuneValidationException =
-                new FineTuneValidationException(
-                    message: "Fine tune validation error occurred, fix errors and try again.",
-                        innerException: invalidFineTuneException);
+                createFineTuneValidationException(
+                    innerException: invalidFineTuneException);
 
             // when
             ValueTask<FineTune> submitFineTuneTask =
@@ -111,9 +109,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                 values: "Value is required");
 
             var exceptedFineTuneValidationException =
-                new FineTuneValidationException(
-                    message: "Fine tune validation error occurred, fix errors and try again.",
-                        innerException: invalidFineTuneException);
+                createFineTuneValidationException(
+                    innerException: invalidFineTuneException);
 
             // when
             ValueTask<FineTune> sendFineTuneTask =
