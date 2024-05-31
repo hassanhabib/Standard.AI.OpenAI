@@ -60,8 +60,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             fineTune.Request = nullFineTuneRequest;
 
             var invalidFineTuneException =
-                new InvalidFineTuneException(
-                    message: "Fine tune is invalid.");
+                createInvalidFineTuneException();
 
             invalidFineTuneException.AddData(
                 key: nameof(FineTune.Request),
@@ -105,9 +104,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
             var invalidFineTune = new FineTune();
             invalidFineTune.Request = new FineTuneRequest();
             invalidFineTune.Request.FileId = invalidText;
-            var invalidFineTuneException = 
-                new InvalidFineTuneException(
-                    message: "Fine tune is invalid.");
+            var invalidFineTuneException =
+                createInvalidFineTuneException();
 
             invalidFineTuneException.AddData(
                 key: nameof(FineTuneRequest.FileId),
