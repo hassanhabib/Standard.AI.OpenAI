@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 {
@@ -22,14 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             }
             catch (NullImageGenerationException nullImageGenerationException)
             {
-                throw new ImageGenerationValidationException(
-                    message: "Image generation validation error occurred, fix errors and try again.", 
+                throw createImageGenerationValidationException(
                     nullImageGenerationException);
             }
             catch (InvalidImageGenerationException invalidImageGenerationException)
             {
-                throw new ImageGenerationValidationException(
-                    message: "Image generation validation error occurred, fix errors and try again.", 
+                throw createImageGenerationValidationException(
                     invalidImageGenerationException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -88,6 +87,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static ImageGenerationValidationException createImageGenerationValidationException(Xeption innerException)
+        {
+            return new ImageGenerationValidationException(
+                message: "Image generation validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
