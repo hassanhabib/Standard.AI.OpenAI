@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
@@ -139,5 +140,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     failedAIModelServiceException);
             }
         }
+
+        private static AIModelDependencyValidationException createAIModelDependencyValidationException(Xeption innerException)
+        {
+            return new AIModelDependencyValidationException(
+                message: "AI Model dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
     }
 }

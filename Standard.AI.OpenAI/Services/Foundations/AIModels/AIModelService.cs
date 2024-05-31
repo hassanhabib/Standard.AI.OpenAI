@@ -79,12 +79,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             };
         }
 
-        private static AIModelDependencyValidationException createAIModelDependencyValidationException(Xeption innerException) 
-        {
-            return new AIModelDependencyValidationException(
-                message: "AI Model dependency validation error occurred, fix errors and try again.", 
-                innerException);
-        }
-
     }
 }
