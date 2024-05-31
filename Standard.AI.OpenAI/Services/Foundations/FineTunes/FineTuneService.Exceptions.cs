@@ -38,8 +38,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedFineTuneException =
-                    new UnauthorizedFineTuneException(
-                        message: "Unauthorized fine tune request, fix errors and try again.",
+                    createUnauthorizedFineTuneException(
                         httpResponseUnauthorizedException);
 
                 throw new FineTuneDependencyException(unauthorizedFineTuneException);
@@ -47,8 +46,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedFineTuneException =
-                    new UnauthorizedFineTuneException(
-                        message: "Unauthorized fine tune request, fix errors and try again.",
+                    createUnauthorizedFineTuneException(
                         httpResponseForbiddenException);
 
                 throw new FineTuneDependencyException(unauthorizedFineTuneException);
@@ -82,6 +80,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneServiceException(failedFineTuneServiceException);
             }
+        }
+
+        private static UnauthorizedFineTuneException createUnauthorizedFineTuneException(Exception innerException)
+        {
+            return new UnauthorizedFineTuneException(
+                message: "Unauthorized fine tune request, fix errors and try again.",
+                innerException);
         }
     }
 }
