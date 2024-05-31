@@ -31,9 +31,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedFineTuneDependencyException =
-                new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.",
-                        innerException: invalidFineTuneConfigurationException);
+                createFineTuneDependencyException(
+                    innerException: invalidFineTuneConfigurationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -74,9 +73,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         innerException: unauthorizedException);
 
             var expectedFineTuneDependencyException =
-                new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.",
-                        innerException: unauthorizedFineTuneException);
+                createFineTuneDependencyException(
+                    innerException: unauthorizedFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -206,9 +204,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         innerException: httpResponseException);
 
             var expectedFineTuneDependencyException =
-                new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.",
-                        innerException: failedServerFineTuneException);
+                createFineTuneDependencyException(
+                    innerException: failedServerFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))

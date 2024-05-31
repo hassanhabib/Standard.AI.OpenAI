@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 {
@@ -33,8 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var invalidFineTuneConfigurationException =
                     new InvalidFineTuneConfigurationException(httpResponseUrlNotFoundException);
 
-                throw new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.", 
+                throw createFineTuneDependencyException(
                     invalidFineTuneConfigurationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,8 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseUnauthorizedException);
 
-                throw new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.", 
+                throw createFineTuneDependencyException(
                     unauthorizedFineTuneException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -53,8 +52,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseForbiddenException);
 
-                throw new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.", 
+                throw createFineTuneDependencyException(
                     unauthorizedFineTuneException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -77,8 +75,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var failedServerFineTuneException =
                     new FailedServerFineTuneException(httpResponseException);
 
-                throw new FineTuneDependencyException(
-                    message: "Fine tune dependency error ocurred, contact support.", 
+                throw createFineTuneDependencyException(
                     failedServerFineTuneException);
             }
             catch (Exception exception)
@@ -88,6 +85,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneServiceException(failedFineTuneServiceException);
             }
+        }
+
+        private static FineTuneDependencyException createFineTuneDependencyException(Xeption innerException)
+        {
+            return new FineTuneDependencyException(
+                message: "Fine tune dependency error ocurred, contact support.",
+                innerException);
         }
     }
 }
