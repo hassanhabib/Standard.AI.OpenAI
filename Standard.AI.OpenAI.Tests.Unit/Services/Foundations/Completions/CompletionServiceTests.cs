@@ -12,9 +12,11 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
@@ -140,6 +142,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
+        }
+
+        private static CompletionDependencyValidationException createCompletionDependencyValidationException(Xeption innerException)
+        {
+            return new CompletionDependencyValidationException(
+                message: "Completion dependency validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }

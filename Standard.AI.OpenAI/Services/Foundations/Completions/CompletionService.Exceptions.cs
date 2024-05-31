@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
@@ -55,8 +56,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var notFoundCompletionException =
                     new NotFoundCompletionException(httpResponseNotFoundException);
 
-                throw new CompletionDependencyValidationException(
-                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                throw createCompletionDependencyValidationException(
                     notFoundCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -64,8 +64,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var invalidCompletionException =
                     new InvalidCompletionException(httpResponseBadRequestException);
 
-                throw new CompletionDependencyValidationException(
-                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                throw createCompletionDependencyValidationException( 
                     invalidCompletionException);
             }
 
@@ -74,8 +73,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var excessiveCallCompletionException =
                     new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
 
-                throw new CompletionDependencyValidationException(
-                    message: "Completion dependency validation error occurred, fix errors and try again.", 
+                throw createCompletionDependencyValidationException(
                     excessiveCallCompletionException);
             }
             catch (HttpResponseException httpResponseException)
@@ -92,6 +90,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
+        }
+
+        private static CompletionDependencyValidationException createCompletionDependencyValidationException(Xeption innerException)
+        {
+            return new CompletionDependencyValidationException(
+                message: "Completion dependency validation error occurred, fix errors and try again.", 
+                innerException);
         }
     }
 }
