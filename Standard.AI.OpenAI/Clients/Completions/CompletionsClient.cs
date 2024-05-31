@@ -26,14 +26,12 @@ namespace Standard.AI.OpenAI.Clients.Completions
             }
             catch (CompletionValidationException completionValidationException)
             {
-                throw new CompletionClientValidationException(
-                    message: "Completion client validation error occurred, fix errors and try again.",
+                throw createCompletionClientValidationException(
                     completionValidationException.InnerException as Xeption);
             }
             catch (CompletionDependencyValidationException completionDependencyValidationException)
             {
-                throw new CompletionClientValidationException(
-                    message: "Completion client validation error occurred, fix errors and try again.",
+                throw createCompletionClientValidationException(
                     completionDependencyValidationException.InnerException as Xeption);
             }
             catch (CompletionDependencyException completionDependencyException)
@@ -46,6 +44,13 @@ namespace Standard.AI.OpenAI.Clients.Completions
                 throw new CompletionClientServiceException(
                     completionServiceException.InnerException as Xeption);
             }
+        }
+
+        private static CompletionClientValidationException createCompletionClientValidationException(Xeption innerException)
+        {
+            return new CompletionClientValidationException(
+                message: "Completion client validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
