@@ -117,8 +117,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseNotFoundException);
 
             var expectedAIModelDependencyValidationException =
-                new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.",
+                createAIModelDependencyValidationException(
                         innerException: notFoundAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -161,8 +160,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseBadRequestException);
 
             var expectedAIModelDependencyValidationException =
-                new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.",
+                createAIModelDependencyValidationException(
                         innerException: invalidAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -205,8 +203,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedAIModelDependencyValidationException =
-                new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.",
+                createAIModelDependencyValidationException(
                         innerException: excessiveCallAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>

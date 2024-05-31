@@ -10,8 +10,10 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIModels;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
@@ -117,5 +119,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
+
+        private static AIModelDependencyValidationException createAIModelDependencyValidationException(Xeption innerException)
+        {
+            return new AIModelDependencyValidationException(
+                message: "AI Model dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
     }
 }
