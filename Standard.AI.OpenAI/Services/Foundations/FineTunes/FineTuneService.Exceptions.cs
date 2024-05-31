@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 {
@@ -57,8 +58,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new InvalidFineTuneException(
                         httpResponseBadRequestException);
 
-                throw new FineTuneDependencyValidationException(
-                    message: "Fine tune dependency validation error occurred, fix errors and try again", 
+                throw createFineTuneDependencyValidationException(
                     invalidFineTuneException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -66,8 +66,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var excessiveCallFineTuneException =
                     new ExcessiveCallFineTuneException(httpResponseTooManyRequestsException);
 
-                throw new FineTuneDependencyValidationException(
-                    message: "Fine tune dependency validation error occurred, fix errors and try again", 
+                throw createFineTuneDependencyValidationException(
                     excessiveCallFineTuneException);
             }
             catch (HttpResponseException httpResponseException)
@@ -84,6 +83,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
 
                 throw new FineTuneServiceException(failedFineTuneServiceException);
             }
+        }
+
+        private static FineTuneDependencyValidationException createFineTuneDependencyValidationException(Xeption innerException)
+        {
+            return new FineTuneDependencyValidationException(
+                message: "Fine tune dependency validation error occurred, fix errors and try again",
+                innerException);
         }
     }
 }
