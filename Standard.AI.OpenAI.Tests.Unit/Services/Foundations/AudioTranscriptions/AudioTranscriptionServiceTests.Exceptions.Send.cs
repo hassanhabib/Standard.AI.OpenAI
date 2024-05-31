@@ -123,8 +123,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         innerException: httpResponseBadRequestException);
 
             var expectedAudioTranscriptionDependencyValidationException =
-                new AudioTranscriptionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                createAudioTranscriptionDependencyValidationException(
                         innerException: invalidAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -212,8 +211,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedAudioTranscriptionDependencyValidationException =
-                new AudioTranscriptionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                createAudioTranscriptionDependencyValidationException(
                         innerException: excessiveCallAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>

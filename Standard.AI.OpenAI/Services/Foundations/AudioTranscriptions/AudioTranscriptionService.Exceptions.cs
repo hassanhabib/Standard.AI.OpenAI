@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 {
@@ -55,8 +56,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidAudioTranscriptionException =
                     new InvalidAudioTranscriptionException(httpResponseBadRequestException);
 
-                throw new AudioTranscriptionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                throw createAudioTranscriptionDependencyValidationException(
                     invalidAudioTranscriptionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -64,8 +64,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var excessiveCallAudioTranscriptionException =
                     new ExcessiveCallAudioTranscriptionException(httpResponseTooManyRequestsException);
 
-                throw new AudioTranscriptionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                throw createAudioTranscriptionDependencyValidationException(
                     excessiveCallAudioTranscriptionException);
             }
             catch (Exception exception)
@@ -75,6 +74,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 throw new AudioTranscriptionServiceException(failedAudioTranscriptionServiceException);
             }
+        }
+
+        private static AudioTranscriptionDependencyValidationException createAudioTranscriptionDependencyValidationException(Xeption innerException)
+        {
+            return new AudioTranscriptionDependencyValidationException(
+                message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
