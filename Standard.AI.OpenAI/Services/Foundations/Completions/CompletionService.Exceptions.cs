@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
@@ -34,8 +35,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var invalidConfigurationCompletionException =
                     new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
 
-                throw new CompletionDependencyException(
-                    message: "Completion dependency error occurred, contact support.", 
+                throw createCompletionDependencyException(
                     invalidConfigurationCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,8 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseUnauthorizedException);
 
-                throw new CompletionDependencyException(
-                    message: "Completion dependency error occurred, contact support.", 
+                throw createCompletionDependencyException(
                     unauthorizedCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -52,8 +51,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseForbiddenException);
 
-                throw new CompletionDependencyException(
-                    message: "Completion dependency error occurred, contact support.", 
+                throw createCompletionDependencyException(
                     unauthorizedCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -83,8 +81,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var failedServerCompletionException =
                     new FailedServerCompletionException(httpResponseException);
 
-                throw new CompletionDependencyException(
-                    message: "Completion dependency error occurred, contact support.", 
+                throw createCompletionDependencyException(
                     failedServerCompletionException);
             }
             catch (Exception exception)
@@ -94,6 +91,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
+        }
+        private static CompletionDependencyException createCompletionDependencyException(Xeption innerException)
+        {
+            return new CompletionDependencyException(
+                message: "Completion dependency error occurred, contact support.",
+                innerException);
         }
     }
 }
