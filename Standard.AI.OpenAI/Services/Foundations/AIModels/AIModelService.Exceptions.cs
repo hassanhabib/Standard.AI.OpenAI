@@ -52,8 +52,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var notFoundAIModelException =
                     new NotFoundAIModelException(httpResponseNotFoundException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
+                throw createAIModelDependencyValidationException(
                     notFoundAIModelException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -61,8 +60,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidAIModelException =
                     new InvalidAIModelException(httpResponseBadRequestException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
+                throw createAIModelDependencyValidationException(
                     invalidAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -70,8 +68,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var excessiveCallAIModelException =
                     new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
+                throw createAIModelDependencyValidationException(
                     excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
@@ -123,8 +120,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var excessiveCallAIModelException =
                     new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
+                throw createAIModelDependencyValidationException(
                     excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
