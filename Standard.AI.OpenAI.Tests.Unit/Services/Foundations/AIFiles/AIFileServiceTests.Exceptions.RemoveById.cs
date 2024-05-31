@@ -278,7 +278,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: serviceException);
 
             var expectedFileServiceException =
-                createAIFileValidationException(
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
                         innerException: failedFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
