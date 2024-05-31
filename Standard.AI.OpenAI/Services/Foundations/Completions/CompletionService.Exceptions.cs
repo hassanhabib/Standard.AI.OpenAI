@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {
@@ -22,14 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             }
             catch (NullCompletionException nullCompletionException)
             {
-                throw new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.", 
+                throw createCompletionValidationException(
                     nullCompletionException);
             }
             catch (InvalidCompletionException invalidCompletionException)
             {
-                throw new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.", 
+                throw createCompletionValidationException(
                     invalidCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -90,5 +89,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
         }
+
+        private static CompletionValidationException createCompletionValidationException(Xeption innerException)
+        {
+            return new CompletionValidationException(
+                message: "Completion validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
     }
 }

@@ -23,9 +23,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             var nullCompletionException = new NullCompletionException();
 
             var exceptedCompletionValidationException =
-                new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.",
-                        innerException: nullCompletionException);
+                createCompletionValidationException(
+                    innerException: nullCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -63,9 +62,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             var expectedCompletionValidationException =
-                new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.",
-                        innerException: invalidCompletionException);
+                createCompletionValidationException(
+                    innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -114,9 +112,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             var expectedCompletionValidationException =
-                new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.",
-                        innerException: invalidCompletionException);
+                createCompletionValidationException(
+                    innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
@@ -153,9 +150,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 values: "Value is required");
 
             var expectedCompletionValidationException =
-                new CompletionValidationException(
-                    message: "Completion validation error occurred, fix errors and try again.",
-                        innerException: invalidCompletionException);
+                createCompletionValidationException(
+                    innerException: invalidCompletionException);
 
             // when
             ValueTask<Completion> promptCompletionTask =
