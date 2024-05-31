@@ -37,8 +37,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
             {
-                throw new AIFileClientDependencyException(
-                    message: "AI file client dependency error occurred, contact support.",
+                throw createAIFileClientDependencyException(
                     aiFileOrchestrationDependencyException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
@@ -61,8 +60,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
             {
-                throw new AIFileClientDependencyException(
-                    message: "AI file client dependency error occurred, contact support.",
+                throw createAIFileClientDependencyException(
                     aiFileOrchestrationDependencyException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
@@ -90,8 +88,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationDependencyException aiFileOrchestrationDependencyException)
             {
-                throw new AIFileClientDependencyException(
-                    message: "AI file client dependency error occurred, contact support.",
+                throw createAIFileClientDependencyException(
                     aiFileOrchestrationDependencyException.InnerException as Xeption);
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
@@ -99,6 +96,13 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
                 throw new AIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
+        }
+
+        private static AIFileClientDependencyException createAIFileClientDependencyException(Xeption innerException)
+        {
+            return new AIFileClientDependencyException(
+                message: "AI file client dependency error occurred, contact support.",
+                innerException);
         }
     }
 }
