@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 {
@@ -54,8 +55,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var notFoundImageGenerationException =
                     new NotFoundImageGenerationException(httpResponseNotFoundException);
 
-                throw new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                throw createImageGenerationDependencyValidationException(
                     notFoundImageGenerationException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -63,8 +63,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var invalidImageGenerationException =
                     new InvalidImageGenerationException(httpResponseBadRequestException);
 
-                throw new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                throw createImageGenerationDependencyValidationException(
                     invalidImageGenerationException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -72,8 +71,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var excessiveCallImageGenerationException =
                     new ExcessiveCallImageGenerationException(httpResponseTooManyRequestsException);
 
-                throw new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.", 
+                throw createImageGenerationDependencyValidationException(
                     excessiveCallImageGenerationException);
             }
             catch (HttpResponseException httpResponseException)
@@ -90,6 +88,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static ImageGenerationDependencyValidationException createImageGenerationDependencyValidationException(Xeption innerException)
+        {
+            return new ImageGenerationDependencyValidationException(
+                message: "Image generation dependency validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }

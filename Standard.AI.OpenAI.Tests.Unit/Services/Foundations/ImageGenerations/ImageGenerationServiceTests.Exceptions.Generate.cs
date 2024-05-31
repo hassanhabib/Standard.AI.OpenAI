@@ -120,9 +120,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: httpResponseNotFoundException);
 
             var expectedImageGenerationDependencyValidationException =
-                new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.",
-                        innerException: notFoundImageGenerationException);
+                createImageGenerationDependencyValidationException(
+                    innerException: notFoundImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -165,9 +164,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: httpResponseBadRequestException);
 
             var expectedImageGenerationDependencyValidationException =
-                new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.",
-                        innerException: invalidImageGenerationException);
+                createImageGenerationDependencyValidationException(
+                    innerException: invalidImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -210,9 +208,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedImageGenerationDependencyValidationException =
-                new ImageGenerationDependencyValidationException(
-                    message: "Image generation dependency validation error occurred, fix errors and try again.",
-                        innerException: excessiveCallImageGenerationException);
+                createImageGenerationDependencyValidationException(
+                    innerException: excessiveCallImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
