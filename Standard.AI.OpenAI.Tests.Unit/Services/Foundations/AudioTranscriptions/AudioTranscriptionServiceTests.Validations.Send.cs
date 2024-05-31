@@ -23,8 +23,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             var nullAudioTranscriptionException = new NullAudioTranscriptionException();
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(
-                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                createAudioTranscriptionValidationException(
                         innerException: nullAudioTranscriptionException);
 
             // when
@@ -63,8 +62,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 values: "Value is required");
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(
-                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                createAudioTranscriptionValidationException(
                         innerException: invalidAudioTranscriptionException);
 
             // when
@@ -114,8 +112,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 values: "Value is required");
 
             var exceptedAudioTranscriptionValidationException =
-                new AudioTranscriptionValidationException(
-                    message: "Audio transcription validation error occurred, fix errors and try again.",
+                createAudioTranscriptionValidationException(
                         innerException: invalidAudioTranscriptionException);
 
             // when
