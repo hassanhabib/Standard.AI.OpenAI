@@ -24,9 +24,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             string someFileId = CreateRandomFileId();
 
             var expectedAIFileOrchestrationDependencyValidationException =
-                new AIFileOrchestrationDependencyValidationException(
-                    message: "AI file dependency validation error occurred, fix errors and try again.",
-                        innerException: dependencyValidationException.InnerException as Xeption);
+                createAIFileOrchestrationDependencyValidationException(
+                    innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))
