@@ -25,8 +25,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 new HttpResponseUrlNotFoundException();
 
             var invalidConfigurationAIModelException =
-                new InvalidConfigurationAIModelException(
-                    message: "Invalid AI Model configuration error occurred, contact support.",
+                createInvalidConfigurationAIModelException(
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedAIModelDependencyException =
