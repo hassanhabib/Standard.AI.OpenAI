@@ -42,8 +42,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
-                    message: "AI file client service error occurred, contact support.",
+                throw createAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
@@ -66,8 +65,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
-                    message: "AI file client service error occurred, contact support.",
+                throw createAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
@@ -95,10 +93,16 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
-                    message: "AI file client service error occurred, contact support.",
+                throw createAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
+        }
+
+        private static AIFileClientServiceException createAIFileClientServiceException(Xeption innerException)
+        {
+            return new AIFileClientServiceException(
+                message: "AI file client service error occurred, contact support.",
+                innerException);
         }
     }
 }
