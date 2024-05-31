@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
@@ -135,5 +136,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     failedAIModelServiceException);
             }
         }
+
+        private static AIModelServiceException createAIModelServiceException(Xeption innerException)
+        {
+            return new AIModelServiceException(
+                message: "AI Model service error occurred, contact support.",
+                innerException);
+        }
+
     }
 }

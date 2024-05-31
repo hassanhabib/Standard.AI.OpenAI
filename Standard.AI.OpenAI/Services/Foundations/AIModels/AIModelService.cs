@@ -79,11 +79,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             };
         }
 
-        private static AIModelServiceException createAIModelServiceException(Xeption innerException)
-        {
-            return new AIModelServiceException(
-                message: "AI Model service error occurred, contact support.",
-                innerException);
-        }
     }
 }
