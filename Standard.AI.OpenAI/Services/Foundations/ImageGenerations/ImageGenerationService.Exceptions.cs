@@ -38,8 +38,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(
-                        message: "Unauthorized image generation request, fix errors and try again.", 
+                    createUnauthorizedImageGenerationException(
                         httpResponseUnauthorizedException);
 
                 throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
@@ -47,8 +46,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(
-                        message: "Unauthorized image generation request, fix errors and try again.", 
+                    createUnauthorizedImageGenerationException(
                         httpResponseForbiddenException);
 
                 throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
@@ -88,6 +86,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static UnauthorizedImageGenerationException createUnauthorizedImageGenerationException(Exception innerException)
+        {
+            return new UnauthorizedImageGenerationException(
+                message: "Unauthorized image generation request, fix errors and try again.", 
+                innerException);
         }
     }
 }
