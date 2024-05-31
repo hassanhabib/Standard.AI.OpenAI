@@ -24,9 +24,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
         {
             // given
             var expectedAIFileOrchestrationDependencyException =
-                new AIFileOrchestrationDependencyException(
-                    message: "AI File dependency error occurred, contact support.",
-                        innerException: dependencyException.InnerException as Xeption);
+                createAIFileOrchestrationDependencyException(
+                    innerException: dependencyException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RetrieveAllFilesAsync())
