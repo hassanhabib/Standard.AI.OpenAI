@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -54,8 +55,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var notFoundChatCompletionException =
                     new NotFoundChatCompletionException(httpResponseNotFoundException);
 
-                throw new ChatCompletionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                throw createChatCompletionDependencyValidationException(
                     notFoundChatCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -63,8 +63,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var invalidChatCompletionException =
                     new InvalidChatCompletionException(httpResponseBadRequestException);
 
-                throw new ChatCompletionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                throw createChatCompletionDependencyValidationException(
                     invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -72,8 +71,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var excessiveCallChatCompletionException =
                     new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
 
-                throw new ChatCompletionDependencyValidationException(
-                    message: "Chat completion dependency validation error occurred, fix errors and try again.", 
+                throw createChatCompletionDependencyValidationException(
                     excessiveCallChatCompletionException);
             }
             catch (HttpResponseException httpResponseException)
@@ -91,6 +89,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 throw new ChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static ChatCompletionDependencyValidationException createChatCompletionDependencyValidationException(Xeption innerException)
+        {
+            return new ChatCompletionDependencyValidationException(
+                "Chat completion dependency validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
