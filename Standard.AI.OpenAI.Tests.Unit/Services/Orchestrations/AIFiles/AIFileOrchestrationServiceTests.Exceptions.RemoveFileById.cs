@@ -106,9 +106,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                         innerException: serviceException);
 
             var expectedAIFileOrchestrationServiceException =
-                new AIFileOrchestrationServiceException(
-                    message: "AI File error occurred, contact support.",
-                        innerException: failedAIFileOrchestrationServiceException);
+                createAIFileOrchestrationServiceException(
+                    innerException: failedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))

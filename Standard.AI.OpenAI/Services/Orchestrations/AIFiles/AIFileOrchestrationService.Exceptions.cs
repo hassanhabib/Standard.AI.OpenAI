@@ -79,8 +79,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                     new FailedAIFileOrchestrationServiceException(
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
-                    message: "AI File error occurred, contact support.",
+                throw createAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
         }
@@ -112,10 +111,16 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                     new FailedAIFileOrchestrationServiceException(
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
-                    message: "AI File error occurred, contact support.",
+                throw createAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
+        }
+
+        private static AIFileOrchestrationServiceException createAIFileOrchestrationServiceException(Xeption innerException)
+        {
+            return new AIFileOrchestrationServiceException(
+                message: "AI File error occurred, contact support.",
+                innerException);
         }
     }
 }
