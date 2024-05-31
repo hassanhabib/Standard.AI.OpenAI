@@ -31,8 +31,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidConfigurationAIModelException =
                     new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -40,8 +39,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -49,8 +47,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -79,8 +76,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedServerAIModelException =
                     new FailedServerAIModelException(httpResponseException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     failedServerAIModelException);
             }
             catch (Exception exception)
@@ -104,8 +100,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidConfigurationAIModelException =
                     new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -113,8 +108,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -122,8 +116,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -138,8 +131,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedServerAIModelException =
                     new FailedServerAIModelException(httpResponseException);
 
-                throw new AIModelDependencyException(
-                    message: "AI Model dependency error occurred, contact support.", 
+                throw createAIModelDependencyException(
                     failedServerAIModelException);
             }
             catch (Exception exception)
