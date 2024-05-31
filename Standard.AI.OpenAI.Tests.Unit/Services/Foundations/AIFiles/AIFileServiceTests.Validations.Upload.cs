@@ -137,7 +137,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
 
         private static AIFileValidationException createAIFileValidationException(Xeption innerException)
         {
-            throw new AIFileValidationException(
+            return new AIFileValidationException(
                 message: "AI file validation error occurred, fix errors and try again.",
                 innerException);
         }
