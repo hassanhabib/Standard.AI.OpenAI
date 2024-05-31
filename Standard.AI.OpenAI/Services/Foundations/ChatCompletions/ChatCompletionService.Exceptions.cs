@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -33,8 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var invalidConfigurationChatCompletionException =
                     new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
 
-                throw new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.", 
+                throw createChatCompletionDependencyException(
                     invalidConfigurationChatCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -42,8 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
 
-                throw new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.", 
+                throw createChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -51,8 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseForbiddenException);
 
-                throw new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.", 
+                throw createChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -81,8 +79,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var failedServerChatCompletionException =
                     new FailedServerChatCompletionException(httpResponseException);
 
-                throw new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.", 
+                throw createChatCompletionDependencyException(
                     failedServerChatCompletionException);
             }
             catch (Exception exception)
@@ -93,6 +90,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 throw new ChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static ChatCompletionDependencyException createChatCompletionDependencyException(Xeption innerException)
+        {
+            return new ChatCompletionDependencyException(
+                message: "Chat completion dependency error occurred, contact support.",
+                innerException);
         }
     }
 }

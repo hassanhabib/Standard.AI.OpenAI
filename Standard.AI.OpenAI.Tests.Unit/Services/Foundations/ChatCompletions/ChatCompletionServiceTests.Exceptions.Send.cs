@@ -32,9 +32,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedChatCompletionDependencyException =
-                new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.",
-                        innerException: invalidConfigurationChatCompletionException);
+                createChatCompletionDependencyException(
+                    innerException: invalidConfigurationChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -78,9 +77,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: unauthorizedException);
 
             var expectedChatCompletionDependencyException =
-                new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.",
-                        innerException: unauthorizedChatCompletionException);
+                createChatCompletionDependencyException(
+                    innerException: unauthorizedChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -260,9 +258,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: httpResponseException);
 
             var expectedChatCompletionDependencyException =
-                new ChatCompletionDependencyException(
-                    message: "Chat completion dependency error occurred, contact support.",
-                        innerException: failedServerChatCompletionException);
+                createChatCompletionDependencyException(
+                    innerException: failedServerChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(

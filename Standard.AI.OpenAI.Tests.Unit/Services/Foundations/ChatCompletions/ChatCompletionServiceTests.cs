@@ -13,9 +13,11 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
+using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalChatCompletions;
 using Standard.AI.OpenAI.Services.Foundations.ChatCompletions;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
@@ -153,6 +155,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                 .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
+        }
+
+        private static ChatCompletionDependencyException createChatCompletionDependencyException(Xeption innerException)
+        {
+            return new ChatCompletionDependencyException(
+                message: "Chat completion dependency error occurred, contact support.",
+                innerException);
         }
     }
 }
