@@ -7,8 +7,10 @@ using System.IO;
 using System.Text;
 using Moq;
 using Standard.AI.OpenAI.Brokers.Files;
+using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
@@ -71,6 +73,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
             var memoryStream = new MemoryStream(buffer);
 
             return memoryStream;
+        }
+
+        private static LocalFileDependencyValidationException createLocalFileDependencyValidationException(Xeption innerException)
+        {
+            return new LocalFileDependencyValidationException(
+                message: "Local file dependency validation error occurred, fix the errors and try again.",
+                innerException);
         }
     }
 }
