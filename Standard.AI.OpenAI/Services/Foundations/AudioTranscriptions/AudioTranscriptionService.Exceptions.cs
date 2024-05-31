@@ -39,17 +39,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAudioTranscriptionException =
-                    new UnauthorizedAudioTranscriptionException(
-                        message: "Unauthorized audio transcription request, fix errors and try again.",
+                    createUnauthorizedAudioTranscriptionException(
                         httpResponseUnauthorizedException);
 
                 throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
-                var unauthorizedAudioTranscriptionException = new UnauthorizedAudioTranscriptionException(
-                    message: "Unauthorized audio transcription request, fix errors and try again.",
-                    httpResponseForbiddenException);
+                var unauthorizedAudioTranscriptionException =
+                    createUnauthorizedAudioTranscriptionException(
+                        httpResponseForbiddenException);
 
                 throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
             }
@@ -74,6 +73,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 throw new AudioTranscriptionServiceException(failedAudioTranscriptionServiceException);
             }
+        }
+
+        private static UnauthorizedAudioTranscriptionException createUnauthorizedAudioTranscriptionException(Exception innerException)
+        {
+            return new UnauthorizedAudioTranscriptionException(
+                message: "Unauthorized audio transcription request, fix errors and try again.",
+                innerException);
         }
     }
 }
