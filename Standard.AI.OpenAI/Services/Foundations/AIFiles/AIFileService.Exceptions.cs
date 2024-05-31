@@ -171,5 +171,68 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             }
         }
 
+        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        {
+            return new AIFileDependencyException(
+                message: "AI file dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileDependencyValidationException(
+                message: "AI file dependency validation error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        {
+            return new AIFileServiceException(
+                message: "AI file service error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
+        {
+            throw new AIFileValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ExcessiveCallAIFileException createExcessiveCallAIFileException(Xeption innerException)
+        {
+            return new ExcessiveCallAIFileException(
+                message: "Excessive call error occurred, limit your calls.",
+                innerException);
+        }
+
+        private static FailedAIFileServiceException createFailedAIFileServiceException(Exception innerException)
+        {
+            return new FailedAIFileServiceException(
+                message: "Failed AI file service error occurred, contact support.",
+                innerException);
+        }
+
+        private static FailedServerAIFileException createFailedServerAIFileException(Exception innerException)
+        {
+            return new FailedServerAIFileException(
+                message: "Failed AI file server error occurred, contact support.",
+                innerException);
+        }
+
+        private static InvalidConfigurationAIFileException createInvalidConfigurationAIFileException(Exception innerException)
+        {
+            return new InvalidConfigurationAIFileException(
+                message: "Invalid AI file configuration error occurred, contact support.",
+                innerException);
+        }
+
+        private static UnauthorizedAIFileException createUnauthorizedAIFileException(Exception innerException)
+        {
+            return new UnauthorizedAIFileException(
+                message: "Unauthorized AI file request, fix errors and try again.",
+                innerException);
+        }
+
     }
 }
