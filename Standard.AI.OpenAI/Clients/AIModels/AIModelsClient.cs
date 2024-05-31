@@ -28,8 +28,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
-                    message: "AI model client validation error occurred, fix errors and try again.",
+                throw createAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -52,14 +51,12 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelValidationException aIModelValidationException)
             {
-                throw new AIModelClientValidationException(
-                    message: "AI model client validation error occurred, fix errors and try again.",
+                throw createAIModelClientValidationException(
                     aIModelValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
-                    message: "AI model client validation error occurred, fix errors and try again.",
+                throw createAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -72,6 +69,13 @@ namespace Standard.AI.OpenAI.Clients.AIModels
                 throw new AIModelClientServiceException(
                     aiModelServiceException.InnerException as Xeption);
             }
+        }
+
+        private static AIModelClientValidationException createAIModelClientValidationException(Xeption innerException)
+        {
+            return new AIModelClientValidationException(
+                message: "AI model client validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
