@@ -32,8 +32,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedAudioTranscriptionDependencyException =
-                new AudioTranscriptionDependencyException(
-                    message: "Audio transcription dependency error occurred, contact support.",
+                createAudioTranscriptionDependencyException(
                         innerException: invalidConfigurationAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -77,8 +76,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                         innerException: unAuthorizationException);
 
             var expectedAudioTranscriptionDependencyException =
-                new AudioTranscriptionDependencyException(
-                    message: "Audio transcription dependency error occurred, contact support.",
+                createAudioTranscriptionDependencyException(
                         innerException: unauthorizedAudioTranscriptionException);
 
             this.openAIBrokerMock.Setup(broker =>

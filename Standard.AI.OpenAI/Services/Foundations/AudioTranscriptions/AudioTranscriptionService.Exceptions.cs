@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 {
@@ -34,8 +35,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidConfigurationAudioTranscriptionException =
                     new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
 
-                throw new AudioTranscriptionDependencyException(
-                    message: "Audio transcription dependency error occurred, contact support.", 
+                throw createAudioTranscriptionDependencyException(
                     invalidConfigurationAudioTranscriptionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,8 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
 
-                throw new AudioTranscriptionDependencyException(
-                    message: "Audio transcription dependency error occurred, contact support.", 
+                throw createAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -52,8 +51,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
 
-                throw new AudioTranscriptionDependencyException(
-                    message: "Audio transcription dependency error occurred, contact support.", 
+                throw createAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -77,6 +75,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 
                 throw new AudioTranscriptionServiceException(failedAudioTranscriptionServiceException);
             }
+        }
+
+        private static AudioTranscriptionDependencyException createAudioTranscriptionDependencyException(Xeption innerException)
+        {
+            return new AudioTranscriptionDependencyException(
+                message: "Audio transcription dependency error occurred, contact support.",
+                innerException);
         }
     }
 }
