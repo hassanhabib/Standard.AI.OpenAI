@@ -10,6 +10,7 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Tynamix.ObjectFiller;
@@ -103,6 +104,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 .OnType<Stream>().Use(CreateRandomStream);
 
             return filler;
+        }
+
+        private static InvalidAudioTranscriptionException createInvalidAudioTranscriptionException()
+        {
+            return new InvalidAudioTranscriptionException(
+                message: "Audio transcription is invalid.");
         }
     }
 }
