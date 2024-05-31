@@ -10,6 +10,7 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIModels;
 using Tynamix.ObjectFiller;
 using Xunit;
@@ -117,5 +118,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
         private static bool GetRandomBoolean() =>
             Randomizer<bool>.Create();
+
+        private static UnauthorizedAIModelException createUnauthorizedAIModelException(Exception innerException)
+        {
+            return new UnauthorizedAIModelException(
+                message: "Unauthorized AI Model error occurred, fix errors and try again.",
+                innerException);
+        }
     }
 }

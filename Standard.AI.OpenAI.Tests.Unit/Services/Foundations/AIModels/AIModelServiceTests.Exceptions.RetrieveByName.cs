@@ -68,8 +68,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
             string someAIModelName = CreateRandomString();
 
             var unauthorizedAIModelException =
-                new UnauthorizedAIModelException(
-                    message: "Unauthorized AI Model error occurred, fix errors and try again.",
+                createUnauthorizedAIModelException(
                         innerException: unauthorizedException);
 
             var expectedAIModelDependencyException =
