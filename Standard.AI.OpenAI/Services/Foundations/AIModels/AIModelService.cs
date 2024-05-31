@@ -84,8 +84,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             return new AIModelDependencyException(
                 message: "AI Model dependency error occurred, contact support.", 
                 innerException);
-
         }
+
 
     }
 }
