@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 {
@@ -33,8 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var invalidConfigurationImageGenerationException =
                     new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
 
-                throw new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.", 
+                throw createImageGenerationDependencyException(
                     invalidConfigurationImageGenerationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -42,8 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
 
-                throw new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.", 
+                throw createImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -51,8 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseForbiddenException);
 
-                throw new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.", 
+                throw createImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -81,8 +79,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var failedServerImageGenerationException =
                     new FailedServerImageGenerationException(httpResponseException);
 
-                throw new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.", 
+                throw createImageGenerationDependencyException(
                     failedServerImageGenerationException);
             }
             catch (Exception exception)
@@ -92,6 +89,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
                 throw new ImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static ImageGenerationDependencyException createImageGenerationDependencyException(Xeption innerException)
+        {
+            return new ImageGenerationDependencyException(
+                message: "Image generation dependency error occurred, contact support.",
+                innerException);
         }
     }
 }

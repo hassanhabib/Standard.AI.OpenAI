@@ -31,9 +31,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedImageGenerationDependencyException =
-                new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.",
-                        innerException: invalidConfigurationImageGenerationException);
+                createImageGenerationDependencyException(
+                    innerException: invalidConfigurationImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -75,9 +74,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: unauthorizedException);
 
             var expectedImageGenerationDependencyException =
-                new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.",
-                        innerException: unauthorizedImageGenerationException);
+                createImageGenerationDependencyException(
+                    innerException: unauthorizedImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
@@ -253,9 +251,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                         innerException: httpResponseException);
 
             var expectedImageGenerationDependencyException =
-                new ImageGenerationDependencyException(
-                    message: "Image generation dependency error occurred, contact support.",
-                        innerException: failedServerImageGenerationException);
+                createImageGenerationDependencyException(
+                    innerException: failedServerImageGenerationException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostImageGenerationRequestAsync(
