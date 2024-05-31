@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -59,8 +60,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
-                    new InvalidChatCompletionException(
-                        message: "Chat completion is invalid.", 
+                    createInvalidChatCompletionException(
                         httpResponseBadRequestException);
 
                 throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
@@ -87,6 +87,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 throw new ChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static InvalidChatCompletionException createInvalidChatCompletionException(Xeption innerException)
+        {
+            return new InvalidChatCompletionException(
+                message: "Chat completion is invalid.",
+                innerException);
         }
     }
 }
