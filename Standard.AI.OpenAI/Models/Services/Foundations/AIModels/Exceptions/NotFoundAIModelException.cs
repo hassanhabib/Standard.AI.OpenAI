@@ -9,7 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
 {
     public class NotFoundAIModelException : Xeption
     {
-
         public NotFoundAIModelException(string message, Exception innerException)
             : base(message, innerException)
         { }
