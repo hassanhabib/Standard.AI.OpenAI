@@ -25,39 +25,39 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             }
             catch (NullAIFileException nullAIFileException)
             {
-                throw createAIFileValidationException(
+                throw CreateAIFileValidationException(
                     nullAIFileException);
             }
             catch (InvalidAIFileException invalidFileException)
             {
-                throw createAIFileValidationException(
+                throw CreateAIFileValidationException(
                     invalidFileException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationFileException =
-                    createInvalidConfigurationAIFileException(
+                    CreateInvalidConfigurationAIFileException(
                         httpResponseUrlNotFoundException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     invalidConfigurationFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
-                    createUnauthorizedAIFileException(
+                    CreateUnauthorizedAIFileException(
                         httpResponseUnauthorizedException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
-                    createUnauthorizedAIFileException(
+                    CreateUnauthorizedAIFileException(
                         httpResponseForbiddenException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -67,7 +67,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Not found AI file error occurred, fix errors and try again.", 
                         httpResponseNotFoundException);
 
-                throw createAIFileDependencyValidationException(
+                throw CreateAIFileDependencyValidationException(
                     notFoundAIFileException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -77,34 +77,34 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                         message: "Invalid AI file error occurred, fix errors and try again.", 
                         httpResponseBadRequestException);
 
-                throw createAIFileDependencyValidationException(
+                throw CreateAIFileDependencyValidationException(
                     invalidAIFileException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    createExcessiveCallAIFileException(
+                    CreateExcessiveCallAIFileException(
                         httpResponseTooManyRequestsException);
 
-                throw createAIFileDependencyValidationException(
+                throw CreateAIFileDependencyValidationException(
                     excessiveCallAIFileException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    createFailedServerAIFileException(
+                    CreateFailedServerAIFileException(
                         httpResponseException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     failedServerAIFileException);
             }
             catch (Exception exception)
             {
                 var failedAIFileServiceException =
-                    createFailedAIFileServiceException(
+                    CreateFailedAIFileServiceException(
                         exception);
 
-                throw createAIFileServiceException(
+                throw CreateAIFileServiceException(
                     failedAIFileServiceException);
             }
         }
@@ -118,116 +118,116 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIFileException =
-                    createInvalidConfigurationAIFileException(
+                    CreateInvalidConfigurationAIFileException(
                         httpResponseUrlNotFoundException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     invalidConfigurationAIFileException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIFileException =
-                    createUnauthorizedAIFileException(
+                    CreateUnauthorizedAIFileException(
                         httpResponseUnauthorizedException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIFileException =
-                    createUnauthorizedAIFileException(
+                    CreateUnauthorizedAIFileException(
                         httpResponseForbiddenException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     unauthorizedAIFileException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIFileException =
-                    createExcessiveCallAIFileException(
+                    CreateExcessiveCallAIFileException(
                         httpResponseTooManyRequestsException);
 
-                throw createAIFileDependencyValidationException(
+                throw CreateAIFileDependencyValidationException(
                     excessiveCallAIFileException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIFileException =
-                    createFailedServerAIFileException(
+                    CreateFailedServerAIFileException(
                         httpResponseException);
 
-                throw createAIFileDependencyException(
+                throw CreateAIFileDependencyException(
                     failedServerAIFileException);
             }
             catch (Exception exception)
             {
                 var failedAIFileServiceException =
-                    createFailedAIFileServiceException(
+                    CreateFailedAIFileServiceException(
                         exception);
 
-                throw createAIFileServiceException(
+                throw CreateAIFileServiceException(
                    failedAIFileServiceException);
             }
         }
 
-        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        private static AIFileDependencyException CreateAIFileDependencyException(Xeption innerException)
         {
             return new AIFileDependencyException(
                 message: "AI file dependency error occurred, contact support.",
                 innerException);
         }
 
-        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        private static AIFileDependencyValidationException CreateAIFileDependencyValidationException(Xeption innerException)
         {
             return new AIFileDependencyValidationException(
                 message: "AI file dependency validation error occurred, contact support.",
                 innerException);
         }
 
-        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        private static AIFileServiceException CreateAIFileServiceException(Xeption innerException)
         {
             return new AIFileServiceException(
                 message: "AI file service error occurred, contact support.",
                 innerException);
         }
 
-        private static AIFileValidationException createAIFileValidationException(Xeption innerException)
+        private static AIFileValidationException CreateAIFileValidationException(Xeption innerException)
         {
             throw new AIFileValidationException(
                 message: "AI file validation error occurred, fix errors and try again.",
                 innerException);
         }
 
-        private static ExcessiveCallAIFileException createExcessiveCallAIFileException(Xeption innerException)
+        private static ExcessiveCallAIFileException CreateExcessiveCallAIFileException(Xeption innerException)
         {
             return new ExcessiveCallAIFileException(
                 message: "Excessive call error occurred, limit your calls.",
                 innerException);
         }
 
-        private static FailedAIFileServiceException createFailedAIFileServiceException(Exception innerException)
+        private static FailedAIFileServiceException CreateFailedAIFileServiceException(Exception innerException)
         {
             return new FailedAIFileServiceException(
                 message: "Failed AI file service error occurred, contact support.",
                 innerException);
         }
 
-        private static FailedServerAIFileException createFailedServerAIFileException(Exception innerException)
+        private static FailedServerAIFileException CreateFailedServerAIFileException(Exception innerException)
         {
             return new FailedServerAIFileException(
                 message: "Failed AI file server error occurred, contact support.",
                 innerException);
         }
 
-        private static InvalidConfigurationAIFileException createInvalidConfigurationAIFileException(Exception innerException)
+        private static InvalidConfigurationAIFileException CreateInvalidConfigurationAIFileException(Exception innerException)
         {
             return new InvalidConfigurationAIFileException(
                 message: "Invalid AI file configuration error occurred, contact support.",
                 innerException);
         }
 
-        private static UnauthorizedAIFileException createUnauthorizedAIFileException(Exception innerException)
+        private static UnauthorizedAIFileException CreateUnauthorizedAIFileException(Exception innerException)
         {
             return new UnauthorizedAIFileException(
                 message: "Unauthorized AI file request, fix errors and try again.",
