@@ -9,7 +9,6 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
-using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -26,11 +25,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseUrlNotFoundException();
 
             var invalidConfigurationFileException =
-                createInvalidConfigurationAIFileException(
+                new InvalidConfigurationAIFileException(
+                    message: "Invalid AI file configuration error occurred, contact support.",
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: invalidConfigurationFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -66,11 +67,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             string someFileId = CreateRandomString();
 
             var unauthorizedFileException =
-                createUnauthorizedAIFileException(
+                new UnauthorizedAIFileException(
+                    message: "Unauthorized AI file request, fix errors and try again.",
                         innerException: unauthorizedException);
 
             var expectedFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: unauthorizedFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -112,7 +115,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                         innerException: httpResponseNotFoundException);
 
             var expectedFileDependencyValidationException =
-                createAIFileDependencyValidationException(
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
                         innerException: notFoundFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -149,12 +153,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseBadRequestException();
 
             var invalidFileException =
-                createInvalidAIFileException(
+                new InvalidAIFileException(
                     message: "Invalid AI file error occurred, fix errors and try again.",
                         innerException: httpResponseBadRequestException);
 
             var expectedFileDependencyValidationException =
-                createAIFileDependencyValidationException(
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
                         innerException: invalidFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -191,11 +196,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallFileException =
-                createExcessiveCallAIFileException(
+                new ExcessiveCallAIFileException(
+                    message: "Excessive call error occurred, limit your calls.",
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedFileDependencyValidationException =
-                createAIFileDependencyValidationException(
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
                         innerException: excessiveCallFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -230,11 +237,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var httpResponseException = new HttpResponseException();
 
             var failedServerFileException =
-                createFailedServerAIFileException(
+                new FailedServerAIFileException(
+                    message: "Failed AI file server error occurred, contact support.",
                     innerException: httpResponseException);
 
             var expectedFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: failedServerFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -269,11 +278,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var serviceException = new Exception();
 
             var failedFileServiceException =
-                createFailedAIFileServiceException(
+                new FailedAIFileServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
                         innerException: serviceException);
 
             var expectedFileServiceException =
-                createAIFileServiceException(
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
                         innerException: failedFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>

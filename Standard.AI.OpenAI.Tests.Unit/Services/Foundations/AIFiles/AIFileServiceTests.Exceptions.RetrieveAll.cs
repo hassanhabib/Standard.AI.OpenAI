@@ -24,11 +24,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseUrlNotFoundException();
 
             var invalidConfigurationAIFileException =
-                createInvalidConfigurationAIFileException(
+                new InvalidConfigurationAIFileException(
+                    message: "Invalid AI file configuration error occurred, contact support.",
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedAIFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: invalidConfigurationAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -62,11 +64,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         {
             // given
             var unauthorizedAIFileException =
-                createUnauthorizedAIFileException(
+                new UnauthorizedAIFileException(
+                    message: "Unauthorized AI file request, fix errors and try again.",
                         innerException: unauthorizedException);
 
             var expectedAIFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: unauthorizedAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -101,11 +105,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallAIFileException =
-                createExcessiveCallAIFileException(
+                new ExcessiveCallAIFileException(
+                    message: "Excessive call error occurred, limit your calls.",
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedAIFileDependencyValidationException =
-                createAIFileDependencyValidationException(
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
                         innerException: excessiveCallAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -140,11 +146,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 new HttpResponseException();
 
             var failedServerAIFileException =
-                createFailedServerAIFileException(
+                new FailedServerAIFileException(
+                    message: "Failed AI file server error occurred, contact support.",
                         innerException: httpResponseException);
 
             var expectedAIFileDependencyException =
-                createAIFileDependencyException(
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
                         innerException: failedServerAIFileException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -178,11 +186,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             var serviceException = new Exception();
 
             var failedAIFileServiceException =
-                createFailedAIFileServiceException(
+                new FailedAIFileServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
                         innerException: serviceException);
 
             var expectedAIFileServiceException =
-                createAIFileServiceException(
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
                         innerException: failedAIFileServiceException);
 
             this.openAIBrokerMock.Setup(broker =>

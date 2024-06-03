@@ -8,7 +8,6 @@ using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
-using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
@@ -20,10 +19,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         {
             // given
             AIFile nullAIFile = null;
-            var nullAIFileException = new NullAIFileException(message: "Ai file is null.");
+            var nullAIFileException = 
+                new NullAIFileException(
+                    message: "Ai file is null.");
 
             var expectedAIFileValidationException =
-                createAIFileValidationException(
+                new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
                         innerException: nullAIFileException);
 
             // when
@@ -59,7 +61,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 values: "Value is required");
 
             var expectedAIFileValidationException =
-                createAIFileValidationException(
+                new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
                         innerException: invalidAIFileException);
 
             // when
@@ -113,7 +116,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 values: "Value is required");
 
             var expectedAIFileValidationException =
-                createAIFileValidationException(
+                new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
                         innerException: invalidAIFileException);
 
             // when
