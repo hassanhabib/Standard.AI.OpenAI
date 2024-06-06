@@ -56,7 +56,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             invalidCompletion.Request = null;
 
             var invalidCompletionException =
-                createInvalidCompletionException();
+                CreateInvalidCompletionException();
 
             invalidCompletionException.AddData(
                 key: nameof(Completion.Request),
@@ -104,7 +104,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             };
 
             var invalidCompletionException =
-                createInvalidCompletionException();
+                CreateInvalidCompletionException();
 
             invalidCompletionException.AddData(
                 key: nameof(CompletionRequest.Model),
@@ -148,7 +148,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
             };
 
             var invalidCompletionException =
-                createInvalidCompletionException();
+                CreateInvalidCompletionException();
 
             invalidCompletionException.AddData(
                 key: nameof(CompletionRequest.Prompts),
