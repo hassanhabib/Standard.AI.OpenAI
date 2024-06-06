@@ -143,7 +143,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             return randomId;
         }
 
-        private static InvalidAIFileOrchestrationException createInvalidAIFileOrchestrationException()
+        private static InvalidAIFileOrchestrationException CreateInvalidAIFileOrchestrationException()
         {
             return new InvalidAIFileOrchestrationException(
                 message: "AI file is invalid.");
