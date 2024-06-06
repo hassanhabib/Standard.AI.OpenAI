@@ -109,8 +109,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             var serviceException = new Exception();
 
             var failedAIFileOrchestrationServiceException =
-                createFailedAIFileOrchestrationServiceException(
-                    innerException: serviceException);
+                new FailedAIFileOrchestrationServiceException(
+                    message: "Failed AI file service error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedAIFileOrchestrationServiceException =
                 new AIFileOrchestrationServiceException(
