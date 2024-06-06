@@ -12,7 +12,6 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
-using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
 using Standard.AI.OpenAI.Services.Foundations.Completions;
 using Tynamix.ObjectFiller;
@@ -141,12 +140,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                 .OnType<DateTimeOffset>().Use(GetRandomDate());
 
             return filler;
-        }
-
-        private static InvalidCompletionException createInvalidCompletionException()
-        {
-            return new InvalidCompletionException(
-                message: "Invalid completion error occurred, fix errors and try again.");
         }
     }
 }
