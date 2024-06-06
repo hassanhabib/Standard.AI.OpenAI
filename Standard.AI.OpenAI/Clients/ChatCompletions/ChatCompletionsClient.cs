@@ -26,12 +26,12 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
             }
             catch (ChatCompletionValidationException completionValidationException)
             {
-                throw createChatCompletionClientValidationException(
+                throw CreateChatCompletionClientValidationException(
                     completionValidationException.InnerException as Xeption);
             }
             catch (ChatCompletionDependencyValidationException completionDependencyValidationException)
             {
-                throw createChatCompletionClientValidationException(
+                throw CreateChatCompletionClientValidationException(
                     completionDependencyValidationException.InnerException as Xeption);
             }
             catch (ChatCompletionDependencyException completionDependencyException)
@@ -46,7 +46,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
             }
         }
 
-        private static ChatCompletionClientValidationException createChatCompletionClientValidationException(Xeption innerException)
+        private static ChatCompletionClientValidationException CreateChatCompletionClientValidationException(Xeption innerException)
         {
             return new ChatCompletionClientValidationException(
                 message: "Chat completion client validation error occurred, fix errors and try again.",
