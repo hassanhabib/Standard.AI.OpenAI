@@ -114,8 +114,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                         innerException: serviceException);
 
             var expectedAIFileOrchestrationServiceException =
-                createAIFileOrchestrationServiceException(
-                    innerException: failedAIFileOrchestrationServiceException);
+                new AIFileOrchestrationServiceException(
+                    message: "AI File error occurred, contact support.",
+                        innerException: failedAIFileOrchestrationServiceException);
 
             this.aiFileServiceMock.Setup(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()))
