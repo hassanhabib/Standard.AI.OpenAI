@@ -76,7 +76,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
-                    createFailedAIFileOrchestrationServiceException(
+                    CreateFailedAIFileOrchestrationServiceException(
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
@@ -108,7 +108,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
-                    createFailedAIFileOrchestrationServiceException(
+                    CreateFailedAIFileOrchestrationServiceException(
                         exception);
 
                 throw new AIFileOrchestrationServiceException(
@@ -116,7 +116,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
         }
 
-        private static FailedAIFileOrchestrationServiceException createFailedAIFileOrchestrationServiceException(Exception innerException)
+        private static FailedAIFileOrchestrationServiceException CreateFailedAIFileOrchestrationServiceException(Exception innerException)
         {
             return new FailedAIFileOrchestrationServiceException(
                 message: "Failed AI file service error occurred, contact support.",
