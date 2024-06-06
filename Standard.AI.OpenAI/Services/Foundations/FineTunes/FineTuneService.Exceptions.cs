@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var invalidFineTuneConfigurationException =
                     new InvalidFineTuneConfigurationException(httpResponseUrlNotFoundException);
 
-                throw createFineTuneDependencyException(
+                throw CreateFineTuneDependencyException(
                     invalidFineTuneConfigurationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,7 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseUnauthorizedException);
 
-                throw createFineTuneDependencyException(
+                throw CreateFineTuneDependencyException(
                     unauthorizedFineTuneException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -52,7 +52,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new UnauthorizedFineTuneException(
                         httpResponseForbiddenException);
 
-                throw createFineTuneDependencyException(
+                throw CreateFineTuneDependencyException(
                     unauthorizedFineTuneException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -75,7 +75,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var failedServerFineTuneException =
                     new FailedServerFineTuneException(httpResponseException);
 
-                throw createFineTuneDependencyException(
+                throw CreateFineTuneDependencyException(
                     failedServerFineTuneException);
             }
             catch (Exception exception)
@@ -87,7 +87,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
         }
 
-        private static FineTuneDependencyException createFineTuneDependencyException(Xeption innerException)
+        private static FineTuneDependencyException CreateFineTuneDependencyException(Xeption innerException)
         {
             return new FineTuneDependencyException(
                 message: "Fine tune dependency error ocurred, contact support.",
