@@ -10,11 +10,9 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
-using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Tynamix.ObjectFiller;
-using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
@@ -105,13 +103,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 .OnType<Stream>().Use(CreateRandomStream);
 
             return filler;
-        }
-
-        private static AudioTranscriptionValidationException createAudioTranscriptionValidationException(Xeption innerException)
-        {
-            return new AudioTranscriptionValidationException(
-                message: "Audio transcription validation error occurred, fix errors and try again.",
-                innerException);
         }
     }
 }
