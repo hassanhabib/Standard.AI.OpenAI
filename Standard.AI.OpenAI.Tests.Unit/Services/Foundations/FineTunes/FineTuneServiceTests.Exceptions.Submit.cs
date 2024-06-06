@@ -118,8 +118,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         innerException: httpResponseBadRequestException);
 
             var expectedFineTuneDependencyValidationException =
-                createFineTuneDependencyValidationException(
-                    innerException: invalidFineTuneException);
+                new FineTuneDependencyValidationException(
+                    message: "Fine tune dependency validation error occurred, fix errors and try again",
+                        innerException: invalidFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostFineTuneAsync(It.IsAny<ExternalFineTuneRequest>()))
@@ -161,7 +162,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedFineTuneDependencyValidationException =
-                createFineTuneDependencyValidationException(
+                new FineTuneDependencyValidationException(
+                    message: "Fine tune dependency validation error occurred, fix errors and try again",
                         innerException: excessiveCallFineTuneException);
 
             this.openAIBrokerMock.Setup(broker =>
