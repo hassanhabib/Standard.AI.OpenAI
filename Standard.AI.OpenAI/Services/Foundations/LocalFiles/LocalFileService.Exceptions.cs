@@ -27,14 +27,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             {
                 var invalidFileException = new InvalidLocalFileException(argumentException);
 
-                throw createLocalFileDependencyValidationException(
+                throw CreateLocalFileDependencyValidationException(
                     invalidFileException);
             }
             catch (PathTooLongException pathTooLongException)
             {
                 var invalidFileException = new InvalidLocalFileException(pathTooLongException);
 
-                throw createLocalFileDependencyValidationException(
+                throw CreateLocalFileDependencyValidationException(
                     invalidFileException);
             }
             catch (FileNotFoundException fileNotFoundException)
@@ -42,7 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 var notFoundFileException =
                     new NotFoundLocalFileException(fileNotFoundException);
 
-                throw createLocalFileDependencyValidationException(
+                throw CreateLocalFileDependencyValidationException(
                     notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
@@ -50,7 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 var notFoundFileException =
                     new NotFoundLocalFileException(directoryNotFoundException);
 
-                throw createLocalFileDependencyValidationException(
+                throw CreateLocalFileDependencyValidationException(
                     notFoundFileException);
             }
             catch (IOException ioException)
@@ -76,7 +76,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
         }
 
-        private static LocalFileDependencyValidationException createLocalFileDependencyValidationException(Xeption innerException)
+        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(Xeption innerException)
         {
             return new LocalFileDependencyValidationException(
                 message: "Local file dependency validation error occurred, fix the errors and try again.",
