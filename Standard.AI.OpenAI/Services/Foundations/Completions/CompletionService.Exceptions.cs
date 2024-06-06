@@ -56,7 +56,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var notFoundCompletionException =
                     new NotFoundCompletionException(httpResponseNotFoundException);
 
-                throw createCompletionDependencyValidationException(
+                throw CreateCompletionDependencyValidationException(
                     notFoundCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -64,7 +64,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var invalidCompletionException =
                     new InvalidCompletionException(httpResponseBadRequestException);
 
-                throw createCompletionDependencyValidationException( 
+                throw CreateCompletionDependencyValidationException( 
                     invalidCompletionException);
             }
 
@@ -73,7 +73,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var excessiveCallCompletionException =
                     new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
 
-                throw createCompletionDependencyValidationException(
+                throw CreateCompletionDependencyValidationException(
                     excessiveCallCompletionException);
             }
             catch (HttpResponseException httpResponseException)
@@ -92,7 +92,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             }
         }
 
-        private static CompletionDependencyValidationException createCompletionDependencyValidationException(Xeption innerException)
+        private static CompletionDependencyValidationException CreateCompletionDependencyValidationException(Xeption innerException)
         {
             return new CompletionDependencyValidationException(
                 message: "Completion dependency validation error occurred, fix errors and try again.", 
