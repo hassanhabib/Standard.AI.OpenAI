@@ -31,8 +31,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedCompletionDependencyException =
-                createCompletionDependencyException(
-                    innerException: invalidConfigurationCompletionException);
+                new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: invalidConfigurationCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
@@ -73,8 +74,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: unauthorizedException);
 
             var expectedCompletionDependencyException =
-                createCompletionDependencyException(
-                    innerException: unauthorizedCompletionException);
+                new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: unauthorizedCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostCompletionRequestAsync(
@@ -250,8 +252,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: httpResponseException);
 
             var expectedCompletionDependencyException =
-                createCompletionDependencyException(
-                    innerException: failedServerCompletionException);
+                new CompletionDependencyException(
+                    message: "Completion dependency error occurred, contact support.",
+                        innerException: failedServerCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
                 It.IsAny<ExternalCompletionRequest>()))
