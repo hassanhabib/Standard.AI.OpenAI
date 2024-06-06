@@ -28,7 +28,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw createAIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -51,12 +51,12 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelValidationException aIModelValidationException)
             {
-                throw createAIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aIModelValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw createAIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -71,7 +71,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
         }
 
-        private static AIModelClientValidationException createAIModelClientValidationException(Xeption innerException)
+        private static AIModelClientValidationException CreateAIModelClientValidationException(Xeption innerException)
         {
             return new AIModelClientValidationException(
                 message: "AI model client validation error occurred, fix errors and try again.",
