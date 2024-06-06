@@ -119,7 +119,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: httpResponseNotFoundException);
 
             var expectedCompletionDependencyValidationException =
-                createCompletionDependencyValidationException(
+                new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
                         innerException: notFoundCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -163,7 +164,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: httpResponseBadRequestException);
 
             var expectedCompletionDependencyValidationException =
-                createCompletionDependencyValidationException(
+                new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
                         innerException: invalidCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
@@ -206,7 +208,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedCompletionDependencyValidationException =
-                createCompletionDependencyValidationException(
+                new CompletionDependencyValidationException(
+                    message: "Completion dependency validation error occurred, fix errors and try again.",
                         innerException: excessiveCallCompletionException);
 
             this.openAIBrokerMock.Setup(broker => broker.PostCompletionRequestAsync(
