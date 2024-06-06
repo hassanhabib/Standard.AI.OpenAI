@@ -11,7 +11,6 @@ using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
-using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
@@ -141,13 +140,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             var randomId = $"file-{randomGuid.ToString("N").Substring(0, 22)}";
 
             return randomId;
-        }
-
-        private static AIFileOrchestrationDependencyValidationException createAIFileOrchestrationDependencyValidationException(Xeption innerException)
-        {
-            return new AIFileOrchestrationDependencyValidationException(
-                message: "AI file dependency validation error occurred, fix errors and try again.",
-                innerException);
         }
     }
 }
