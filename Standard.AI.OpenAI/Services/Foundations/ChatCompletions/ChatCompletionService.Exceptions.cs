@@ -23,12 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (NullChatCompletionException nullChatCompletionException)
             {
-                throw createChatCompletionValidationException(
+                throw CreateChatCompletionValidationException(
                     nullChatCompletionException);
             }
             catch (InvalidChatCompletionException invalidChatCompletionException)
             {
-                throw createChatCompletionValidationException( 
+                throw CreateChatCompletionValidationException( 
                     invalidChatCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -90,7 +90,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
         }
 
-        private static ChatCompletionValidationException createChatCompletionValidationException(Xeption innerException)
+        private static ChatCompletionValidationException CreateChatCompletionValidationException(Xeption innerException)
         {
             return new ChatCompletionValidationException(
                 message: "Chat completion validation error occurred, fix errors and try again.",
