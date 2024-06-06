@@ -54,7 +54,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 var failedFileException =
                     new FailedLocalFileDependencyException(ioException);
 
-                throw createLocalFileDependencyException(
+                throw CreateLocalFileDependencyException(
                     failedFileException);
             }
             catch (NotSupportedException notSupportedException)
@@ -62,7 +62,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 var failedFileException =
                     new FailedLocalFileDependencyException(notSupportedException);
 
-                throw createLocalFileDependencyException(
+                throw CreateLocalFileDependencyException(
                     failedFileException);
             }
             catch (Exception exception)
@@ -74,7 +74,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
         }
 
-        private static LocalFileDependencyException createLocalFileDependencyException(Xeption innerException)
+        private static LocalFileDependencyException CreateLocalFileDependencyException(Xeption innerException)
         {
             return new LocalFileDependencyException(
                 message: "Local file dependency error occurred, contact support.",
