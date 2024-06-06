@@ -23,12 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             }
             catch (NullCompletionException nullCompletionException)
             {
-                throw createCompletionValidationException(
+                throw CreateCompletionValidationException(
                     nullCompletionException);
             }
             catch (InvalidCompletionException invalidCompletionException)
             {
-                throw createCompletionValidationException(
+                throw CreateCompletionValidationException(
                     invalidCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -90,7 +90,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             }
         }
 
-        private static CompletionValidationException createCompletionValidationException(Xeption innerException)
+        private static CompletionValidationException CreateCompletionValidationException(Xeption innerException)
         {
             return new CompletionValidationException(
                 message: "Completion validation error occurred, fix errors and try again.",
