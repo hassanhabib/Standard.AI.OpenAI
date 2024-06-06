@@ -24,7 +24,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
                     innerException: dependencyValidationException);
 
             var expectedFileDependencyValidationException =
-                createLocalFileDependencyValidationException(
+                new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.",
                         innerException: invalidFileException);
 
             this.fileBrokerMock.Setup(broker =>
@@ -63,7 +64,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
                         innerException: fileNotFoundException);
 
             var expectedFileDependencyValidationException =
-                createLocalFileDependencyValidationException(
+                new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.",
                         innerException: notFoundLocalFileException);
 
             this.fileBrokerMock.Setup(broker =>
