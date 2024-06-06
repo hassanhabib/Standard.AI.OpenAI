@@ -125,8 +125,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: httpResponseNotFoundException);
 
             var expectedChatCompletionDependencyValidationException =
-                createChatCompletionDependencyValidationException(
-                    innerException: notFoundChatCompletionException);
+                new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: notFoundChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -169,8 +170,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: httpResponseBadRequestException);
 
             var expectedChatCompletionDependencyValidationException =
-                createChatCompletionDependencyValidationException(
-                    innerException: invalidChatCompletionException);
+                new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: invalidChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
@@ -215,8 +217,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedChatCompletionDependencyValidationException =
-                createChatCompletionDependencyValidationException(
-                    innerException: excessiveCallChatCompletionException);
+                new ChatCompletionDependencyValidationException(
+                    message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                        innerException: excessiveCallChatCompletionException);
 
             this.openAIBrokerMock.Setup(broker =>
                 broker.PostChatCompletionRequestAsync(
