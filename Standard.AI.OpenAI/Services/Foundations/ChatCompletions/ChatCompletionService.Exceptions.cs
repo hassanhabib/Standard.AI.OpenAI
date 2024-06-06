@@ -38,7 +38,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
-                    createUnauthorizedChatCompletionException(
+                    CreateUnauthorizedChatCompletionException(
                         httpResponseUnauthorizedException);
 
                 throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
@@ -46,7 +46,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedChatCompletionException =
-                    createUnauthorizedChatCompletionException(
+                    CreateUnauthorizedChatCompletionException(
                         httpResponseForbiddenException);
 
                 throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
@@ -89,7 +89,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
         }
 
-        private static UnauthorizedChatCompletionException createUnauthorizedChatCompletionException(Exception innerException)
+        private static UnauthorizedChatCompletionException CreateUnauthorizedChatCompletionException(Exception innerException)
         {
             return new UnauthorizedChatCompletionException(
                 message: "Unauthorized chat completion request, fix errors and try again.",
