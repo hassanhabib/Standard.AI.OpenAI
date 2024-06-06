@@ -35,7 +35,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidConfigurationAudioTranscriptionException =
                     new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
 
-                throw createAudioTranscriptionDependencyException(
+                throw CreateAudioTranscriptionDependencyException(
                     invalidConfigurationAudioTranscriptionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,7 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
 
-                throw createAudioTranscriptionDependencyException(
+                throw CreateAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -51,7 +51,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
 
-                throw createAudioTranscriptionDependencyException(
+                throw CreateAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -77,7 +77,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             }
         }
 
-        private static AudioTranscriptionDependencyException createAudioTranscriptionDependencyException(Xeption innerException)
+        private static AudioTranscriptionDependencyException CreateAudioTranscriptionDependencyException(Xeption innerException)
         {
             return new AudioTranscriptionDependencyException(
                 message: "Audio transcription dependency error occurred, contact support.",
