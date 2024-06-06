@@ -13,10 +13,8 @@ using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
-using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.ImageGenerations;
 using Tynamix.ObjectFiller;
-using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
@@ -108,13 +106,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 new HttpResponseUnauthorizedException(),
                 new HttpResponseForbiddenException()
             };
-        }
-
-        private static ImageGenerationDependencyValidationException createImageGenerationDependencyValidationException(Xeption innerException)
-        {
-            return new ImageGenerationDependencyValidationException(
-                message: "Image generation dependency validation error occurred, fix errors and try again.",
-                innerException);
         }
     }
 }
