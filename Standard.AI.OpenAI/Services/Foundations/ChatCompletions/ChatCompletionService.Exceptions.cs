@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var invalidConfigurationChatCompletionException =
                     new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
 
-                throw createChatCompletionDependencyException(
+                throw CreateChatCompletionDependencyException(
                     invalidConfigurationChatCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -42,7 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
 
-                throw createChatCompletionDependencyException(
+                throw CreateChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -50,7 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var unauthorizedChatCompletionException =
                     new UnauthorizedChatCompletionException(httpResponseForbiddenException);
 
-                throw createChatCompletionDependencyException(
+                throw CreateChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -79,7 +79,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var failedServerChatCompletionException =
                     new FailedServerChatCompletionException(httpResponseException);
 
-                throw createChatCompletionDependencyException(
+                throw CreateChatCompletionDependencyException(
                     failedServerChatCompletionException);
             }
             catch (Exception exception)
@@ -92,7 +92,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
         }
 
-        private static ChatCompletionDependencyException createChatCompletionDependencyException(Xeption innerException)
+        private static ChatCompletionDependencyException CreateChatCompletionDependencyException(Xeption innerException)
         {
             return new ChatCompletionDependencyException(
                 message: "Chat completion dependency error occurred, contact support.",
