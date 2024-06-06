@@ -23,12 +23,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
             catch (NullFineTuneException nullFineTuneException)
             {
-                throw createFineTuneValidationException(
+                throw CreateFineTuneValidationException(
                     nullFineTuneException);
             }
             catch (InvalidFineTuneException invalidFineTuneException)
             {
-                throw createFineTuneValidationException(
+                throw CreateFineTuneValidationException(
                     invalidFineTuneException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -85,7 +85,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
         }
 
-        private static FineTuneValidationException createFineTuneValidationException(Xeption innerException)
+        private static FineTuneValidationException CreateFineTuneValidationException(Xeption innerException)
         {
             return new FineTuneValidationException(
                 message: "Fine tune validation error occurred, fix errors and try again.",
