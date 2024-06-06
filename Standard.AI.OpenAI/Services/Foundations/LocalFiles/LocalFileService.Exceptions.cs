@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
-                    createNotFoundLocalFileException(
+                    CreateNotFoundLocalFileException(
                         fileNotFoundException);
 
                 throw new LocalFileDependencyValidationException(notFoundFileException);
@@ -45,7 +45,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
-                    createNotFoundLocalFileException(
+                    CreateNotFoundLocalFileException(
                         directoryNotFoundException);
 
                 throw new LocalFileDependencyValidationException(notFoundFileException);
@@ -73,7 +73,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
         }
 
-        private static NotFoundLocalFileException createNotFoundLocalFileException(Exception innerException)
+        private static NotFoundLocalFileException CreateNotFoundLocalFileException(Exception innerException)
         {
             return new NotFoundLocalFileException(
                 message: "Not found local file error occurred, fix error and try again.",
