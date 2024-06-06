@@ -25,7 +25,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (ArgumentException argumentException)
             {
                 var invalidFileException =
-                    createInvalidLocalFileException(
+                    CreateInvalidLocalFileException(
                         argumentException);
 
                 throw new LocalFileDependencyValidationException(invalidFileException);
@@ -33,7 +33,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (PathTooLongException pathTooLongException)
             {
                 var invalidFileException =
-                    createInvalidLocalFileException(
+                    CreateInvalidLocalFileException(
                         pathTooLongException);
 
                 throw new LocalFileDependencyValidationException(invalidFileException);
@@ -75,7 +75,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
         }
 
-        private static InvalidLocalFileException createInvalidLocalFileException(Exception innerException)
+        private static InvalidLocalFileException CreateInvalidLocalFileException(Exception innerException)
         {
             return new InvalidLocalFileException(
                 message: "Invalid local file error occurred, fix error and try again.",
