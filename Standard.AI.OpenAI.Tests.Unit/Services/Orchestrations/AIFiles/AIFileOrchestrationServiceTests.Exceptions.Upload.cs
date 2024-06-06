@@ -67,8 +67,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             AIFile someAIFile = CreateRandomAIFile();
 
             var expectedAIFileOrchestrationDependencyException =
-                createAIFileOrchestrationDependencyException(
-                    innerException: dependencyValidationException.InnerException as Xeption);
+                new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
+                        innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.UploadFileAsync(It.IsAny<AIFile>()))

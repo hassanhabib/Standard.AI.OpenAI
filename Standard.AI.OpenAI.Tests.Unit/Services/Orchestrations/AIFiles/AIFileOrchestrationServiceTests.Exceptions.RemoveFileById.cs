@@ -63,8 +63,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             string someFileId = CreateRandomFileId();
 
             var expectedAIFileOrchestrationDependencyException =
-                createAIFileOrchestrationDependencyException(
-                    innerException: dependencyException.InnerException as Xeption);
+                new AIFileOrchestrationDependencyException(
+                    message: "AI File dependency error occurred, contact support.",
+                        innerException: dependencyException.InnerException as Xeption);
 
             this.aiFileServiceMock.Setup(service =>
                 service.RemoveFileByIdAsync(It.IsAny<string>()))
