@@ -25,8 +25,9 @@ public partial class AIFileOrchestrationServiceTests
             values: "Value is required");
 
         var expectedAIFileOrchestrationValidationException =
-            createAIFileOrchestrationValidationException(
-                innerException: invalidAiFileOrchestrationException);
+            new AIFileOrchestrationValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                    innerException: invalidAiFileOrchestrationException);
 
         // when 
         ValueTask<AIFile> removeFileTask =

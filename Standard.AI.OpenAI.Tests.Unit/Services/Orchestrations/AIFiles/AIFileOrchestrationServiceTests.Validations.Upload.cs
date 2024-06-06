@@ -23,8 +23,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 new NullAIFileOrchestrationException();
 
             var expectedAIFileOrchestrationValidationException =
-                createAIFileOrchestrationValidationException(
-                    innerException: nullAIFileOrchestrationException);
+                new AIFileOrchestrationValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: nullAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
@@ -66,8 +67,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 values: "Object is required");
 
             var expectedAIFileOrchestrationValidationException =
-                createAIFileOrchestrationValidationException(
-                    innerException: invalidAIFileOrchestrationException);
+                new AIFileOrchestrationValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: invalidAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
@@ -115,8 +117,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 "Value is required");
 
             var expectedAIFileOrchestrationValidationException =
-                createAIFileOrchestrationValidationException(
-                    innerException: invalidAIFileOrchestrationException);
+                new AIFileOrchestrationValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
+                        innerException: invalidAIFileOrchestrationException);
 
             // when
             ValueTask<AIFile> uploadFileTask =
