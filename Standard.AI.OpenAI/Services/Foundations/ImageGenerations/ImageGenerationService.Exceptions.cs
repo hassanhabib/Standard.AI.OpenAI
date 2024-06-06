@@ -34,7 +34,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var invalidConfigurationImageGenerationException =
                     new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
 
-                throw createImageGenerationDependencyException(
+                throw CreateImageGenerationDependencyException(
                     invalidConfigurationImageGenerationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -42,7 +42,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
 
-                throw createImageGenerationDependencyException(
+                throw CreateImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -50,7 +50,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var unauthorizedImageGenerationException =
                     new UnauthorizedImageGenerationException(httpResponseForbiddenException);
 
-                throw createImageGenerationDependencyException(
+                throw CreateImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -79,7 +79,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var failedServerImageGenerationException =
                     new FailedServerImageGenerationException(httpResponseException);
 
-                throw createImageGenerationDependencyException(
+                throw CreateImageGenerationDependencyException(
                     failedServerImageGenerationException);
             }
             catch (Exception exception)
@@ -91,7 +91,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             }
         }
 
-        private static ImageGenerationDependencyException createImageGenerationDependencyException(Xeption innerException)
+        private static ImageGenerationDependencyException CreateImageGenerationDependencyException(Xeption innerException)
         {
             return new ImageGenerationDependencyException(
                 message: "Image generation dependency error occurred, contact support.",
