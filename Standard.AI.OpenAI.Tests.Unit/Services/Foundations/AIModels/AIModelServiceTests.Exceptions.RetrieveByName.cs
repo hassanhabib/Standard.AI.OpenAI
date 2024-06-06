@@ -200,7 +200,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 new HttpResponseTooManyRequestsException();
 
             var excessiveCallAIModelException =
-                createExcessiveCallAIModelException(
+                new ExcessiveCallAIModelException(
+                    message: "Excessive call error occurred, limit your calls.",
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedAIModelDependencyValidationException =
@@ -314,12 +315,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
 
             this.openAIBrokerMock.VerifyNoOtherCalls();
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
-        }
-        private static ExcessiveCallAIModelException createExcessiveCallAIModelException(Exception innerException)
-        {
-            return new ExcessiveCallAIModelException(
-                message: "Excessive call error occurred, limit your calls.",
-                innerException);
         }
     }
 }
