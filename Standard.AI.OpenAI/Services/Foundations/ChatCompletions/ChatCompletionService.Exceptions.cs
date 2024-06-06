@@ -55,7 +55,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var notFoundChatCompletionException =
                     new NotFoundChatCompletionException(httpResponseNotFoundException);
 
-                throw createChatCompletionDependencyValidationException(
+                throw CreateChatCompletionDependencyValidationException(
                     notFoundChatCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -63,7 +63,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var invalidChatCompletionException =
                     new InvalidChatCompletionException(httpResponseBadRequestException);
 
-                throw createChatCompletionDependencyValidationException(
+                throw CreateChatCompletionDependencyValidationException(
                     invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -71,7 +71,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var excessiveCallChatCompletionException =
                     new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
 
-                throw createChatCompletionDependencyValidationException(
+                throw CreateChatCompletionDependencyValidationException(
                     excessiveCallChatCompletionException);
             }
             catch (HttpResponseException httpResponseException)
@@ -91,7 +91,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
         }
 
-        private static ChatCompletionDependencyValidationException createChatCompletionDependencyValidationException(Xeption innerException)
+        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(Xeption innerException)
         {
             return new ChatCompletionDependencyValidationException(
                 "Chat completion dependency validation error occurred, fix errors and try again.",
