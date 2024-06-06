@@ -26,12 +26,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (NullAIFileOrchestrationException nullAIFileOrchestrationException)
             {
-                throw createAIFileOrchestrationValidationException(
+                throw CreateAIFileOrchestrationValidationException(
                     nullAIFileOrchestrationException);
             }
             catch (InvalidAIFileOrchestrationException invalidAIFileOrchestrationException)
             {
-                throw createAIFileOrchestrationValidationException(
+                throw CreateAIFileOrchestrationValidationException(
                     invalidAIFileOrchestrationException);
             }
             catch (LocalFileValidationException localFileValidationException)
@@ -117,7 +117,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
         }
 
-        private static AIFileOrchestrationValidationException createAIFileOrchestrationValidationException(Xeption innerException)
+        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(Xeption innerException)
         {
             return new AIFileOrchestrationValidationException(
                 message: "AI file validation error occurred, fix errors and try again.",
