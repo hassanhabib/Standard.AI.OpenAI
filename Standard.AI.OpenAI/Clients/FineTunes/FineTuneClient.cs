@@ -41,15 +41,10 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             }
             catch (FineTuneServiceException fineTuneServiceException)
             {
-                throw CreateFineTuneClientServiceException(fineTuneServiceException);
+                throw new FineTuneClientServiceException(
+                    message: "Fine tune client service error occurred, contact support.",
+                    fineTuneServiceException.InnerException as Xeption);
             }
-        }
-
-        private static FineTuneClientServiceException CreateFineTuneClientServiceException(FineTuneServiceException fineTuneServiceException)
-        {
-            return new FineTuneClientServiceException(
-                message: "Fine tune client service error occurred, contact support.",
-                fineTuneServiceException.InnerException as Xeption);
         }
     }
 }
