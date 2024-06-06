@@ -13,10 +13,8 @@ using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
-using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Tynamix.ObjectFiller;
-using Xeptions;
 using Xunit;
 
 namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
@@ -187,13 +185,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     .Use(CreateRandomObjectArray);
 
             return filler;
-        }
-
-        private static FineTuneDependencyException createFineTuneDependencyException(Xeption innerException)
-        {
-            return new FineTuneDependencyException(
-                message: "Fine tune dependency error ocurred, contact support.",
-                innerException);
         }
     }
 }
