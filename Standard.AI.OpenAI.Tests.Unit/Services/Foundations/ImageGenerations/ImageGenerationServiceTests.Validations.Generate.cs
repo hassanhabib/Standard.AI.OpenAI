@@ -58,7 +58,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             invalidImageGeneration.Request = null;
 
             var invalidImageGenerationException =
-                createInvalidImageGenerationException();
+                CreateInvalidImageGenerationException();
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request),
@@ -106,7 +106,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             };
 
             var invalidImageGenerationException =
-                createInvalidImageGenerationException();
+                CreateInvalidImageGenerationException();
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request.Prompt),
