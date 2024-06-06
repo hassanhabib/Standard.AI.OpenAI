@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidConfigurationAIModelException =
                     new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -40,7 +40,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -48,7 +48,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -77,7 +77,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedServerAIModelException =
                     new FailedServerAIModelException(httpResponseException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     failedServerAIModelException);
             }
             catch (Exception exception)
@@ -101,7 +101,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidConfigurationAIModelException =
                     new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -109,7 +109,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -117,7 +117,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var unauthorizedAIModelException =
                     new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -132,7 +132,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedServerAIModelException =
                     new FailedServerAIModelException(httpResponseException);
 
-                throw createAIModelDependencyException(
+                throw CreateAIModelDependencyException(
                     failedServerAIModelException);
             }
             catch (Exception exception)
@@ -145,7 +145,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
         }
 
-        private static AIModelDependencyException createAIModelDependencyException(Xeption innerException)
+        private static AIModelDependencyException CreateAIModelDependencyException(Xeption innerException)
         {
             return new AIModelDependencyException(
                 message: "AI Model dependency error occurred, contact support.",

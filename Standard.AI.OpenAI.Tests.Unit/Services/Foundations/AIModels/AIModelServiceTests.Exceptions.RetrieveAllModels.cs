@@ -29,7 +29,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseUrlNotFoundException);
 
             var expectedAIModelDependencyException =
-                createAIModelDependencyException(
+                new AIModelDependencyException(
+                    message: "AI Model dependency error occurred, contact support.",
                         innerException: invalidConfigurationAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -69,7 +70,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: unauthorizedException);
 
             var expectedAIModelDependencyException =
-                createAIModelDependencyException(
+                new AIModelDependencyException(
+                    message: "AI Model dependency error occurred, contact support.",
                         innerException: unauthorizedAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
@@ -150,7 +152,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseException);
 
             var expectedAIModelDependencyException =
-                createAIModelDependencyException(
+                new AIModelDependencyException(
+                    message: "AI Model dependency error occurred, contact support.",
                         innerException: failedServerAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
