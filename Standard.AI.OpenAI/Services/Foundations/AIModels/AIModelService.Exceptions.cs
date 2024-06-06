@@ -36,7 +36,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    createUnauthorizedAIModelException(
+                    CreateUnauthorizedAIModelException(
                         httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
@@ -44,7 +44,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    createUnauthorizedAIModelException(
+                    CreateUnauthorizedAIModelException(
                         httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
@@ -103,7 +103,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    createUnauthorizedAIModelException(
+                    CreateUnauthorizedAIModelException(
                         httpResponseUnauthorizedException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
@@ -111,7 +111,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    createUnauthorizedAIModelException(
+                    CreateUnauthorizedAIModelException(
                         httpResponseForbiddenException);
 
                 throw new AIModelDependencyException(unauthorizedAIModelException);
@@ -140,7 +140,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
         }
 
-        private static UnauthorizedAIModelException createUnauthorizedAIModelException(Exception innerException)
+        private static UnauthorizedAIModelException CreateUnauthorizedAIModelException(Exception innerException)
         {
             return new UnauthorizedAIModelException(
                 message: "Unauthorized AI Model error occurred, fix errors and try again.",
