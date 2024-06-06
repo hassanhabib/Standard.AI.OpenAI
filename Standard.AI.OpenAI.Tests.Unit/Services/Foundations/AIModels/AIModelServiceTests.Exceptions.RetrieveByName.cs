@@ -289,7 +289,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: serviceException);
 
             var expectedAIModelServiceException =
-                createAIModelServiceException(
+                new AIModelServiceException(
+                    message: "AI Model service error occurred, contact support.",
                         innerException: failedAIModelServiceException);
 
             this.openAIBrokerMock.Setup(broker =>
