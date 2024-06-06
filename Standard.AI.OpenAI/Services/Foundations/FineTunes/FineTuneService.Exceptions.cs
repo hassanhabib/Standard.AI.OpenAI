@@ -58,7 +58,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                     new InvalidFineTuneException(
                         httpResponseBadRequestException);
 
-                throw createFineTuneDependencyValidationException(
+                throw CreateFineTuneDependencyValidationException(
                     invalidFineTuneException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -66,7 +66,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 var excessiveCallFineTuneException =
                     new ExcessiveCallFineTuneException(httpResponseTooManyRequestsException);
 
-                throw createFineTuneDependencyValidationException(
+                throw CreateFineTuneDependencyValidationException(
                     excessiveCallFineTuneException);
             }
             catch (HttpResponseException httpResponseException)
@@ -85,7 +85,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             }
         }
 
-        private static FineTuneDependencyValidationException createFineTuneDependencyValidationException(Xeption innerException)
+        private static FineTuneDependencyValidationException CreateFineTuneDependencyValidationException(Xeption innerException)
         {
             return new FineTuneDependencyValidationException(
                 message: "Fine tune dependency validation error occurred, fix errors and try again",
