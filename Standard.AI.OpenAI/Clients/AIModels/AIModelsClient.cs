@@ -38,7 +38,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelServiceException aiModelServiceException)
             {
-                throw createAIModelClientServiceException(
+                throw CreateAIModelClientServiceException(
                     aiModelServiceException.InnerException as Xeption);
             }
         }
@@ -66,12 +66,12 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelServiceException aiModelServiceException)
             {
-                throw createAIModelClientServiceException(
+                throw CreateAIModelClientServiceException(
                     aiModelServiceException.InnerException as Xeption);
             }
         }
 
-        private static AIModelClientServiceException createAIModelClientServiceException(Xeption innerException)
+        private static AIModelClientServiceException CreateAIModelClientServiceException(Xeption innerException)
         {
             return new AIModelClientServiceException(
                 message: "AI Model client service error occurred, contact support.",
