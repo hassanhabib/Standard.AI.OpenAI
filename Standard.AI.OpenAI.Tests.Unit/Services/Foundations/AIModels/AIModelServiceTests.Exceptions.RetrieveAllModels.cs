@@ -147,7 +147,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                 new HttpResponseException();
 
             var failedServerAIModelException =
-                createFailedServerAIModelException(
+                new FailedServerAIModelException(
+                    message: "Failed AI Model server error occurred, contact support",
                         innerException: httpResponseException);
 
             var expectedAIModelDependencyException =
