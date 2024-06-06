@@ -53,7 +53,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var notFoundAIModelException =
                     new NotFoundAIModelException(httpResponseNotFoundException);
 
-                throw createAIModelDependencyValidationException(
+                throw CreateAIModelDependencyValidationException(
                     notFoundAIModelException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
@@ -61,7 +61,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var invalidAIModelException =
                     new InvalidAIModelException(httpResponseBadRequestException);
 
-                throw createAIModelDependencyValidationException(
+                throw CreateAIModelDependencyValidationException(
                     invalidAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -69,7 +69,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var excessiveCallAIModelException =
                     new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw createAIModelDependencyValidationException(
+                throw CreateAIModelDependencyValidationException(
                     excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
@@ -121,7 +121,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var excessiveCallAIModelException =
                     new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw createAIModelDependencyValidationException(
+                throw CreateAIModelDependencyValidationException(
                     excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
@@ -141,7 +141,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
         }
 
-        private static AIModelDependencyValidationException createAIModelDependencyValidationException(Xeption innerException)
+        private static AIModelDependencyValidationException CreateAIModelDependencyValidationException(Xeption innerException)
         {
             return new AIModelDependencyValidationException(
                 message: "AI Model dependency validation error occurred, fix errors and try again.",

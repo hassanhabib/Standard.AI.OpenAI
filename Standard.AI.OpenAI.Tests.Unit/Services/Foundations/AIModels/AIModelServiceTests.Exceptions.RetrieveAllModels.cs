@@ -111,7 +111,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
                         innerException: httpResponseTooManyRequestsException);
 
             var expectedAIModelDependencyValidationException =
-                createAIModelDependencyValidationException(
+                new AIModelDependencyValidationException(
+                    message: "AI Model dependency validation error occurred, fix errors and try again.",
                         innerException: excessiveCallAIModelException);
 
             this.openAIBrokerMock.Setup(broker =>
