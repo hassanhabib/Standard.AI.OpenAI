@@ -35,7 +35,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var invalidConfigurationCompletionException =
                     new InvalidConfigurationCompletionException(httpResponseUrlNotFoundException);
 
-                throw createCompletionDependencyException(
+                throw CreateCompletionDependencyException(
                     invalidConfigurationCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
@@ -43,7 +43,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseUnauthorizedException);
 
-                throw createCompletionDependencyException(
+                throw CreateCompletionDependencyException(
                     unauthorizedCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
@@ -51,7 +51,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var unauthorizedCompletionException =
                     new UnauthorizedCompletionException(httpResponseForbiddenException);
 
-                throw createCompletionDependencyException(
+                throw CreateCompletionDependencyException(
                     unauthorizedCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
@@ -81,7 +81,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var failedServerCompletionException =
                     new FailedServerCompletionException(httpResponseException);
 
-                throw createCompletionDependencyException(
+                throw CreateCompletionDependencyException(
                     failedServerCompletionException);
             }
             catch (Exception exception)
@@ -92,7 +92,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
         }
-        private static CompletionDependencyException createCompletionDependencyException(Xeption innerException)
+        private static CompletionDependencyException CreateCompletionDependencyException(Xeption innerException)
         {
             return new CompletionDependencyException(
                 message: "Completion dependency error occurred, contact support.",
