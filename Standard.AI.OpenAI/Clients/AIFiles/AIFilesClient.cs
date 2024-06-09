@@ -98,7 +98,6 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
         }
 
-
         private static AIFileClientDependencyException CreateAIFileClientDependencyException(Xeption innerException)
         {
             return new AIFileClientDependencyException(
@@ -112,7 +111,6 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
                     message: "AI file client service error occurred, contact support.",
                     innerException);
         }
-
 
         private static AIFileClientValidationException CreateAIFileClientValidationException(Xeption innerException)
         {
