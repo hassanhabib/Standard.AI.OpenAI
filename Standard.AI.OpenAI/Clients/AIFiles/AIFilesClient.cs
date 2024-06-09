@@ -42,7 +42,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
+                throw CreateAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
@@ -65,7 +65,7 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
+                throw CreateAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
@@ -93,15 +93,22 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
             catch (AIFileOrchestrationServiceException aiFileOrchestrationServiceException)
             {
-                throw new AIFileClientServiceException(
+                throw CreateAIFileClientServiceException(
                     aiFileOrchestrationServiceException.InnerException as Xeption);
             }
         }
 
+<<<<<<< HEAD
         private static AIFileClientDependencyException CreateAIFileClientDependencyException(Xeption innerException)
         {
             return new AIFileClientDependencyException(
                 message: "AI file client dependency error occurred, contact support.",
+=======
+        private static AIFileClientServiceException CreateAIFileClientServiceException(Xeption innerException)
+        {
+            return new AIFileClientServiceException(
+                message: "AI file client service error occurred, contact support.",
+>>>>>>> users/Lezune/Clients-AIFiles-AIFileClientServiceException-Update
                 innerException);
         }
     }
