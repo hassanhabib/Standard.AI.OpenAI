@@ -71,6 +71,12 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
         }
 
+        private static AIModelClientValidationException CreateAIModelClientValidationException(Xeption innerException)
+        {
+            return new AIModelClientValidationException(
+                message: "AI model client validation error occurred, fix errors and try again.",
+                innerException);
+        }
 
         private static AIModelClientDependencyException CreateAIModelClientDependencyException(Xeption innerException)
         {
@@ -84,13 +90,6 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             return new AIModelClientServiceException(
                 message: "AI Model client service error occurred, contact support.",
                 innerException: innerException);
-        }
-
-        private static AIModelClientValidationException CreateAIModelClientValidationException(Xeption innerException)
-        {
-            return new AIModelClientValidationException(
-                message: "AI model client validation error occurred, fix errors and try again.",
-                innerException);
         }
     }
 }
