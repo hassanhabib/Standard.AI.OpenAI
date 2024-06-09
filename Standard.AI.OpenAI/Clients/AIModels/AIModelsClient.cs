@@ -28,7 +28,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -51,12 +51,12 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelValidationException aIModelValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aIModelValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
@@ -71,6 +71,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
         }
 
+
         private static AIModelClientDependencyException CreateAIModelClientDependencyException(Xeption innerException)
         {
             return new AIModelClientDependencyException(
@@ -82,6 +83,13 @@ namespace Standard.AI.OpenAI.Clients.AIModels
         {
             return new AIModelClientServiceException(
                 message: "AI Model client service error occurred, contact support.",
+                innerException: innerException);
+        }
+
+        private static AIModelClientValidationException CreateAIModelClientValidationException(Xeption innerException)
+        {
+            return new AIModelClientValidationException(
+                message: "AI model client validation error occurred, fix errors and try again.",
                 innerException);
         }
     }
