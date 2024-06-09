@@ -98,6 +98,13 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
             }
         }
 
+        private static AIFileClientValidationException CreateAIFileClientValidationException(Xeption innerException)
+        {
+            return new AIFileClientValidationException(
+                message: "AI file client validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
         private static AIFileClientDependencyException CreateAIFileClientDependencyException(Xeption innerException)
         {
             return new AIFileClientDependencyException(
@@ -110,13 +117,6 @@ namespace Standard.AI.OpenAI.Clients.AIFiles
                 return new AIFileClientServiceException(
                     message: "AI file client service error occurred, contact support.",
                     innerException);
-        }
-
-        private static AIFileClientValidationException CreateAIFileClientValidationException(Xeption innerException)
-        {
-            return new AIFileClientValidationException(
-                message: "AI file client validation error occurred, fix errors and try again.",
-                innerException);
         }
     }
 }
