@@ -75,7 +75,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallCompletionException =
-                    new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallCompletionException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
                 throw CreateCompletionDependencyValidationException(
                     excessiveCallCompletionException);
