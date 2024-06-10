@@ -44,7 +44,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw CreateImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
@@ -52,7 +54,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseForbiddenException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw CreateImageGenerationDependencyException(
                     unauthorizedImageGenerationException);
@@ -104,10 +108,15 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                         message: "Failed image generation service error occurred, contact support.", 
                         exception);
 
-                throw new ImageGenerationServiceException(
-                    message: "Image generation service error occurred, contact support.", 
-                    failedImageGenerationServiceException);
+                throw CreateImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static ImageGenerationValidationException CreateImageGenerationValidationException(Xeption innerException)
+        {
+            return new ImageGenerationValidationException(
+                message: "Image generation validation error occurred, fix errors and try again.",
+                innerException);
         }
 
         private static ImageGenerationDependencyException CreateImageGenerationDependencyException(Xeption innerException)
@@ -124,10 +133,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 innerException);
         }
 
-        private static ImageGenerationValidationException CreateImageGenerationValidationException(Xeption innerException)
+        private static ImageGenerationServiceException CreateImageGenerationServiceException(Exception innerException)
         {
-            return new ImageGenerationValidationException(
-                message: "Image generation validation error occurred, fix errors and try again.",
+            return new ImageGenerationServiceException(
+                message: "Image generation service error occurred, contact support.", 
                 innerException);
         }
     }
