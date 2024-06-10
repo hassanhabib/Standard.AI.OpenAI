@@ -8,9 +8,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
 {
     public class NullImageGenerationException : Xeption
     {
-        public NullImageGenerationException()
-            : base(
-                message: "Image generation is null.")
+        public NullImageGenerationException(string message)
+            : base(message)
         { }
 
         public NullImageGenerationException(string message, Xeption innerException)
