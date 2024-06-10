@@ -8,12 +8,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class ChatCompletionDependencyValidationException : Xeption
     {
-        public ChatCompletionDependencyValidationException(Xeption innerException)
-            : base(
-                message: "Chat completion dependency validation error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public ChatCompletionDependencyValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }

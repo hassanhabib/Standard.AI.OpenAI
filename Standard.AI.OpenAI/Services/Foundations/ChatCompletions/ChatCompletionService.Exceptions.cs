@@ -58,21 +58,24 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 var notFoundChatCompletionException =
                     new NotFoundChatCompletionException(httpResponseNotFoundException);
 
-                throw new ChatCompletionDependencyValidationException(notFoundChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    notFoundChatCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
                     new InvalidChatCompletionException(httpResponseBadRequestException);
 
-                throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallChatCompletionException =
                     new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
 
-                throw new ChatCompletionDependencyValidationException(excessiveCallChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    excessiveCallChatCompletionException);
             }
             catch (HttpResponseException httpResponseException)
             {
@@ -98,5 +101,28 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 message: "Chat completion dependency error occurred, contact support.",
                 innerException);
         }
+
+        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(Xeption innerException)
+        {
+            return new ChatCompletionDependencyValidationException(
+                "Chat completion dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
