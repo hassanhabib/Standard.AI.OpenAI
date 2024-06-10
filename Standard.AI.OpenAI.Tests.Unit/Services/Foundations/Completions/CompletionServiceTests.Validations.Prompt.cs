@@ -20,7 +20,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
         {
             // given
             Completion nullCompletion = null;
-            var nullCompletionException = new NullCompletionException();
+            var nullCompletionException = 
+                new NullCompletionException(
+                    message: "Completion is null.");
 
             var exceptedCompletionValidationException =
                 new CompletionValidationException(
