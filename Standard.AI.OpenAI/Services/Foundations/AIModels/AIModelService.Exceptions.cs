@@ -63,7 +63,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidAIModelException =
-                    new InvalidAIModelException(httpResponseBadRequestException);
+                    new InvalidAIModelException(
+                        message: "AI Model is invalid.", 
+                        httpResponseBadRequestException);
 
                 throw CreateAIModelDependencyValidationException(
                     invalidAIModelException);
