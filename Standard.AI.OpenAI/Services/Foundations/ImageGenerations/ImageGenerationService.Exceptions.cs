@@ -96,7 +96,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                         message: "Failed image generation service error occurred, contact support.", 
                         exception);
 
-                throw new ImageGenerationServiceException(failedImageGenerationServiceException);
+                throw new ImageGenerationServiceException(
+                    message: "Image generation service error occurred, contact support.", 
+                    failedImageGenerationServiceException);
             }
         }
 
