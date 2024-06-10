@@ -40,7 +40,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    CreateUnauthorizedAIModelException(
+                        httpResponseUnauthorizedException);
 
                 throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
@@ -48,7 +49,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    CreateUnauthorizedAIModelException(
+                        httpResponseForbiddenException);
 
                 throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
@@ -120,7 +122,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
+                    CreateUnauthorizedAIModelException(
+                        httpResponseUnauthorizedException);
 
                 throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
@@ -128,7 +131,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(httpResponseForbiddenException);
+                    CreateUnauthorizedAIModelException(
+                        httpResponseForbiddenException);
 
                 throw CreateAIModelDependencyException(
                     unauthorizedAIModelException);
@@ -162,6 +166,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
         }
 
+        private static NotFoundAIModelException CreateNotFoundAIModelException(Exception innerException)
+        {
+            return new NotFoundAIModelException(
+                message: "AI Model not found.", 
+                innerException);
+        }
+
         private static AIModelValidationException CreateAIModelValidationException(Xeption innerException)
         {
             return new AIModelValidationException(
@@ -180,6 +191,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             return new AIModelDependencyException(
                 message: "AI Model dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static UnauthorizedAIModelException CreateUnauthorizedAIModelException(Exception innerException)
+        {
+            return new UnauthorizedAIModelException(
+                message: "Unauthorized AI Model error occurred, fix errors and try again.",
                 innerException);
         }
 
@@ -217,10 +235,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 message: "AI Model service error occurred, contact support.",
                 innerException);
         }
-
-
-
-
-
     }
 }
