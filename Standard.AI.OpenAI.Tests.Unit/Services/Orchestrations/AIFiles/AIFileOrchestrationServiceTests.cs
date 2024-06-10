@@ -45,7 +45,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             return new TheoryData<Xeption>
             {
                 new LocalFileValidationException(someInnerException),
-                new LocalFileDependencyValidationException(someInnerException),
+                new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.",
+                    someInnerException),
                 new AIFileValidationException(someInnerException),
                 new AIFileDependencyValidationException(someInnerException)
             };
