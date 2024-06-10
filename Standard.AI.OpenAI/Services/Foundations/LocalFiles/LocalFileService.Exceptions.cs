@@ -21,14 +21,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
             catch (InvalidLocalFileException invalidFileException)
             {
-                throw new LocalFileValidationException(
-                    message: "Local file validation error occurred, fix error and try again.", 
-                    invalidFileException);
+                throw CreateLocalFileValidationException(invalidFileException);
             }
             catch (ArgumentException argumentException)
             {
-                var invalidFileException =
-                    CreateInvalidLocalFileException(
+                var invalidFileException = 
+                    new InvalidLocalFileException(
+                        message: "Invalid local file error occurred, fix error and try again.", 
                         argumentException);
 
                 throw CreateLocalFileDependencyValidationException(
@@ -36,8 +35,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
             catch (PathTooLongException pathTooLongException)
             {
-                var invalidFileException =
-                    CreateInvalidLocalFileException(
+                var invalidFileException = 
+                    new InvalidLocalFileException(
+                        message: "Invalid local file error occurred, fix error and try again.", 
                         pathTooLongException);
 
                 throw CreateLocalFileDependencyValidationException(
@@ -46,7 +46,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
-                    CreateNotFoundLocalFileException(
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
                         fileNotFoundException);
 
                 throw CreateLocalFileDependencyValidationException(
@@ -55,7 +56,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
-                    CreateNotFoundLocalFileException(
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
                         directoryNotFoundException);
 
                 throw CreateLocalFileDependencyValidationException(
@@ -64,7 +66,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (IOException ioException)
             {
                 var failedFileException =
-                    CreateFailedLocalFileDependencyException(
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
                         ioException);
 
                 throw CreateLocalFileDependencyException(
@@ -73,7 +76,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (NotSupportedException notSupportedException)
             {
                 var failedFileException =
-                    CreateFailedLocalFileDependencyException(
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
                         notSupportedException);
 
                 throw CreateLocalFileDependencyException(
@@ -92,17 +96,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
         }
 
-        private static FailedLocalFileDependencyException CreateFailedLocalFileDependencyException(Exception innerException)
+        private static LocalFileValidationException CreateLocalFileValidationException(Xeption innerException)
         {
-            return new FailedLocalFileDependencyException(
-                message: "Failed local file error occurred, contact support.",
+            return new LocalFileValidationException(
+                message: "Local file validation error occurred, fix error and try again.", 
                 innerException);
         }
-
-        private static InvalidLocalFileException CreateInvalidLocalFileException(Exception innerException)
+        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(Xeption innerException)
         {
-            return new InvalidLocalFileException(
-                message: "Invalid local file error occurred, fix error and try again.",
+            return new LocalFileDependencyValidationException(
+                message: "Local file dependency validation error occurred, fix the errors and try again.",
                 innerException);
         }
 
@@ -112,20 +115,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 message: "Local file dependency error occurred, contact support.",
                 innerException);
         }
-
-        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(Xeption innerException)
-        {
-            return new LocalFileDependencyValidationException(
-                message: "Local file dependency validation error occurred, fix the errors and try again.",
-                innerException);
-        }
-
-        private static NotFoundLocalFileException CreateNotFoundLocalFileException(Exception innerException)
-        {
-            return new NotFoundLocalFileException(
-                message: "Not found local file error occurred, fix error and try again.",
-                innerException);
-        }
-
     }
 }
