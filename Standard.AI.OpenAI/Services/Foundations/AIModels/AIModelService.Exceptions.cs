@@ -31,7 +31,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
+                    CreateInvalidConfigurationAIModelException(
+                        httpResponseUrlNotFoundException);
 
                 throw CreateAIModelDependencyException(
                     invalidConfigurationAIModelException);
@@ -108,7 +109,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
+                    CreateInvalidConfigurationAIModelException(
+                        httpResponseUrlNotFoundException);
 
                 throw CreateAIModelDependencyException(
                     invalidConfigurationAIModelException);
@@ -158,11 +160,17 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
         }
 
-
         private static AIModelValidationException CreateAIModelValidationException(Xeption innerException)
         {
             return new AIModelValidationException(
                 message: "AI Model validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static InvalidConfigurationAIModelException CreateInvalidConfigurationAIModelException(Exception innerException)
+        {
+            return new InvalidConfigurationAIModelException(
+                message: "Invalid AI Model configuration error occurred, contact support.",
                 innerException);
         }
 
@@ -207,5 +215,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 message: "AI Model service error occurred, contact support.",
                 innerException);
         }
+
+
+
+
+
     }
 }
