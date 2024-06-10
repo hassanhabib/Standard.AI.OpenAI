@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
     public class InvalidConfigurationCompletionException : Xeption
     {
-        public InvalidConfigurationCompletionException(Exception innerException)
-            : base(
-                message: "Invalid configuration error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public InvalidConfigurationCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }
