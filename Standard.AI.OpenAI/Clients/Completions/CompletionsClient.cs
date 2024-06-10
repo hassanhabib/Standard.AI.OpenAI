@@ -36,15 +36,13 @@ namespace Standard.AI.OpenAI.Clients.Completions
             }
             catch (CompletionDependencyException completionDependencyException)
             {
-                throw new CompletionClientDependencyException(
-                    message: "Completion dependency error occurred, contact support.",
-                    completionDependencyException.InnerException as Xeption);
+                throw CreateCompletionClientDependencyException(
+                    completionDependencyException);
             }
             catch (CompletionServiceException completionServiceException)
             {
-                throw new CompletionClientServiceException(
-                    message: "Completion client service error occurred, contact support.",
-                    completionServiceException.InnerException as Xeption);
+                throw CreateCompletionClientServiceException(
+                    completionServiceException);
             }
         }
 
@@ -52,6 +50,20 @@ namespace Standard.AI.OpenAI.Clients.Completions
         {
             return new CompletionClientValidationException(
                 message: "Completion client validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static CompletionClientDependencyException CreateCompletionClientDependencyException(Xeption innerException)
+        {
+            return new CompletionClientDependencyException(
+                message: "Completion dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static CompletionClientServiceException CreateCompletionClientServiceException(Xeption innerException)
+        {
+            return new CompletionClientServiceException(
+                message: "Completion client service error occurred, contact support.",
                 innerException);
         }
     }
