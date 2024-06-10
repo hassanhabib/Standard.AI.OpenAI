@@ -44,7 +44,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedCompletionException =
-                    new UnauthorizedCompletionException(httpResponseUnauthorizedException);
+                    new UnauthorizedCompletionException(
+                        message: "Unauthorized completion request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw CreateCompletionDependencyException(
                     unauthorizedCompletionException);
@@ -52,7 +54,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedCompletionException =
-                    new UnauthorizedCompletionException(httpResponseForbiddenException);
+                    new UnauthorizedCompletionException(
+                        message: "Unauthorized completion request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw CreateCompletionDependencyException(
                     unauthorizedCompletionException);
@@ -105,10 +109,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                         message: "Failed completion error occurred, contact support.", 
                         exception);
 
-                throw new CompletionServiceException(
-                    message: "Completion service error occurred, contact support.", 
+                throw CreateCompletionServiceException(
                     failedCompletionServiceException);
             }
+        }
+
+        private static CompletionValidationException CreateCompletionValidationException(Xeption innerException)
+        {
+            return new CompletionValidationException(
+                message: "Completion validation error occurred, fix errors and try again.",
+                innerException);
         }
 
         private static CompletionDependencyException CreateCompletionDependencyException(Xeption innerException)
@@ -124,18 +134,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 message: "Completion dependency validation error occurred, fix errors and try again.", 
                 innerException);
         }
-        private static CompletionValidationException CreateCompletionValidationException(Xeption innerException)
+
+        private static CompletionServiceException CreateCompletionServiceException(Xeption innerException)
         {
-            return new CompletionValidationException(
-                message: "Completion validation error occurred, fix errors and try again.",
+            return new CompletionServiceException(
+                message: "Completion service error occurred, contact support.", 
                 innerException);
         }
-
-
-
-
-
-
-
     }
 }
