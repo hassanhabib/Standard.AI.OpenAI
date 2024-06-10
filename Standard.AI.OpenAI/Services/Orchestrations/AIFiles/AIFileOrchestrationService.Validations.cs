@@ -23,7 +23,8 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             if (aiFile is null)
             {
-                throw new NullAIFileOrchestrationException();
+                throw new NullAIFileOrchestrationException(
+                    message: "AI file is null.");
             }
         }
 
