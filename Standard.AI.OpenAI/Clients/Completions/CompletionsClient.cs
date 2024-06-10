@@ -43,6 +43,7 @@ namespace Standard.AI.OpenAI.Clients.Completions
             catch (CompletionServiceException completionServiceException)
             {
                 throw new CompletionClientServiceException(
+                    message: "Completion client service error occurred, contact support.",
                     completionServiceException.InnerException as Xeption);
             }
         }
