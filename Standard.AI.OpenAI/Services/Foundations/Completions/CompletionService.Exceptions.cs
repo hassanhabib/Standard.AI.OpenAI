@@ -60,7 +60,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundCompletionException =
-                    new NotFoundCompletionException(httpResponseNotFoundException);
+                    new NotFoundCompletionException(
+                        message: "Not found completion error occurred, fix errors and try again.", 
+                        httpResponseNotFoundException);
 
                 throw CreateCompletionDependencyValidationException(
                     notFoundCompletionException);
