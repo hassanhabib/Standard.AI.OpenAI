@@ -45,7 +45,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAudioTranscriptionException =
-                    new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
+                    new UnauthorizedAudioTranscriptionException(
+                        message: "Unauthorized audio transcription request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw CreateAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
@@ -53,7 +55,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAudioTranscriptionException =
-                    new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
+                    new UnauthorizedAudioTranscriptionException(
+                        message: "Unauthorized audio transcription request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw CreateAudioTranscriptionDependencyException(
                     unauthorizedAudioTranscriptionException);
@@ -85,8 +89,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                         message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.", 
                         exception);
 
-                throw new AudioTranscriptionServiceException(
-                    message: "Audio transcription service error occurred, contact support.",
+                throw CreateAudioTranscriptionServiceException(
                     failedAudioTranscriptionServiceException);
             }
         }
@@ -112,16 +115,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 innerException);
         }
 
+        private static AudioTranscriptionServiceException CreateAudioTranscriptionServiceException(Xeption innerException)
+        {
+            return new AudioTranscriptionServiceException(
+                message: "Audio transcription service error occurred, contact support.",
+                innerException);
 
-
-
-
-
-
-
-
-
-
-
+        }
     }
 }
