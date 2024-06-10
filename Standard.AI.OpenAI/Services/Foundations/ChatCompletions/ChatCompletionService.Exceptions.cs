@@ -34,7 +34,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationChatCompletionException =
-                    new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationChatCompletionException(
+                        message: "Invalid chat completion configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw CreateChatCompletionDependencyException(
                     invalidConfigurationChatCompletionException);
