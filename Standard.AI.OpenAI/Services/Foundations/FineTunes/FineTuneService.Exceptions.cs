@@ -91,7 +91,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                         message: "Failed fine tune error occurred, contact support.", 
                         exception);
 
-                throw new FineTuneServiceException(failedFineTuneServiceException);
+                throw new FineTuneServiceException(
+                    message: "Fine tune error ocurred, contact support.", 
+                    failedFineTuneServiceException);
             }
         }
 
