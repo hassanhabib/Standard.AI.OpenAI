@@ -90,9 +90,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                         message: "Failed local file service error occurred, contact support.", 
                         exception);
 
-                throw new LocalFileServiceException(
-                    message: "Local file service error occurred, contact support.", 
-                    failedLocalFileServiceException);
+                throw CreateLocalFileServiceException(failedLocalFileServiceException);
             }
         }
 
@@ -113,6 +111,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
         {
             return new LocalFileDependencyException(
                 message: "Local file dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static LocalFileServiceException CreateLocalFileServiceException(Xeption innerException)
+        {
+            return new LocalFileServiceException(
+                message: "Local file service error occurred, contact support.", 
                 innerException);
         }
     }
