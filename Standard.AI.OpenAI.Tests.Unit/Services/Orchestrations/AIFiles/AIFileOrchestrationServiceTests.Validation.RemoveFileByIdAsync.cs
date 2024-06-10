@@ -18,7 +18,7 @@ public partial class AIFileOrchestrationServiceTests
     {
         // given
         var invalidAiFileOrchestrationException =
-            new InvalidAIFileOrchestrationException();
+            CreateInvalidAIFileOrchestrationException();
 
         invalidAiFileOrchestrationException.AddData(
             key: nameof(AIFile.Response.Id),
