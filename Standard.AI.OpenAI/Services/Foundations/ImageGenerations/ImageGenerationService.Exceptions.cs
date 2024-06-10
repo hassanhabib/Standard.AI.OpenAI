@@ -60,7 +60,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundImageGenerationException =
-                    new NotFoundImageGenerationException(httpResponseNotFoundException);
+                    new NotFoundImageGenerationException(
+                        message: "Not found image generation error occurred, fix errors and try again.", 
+                        httpResponseNotFoundException);
 
                 throw CreateImageGenerationDependencyValidationException(
                     notFoundImageGenerationException);
