@@ -79,7 +79,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                     new FailedAIFileOrchestrationServiceException(
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
+                throw CreateAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
         }
@@ -111,7 +111,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                     new FailedAIFileOrchestrationServiceException(
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
+                throw CreateAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
         }
@@ -126,6 +126,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             return new AIFileOrchestrationDependencyValidationException(
                 message: "AI file dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationServiceException CreateAIFileOrchestrationServiceException(Xeption innerException)
+        {
+            return new AIFileOrchestrationServiceException(
+                message: "AI File error occurred, contact support.",
                 innerException);
         }
     }
