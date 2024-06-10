@@ -45,6 +45,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 var unauthorizedFineTuneException =
                     new UnauthorizedFineTuneException(
+                        message: "Unauthorized fine tune request, fix errors and try again.",
                         httpResponseUnauthorizedException);
 
                 throw CreateFineTuneDependencyException(
@@ -54,6 +55,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             {
                 var unauthorizedFineTuneException =
                     new UnauthorizedFineTuneException(
+                        message: "Unauthorized fine tune request, fix errors and try again.",
                         httpResponseForbiddenException);
 
                 throw CreateFineTuneDependencyException(
@@ -96,13 +98,17 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                         message: "Failed fine tune error occurred, contact support.", 
                         exception);
 
-                throw new FineTuneServiceException(
-                    message: "Fine tune error ocurred, contact support.", 
+                throw CreateFineTuneServiceException(
                     failedFineTuneServiceException);
             }
         }
 
-
+        private static FineTuneValidationException CreateFineTuneValidationException(Xeption innerException)
+        {
+            return new FineTuneValidationException(
+                message: "Fine tune validation error occurred, fix errors and try again.",
+                innerException);
+        }
 
         private static FineTuneDependencyException CreateFineTuneDependencyException(Xeption innerException)
         {
@@ -118,21 +124,11 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 innerException);
         }
 
-        private static FineTuneValidationException CreateFineTuneValidationException(Xeption innerException)
+        private static FineTuneServiceException CreateFineTuneServiceException(Xeption innerException)
         {
-            return new FineTuneValidationException(
-                message: "Fine tune validation error occurred, fix errors and try again.",
+            return new FineTuneServiceException(
+                message: "Fine tune error ocurred, contact support.", 
                 innerException);
         }
-
-
-
-
-
-
-
-
-
-
     }
 }
