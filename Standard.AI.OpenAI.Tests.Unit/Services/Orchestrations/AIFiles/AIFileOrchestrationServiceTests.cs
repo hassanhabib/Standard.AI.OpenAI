@@ -57,7 +57,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                new LocalFileDependencyException(someInnerException),
+                new LocalFileDependencyException(
+                    message: "Local file dependency error occurred, contact support.",
+                    someInnerException),
                 new LocalFileServiceException(someInnerException),
                 new AIFileDependencyException(someInnerException),
                 new AIFileServiceException(someInnerException),
