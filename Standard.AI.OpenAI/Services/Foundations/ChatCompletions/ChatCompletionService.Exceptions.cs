@@ -44,7 +44,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
                 throw CreateChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
@@ -52,7 +54,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseForbiddenException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
                 throw CreateChatCompletionDependencyException(
                     unauthorizedChatCompletionException);
@@ -70,7 +74,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
-                    CreateInvalidChatCompletionException(
+                    new InvalidChatCompletionException(
+                        message: "Chat completion is invalid.", 
                         httpResponseBadRequestException);
 
                 throw CreateChatCompletionDependencyValidationException(
@@ -103,10 +108,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                         message: "Failed Chat Completion Service Exception occurred, please contact support for assistance.", 
                         exception);
 
-                throw new ChatCompletionServiceException(
-                    message: "Chat completion service error occurred, contact support.",
+                throw CreateChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static ChatCompletionValidationException CreateChatCompletionValidationException(Xeption innerException)
+        {
+            return new ChatCompletionValidationException(
+                message: "Chat completion validation error occurred, fix errors and try again.",
+                innerException);
         }
 
         private static ChatCompletionDependencyException CreateChatCompletionDependencyException(Xeption innerException)
@@ -122,27 +133,18 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 "Chat completion dependency validation error occurred, fix errors and try again.",
                 innerException);
         }
-        private static ChatCompletionValidationException CreateChatCompletionValidationException(Xeption innerException)
+
+        private static ChatCompletionServiceException CreateChatCompletionServiceException(Xeption innerException)
         {
-            return new ChatCompletionValidationException(
-                message: "Chat completion validation error occurred, fix errors and try again.",
+            return new ChatCompletionServiceException(
+                message: "Chat completion service error occurred, contact support.",
                 innerException);
         }
 
-        private static InvalidChatCompletionException CreateInvalidChatCompletionException(Xeption innerException)
+        private static NullChatCompletionException CreateNullChatCompletionException()
         {
-            return new InvalidChatCompletionException(
-                message: "Chat completion is invalid.",
-                innerException);
+            return new NullChatCompletionException(
+                message: "Chat completion is null.");
         }
-
-
-
-
-
-
-
-
-
     }
 }
