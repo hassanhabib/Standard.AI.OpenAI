@@ -35,7 +35,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAudioTranscriptionException =
-                    new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAudioTranscriptionException(
+                        message: "Invalid audio transcription configuration error occurred, contact support.",
+                        httpResponseUrlNotFoundException);
 
                 throw CreateAudioTranscriptionDependencyException(
                     invalidConfigurationAudioTranscriptionException);
