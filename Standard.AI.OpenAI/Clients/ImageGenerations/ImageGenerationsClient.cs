@@ -43,6 +43,7 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             catch (ImageGenerationServiceException imageGenerationServiceException)
             {
                 throw new ImageGenerationClientServiceException(
+                    message: "Image generation client service error occurred, contact support.",
                     imageGenerationServiceException.InnerException as Xeption);
             }
         }
