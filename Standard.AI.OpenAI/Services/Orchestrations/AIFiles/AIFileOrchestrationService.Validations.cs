@@ -54,7 +54,8 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var invalidAIFileException = 
-                CreateInvalidAIFileOrchestrationException();
+                new InvalidAIFileOrchestrationException(
+                     message: "AI file is invalid.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {
