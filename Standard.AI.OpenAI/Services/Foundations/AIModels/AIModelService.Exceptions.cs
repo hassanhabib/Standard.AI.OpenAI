@@ -88,7 +88,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(exception);
+                    CreateFailedAIModelServiceException(
+                        exception);
 
                 throw CreateAIModelServiceException(
                     failedAIModelServiceException);
@@ -145,7 +146,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(exception);
+                    CreateFailedAIModelServiceException(
+                        exception);
 
                 throw CreateAIModelServiceException(
                     failedAIModelServiceException);
@@ -177,6 +179,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             return new ExcessiveCallAIModelException(
                 message: "Excessive call error occurred, limit your calls.",
+                innerException);
+        }
+
+        private static FailedAIModelServiceException CreateFailedAIModelServiceException(Exception innerException)
+        {
+            return new FailedAIModelServiceException(
+                message: "Failed AI Model Service Exception occurred, please contact support for assistance.",
                 innerException);
         }
 
