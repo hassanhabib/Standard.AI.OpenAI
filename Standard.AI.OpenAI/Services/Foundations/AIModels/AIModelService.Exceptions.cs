@@ -173,16 +173,17 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 innerException);
         }
 
+        private static ExcessiveCallAIModelException CreateExcessiveCallAIModelException(Exception innerException)
+        {
+            return new ExcessiveCallAIModelException(
+                message: "Excessive call error occurred, limit your calls.",
+                innerException);
+        }
+
         private static AIModelServiceException CreateAIModelServiceException(Xeption innerException)
         {
             return new AIModelServiceException(
                 message: "AI Model service error occurred, contact support.",
-        }
-
-        private static ExcessiveCallAIModelException CreateExcessiveCallAIModelException(Exception innerException)
-        {
-            return new ExcessiveCallAIModelException(
-                message: "Excessive call error occurred, limit your calls.", 
                 innerException);
         }
     }
