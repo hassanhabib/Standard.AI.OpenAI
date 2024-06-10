@@ -61,14 +61,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidAudioTranscriptionException =
                     new InvalidAudioTranscriptionException(httpResponseBadRequestException);
 
-                throw new AudioTranscriptionDependencyValidationException(invalidAudioTranscriptionException);
+                throw CreateAudioTranscriptionDependencyValidationException(
+                    invalidAudioTranscriptionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAudioTranscriptionException =
                     new ExcessiveCallAudioTranscriptionException(httpResponseTooManyRequestsException);
 
-                throw new AudioTranscriptionDependencyValidationException(excessiveCallAudioTranscriptionException);
+                throw CreateAudioTranscriptionDependencyValidationException(
+                    excessiveCallAudioTranscriptionException);
             }
             catch (Exception exception)
             {
@@ -94,6 +96,14 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 message: "Audio transcription dependency error occurred, contact support.",
                 innerException);
         }
+
+        private static AudioTranscriptionDependencyValidationException CreateAudioTranscriptionDependencyValidationException(Xeption innerException)
+        {
+            return new AudioTranscriptionDependencyValidationException(
+                message: "Chat completion dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
 
 
 
