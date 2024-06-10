@@ -36,15 +36,13 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             }
             catch (ImageGenerationDependencyException imageGenerationDependencyException)
             {
-                throw new ImageGenerationClientDependencyException(
-                    message: "Image generation client dependency error occurred, contact support.",
-                    imageGenerationDependencyException.InnerException as Xeption);
+                throw CreateImageGenerationClientDependencyException(
+                    imageGenerationDependencyException);
             }
             catch (ImageGenerationServiceException imageGenerationServiceException)
             {
-                throw new ImageGenerationClientServiceException(
-                    message: "Image generation client service error occurred, contact support.",
-                    imageGenerationServiceException.InnerException as Xeption);
+                throw CreateImageGenerationClientServiceException(
+                    imageGenerationServiceException);
             }
         }
 
@@ -52,6 +50,20 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
         {
             return new ImageGenerationClientValidationException(
                 message: "Image generation client validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ImageGenerationClientDependencyException CreateImageGenerationClientDependencyException(Xeption innerException)
+        {
+            return new ImageGenerationClientDependencyException(
+                message: "Image generation client dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static ImageGenerationClientServiceException CreateImageGenerationClientServiceException(Xeption innerException)
+        {
+            return new ImageGenerationClientServiceException(
+                message: "Image generation client service error occurred, contact support.",
                 innerException);
         }
     }
