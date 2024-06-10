@@ -88,7 +88,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedAIModelServiceException =
                     new FailedAIModelServiceException(exception);
 
-                throw new AIModelServiceException(
+                throw CreateAIModelServiceException(
                     failedAIModelServiceException);
             }
         }
@@ -144,7 +144,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 var failedAIModelServiceException =
                     new FailedAIModelServiceException(exception);
 
-                throw new AIModelServiceException(
+                throw CreateAIModelServiceException(
                     failedAIModelServiceException);
             }
         }
@@ -160,6 +160,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             return new AIModelDependencyValidationException(
                 message: "AI Model dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIModelServiceException CreateAIModelServiceException(Xeption innerException)
+        {
+            return new AIModelServiceException(
+                message: "AI Model service error occurred, contact support.",
                 innerException);
         }
     }
