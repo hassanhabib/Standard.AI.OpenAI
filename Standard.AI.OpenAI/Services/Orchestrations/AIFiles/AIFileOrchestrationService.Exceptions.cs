@@ -117,16 +117,24 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
         }
 
-        private static AIFileOrchestrationDependencyException CreateAIFileOrchestrationDependencyException(Xeption innerException)
+        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(Xeption innerException)
         {
-            return new AIFileOrchestrationDependencyException(
-                message: "AI File dependency error occurred, contact support.",
+            return new AIFileOrchestrationValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
                 innerException);
         }
+
         private static AIFileOrchestrationDependencyValidationException CreateAIFileOrchestrationDependencyValidationException(Xeption innerException)
         {
             return new AIFileOrchestrationDependencyValidationException(
                 message: "AI file dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationDependencyException CreateAIFileOrchestrationDependencyException(Xeption innerException)
+        {
+            return new AIFileOrchestrationDependencyException(
+                message: "AI File dependency error occurred, contact support.",
                 innerException);
         }
 
@@ -137,18 +145,23 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 innerException);
         }
 
-        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(Xeption innerException)
-        {
-            return new AIFileOrchestrationValidationException(
-                message: "AI file validation error occurred, fix errors and try again.",
-                innerException);
-        }
-
         private static FailedAIFileOrchestrationServiceException CreateFailedAIFileOrchestrationServiceException(Exception innerException)
         {
             return new FailedAIFileOrchestrationServiceException(
                 message: "Failed AI file service error occurred, contact support.",
                 innerException);
+        }
+
+        private static NullAIFileOrchestrationException CreateNullAIFileOrchestrationException() 
+        {
+            return new NullAIFileOrchestrationException(
+                message: "AI file is null.");
+        }
+
+        private static InvalidAIFileOrchestrationException CreateInvalidAIFileOrchestrationException()
+        {
+            return new InvalidAIFileOrchestrationException(
+                 message: "AI file is invalid.");
         }
     }
 }

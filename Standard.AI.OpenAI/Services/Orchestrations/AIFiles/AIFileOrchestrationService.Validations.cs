@@ -23,8 +23,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             if (aiFile is null)
             {
-                throw new NullAIFileOrchestrationException(
-                    message: "AI file is null.");
+                throw CreateNullAIFileOrchestrationException();
             }
         }
 
@@ -55,8 +54,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var invalidAIFileException = 
-                new InvalidAIFileOrchestrationException(
-                    message: "AI file is invalid.");
+                CreateInvalidAIFileOrchestrationException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {
@@ -70,5 +68,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
             invalidAIFileException.ThrowIfContainsErrors();
         }
+
+
     }
 }
