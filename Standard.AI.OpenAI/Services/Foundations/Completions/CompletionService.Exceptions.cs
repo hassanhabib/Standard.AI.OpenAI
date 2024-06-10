@@ -59,14 +59,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var notFoundCompletionException =
                     new NotFoundCompletionException(httpResponseNotFoundException);
 
-                throw new CompletionDependencyValidationException(notFoundCompletionException);
+                throw CreateCompletionDependencyValidationException(
+                    notFoundCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidCompletionException =
                     new InvalidCompletionException(httpResponseBadRequestException);
 
-                throw new CompletionDependencyValidationException(invalidCompletionException);
+                throw CreateCompletionDependencyValidationException( 
+                    invalidCompletionException);
             }
 
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
@@ -74,7 +76,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 var excessiveCallCompletionException =
                     new ExcessiveCallCompletionException(httpResponseTooManyRequestsException);
 
-                throw new CompletionDependencyValidationException(excessiveCallCompletionException);
+                throw CreateCompletionDependencyValidationException(
+                    excessiveCallCompletionException);
             }
             catch (HttpResponseException httpResponseException)
             {
@@ -92,11 +95,26 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 throw new CompletionServiceException(failedCompletionServiceException);
             }
         }
+
         private static CompletionDependencyException CreateCompletionDependencyException(Xeption innerException)
         {
             return new CompletionDependencyException(
                 message: "Completion dependency error occurred, contact support.",
                 innerException);
         }
+        
+
+        private static CompletionDependencyValidationException CreateCompletionDependencyValidationException(Xeption innerException)
+        {
+            return new CompletionDependencyValidationException(
+                message: "Completion dependency validation error occurred, fix errors and try again.", 
+                innerException);
+        }
+
+
+
+
+
+
     }
 }
