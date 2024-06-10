@@ -84,7 +84,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerChatCompletionException =
-                    new FailedServerChatCompletionException(httpResponseException);
+                    new FailedServerChatCompletionException(
+                        message: "Failed chat completion server error occurred, contact support.", 
+                        httpResponseException);
 
                 throw CreateChatCompletionDependencyException(
                     failedServerChatCompletionException);
