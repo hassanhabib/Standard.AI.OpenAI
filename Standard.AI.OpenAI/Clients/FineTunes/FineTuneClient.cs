@@ -26,7 +26,7 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             }
             catch (FineTuneValidationException fineTuneValidationException)
             {
-                throw new FineTuneClientValidationException(
+                throw CreateFineTuneClientValidationException(
                     fineTuneValidationException.InnerException as Xeption);
             }
             catch (FineTuneDependencyException fineTuneDependencyException)
@@ -37,7 +37,7 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             }
             catch (FineTuneDependencyValidationException fineTuneDependencyValidationException)
             {
-                throw new FineTuneClientValidationException(
+                throw CreateFineTuneClientValidationException(
                     fineTuneDependencyValidationException.InnerException as Xeption);
             }
             catch (FineTuneServiceException fineTuneServiceException)
@@ -46,6 +46,13 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
                     message: "Fine tune client service error occurred, contact support.",
                     fineTuneServiceException.InnerException as Xeption);
             }
+        }
+
+        private static FineTuneClientValidationException CreateFineTuneClientValidationException(Xeption innerException)
+        {
+            return new FineTuneClientValidationException(
+                message: "Fine tune client validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
