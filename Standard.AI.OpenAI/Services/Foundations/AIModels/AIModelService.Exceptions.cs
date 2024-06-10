@@ -80,7 +80,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(httpResponseException);
+                    CreateFailedServerAIModelException(
+                        httpResponseException);
 
                 throw CreateAIModelDependencyException(
                     failedServerAIModelException);
@@ -138,7 +139,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(httpResponseException);
+                    CreateFailedServerAIModelException(
+                        httpResponseException);
 
                 throw CreateAIModelDependencyException(
                     failedServerAIModelException);
@@ -153,6 +155,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                     failedAIModelServiceException);
             }
         }
+
 
         private static AIModelValidationException CreateAIModelValidationException(Xeption innerException)
         {
@@ -179,6 +182,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             return new ExcessiveCallAIModelException(
                 message: "Excessive call error occurred, limit your calls.",
+                innerException);
+        }
+
+        private static FailedServerAIModelException CreateFailedServerAIModelException(Exception innerException)
+        {
+            return new FailedServerAIModelException(
+                message: "Failed AI Model server error occurred, contact support",
                 innerException);
         }
 
