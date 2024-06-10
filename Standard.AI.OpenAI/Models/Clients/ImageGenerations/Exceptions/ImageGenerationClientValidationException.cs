@@ -12,12 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.ImageGenerations.Exceptions
     /// </summary>
     public class ImageGenerationClientValidationException : Xeption
     {
-        public ImageGenerationClientValidationException(Xeption innerException)
-            : base(
-                message: "Image generation client validation error occurred, fix errors and try again.",
-                    innerException:  innerException)
-        { }
-
         public ImageGenerationClientValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }

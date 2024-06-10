@@ -26,12 +26,12 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             }
             catch (ImageGenerationValidationException imageGenerationValidationException)
             {
-                throw new ImageGenerationClientValidationException(
+                throw CreateImageGenerationClientValidationException(
                     imageGenerationValidationException.InnerException as Xeption);
             }
             catch (ImageGenerationDependencyValidationException imageGenerationDependencyValidationException)
             {
-                throw new ImageGenerationClientValidationException(
+                throw CreateImageGenerationClientValidationException(
                     imageGenerationDependencyValidationException.InnerException as Xeption);
             }
             catch (ImageGenerationDependencyException imageGenerationDependencyException)
@@ -46,6 +46,13 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
                     message: "Image generation client service error occurred, contact support.",
                     imageGenerationServiceException.InnerException as Xeption);
             }
+        }
+
+        private static ImageGenerationClientValidationException CreateImageGenerationClientValidationException(Xeption innerException)
+        {
+            return new ImageGenerationClientValidationException(
+                message: "Image generation client validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
