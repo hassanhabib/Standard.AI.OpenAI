@@ -62,7 +62,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 new LocalFileDependencyException(
                     message: "Local file dependency error occurred, contact support.",
                     someInnerException),
-                new LocalFileServiceException(someInnerException),
+                new LocalFileServiceException(
+                    message: "Local file service error occurred, contact support.", 
+                    someInnerException),
                 new AIFileDependencyException(someInnerException),
                 new AIFileServiceException(someInnerException),
             };
