@@ -34,7 +34,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationImageGenerationException =
-                    new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationImageGenerationException(
+                        message: "Invalid image generation configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw CreateImageGenerationDependencyException(
                     invalidConfigurationImageGenerationException);
