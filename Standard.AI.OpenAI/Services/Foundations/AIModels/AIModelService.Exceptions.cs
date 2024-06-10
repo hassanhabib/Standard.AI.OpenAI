@@ -25,7 +25,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
             catch (InvalidAIModelException invalidAIModelException)
             {
-                throw new AIModelValidationException(invalidAIModelException);
+                throw new AIModelValidationException(
+                    message: "AI Model validation error occurred, fix errors and try again.", 
+                    invalidAIModelException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
