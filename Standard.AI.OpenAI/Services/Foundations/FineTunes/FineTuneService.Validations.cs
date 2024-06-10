@@ -27,7 +27,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
         {
             if (fineTune is null)
             {
-                throw new NullFineTuneException();
+                throw new NullFineTuneException(
+                    message: "Fine tune is null.");
             }
         }
 
