@@ -58,14 +58,16 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                 var notFoundImageGenerationException =
                     new NotFoundImageGenerationException(httpResponseNotFoundException);
 
-                throw new ImageGenerationDependencyValidationException(notFoundImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    notFoundImageGenerationException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidImageGenerationException =
                     new InvalidImageGenerationException(httpResponseBadRequestException);
 
-                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    invalidImageGenerationException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
@@ -74,7 +76,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
                         message: "Excessive call error occurred, limit your calls.",
                         httpResponseTooManyRequestsException);
 
-                throw new ImageGenerationDependencyValidationException(excessiveCallImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    excessiveCallImageGenerationException);
             }
             catch (HttpResponseException httpResponseException)
             {
@@ -101,6 +104,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         {
             return new ImageGenerationDependencyException(
                 message: "Image generation dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static ImageGenerationDependencyValidationException CreateImageGenerationDependencyValidationException(Xeption innerException)
+        {
+            return new ImageGenerationDependencyValidationException(
+                message: "Image generation dependency validation error occurred, fix errors and try again.",
                 innerException);
         }
     }
