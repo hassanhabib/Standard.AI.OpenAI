@@ -25,8 +25,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
             catch (InvalidAIModelException invalidAIModelException)
             {
-                throw new AIModelValidationException(
-                    message: "AI Model validation error occurred, fix errors and try again.", 
+                throw CreateAIModelValidationException(
                     invalidAIModelException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
@@ -149,6 +148,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 throw CreateAIModelServiceException(
                     failedAIModelServiceException);
             }
+        }
+
+        private static AIModelValidationException CreateAIModelValidationException(Xeption innerException)
+        {
+            return new AIModelValidationException(
+                message: "AI Model validation error occurred, fix errors and try again.",
+                innerException);
         }
 
         private static AIModelDependencyException CreateAIModelDependencyException(Xeption innerException)
