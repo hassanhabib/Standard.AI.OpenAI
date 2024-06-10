@@ -23,11 +23,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             }
             catch (NullImageGenerationException nullImageGenerationException)
             {
-                throw new ImageGenerationValidationException(nullImageGenerationException);
+                throw CreateImageGenerationValidationException(
+                    nullImageGenerationException);
             }
             catch (InvalidImageGenerationException invalidImageGenerationException)
             {
-                throw new ImageGenerationValidationException(invalidImageGenerationException);
+                throw CreateImageGenerationValidationException(
+                    invalidImageGenerationException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
@@ -113,6 +115,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         {
             return new ImageGenerationDependencyValidationException(
                 message: "Image generation dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ImageGenerationValidationException CreateImageGenerationValidationException(Xeption innerException)
+        {
+            return new ImageGenerationValidationException(
+                message: "Image generation validation error occurred, fix errors and try again.",
                 innerException);
         }
     }
