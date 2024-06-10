@@ -66,7 +66,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidCompletionException =
-                    new InvalidCompletionException(httpResponseBadRequestException);
+                    new InvalidCompletionException(
+                        message: "Invalid completion error occurred, fix errors and try again.", 
+                        httpResponseBadRequestException);
 
                 throw CreateCompletionDependencyValidationException( 
                     invalidCompletionException);
