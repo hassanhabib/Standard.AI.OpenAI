@@ -7,7 +7,7 @@ using Xeptions;
 namespace Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions
 {
     public class InvalidAIFileOrchestrationException : Xeption
-    {
+    {       
         public InvalidAIFileOrchestrationException(string message)
             : base(message)
         { }
