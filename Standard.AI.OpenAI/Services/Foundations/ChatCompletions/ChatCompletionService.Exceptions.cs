@@ -60,7 +60,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundChatCompletionException =
-                    new NotFoundChatCompletionException(httpResponseNotFoundException);
+                    new NotFoundChatCompletionException(
+                        message: "Chat completion not found.", 
+                        httpResponseNotFoundException);
 
                 throw CreateChatCompletionDependencyValidationException(
                     notFoundChatCompletionException);
