@@ -35,12 +35,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (LocalFileValidationException localFileValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     localFileValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyValidationException localFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     localFileDependencyValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyException localFileDependencyException)
@@ -55,12 +55,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileValidationException aIFileValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyException aIFileDependencyException)
@@ -97,7 +97,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
@@ -120,6 +120,12 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             return new AIFileOrchestrationDependencyException(
                 message: "AI File dependency error occurred, contact support.",
+                innerException);
+        }
+        private static AIFileOrchestrationDependencyValidationException CreateAIFileOrchestrationDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileOrchestrationDependencyValidationException(
+                message: "AI file dependency validation error occurred, fix errors and try again.",
                 innerException);
         }
     }
