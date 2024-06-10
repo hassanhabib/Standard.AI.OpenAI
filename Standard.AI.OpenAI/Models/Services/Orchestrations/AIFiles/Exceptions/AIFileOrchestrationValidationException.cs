@@ -8,12 +8,6 @@ namespace Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions
 {
     public class AIFileOrchestrationValidationException : Xeption
     {
-        public AIFileOrchestrationValidationException(Xeption innerException)
-            : base(
-                message: "AI file validation error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public AIFileOrchestrationValidationException(string message, Xeption innerException)
            : base(message, innerException)
         { }

@@ -26,12 +26,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (NullAIFileOrchestrationException nullAIFileOrchestrationException)
             {
-                throw new AIFileOrchestrationValidationException(
+                throw CreateAIFileOrchestrationValidationException(
                     nullAIFileOrchestrationException);
             }
             catch (InvalidAIFileOrchestrationException invalidAIFileOrchestrationException)
             {
-                throw new AIFileOrchestrationValidationException(invalidAIFileOrchestrationException);
+                throw CreateAIFileOrchestrationValidationException(
+                    invalidAIFileOrchestrationException);
             }
             catch (LocalFileValidationException localFileValidationException)
             {
@@ -133,6 +134,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             return new AIFileOrchestrationServiceException(
                 message: "AI File error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(Xeption innerException)
+        {
+            return new AIFileOrchestrationValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
                 innerException);
         }
     }
