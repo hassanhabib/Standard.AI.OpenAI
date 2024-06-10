@@ -77,7 +77,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             catch (Exception exception)
             {
                 var failedAudioTranscriptionServiceException =
-                    new FailedAudioTranscriptionServiceException(exception);
+                    new FailedAudioTranscriptionServiceException(
+                        message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.", 
+                        exception);
 
                 throw new AudioTranscriptionServiceException(
                     message: "Audio transcription service error occurred, contact support.",
