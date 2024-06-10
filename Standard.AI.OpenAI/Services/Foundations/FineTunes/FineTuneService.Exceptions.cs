@@ -71,7 +71,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerFineTuneException =
-                    new FailedServerFineTuneException(httpResponseException);
+                    new FailedServerFineTuneException(
+                        message: "Failed fine tune server error occurred, contact support.", 
+                        httpResponseException);
 
                 throw new FineTuneDependencyException(failedServerFineTuneException);
             }
