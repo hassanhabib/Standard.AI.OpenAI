@@ -77,7 +77,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
-                    new FailedAIFileOrchestrationServiceException(
+                    CreateFailedAIFileOrchestrationServiceException(
                         exception);
 
                 throw CreateAIFileOrchestrationServiceException(
@@ -109,7 +109,7 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
-                    new FailedAIFileOrchestrationServiceException(
+                    CreateFailedAIFileOrchestrationServiceException(
                         exception);
 
                 throw CreateAIFileOrchestrationServiceException(
@@ -141,6 +141,13 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             return new AIFileOrchestrationValidationException(
                 message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static FailedAIFileOrchestrationServiceException CreateFailedAIFileOrchestrationServiceException(Exception innerException)
+        {
+            return new FailedAIFileOrchestrationServiceException(
+                message: "Failed AI file service error occurred, contact support.",
                 innerException);
         }
     }
