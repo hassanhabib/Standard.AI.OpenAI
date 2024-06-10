@@ -85,7 +85,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerCompletionException =
-                    new FailedServerCompletionException(httpResponseException);
+                    new FailedServerCompletionException(
+                        message: "Failed server completion error occurred, contact support.", 
+                        httpResponseException);
 
                 throw CreateCompletionDependencyException(
                     failedServerCompletionException);
