@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
 {
@@ -23,11 +24,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             }
             catch (NullAudioTranscriptionException nullAudioTranscriptionException)
             {
-                throw new AudioTranscriptionValidationException(nullAudioTranscriptionException);
+                throw CreateAudioTranscriptionValidationException(
+                    nullAudioTranscriptionException);
             }
             catch (InvalidAudioTranscriptionException invalidAudioTranscriptionException)
             {
-                throw new AudioTranscriptionValidationException(invalidAudioTranscriptionException);
+                throw CreateAudioTranscriptionValidationException(
+                    invalidAudioTranscriptionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
@@ -73,6 +76,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                     message: "Audio transcription service error occurred, contact support.",
                     failedAudioTranscriptionServiceException);
             }
+        }
+
+        private static AudioTranscriptionValidationException CreateAudioTranscriptionValidationException(Xeption innerException)
+        {
+            return new AudioTranscriptionValidationException(
+                message: "Audio transcription validation error occurred, fix errors and try again.",
+                innerException);
         }
     }
 }
