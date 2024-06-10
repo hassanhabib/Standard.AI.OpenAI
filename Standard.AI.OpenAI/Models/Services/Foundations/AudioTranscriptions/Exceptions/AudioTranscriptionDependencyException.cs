@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class AudioTranscriptionDependencyException : Xeption
     {
-        public AudioTranscriptionDependencyException(Xeption innerException)
-            : base(
-                message: "Audio transcription dependency error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public AudioTranscriptionDependencyException(string message, Xeption innerException)
             : base(message, innerException)
         { }

@@ -37,21 +37,24 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 var invalidConfigurationAudioTranscriptionException =
                     new InvalidConfigurationAudioTranscriptionException(httpResponseUrlNotFoundException);
 
-                throw new AudioTranscriptionDependencyException(invalidConfigurationAudioTranscriptionException);
+                throw CreateAudioTranscriptionDependencyException(
+                    invalidConfigurationAudioTranscriptionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseUnauthorizedException);
 
-                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+                throw CreateAudioTranscriptionDependencyException(
+                    unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAudioTranscriptionException =
                     new UnauthorizedAudioTranscriptionException(httpResponseForbiddenException);
 
-                throw new AudioTranscriptionDependencyException(unauthorizedAudioTranscriptionException);
+                throw CreateAudioTranscriptionDependencyException(
+                    unauthorizedAudioTranscriptionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
@@ -84,5 +87,23 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
                 message: "Audio transcription validation error occurred, fix errors and try again.",
                 innerException);
         }
+
+        private static AudioTranscriptionDependencyException CreateAudioTranscriptionDependencyException(Xeption innerException)
+        {
+            return new AudioTranscriptionDependencyException(
+                message: "Audio transcription dependency error occurred, contact support.",
+                innerException);
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
