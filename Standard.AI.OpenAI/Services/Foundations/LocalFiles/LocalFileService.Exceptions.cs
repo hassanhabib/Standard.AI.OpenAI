@@ -67,7 +67,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             catch (Exception exception)
             {
                 var failedLocalFileServiceException =
-                    new FailedLocalFileServiceException(exception);
+                    new FailedLocalFileServiceException(
+                        message: "Failed local file service error occurred, contact support.", 
+                        exception);
 
                 throw new LocalFileServiceException(failedLocalFileServiceException);
             }
