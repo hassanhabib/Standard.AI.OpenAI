@@ -23,11 +23,13 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (NullChatCompletionException nullChatCompletionException)
             {
-                throw new ChatCompletionValidationException(nullChatCompletionException);
+                throw CreateChatCompletionValidationException(
+                    nullChatCompletionException);
             }
             catch (InvalidChatCompletionException invalidChatCompletionException)
             {
-                throw new ChatCompletionValidationException(invalidChatCompletionException);
+                throw CreateChatCompletionValidationException( 
+                    invalidChatCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
@@ -109,11 +111,12 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 "Chat completion dependency validation error occurred, fix errors and try again.",
                 innerException);
         }
-
-
-
-
-
+        private static ChatCompletionValidationException CreateChatCompletionValidationException(Xeption innerException)
+        {
+            return new ChatCompletionValidationException(
+                message: "Chat completion validation error occurred, fix errors and try again.",
+                innerException);
+        }
 
 
 
