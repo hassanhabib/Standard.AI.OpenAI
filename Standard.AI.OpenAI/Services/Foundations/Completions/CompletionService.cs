@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalCompletions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.Completions
 {

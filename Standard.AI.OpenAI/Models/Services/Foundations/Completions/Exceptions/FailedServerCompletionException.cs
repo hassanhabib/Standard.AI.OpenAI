@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
     public class FailedServerCompletionException : Xeption
     {
-        public FailedServerCompletionException(Exception innerException)
-            : base(
-                message: "Failed server completion error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public FailedServerCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }

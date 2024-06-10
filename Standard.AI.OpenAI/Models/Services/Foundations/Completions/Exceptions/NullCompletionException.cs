@@ -8,9 +8,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
     public class NullCompletionException : Xeption
     {
-        public NullCompletionException()
-            : base(
-                message: "Completion is null.")
+        public NullCompletionException(string message)
+            : base(message)
         { }
 
         public NullCompletionException(string message, Xeption innerException)
