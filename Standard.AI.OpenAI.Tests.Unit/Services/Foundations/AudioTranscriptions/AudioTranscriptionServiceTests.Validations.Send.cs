@@ -56,7 +56,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 Request = null
             };
 
-            var invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
+            var invalidAudioTranscriptionException =
+                createInvalidAudioTranscriptionException();
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscription.Request),
@@ -103,7 +104,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
                 }
             };
 
-            var invalidAudioTranscriptionException = new InvalidAudioTranscriptionException();
+            var invalidAudioTranscriptionException =
+                createInvalidAudioTranscriptionException();
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscriptionRequest.FileName),
