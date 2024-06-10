@@ -34,7 +34,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidFineTuneConfigurationException =
-                    new InvalidFineTuneConfigurationException(httpResponseUrlNotFoundException);
+                    new InvalidFineTuneConfigurationException(
+                        message: "Invalid fine tune configuration error ocurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
                 throw CreateFineTuneDependencyException(
                     invalidFineTuneConfigurationException);
