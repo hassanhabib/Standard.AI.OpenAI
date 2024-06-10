@@ -31,9 +31,8 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             }
             catch (FineTuneDependencyException fineTuneDependencyException)
             {
-                throw new FineTuneClientDependencyException(
-                    message: "Fine tune client dependency error occurred, contact support.",
-                    fineTuneDependencyException.InnerException as Xeption);
+                throw CreateFineTuneClientDependencyException(
+                    fineTuneDependencyException);
             }
             catch (FineTuneDependencyValidationException fineTuneDependencyValidationException)
             {
@@ -42,9 +41,8 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             }
             catch (FineTuneServiceException fineTuneServiceException)
             {
-                throw new FineTuneClientServiceException(
-                    message: "Fine tune client service error occurred, contact support.",
-                    fineTuneServiceException.InnerException as Xeption);
+                throw CreateFineTuneClientServiceException(
+                    fineTuneServiceException);
             }
         }
 
@@ -52,6 +50,20 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
         {
             return new FineTuneClientValidationException(
                 message: "Fine tune client validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static FineTuneClientDependencyException CreateFineTuneClientDependencyException(Xeption innerException)
+        {
+            return new FineTuneClientDependencyException(
+                message: "Fine tune client dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static FineTuneClientServiceException CreateFineTuneClientServiceException(Xeption innerException)
+        {
+            return new FineTuneClientServiceException(
+                message: "Fine tune client service error occurred, contact support.",
                 innerException);
         }
     }
