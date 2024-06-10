@@ -57,7 +57,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             };
 
             var invalidAudioTranscriptionException =
-                createInvalidAudioTranscriptionException();
+                new InvalidAudioTranscriptionException(
+                    message: "Audio transcription is invalid.");
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscription.Request),
@@ -105,7 +106,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
             };
 
             var invalidAudioTranscriptionException =
-                createInvalidAudioTranscriptionException();
+                new InvalidAudioTranscriptionException(
+                message: "Audio transcription is invalid."); 
 
             invalidAudioTranscriptionException.AddData(
                 key: nameof(AudioTranscriptionRequest.FileName),

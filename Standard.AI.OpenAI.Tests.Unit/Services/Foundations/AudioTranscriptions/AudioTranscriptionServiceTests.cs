@@ -105,11 +105,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AudioTranscriptions
 
             return filler;
         }
-
-        private static InvalidAudioTranscriptionException createInvalidAudioTranscriptionException()
-        {
-            return new InvalidAudioTranscriptionException(
-                message: "Audio transcription is invalid.");
-        }
     }
 }
