@@ -86,7 +86,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             {
                 var failedAudioTranscriptionServiceException =
                     new FailedAudioTranscriptionServiceException(
-                        message: "Failed Audio Transcription Service Exception occurred, please contact support for assistance.", 
+                        message: "Failed Audio Transcription Service Exception occurred," +
+                        " please contact support for assistance.", 
                         exception);
 
                 throw CreateAudioTranscriptionServiceException(
@@ -94,28 +95,32 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             }
         }
 
-        private static AudioTranscriptionValidationException CreateAudioTranscriptionValidationException(Xeption innerException)
+        private static AudioTranscriptionValidationException 
+            CreateAudioTranscriptionValidationException(Xeption innerException)
         {
             return new AudioTranscriptionValidationException(
                 message: "Audio transcription validation error occurred, fix errors and try again.",
                 innerException);
         }
 
-        private static AudioTranscriptionDependencyException CreateAudioTranscriptionDependencyException(Xeption innerException)
+        private static AudioTranscriptionDependencyException 
+            CreateAudioTranscriptionDependencyException(Xeption innerException)
         {
             return new AudioTranscriptionDependencyException(
                 message: "Audio transcription dependency error occurred, contact support.",
                 innerException);
         }
 
-        private static AudioTranscriptionDependencyValidationException CreateAudioTranscriptionDependencyValidationException(Xeption innerException)
+        private static AudioTranscriptionDependencyValidationException 
+            CreateAudioTranscriptionDependencyValidationException(Xeption innerException)
         {
             return new AudioTranscriptionDependencyValidationException(
                 message: "Chat completion dependency validation error occurred, fix errors and try again.",
-                innerException;
+                innerException);
         }
 
-        private static AudioTranscriptionServiceException CreateAudioTranscriptionServiceException(Xeption innerException)
+        private static AudioTranscriptionServiceException 
+            CreateAudioTranscriptionServiceException(Xeption innerException)
         {
             return new AudioTranscriptionServiceException(
                 message: "Audio transcription service error occurred, contact support.",
