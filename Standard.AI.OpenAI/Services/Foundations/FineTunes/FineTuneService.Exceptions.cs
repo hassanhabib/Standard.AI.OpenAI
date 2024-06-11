@@ -117,7 +117,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.FineTunes
                 innerException);
         }
 
-        private static FineTuneDependencyValidationException CreateFineTuneDependencyValidationException(Xeption innerException)
+        private static FineTuneDependencyValidationException CreateFineTuneDependencyValidationException(
+            Xeption innerException)
         {
             return new FineTuneDependencyValidationException(
                 message: "Fine tune dependency validation error occurred, fix errors and try again",
