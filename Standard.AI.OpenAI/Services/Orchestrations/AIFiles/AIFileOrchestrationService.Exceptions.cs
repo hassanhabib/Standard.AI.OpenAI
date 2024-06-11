@@ -119,7 +119,8 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
         }
 
-        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(Xeption innerException)
+        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(
+            Xeption innerException)
         {
             return new AIFileOrchestrationValidationException(
                 message: "AI file validation error occurred, fix errors and try again.",
@@ -133,14 +134,16 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 innerException);
         }
 
-        private static AIFileOrchestrationDependencyException CreateAIFileOrchestrationDependencyException(Xeption innerException)
+        private static AIFileOrchestrationDependencyException CreateAIFileOrchestrationDependencyException(
+            Xeption innerException)
         {
             return new AIFileOrchestrationDependencyException(
                 message: "AI File dependency error occurred, contact support.",
                 innerException);
         }
 
-        private static AIFileOrchestrationServiceException CreateAIFileOrchestrationServiceException(Xeption innerException)
+        private static AIFileOrchestrationServiceException CreateAIFileOrchestrationServiceException(
+            Xeption innerException)
         {
             return new AIFileOrchestrationServiceException(
                 message: "AI File error occurred, contact support.",
@@ -151,12 +154,6 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
         {
             return new NullAIFileOrchestrationException(
                 message: "AI file is null.");
-        }
-
-        private static InvalidAIFileOrchestrationException CreateInvalidAIFileOrchestrationException()
-        {
-            return new InvalidAIFileOrchestrationException(
-                 message: "AI file is invalid.");
         }
     }
 }
