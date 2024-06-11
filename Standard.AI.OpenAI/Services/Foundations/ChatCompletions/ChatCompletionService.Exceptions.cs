@@ -15,7 +15,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
     {
         private delegate ValueTask<ChatCompletion> ReturningChatCompletionFunction();
 
-        private async ValueTask<ChatCompletion> TryCatch(ReturningChatCompletionFunction returningChatCompletionFunction)
+        private async ValueTask<ChatCompletion> TryCatch(
+            ReturningChatCompletionFunction returningChatCompletionFunction)
         {
             try
             {
@@ -105,7 +106,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             {
                 var failedChatCompletionServiceException =
                     new FailedChatCompletionServiceException(
-                        message: "Failed Chat Completion Service Exception occurred, please contact support for assistance.", 
+                        message: "Failed Chat Completion Service Exception occurred, " +
+                        "please contact support for assistance.", 
                         exception);
 
                 throw CreateChatCompletionServiceException(
@@ -113,32 +115,36 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
         }
 
-        private static ChatCompletionValidationException CreateChatCompletionValidationException(Xeption innerException)
+        private static ChatCompletionValidationException CreateChatCompletionValidationException(
+            Xeption innerException)
         {
             return new ChatCompletionValidationException(
                 message: "Chat completion validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
-        private static ChatCompletionDependencyException CreateChatCompletionDependencyException(Xeption innerException)
+        private static ChatCompletionDependencyException CreateChatCompletionDependencyException(
+            Xeption innerException)
         {
             return new ChatCompletionDependencyException(
                 message: "Chat completion dependency error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
 
-        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(Xeption innerException)
+        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(
+            Xeption innerException)
         {
             return new ChatCompletionDependencyValidationException(
                 "Chat completion dependency validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
-        private static ChatCompletionServiceException CreateChatCompletionServiceException(Xeption innerException)
+        private static ChatCompletionServiceException CreateChatCompletionServiceException(
+            Xeption innerException)
         {
             return new ChatCompletionServiceException(
                 message: "Chat completion service error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
 
         private static NullChatCompletionException CreateNullChatCompletionException()
