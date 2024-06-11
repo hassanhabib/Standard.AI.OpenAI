@@ -32,7 +32,7 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             catch (FineTuneDependencyException fineTuneDependencyException)
             {
                 throw CreateFineTuneClientDependencyException(
-                    fineTuneDependencyException);
+                    fineTuneDependencyException.InnerException as Xeption);
             }
             catch (FineTuneDependencyValidationException fineTuneDependencyValidationException)
             {
@@ -42,25 +42,28 @@ namespace Standard.AI.OpenAI.Clients.FineTunes
             catch (FineTuneServiceException fineTuneServiceException)
             {
                 throw CreateFineTuneClientServiceException(
-                    fineTuneServiceException);
+                    fineTuneServiceException.InnerException as Xeption);
             }
         }
 
-        private static FineTuneClientValidationException CreateFineTuneClientValidationException(Xeption innerException)
+        private static FineTuneClientValidationException CreateFineTuneClientValidationException(
+            Xeption innerException)
         {
             return new FineTuneClientValidationException(
                 message: "Fine tune client validation error occurred, fix errors and try again.",
                 innerException);
         }
 
-        private static FineTuneClientDependencyException CreateFineTuneClientDependencyException(Xeption innerException)
+        private static FineTuneClientDependencyException CreateFineTuneClientDependencyException(
+            Xeption innerException)
         {
             return new FineTuneClientDependencyException(
                 message: "Fine tune client dependency error occurred, contact support.",
                 innerException);
         }
 
-        private static FineTuneClientServiceException CreateFineTuneClientServiceException(Xeption innerException)
+        private static FineTuneClientServiceException CreateFineTuneClientServiceException(
+            Xeption innerException)
         {
             return new FineTuneClientServiceException(
                 message: "Fine tune client service error occurred, contact support.",
