@@ -37,34 +37,37 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
             catch (ChatCompletionDependencyException completionDependencyException)
             {
                 throw CreateChatCompletionClientDependencyException(
-                    completionDependencyException);
+                    completionDependencyException.InnerException as Xeption);
             }
             catch (ChatCompletionServiceException completionServiceException)
             {
                 throw CreateChatCompletionClientServiceException(
-                    completionServiceException);
+                    completionServiceException.InnerException as Xeption);
             }
         }
 
-        private static ChatCompletionClientValidationException CreateChatCompletionClientValidationException(Xeption innerException)
+        private static ChatCompletionClientValidationException 
+            CreateChatCompletionClientValidationException(Xeption innerException)
         {
             return new ChatCompletionClientValidationException(
                 message: "Chat completion client validation error occurred, fix errors and try again.",
-                innerException);
+                innerException: innerException);
         }
 
-        private static ChatCompletionClientDependencyException CreateChatCompletionClientDependencyException(Xeption innerException)
+        private static ChatCompletionClientDependencyException
+            CreateChatCompletionClientDependencyException(Xeption innerException)
         {
             return new ChatCompletionClientDependencyException(
                 message: "Chat completion dependency error occurred, contact support.",
-                innerException);
+                innerException: innerException);
         }
 
-        private static ChatCompletionClientServiceException CreateChatCompletionClientServiceException(Xeption innerException)
+        private static ChatCompletionClientServiceException 
+            CreateChatCompletionClientServiceException(Xeption innerException)
         {
             return new ChatCompletionClientServiceException(
                 message: "Chat completion client service error occurred, contact support.",
-                innerException);
+                innerException: innerException);
         }
     }
 }
