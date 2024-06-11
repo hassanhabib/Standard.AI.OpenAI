@@ -51,7 +51,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
         {
             return new ChatCompletionClientValidationException(
                 message: "Chat completion client validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
         private static ChatCompletionClientDependencyException
@@ -59,7 +59,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
         {
             return new ChatCompletionClientDependencyException(
                 message: "Chat completion dependency error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
 
         private static ChatCompletionClientServiceException 
@@ -67,7 +67,7 @@ namespace Standard.AI.OpenAI.Clients.ChatCompletions
         {
             return new ChatCompletionClientServiceException(
                 message: "Chat completion client service error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
     }
 }
