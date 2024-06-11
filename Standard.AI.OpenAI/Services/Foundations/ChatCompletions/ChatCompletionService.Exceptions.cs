@@ -117,28 +117,28 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
         {
             return new ChatCompletionValidationException(
                 message: "Chat completion validation error occurred, fix errors and try again.",
-                innerException);
+                innerException: innerException);
         }
 
         private static ChatCompletionDependencyException CreateChatCompletionDependencyException(Xeption innerException)
         {
             return new ChatCompletionDependencyException(
                 message: "Chat completion dependency error occurred, contact support.",
-                innerException);
+                innerException: innerException);
         }
 
         private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(Xeption innerException)
         {
             return new ChatCompletionDependencyValidationException(
                 "Chat completion dependency validation error occurred, fix errors and try again.",
-                innerException);
+                innerException: innerException);
         }
 
         private static ChatCompletionServiceException CreateChatCompletionServiceException(Xeption innerException)
         {
             return new ChatCompletionServiceException(
                 message: "Chat completion service error occurred, contact support.",
-                innerException);
+                innerException: innerException);
         }
 
         private static NullChatCompletionException CreateNullChatCompletionException()
