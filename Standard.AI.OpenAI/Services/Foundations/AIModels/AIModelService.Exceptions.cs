@@ -182,28 +182,29 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
         {
             return new AIModelValidationException(
                 message: "AI Model validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
         private static AIModelDependencyException CreateAIModelDependencyException(Xeption innerException)
         {
             return new AIModelDependencyException(
                 message: "AI Model dependency error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
 
-        private static AIModelDependencyValidationException CreateAIModelDependencyValidationException(Xeption innerException)
+        private static AIModelDependencyValidationException
+            CreateAIModelDependencyValidationException(Xeption innerException)
         {
             return new AIModelDependencyValidationException(
                 message: "AI Model dependency validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
         private static AIModelServiceException CreateAIModelServiceException(Xeption innerException)
         {
             return new AIModelServiceException(
                 message: "AI Model service error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
     }
 }
