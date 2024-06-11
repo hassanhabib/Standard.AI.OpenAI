@@ -100,7 +100,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
                 message: "Local file validation error occurred, fix error and try again.", 
                 innerException);
         }
-        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(Xeption innerException)
+        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(
+            Xeption innerException)
         {
             return new LocalFileDependencyValidationException(
                 message: "Local file dependency validation error occurred, fix the errors and try again.",
