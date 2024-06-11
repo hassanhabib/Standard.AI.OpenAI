@@ -98,28 +98,28 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         {
             return new AudioTranscriptionValidationException(
                 message: "Audio transcription validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException);
         }
 
         private static AudioTranscriptionDependencyException CreateAudioTranscriptionDependencyException(Xeption innerException)
         {
             return new AudioTranscriptionDependencyException(
                 message: "Audio transcription dependency error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
 
         private static AudioTranscriptionDependencyValidationException CreateAudioTranscriptionDependencyValidationException(Xeption innerException)
         {
             return new AudioTranscriptionDependencyValidationException(
                 message: "Chat completion dependency validation error occurred, fix errors and try again.",
-                innerException: innerException);
+                innerException;
         }
 
         private static AudioTranscriptionServiceException CreateAudioTranscriptionServiceException(Xeption innerException)
         {
             return new AudioTranscriptionServiceException(
                 message: "Audio transcription service error occurred, contact support.",
-                innerException: innerException);
+                innerException);
 
         }
     }
