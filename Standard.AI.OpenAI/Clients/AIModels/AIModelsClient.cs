@@ -89,7 +89,7 @@ namespace Standard.AI.OpenAI.Clients.AIModels
         {
             return new AIModelClientServiceException(
                 message: "AI Model client service error occurred, contact support.",
-                innerException: innerException);
+                innerException);
         }
     }
 }
