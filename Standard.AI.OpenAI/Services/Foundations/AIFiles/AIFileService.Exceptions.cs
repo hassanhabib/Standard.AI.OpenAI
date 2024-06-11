@@ -197,7 +197,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 innerException);
         }
 
-        private static AIFileDependencyValidationException CreateAIFileDependencyValidationException(Xeption innerException)
+        private static AIFileDependencyValidationException CreateAIFileDependencyValidationException(
+            Xeption innerException)
         {
             return new AIFileDependencyValidationException(
                 message: "AI file dependency validation error occurred, contact support.",
