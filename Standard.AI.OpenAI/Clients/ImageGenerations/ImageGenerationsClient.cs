@@ -37,30 +37,33 @@ namespace Standard.AI.OpenAI.Clients.ImageGenerations
             catch (ImageGenerationDependencyException imageGenerationDependencyException)
             {
                 throw CreateImageGenerationClientDependencyException(
-                    imageGenerationDependencyException);
+                    imageGenerationDependencyException.InnerException as Xeption);
             }
             catch (ImageGenerationServiceException imageGenerationServiceException)
             {
                 throw CreateImageGenerationClientServiceException(
-                    imageGenerationServiceException);
+                    imageGenerationServiceException.InnerException as Xeption);
             }
         }
 
-        private static ImageGenerationClientValidationException CreateImageGenerationClientValidationException(Xeption innerException)
+        private static ImageGenerationClientValidationException CreateImageGenerationClientValidationException(
+            Xeption innerException)
         {
             return new ImageGenerationClientValidationException(
                 message: "Image generation client validation error occurred, fix errors and try again.",
                 innerException);
         }
 
-        private static ImageGenerationClientDependencyException CreateImageGenerationClientDependencyException(Xeption innerException)
+        private static ImageGenerationClientDependencyException CreateImageGenerationClientDependencyException(
+            Xeption innerException)
         {
             return new ImageGenerationClientDependencyException(
                 message: "Image generation client dependency error occurred, contact support.",
                 innerException);
         }
 
-        private static ImageGenerationClientServiceException CreateImageGenerationClientServiceException(Xeption innerException)
+        private static ImageGenerationClientServiceException CreateImageGenerationClientServiceException(
+            Xeption innerException)
         {
             return new ImageGenerationClientServiceException(
                 message: "Image generation client service error occurred, contact support.",
