@@ -13,6 +13,7 @@ using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalFineTunes;
 using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes;
+using Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.FineTunes;
 using Tynamix.ObjectFiller;
 using Xunit;
@@ -185,6 +186,12 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
                     .Use(CreateRandomObjectArray);
 
             return filler;
+        }
+
+        private InvalidFineTuneException createInvalidFineTuneException()
+        {
+            return new InvalidFineTuneException(
+                message: "Fine tune is invalid.");
         }
     }
 }

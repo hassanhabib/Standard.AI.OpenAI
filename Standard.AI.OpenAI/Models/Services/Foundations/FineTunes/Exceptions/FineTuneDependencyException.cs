@@ -8,12 +8,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
 {
     public class FineTuneDependencyException : Xeption
     {
-        public FineTuneDependencyException(Xeption innerException)
-            : base(
-                message: "Fine tune dependency error ocurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public FineTuneDependencyException(string message, Xeption innerException)
             : base(message, innerException)
         { }
