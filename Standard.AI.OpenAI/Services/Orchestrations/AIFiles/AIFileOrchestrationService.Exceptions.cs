@@ -127,7 +127,8 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
                 innerException);
         }
 
-        private static AIFileOrchestrationDependencyValidationException CreateAIFileOrchestrationDependencyValidationException(Xeption innerException)
+        private static AIFileOrchestrationDependencyValidationException
+            CreateAIFileOrchestrationDependencyValidationException(Xeption innerException)
         {
             return new AIFileOrchestrationDependencyValidationException(
                 message: "AI file dependency validation error occurred, fix errors and try again.",
