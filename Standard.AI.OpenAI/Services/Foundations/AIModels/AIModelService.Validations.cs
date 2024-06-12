@@ -21,7 +21,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidAIModelException = new InvalidAIModelException(message: "AI Model is invalid.");
+            var invalidAIModelException = new InvalidAIModelException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {

@@ -9,6 +9,12 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
 {
     internal class ExcessiveCallAIModelException : Xeption
     {
+        public ExcessiveCallAIModelException(Exception innerException)
+            : base(
+                message: "Excessive call error occurred, limit your calls.",
+                    innerException: innerException)
+        { }
+
         public ExcessiveCallAIModelException(string message, Exception innerException)
             : base(message, innerException)
         { }

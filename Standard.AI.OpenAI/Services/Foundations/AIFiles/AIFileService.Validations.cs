@@ -27,7 +27,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
         {
             if (aiFile is null)
             {
-                throw new NullAIFileException(message: "Ai file is null.");
+                throw new NullAIFileException();
             }
         }
 
@@ -48,9 +48,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidAIFileException = 
-                new InvalidAIFileException(
-                    message: "Invalid AI file error occurred, fix errors and try again.");
+            var invalidAIFileException = new InvalidAIFileException();
 
             foreach ((dynamic rule, string parameter) in validations)
             {

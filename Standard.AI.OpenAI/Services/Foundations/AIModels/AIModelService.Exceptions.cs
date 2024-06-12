@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
-using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
@@ -25,92 +24,63 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             }
             catch (InvalidAIModelException invalidAIModelException)
             {
-                throw new AIModelValidationException(
-                    message: "AI Model validation error occurred, fix errors and try again.", 
-                    invalidAIModelException);
+                throw new AIModelValidationException(invalidAIModelException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(
-                        message: "Invalid AI Model configuration error occurred, contact support.", 
-                        httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw createAIModelDependencyException(
-                    invalidConfigurationAIModelException);
+                throw new AIModelDependencyException(invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(
-                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
-                        httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw createAIModelDependencyException(
-                    unauthorizedAIModelException);
+                throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(
-                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
-                        httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw createAIModelDependencyException(
-                    unauthorizedAIModelException);
+                throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundAIModelException =
-                    new NotFoundAIModelException(
-                        message: "AI Model not found.", 
-                        httpResponseNotFoundException);
+                    new NotFoundAIModelException(httpResponseNotFoundException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.",
-                    notFoundAIModelException);
+                throw new AIModelDependencyValidationException(notFoundAIModelException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidAIModelException =
-                    new InvalidAIModelException(
-                        message: "AI Model is invalid.", 
-                        httpResponseBadRequestException);
+                    new InvalidAIModelException(httpResponseBadRequestException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
-                    invalidAIModelException);
+                throw new AIModelDependencyValidationException(invalidAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIModelException =
-                    new ExcessiveCallAIModelException(
-                        message: "Excessive call error occurred, limit your calls.", 
-                        httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
-                    excessiveCallAIModelException);
+                throw new AIModelDependencyValidationException(excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(
-                        message: "Failed AI Model server error occurred, contact support", 
-                        httpResponseException);
+                    new FailedServerAIModelException(httpResponseException);
 
-                throw createAIModelDependencyException(
-                    failedServerAIModelException);
+                throw new AIModelDependencyException(failedServerAIModelException);
             }
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(
-                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
-                        exception);
+                    new FailedAIModelServiceException(exception);
 
                 throw new AIModelServiceException(
-                    message: "AI Model service error occurred, contact support.",
                     failedAIModelServiceException);
             }
         }
@@ -124,72 +94,46 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationAIModelException =
-                    new InvalidConfigurationAIModelException(
-                        message: "Invalid AI Model configuration error occurred, contact support.",
-                        httpResponseUrlNotFoundException);
+                    new InvalidConfigurationAIModelException(httpResponseUrlNotFoundException);
 
-                throw createAIModelDependencyException(
-                    invalidConfigurationAIModelException);
+                throw new AIModelDependencyException(invalidConfigurationAIModelException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(
-                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
-                        httpResponseUnauthorizedException);
+                    new UnauthorizedAIModelException(httpResponseUnauthorizedException);
 
-                throw createAIModelDependencyException(
-                    unauthorizedAIModelException);
+                throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedAIModelException =
-                    new UnauthorizedAIModelException(
-                        message: "Unauthorized AI Model error occurred, fix errors and try again.", 
-                        httpResponseForbiddenException);
+                    new UnauthorizedAIModelException(httpResponseForbiddenException);
 
-                throw createAIModelDependencyException(
-                    unauthorizedAIModelException);
+                throw new AIModelDependencyException(unauthorizedAIModelException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallAIModelException =
-                    new ExcessiveCallAIModelException(
-                        message: "Excessive call error occurred, limit your calls.", 
-                        httpResponseTooManyRequestsException);
+                    new ExcessiveCallAIModelException(httpResponseTooManyRequestsException);
 
-                throw new AIModelDependencyValidationException(
-                    message: "AI Model dependency validation error occurred, fix errors and try again.", 
-                    excessiveCallAIModelException);
+                throw new AIModelDependencyValidationException(excessiveCallAIModelException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerAIModelException =
-                    new FailedServerAIModelException(
-                        message: "Failed AI Model server error occurred, contact support", 
-                        httpResponseException);
+                    new FailedServerAIModelException(httpResponseException);
 
-                throw createAIModelDependencyException(
-                    failedServerAIModelException);
+                throw new AIModelDependencyException(failedServerAIModelException);
             }
             catch (Exception exception)
             {
                 var failedAIModelServiceException =
-                    new FailedAIModelServiceException(
-                        message: "Failed AI Model Service Exception occurred, please contact support for assistance.", 
-                        exception);
+                    new FailedAIModelServiceException(exception);
 
                 throw new AIModelServiceException(
-                    message: "AI Model service error occurred, contact support.",
                     failedAIModelServiceException);
             }
-        }
-
-        private static AIModelDependencyException createAIModelDependencyException(Xeption innerException)
-        {
-            return new AIModelDependencyException(
-                message: "AI Model dependency error occurred, contact support.",
-                innerException);
         }
     }
 }

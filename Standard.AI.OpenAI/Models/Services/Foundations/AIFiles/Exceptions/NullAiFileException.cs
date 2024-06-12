@@ -9,8 +9,9 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public partial class NullAIFileException : Xeption
     {
-        public NullAIFileException(String message)
-            : base(message)
+        public NullAIFileException()
+            : base(
+                message: "Ai file is null.")
         { }
 
         public NullAIFileException(string message, Exception innerException)

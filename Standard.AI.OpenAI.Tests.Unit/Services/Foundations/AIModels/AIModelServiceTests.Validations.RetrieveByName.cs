@@ -22,7 +22,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIModels
         {
             // given
             var invalidAIModelException =
-                new InvalidAIModelException(message: "AI Model is invalid.");
+                new InvalidAIModelException();
 
             invalidAIModelException.AddData(
                 key: nameof(AIModel.Name),

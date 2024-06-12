@@ -9,6 +9,12 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
 {
     public class UnauthorizedAIModelException : Xeption
     {
+        public UnauthorizedAIModelException(Exception innerException)
+            : base(
+                message: "Unauthorized AI Model error occurred, fix errors and try again.",
+                    innerException: innerException)
+        { }
+
         public UnauthorizedAIModelException(string message, Exception innerException)
             : base(message, innerException)
         { }

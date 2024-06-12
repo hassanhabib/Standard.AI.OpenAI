@@ -9,8 +9,15 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions
 {
     public class InvalidAIModelException : Xeption
     {
-        public InvalidAIModelException(string message)
-            : base(message)
+        public InvalidAIModelException()
+            : base(
+                message: "AI Model is invalid.")
+        { }
+
+        public InvalidAIModelException(Exception innerException)
+           : base(
+                message: "AI Model is invalid.",
+                    innerException: innerException)
         { }
 
         public InvalidAIModelException(string message, Exception innerException)

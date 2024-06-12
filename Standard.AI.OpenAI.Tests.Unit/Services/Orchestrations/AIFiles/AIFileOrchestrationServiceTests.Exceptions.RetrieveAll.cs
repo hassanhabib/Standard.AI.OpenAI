@@ -59,9 +59,9 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             // given
             var someInnerException = new Xeption();
 
-
             var dependencyValidationException =
-                createAIFileDependencyValidationException(
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
                         innerException: someInnerException);
 
             var expectedAIFileOrchestrationDependencyValidationException =
