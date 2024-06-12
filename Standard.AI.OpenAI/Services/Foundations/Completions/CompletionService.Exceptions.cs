@@ -128,7 +128,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
                 innerException);
         }
         
-        private static CompletionDependencyValidationException CreateCompletionDependencyValidationException(Xeption innerException)
+        private static CompletionDependencyValidationException CreateCompletionDependencyValidationException(
+            Xeption innerException)
         {
             return new CompletionDependencyValidationException(
                 message: "Completion dependency validation error occurred, fix errors and try again.", 
