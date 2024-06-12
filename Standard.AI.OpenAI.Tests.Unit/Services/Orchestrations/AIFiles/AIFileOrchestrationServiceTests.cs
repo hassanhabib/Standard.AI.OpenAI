@@ -11,6 +11,7 @@ using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
