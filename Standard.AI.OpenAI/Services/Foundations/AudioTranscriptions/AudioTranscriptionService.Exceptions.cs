@@ -98,6 +98,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static AudioTranscriptionValidationException 
             CreateAudioTranscriptionValidationException(Xeption innerException)
         {
+
             return new AudioTranscriptionValidationException(
                 message: "Audio transcription validation error occurred, fix errors and try again.",
                 innerException);
@@ -106,6 +107,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static AudioTranscriptionDependencyException 
             CreateAudioTranscriptionDependencyException(Xeption innerException)
         {
+
             return new AudioTranscriptionDependencyException(
                 message: "Audio transcription dependency error occurred, contact support.",
                 innerException);
@@ -114,6 +116,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static AudioTranscriptionDependencyValidationException 
             CreateAudioTranscriptionDependencyValidationException(Xeption innerException)
         {
+
             return new AudioTranscriptionDependencyValidationException(
                 message: "Chat completion dependency validation error occurred, fix errors and try again.",
                 innerException);
@@ -122,6 +125,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
         private static AudioTranscriptionServiceException 
             CreateAudioTranscriptionServiceException(Xeption innerException)
         {
+
             return new AudioTranscriptionServiceException(
                 message: "Audio transcription service error occurred, contact support.",
                 innerException);
