@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions
 {
     internal class NotFoundLocalFileException : Xeption
     {
-        public NotFoundLocalFileException(Exception innerException)
-            : base(
-                message: "Not found local file error occurred, fix error and try again.",
-                    innerException: innerException)
-        { }
-
         public NotFoundLocalFileException(string message, Exception innerException)
             : base(message, innerException)
         { }

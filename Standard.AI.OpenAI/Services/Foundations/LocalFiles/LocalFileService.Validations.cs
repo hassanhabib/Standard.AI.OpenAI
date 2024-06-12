@@ -23,7 +23,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 
         private void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidFileException = new InvalidLocalFileException();
+            var invalidFileException = 
+                new InvalidLocalFileException(
+                    message: "Invalid local file error occurred, fix error and try again.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {
