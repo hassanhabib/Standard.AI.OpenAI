@@ -21,7 +21,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             ImageGeneration nullImageGeneration = null;
 
             var nullImageGenerationException =
-                new NullImageGenerationException();
+                new NullImageGenerationException(
+                    message: "Image generation is null.");
 
             var expectedImageGenerationValidationException =
                 new ImageGenerationValidationException(
@@ -58,7 +59,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             invalidImageGeneration.Request = null;
 
             var invalidImageGenerationException =
-                new InvalidImageGenerationException();
+                CreateInvalidImageGenerationException();
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request),
@@ -106,7 +107,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             };
 
             var invalidImageGenerationException =
-                new InvalidImageGenerationException();
+                CreateInvalidImageGenerationException();
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request.Prompt),

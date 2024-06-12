@@ -27,7 +27,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
         {
             if (imageGeneration is null)
             {
-                throw new NullImageGenerationException();
+                throw new NullImageGenerationException(
+                    message: "Image generation is null.");
             }
         }
 
@@ -45,7 +46,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidImageGenerationException = new InvalidImageGenerationException();
+            var invalidImageGenerationException = 
+                new InvalidImageGenerationException(
+                    message: "Invalid image generation error occurred, fix errors and try again.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {
