@@ -10,12 +10,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class ExcessiveCallAudioTranscriptionException : Xeption
     {
-        public ExcessiveCallAudioTranscriptionException(Exception innerException)
-            : base(
-                message: "Excessive call error occurred, limit your calls.",
-                    innerException: innerException)
-        { }
-
         public ExcessiveCallAudioTranscriptionException(string message, Exception innerException)
             : base(message, innerException)
         { }

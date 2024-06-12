@@ -9,9 +9,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class NullAudioTranscriptionException : Xeption
     {
-        public NullAudioTranscriptionException()
-            : base(
-                message: "Audio transcription is null.")
+        public NullAudioTranscriptionException(string message)
+            : base(message)
         { }
 
         public NullAudioTranscriptionException(string message, Xeption innerException)
