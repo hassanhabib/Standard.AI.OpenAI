@@ -137,6 +137,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 throw new AIFileServiceException(failedAIFileServiceException);
             }
         }
-
     }
 }

@@ -78,6 +78,5 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIModels
                 IsBlocking = externalAIModelPermission.IsBlocking
             };
         }
-
     }
 }
