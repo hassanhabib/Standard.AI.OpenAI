@@ -69,7 +69,5 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
 
             invalidAIFileException.ThrowIfContainsErrors();
         }
-
-
     }
 }
