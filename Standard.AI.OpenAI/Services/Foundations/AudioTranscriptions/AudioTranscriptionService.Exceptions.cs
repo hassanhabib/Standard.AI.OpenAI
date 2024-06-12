@@ -125,7 +125,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions
             return new AudioTranscriptionServiceException(
                 message: "Audio transcription service error occurred, contact support.",
                 innerException);
-
         }
     }
 }
