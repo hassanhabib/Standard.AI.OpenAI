@@ -2,13 +2,16 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
 {
@@ -115,5 +118,6 @@ namespace Standard.AI.OpenAI.Services.Foundations.AIFiles
                 _ => AIFileStatus.Unknown
             };
         }
+
     }
 }

@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public class UnauthorizedAIFileException : Xeption
     {
-        public UnauthorizedAIFileException(Exception innerException)
-            : base(
-                message: "Unauthorized AI file request, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public UnauthorizedAIFileException(string message, Exception innerException)
             : base(message, innerException) { }
     }
