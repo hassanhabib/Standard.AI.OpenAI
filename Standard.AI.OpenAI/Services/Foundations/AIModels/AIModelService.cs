@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIModels;
+using Standard.AI.OpenAI.Models.Services.Foundations.AIModels.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIModels;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.AIModels
 {
