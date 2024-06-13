@@ -12,12 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.AIFiles.Exceptions
     /// </summary>
     public class AIFileClientDependencyException : Xeption
     {
-        public AIFileClientDependencyException(Xeption innerException)
-            : base(
-                message: "AI file client dependency error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public AIFileClientDependencyException(string message, Xeption innerException)
             : base(message, innerException)
         { }

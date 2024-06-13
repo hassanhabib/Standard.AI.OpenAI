@@ -30,7 +30,7 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
         {
             if (chatCompletion is null)
             {
-                throw new NullChatCompletionException();
+                throw CreateNullChatCompletionException();
             }
         }
 
@@ -48,7 +48,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidChatCompletionException = new InvalidChatCompletionException();
+            var invalidChatCompletionException = 
+                new InvalidChatCompletionException(
+                    message: "Chat completion is invalid.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {

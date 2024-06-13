@@ -21,7 +21,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.LocalFiles
         {
             // given
             var invalidFileException =
-                new InvalidLocalFileException();
+                new InvalidLocalFileException(
+                    message: "Invalid local file error occurred, fix error and try again.");
 
             invalidFileException.AddData(
                 key: "FilePath",

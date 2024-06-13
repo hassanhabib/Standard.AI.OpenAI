@@ -8,9 +8,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class NullChatCompletionException : Xeption
     {
-        public NullChatCompletionException()
-            : base(
-                message: "Chat completion is null.")
+        public NullChatCompletionException(string message)
+            : base(message)
         { }
 
         public NullChatCompletionException(string message, Xeption innerException)

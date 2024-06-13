@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.FineTunes.Exceptions
 {
     public class UnauthorizedFineTuneException : Xeption
     {
-        public UnauthorizedFineTuneException(Exception innerException)
-            : base(
-                message: "Unauthorized fine tune request, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public UnauthorizedFineTuneException(string message, Exception innerException)
             : base(message, innerException)
         { }

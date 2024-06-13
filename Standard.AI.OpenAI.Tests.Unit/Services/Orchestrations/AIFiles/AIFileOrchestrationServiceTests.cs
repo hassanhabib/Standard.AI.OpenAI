@@ -11,6 +11,7 @@ using Moq;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
+using Standard.AI.OpenAI.Models.Services.Orchestrations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Standard.AI.OpenAI.Services.Foundations.LocalFiles;
 using Standard.AI.OpenAI.Services.Orchestrations.AIFiles;
@@ -44,8 +45,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                new LocalFileValidationException(someInnerException),
-                new LocalFileDependencyValidationException(someInnerException),
+                new LocalFileValidationException(
+                    message: "Local file validation error occurred, fix error and try again.", 
+                    someInnerException),
+
+                new LocalFileDependencyValidationException(
+                    message: "Local file dependency validation error occurred, fix the errors and try again.",
+                    someInnerException),
 
                 new AIFileValidationException(
                     message: "AI file validation error occurred, fix errors and try again.",
@@ -63,9 +69,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                new LocalFileDependencyException(someInnerException),
-                new LocalFileServiceException(someInnerException),
+                new LocalFileDependencyException(
+                    message: "Local file dependency error occurred, contact support.",
+                    someInnerException),
 
+                new LocalFileServiceException(
+                    message: "Local file service error occurred, contact support.", 
+                    someInnerException),
+              
                 new AIFileDependencyException(
                     message: "AI file dependency error occurred, contact support.",
                     someInnerException),
