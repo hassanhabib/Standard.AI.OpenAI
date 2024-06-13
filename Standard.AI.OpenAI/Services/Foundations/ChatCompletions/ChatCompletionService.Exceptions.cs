@@ -133,8 +133,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 innerException);
         }
 
-        private static ChatCompletionDependencyValidationException 
-            CreateChatCompletionDependencyValidationException(Xeption innerException)
+        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(
+            Xeption innerException)
         {
 
             return new ChatCompletionDependencyValidationException(
