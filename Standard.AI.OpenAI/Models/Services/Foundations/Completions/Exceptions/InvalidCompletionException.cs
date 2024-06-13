@@ -12,6 +12,7 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
         public InvalidCompletionException(string message)
             : base(message)
         { }
+
         public InvalidCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }
