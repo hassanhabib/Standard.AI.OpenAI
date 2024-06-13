@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public class FailedAIFileServiceException : Xeption
     {
-        public FailedAIFileServiceException(Exception innerException)
-            : base(
-                message: "Failed AI file service error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public FailedAIFileServiceException(string message, Exception innerException)
             : base(message, innerException)
         { }

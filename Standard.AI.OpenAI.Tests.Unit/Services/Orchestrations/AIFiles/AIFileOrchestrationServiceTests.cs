@@ -45,7 +45,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-
                 new LocalFileValidationException(
                     message: "Local file validation error occurred, fix error and try again.", 
                     someInnerException),
@@ -54,16 +53,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     message: "Local file dependency validation error occurred, fix the errors and try again.",
                     someInnerException),
 
-                new LocalFileValidationException(
-                    message: "Local file validation error occurred, fix error and try again.",
+                new AIFileValidationException(
+                    message: "AI file validation error occurred, fix errors and try again.",
                     someInnerException),
 
-                new LocalFileDependencyValidationException(
-                    message: "Local file dependency validation error occurred, fix the errors and try again.",
-                    someInnerException),
-
-                new AIFileValidationException(someInnerException),
-                new AIFileDependencyValidationException(someInnerException)
+                new AIFileDependencyValidationException(
+                    message: "AI file dependency validation error occurred, contact support.",
+                    someInnerException)
             };
         }
 
@@ -80,9 +76,14 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                 new LocalFileServiceException(
                     message: "Local file service error occurred, contact support.", 
                     someInnerException),
+              
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
+                    someInnerException),
 
-                new AIFileDependencyException(someInnerException),
-                new AIFileServiceException(someInnerException),
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
+                    someInnerException),
             };
         }
 
@@ -92,8 +93,13 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                new AIFileDependencyException(someInnerException),
-                new AIFileServiceException(someInnerException),
+                new AIFileDependencyException(
+                    message: "AI file dependency error occurred, contact support.",
+                    someInnerException),
+
+                new AIFileServiceException(
+                    message: "AI file service error occurred, contact support.",
+                    someInnerException),
             };
         }
 

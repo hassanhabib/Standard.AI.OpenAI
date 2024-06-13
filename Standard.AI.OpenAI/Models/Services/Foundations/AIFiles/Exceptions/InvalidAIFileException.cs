@@ -9,15 +9,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
 {
     public class InvalidAIFileException : Xeption
     {
-        public InvalidAIFileException()
-            : base(
-                message: "Invalid AI file error occurred, fix errors and try again.")
-        { }
-
-        public InvalidAIFileException(Exception innerException)
-            : base(
-                message: "Invalid AI file error occurred, fix errors and try again.",
-                    innerException: innerException)
+        public InvalidAIFileException(string message)
+            : base(message)
         { }
 
         public InvalidAIFileException(string message, Exception innerException)
