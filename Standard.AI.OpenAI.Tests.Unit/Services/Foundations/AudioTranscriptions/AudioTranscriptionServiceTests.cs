@@ -10,6 +10,7 @@ using Moq;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions;
+using Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAudioTranscriptions;
 using Standard.AI.OpenAI.Services.Foundations.AudioTranscriptions;
 using Tynamix.ObjectFiller;

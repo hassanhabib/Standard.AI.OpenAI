@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class AudioTranscriptionDependencyValidationException : Xeption
     {
-        public AudioTranscriptionDependencyValidationException(Xeption innerException)
-            : base(
-                message: "Chat completion dependency validation error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public AudioTranscriptionDependencyValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
 {
@@ -14,7 +15,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
     {
         private delegate ValueTask<ChatCompletion> ReturningChatCompletionFunction();
 
-        private async ValueTask<ChatCompletion> TryCatch(ReturningChatCompletionFunction returningChatCompletionFunction)
+        private async ValueTask<ChatCompletion> TryCatch(
+            ReturningChatCompletionFunction returningChatCompletionFunction)
         {
             try
             {
@@ -22,69 +24,133 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
             }
             catch (NullChatCompletionException nullChatCompletionException)
             {
-                throw new ChatCompletionValidationException(nullChatCompletionException);
+                throw CreateChatCompletionValidationException(
+                    nullChatCompletionException);
             }
             catch (InvalidChatCompletionException invalidChatCompletionException)
             {
-                throw new ChatCompletionValidationException(invalidChatCompletionException);
+                throw CreateChatCompletionValidationException( 
+                    invalidChatCompletionException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationChatCompletionException =
-                    new InvalidConfigurationChatCompletionException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationChatCompletionException(
+                        message: "Invalid chat completion configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
-                throw new ChatCompletionDependencyException(invalidConfigurationChatCompletionException);
+                throw CreateChatCompletionDependencyException(
+                    invalidConfigurationChatCompletionException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseUnauthorizedException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
-                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+                throw CreateChatCompletionDependencyException(
+                    unauthorizedChatCompletionException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedChatCompletionException =
-                    new UnauthorizedChatCompletionException(httpResponseForbiddenException);
+                    new UnauthorizedChatCompletionException(
+                        message: "Unauthorized chat completion request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
-                throw new ChatCompletionDependencyException(unauthorizedChatCompletionException);
+                throw CreateChatCompletionDependencyException(
+                    unauthorizedChatCompletionException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundChatCompletionException =
-                    new NotFoundChatCompletionException(httpResponseNotFoundException);
+                    new NotFoundChatCompletionException(
+                        message: "Chat completion not found.", 
+                        httpResponseNotFoundException);
 
-                throw new ChatCompletionDependencyValidationException(notFoundChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    notFoundChatCompletionException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidChatCompletionException =
-                    new InvalidChatCompletionException(httpResponseBadRequestException);
+                    new InvalidChatCompletionException(
+                        message: "Chat completion is invalid.", 
+                        httpResponseBadRequestException);
 
-                throw new ChatCompletionDependencyValidationException(invalidChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    invalidChatCompletionException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallChatCompletionException =
-                    new ExcessiveCallChatCompletionException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallChatCompletionException(
+                        message: "Excessive call error occurred, limit your calls.", 
+                        httpResponseTooManyRequestsException);
 
-                throw new ChatCompletionDependencyValidationException(excessiveCallChatCompletionException);
+                throw CreateChatCompletionDependencyValidationException(
+                    excessiveCallChatCompletionException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerChatCompletionException =
-                    new FailedServerChatCompletionException(httpResponseException);
+                    new FailedServerChatCompletionException(
+                        message: "Failed chat completion server error occurred, contact support.", 
+                        httpResponseException);
 
-                throw new ChatCompletionDependencyException(failedServerChatCompletionException);
+                throw CreateChatCompletionDependencyException(
+                    failedServerChatCompletionException);
             }
             catch (Exception exception)
             {
                 var failedChatCompletionServiceException =
-                    new FailedChatCompletionServiceException(exception);
+                    new FailedChatCompletionServiceException(
+                        message: "Failed Chat Completion Service Exception occurred, " +
+                        "please contact support for assistance.", 
+                        exception);
 
-                throw new ChatCompletionServiceException(
+                throw CreateChatCompletionServiceException(
                     failedChatCompletionServiceException);
             }
+        }
+
+        private static ChatCompletionValidationException CreateChatCompletionValidationException(
+            Xeption innerException)
+        {
+            return new ChatCompletionValidationException(
+                message: "Chat completion validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ChatCompletionDependencyException CreateChatCompletionDependencyException(
+            Xeption innerException)
+        {
+            return new ChatCompletionDependencyException(
+                message: "Chat completion dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(
+            Xeption innerException)
+        {
+            return new ChatCompletionDependencyValidationException(
+                "Chat completion dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ChatCompletionServiceException CreateChatCompletionServiceException(
+            Xeption innerException)
+        {
+            return new ChatCompletionServiceException(
+                message: "Chat completion service error occurred, contact support.",
+                innerException);
+        }
+
+        private static NullChatCompletionException CreateNullChatCompletionException()
+        {
+            return new NullChatCompletionException(
+                message: "Chat completion is null.");
         }
     }
 }

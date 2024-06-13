@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
 {
     public class InvalidConfigurationImageGenerationException : Xeption
     {
-        public InvalidConfigurationImageGenerationException(Exception innerException)
-            : base(
-                message: "Invalid image generation configuration error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public InvalidConfigurationImageGenerationException(string message, Exception innerException)
             : base(message, innerException)
         { }

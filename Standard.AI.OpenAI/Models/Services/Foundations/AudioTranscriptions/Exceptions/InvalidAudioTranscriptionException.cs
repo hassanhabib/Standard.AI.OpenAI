@@ -10,15 +10,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class InvalidAudioTranscriptionException : Xeption
     {
-        public InvalidAudioTranscriptionException()
-            : base(
-                message: "Audio transcription is invalid.")
-        { }
-
-        public InvalidAudioTranscriptionException(Exception innerException)
-            : base(
-                message: "Audio transcription is invalid.",
-                    innerException: innerException)
+        public InvalidAudioTranscriptionException(string message)
+            : base(message)
         { }
 
         public InvalidAudioTranscriptionException(string message, Exception innerException)

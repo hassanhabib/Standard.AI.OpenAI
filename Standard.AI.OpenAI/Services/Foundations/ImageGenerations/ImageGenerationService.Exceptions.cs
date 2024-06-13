@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations;
 using Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
 {
@@ -22,68 +23,121 @@ namespace Standard.AI.OpenAI.Services.Foundations.ImageGenerations
             }
             catch (NullImageGenerationException nullImageGenerationException)
             {
-                throw new ImageGenerationValidationException(nullImageGenerationException);
+                throw CreateImageGenerationValidationException(
+                    nullImageGenerationException);
             }
             catch (InvalidImageGenerationException invalidImageGenerationException)
             {
-                throw new ImageGenerationValidationException(invalidImageGenerationException);
+                throw CreateImageGenerationValidationException(
+                    invalidImageGenerationException);
             }
             catch (HttpResponseUrlNotFoundException httpResponseUrlNotFoundException)
             {
                 var invalidConfigurationImageGenerationException =
-                    new InvalidConfigurationImageGenerationException(httpResponseUrlNotFoundException);
+                    new InvalidConfigurationImageGenerationException(
+                        message: "Invalid image generation configuration error occurred, contact support.", 
+                        httpResponseUrlNotFoundException);
 
-                throw new ImageGenerationDependencyException(invalidConfigurationImageGenerationException);
+                throw CreateImageGenerationDependencyException(
+                    invalidConfigurationImageGenerationException);
             }
             catch (HttpResponseUnauthorizedException httpResponseUnauthorizedException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseUnauthorizedException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseUnauthorizedException);
 
-                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+                throw CreateImageGenerationDependencyException(
+                    unauthorizedImageGenerationException);
             }
             catch (HttpResponseForbiddenException httpResponseForbiddenException)
             {
                 var unauthorizedImageGenerationException =
-                    new UnauthorizedImageGenerationException(httpResponseForbiddenException);
+                    new UnauthorizedImageGenerationException(
+                        message: "Unauthorized image generation request, fix errors and try again.", 
+                        httpResponseForbiddenException);
 
-                throw new ImageGenerationDependencyException(unauthorizedImageGenerationException);
+                throw CreateImageGenerationDependencyException(
+                    unauthorizedImageGenerationException);
             }
             catch (HttpResponseNotFoundException httpResponseNotFoundException)
             {
                 var notFoundImageGenerationException =
-                    new NotFoundImageGenerationException(httpResponseNotFoundException);
+                    new NotFoundImageGenerationException(
+                        message: "Not found image generation error occurred, fix errors and try again.", 
+                        httpResponseNotFoundException);
 
-                throw new ImageGenerationDependencyValidationException(notFoundImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    notFoundImageGenerationException);
             }
             catch (HttpResponseBadRequestException httpResponseBadRequestException)
             {
                 var invalidImageGenerationException =
-                    new InvalidImageGenerationException(httpResponseBadRequestException);
+                    new InvalidImageGenerationException(
+                        message: "Invalid image generation error occurred, fix errors and try again.", 
+                        httpResponseBadRequestException);
 
-                throw new ImageGenerationDependencyValidationException(invalidImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    invalidImageGenerationException);
             }
             catch (HttpResponseTooManyRequestsException httpResponseTooManyRequestsException)
             {
                 var excessiveCallImageGenerationException =
-                    new ExcessiveCallImageGenerationException(httpResponseTooManyRequestsException);
+                    new ExcessiveCallImageGenerationException(
+                        message: "Excessive call error occurred, limit your calls.",
+                        httpResponseTooManyRequestsException);
 
-                throw new ImageGenerationDependencyValidationException(excessiveCallImageGenerationException);
+                throw CreateImageGenerationDependencyValidationException(
+                    excessiveCallImageGenerationException);
             }
             catch (HttpResponseException httpResponseException)
             {
                 var failedServerImageGenerationException =
-                    new FailedServerImageGenerationException(httpResponseException);
+                    new FailedServerImageGenerationException(
+                        message: "Failed image generation server error occurred, contact support.", 
+                        httpResponseException);
 
-                throw new ImageGenerationDependencyException(failedServerImageGenerationException);
+                throw CreateImageGenerationDependencyException(
+                    failedServerImageGenerationException);
             }
             catch (Exception exception)
             {
                 var failedImageGenerationServiceException =
-                    new FailedImageGenerationServiceException(exception);
+                    new FailedImageGenerationServiceException(
+                        message: "Failed image generation service error occurred, contact support.", 
+                        exception);
 
-                throw new ImageGenerationServiceException(failedImageGenerationServiceException);
+                throw CreateImageGenerationServiceException(failedImageGenerationServiceException);
             }
+        }
+
+        private static ImageGenerationValidationException CreateImageGenerationValidationException(Xeption innerException)
+        {
+            return new ImageGenerationValidationException(
+                message: "Image generation validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ImageGenerationDependencyException CreateImageGenerationDependencyException(Xeption innerException)
+        {
+            return new ImageGenerationDependencyException(
+                message: "Image generation dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static ImageGenerationDependencyValidationException CreateImageGenerationDependencyValidationException(Xeption innerException)
+        {
+            return new ImageGenerationDependencyValidationException(
+                message: "Image generation dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static ImageGenerationServiceException CreateImageGenerationServiceException(Exception innerException)
+        {
+            return new ImageGenerationServiceException(
+                message: "Image generation service error occurred, contact support.", 
+                innerException);
         }
     }
 }

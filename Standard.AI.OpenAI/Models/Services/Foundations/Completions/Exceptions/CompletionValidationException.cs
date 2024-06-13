@@ -8,12 +8,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.Completions.Exceptions
 {
     public class CompletionValidationException : Xeption
     {
-        public CompletionValidationException(Xeption innerException)
-            : base(
-                message: "Completion validation error occurred, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public CompletionValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }

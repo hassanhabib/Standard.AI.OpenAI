@@ -12,11 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.FineTunes.Exceptions
     /// </summary>
     public class FineTuneClientValidationException : Xeption
     {
-        public FineTuneClientValidationException(Xeption innerException)
-            : base(message: "Fine tune client validation error occurred, fix errors and try again.",
-                  innerException)
-        { }
-
         public FineTuneClientValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }
