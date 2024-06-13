@@ -52,7 +52,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
                     message: "AI file validation error occurred, fix errors and try again.", 
                     someInnerException),
 
-                createAIFileDependencyValidationException(
+                CreateAIFileDependencyValidationException(
                     someInnerException)
             };
         }
@@ -65,8 +65,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             {
                 new LocalFileDependencyException(someInnerException),
                 new LocalFileServiceException(someInnerException),
-                createAIFileDependencyException(someInnerException),
-                createAIFileServiceException(someInnerException),
+                CreateAIFileDependencyException(someInnerException),
+                CreateAIFileServiceException(someInnerException),
             };
         }
 
@@ -76,8 +76,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
 
             return new TheoryData<Xeption>
             {
-                createAIFileDependencyException(someInnerException),
-                createAIFileServiceException(someInnerException),
+                CreateAIFileDependencyException(someInnerException),
+                CreateAIFileServiceException(someInnerException),
             };
         }
 
@@ -148,20 +148,20 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Orchestrations.AIFiles
             return randomId;
         }
 
-        private static AIFileDependencyException createAIFileDependencyException(Xeption innerException)
+        private static AIFileDependencyException CreateAIFileDependencyException(Xeption innerException)
         {
             return new AIFileDependencyException(
                 message: "AI file dependency error occurred, contact support.",
                 innerException);
         }
-        private static AIFileServiceException createAIFileServiceException(Xeption innerException)
+        private static AIFileServiceException CreateAIFileServiceException(Xeption innerException)
         {
             return new AIFileServiceException(
                 message: "AI file service error occurred, contact support.",
                 innerException);
         }
 
-        private static AIFileDependencyValidationException createAIFileDependencyValidationException(Xeption innerException)
+        private static AIFileDependencyValidationException CreateAIFileDependencyValidationException(Xeption innerException)
         {
             return new AIFileDependencyValidationException(
                 message: "AI file dependency validation error occurred, contact support.",
