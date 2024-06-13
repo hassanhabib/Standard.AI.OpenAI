@@ -131,9 +131,10 @@ namespace Standard.AI.OpenAI.Services.Foundations.ChatCompletions
                 innerException);
         }
 
-        private static ChatCompletionDependencyValidationException CreateChatCompletionDependencyValidationException(
-            Xeption innerException)
+        private static ChatCompletionDependencyValidationException 
+            CreateChatCompletionDependencyValidationException(Xeption innerException)
         {
+
             return new ChatCompletionDependencyValidationException(
                 "Chat completion dependency validation error occurred, fix errors and try again.",
                 innerException);
