@@ -28,17 +28,17 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
             {
-                throw new AIModelClientDependencyException(
+                throw CreateAIModelClientDependencyException(
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)
             {
-                throw new AIModelClientServiceException(
+                throw CreateAIModelClientServiceException(
                     aiModelServiceException.InnerException as Xeption);
             }
         }
@@ -51,24 +51,45 @@ namespace Standard.AI.OpenAI.Clients.AIModels
             }
             catch (AIModelValidationException aIModelValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aIModelValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyValidationException aiModelDependencyValidationException)
             {
-                throw new AIModelClientValidationException(
+                throw CreateAIModelClientValidationException(
                     aiModelDependencyValidationException.InnerException as Xeption);
             }
             catch (AIModelDependencyException aiModelDependencyException)
             {
-                throw new AIModelClientDependencyException(
+                throw CreateAIModelClientDependencyException(
                     aiModelDependencyException.InnerException as Xeption);
             }
             catch (AIModelServiceException aiModelServiceException)
             {
-                throw new AIModelClientServiceException(
+                throw CreateAIModelClientServiceException(
                     aiModelServiceException.InnerException as Xeption);
             }
+        }
+
+        private static AIModelClientValidationException CreateAIModelClientValidationException(Xeption innerException)
+        {
+            return new AIModelClientValidationException(
+                message: "AI model client validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIModelClientDependencyException CreateAIModelClientDependencyException(Xeption innerException)
+        {
+            return new AIModelClientDependencyException(
+                message: "AI model client dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIModelClientServiceException CreateAIModelClientServiceException(Xeption innerException)
+        {
+            return new AIModelClientServiceException(
+                message: "AI Model client service error occurred, contact support.",
+                innerException);
         }
     }
 }

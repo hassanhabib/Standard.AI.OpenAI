@@ -25,7 +25,8 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
         {
             if (completion is null)
             {
-                throw new NullCompletionException();
+                throw new NullCompletionException(
+                    message: "Completion is null.");
             }
         }
 
@@ -55,7 +56,9 @@ namespace Standard.AI.OpenAI.Services.Foundations.Completions
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidCompletionException = new InvalidCompletionException();
+            var invalidCompletionException = 
+                new InvalidCompletionException(
+                    message: "Invalid completion error occurred, fix errors and try again.");
 
             foreach ((dynamic rule, string parameter) in validations)
             {

@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class ExcessiveCallChatCompletionException : Xeption
     {
-        public ExcessiveCallChatCompletionException(Exception innerException)
-            : base(
-                message: "Excessive call error occurred, limit your calls.",
-                    innerException: innerException)
-        { }
-
         public ExcessiveCallChatCompletionException(string message, Exception innerException)
             : base(message, innerException)
         { }

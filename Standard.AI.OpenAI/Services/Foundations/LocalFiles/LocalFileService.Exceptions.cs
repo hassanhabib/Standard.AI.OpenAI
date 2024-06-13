@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using Standard.AI.OpenAI.Models.Services.Foundations.LocalFiles.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
 {
@@ -20,55 +21,105 @@ namespace Standard.AI.OpenAI.Services.Foundations.LocalFiles
             }
             catch (InvalidLocalFileException invalidFileException)
             {
-                throw new LocalFileValidationException(invalidFileException);
+                throw CreateLocalFileValidationException(invalidFileException);
             }
             catch (ArgumentException argumentException)
             {
-                var invalidFileException = new InvalidLocalFileException(argumentException);
+                var invalidFileException = 
+                    new InvalidLocalFileException(
+                        message: "Invalid local file error occurred, fix error and try again.", 
+                        argumentException);
 
-                throw new LocalFileDependencyValidationException(invalidFileException);
+                throw CreateLocalFileDependencyValidationException(
+                    invalidFileException);
             }
             catch (PathTooLongException pathTooLongException)
             {
-                var invalidFileException = new InvalidLocalFileException(pathTooLongException);
+                var invalidFileException = 
+                    new InvalidLocalFileException(
+                        message: "Invalid local file error occurred, fix error and try again.", 
+                        pathTooLongException);
 
-                throw new LocalFileDependencyValidationException(invalidFileException);
+                throw CreateLocalFileDependencyValidationException(
+                    invalidFileException);
             }
             catch (FileNotFoundException fileNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundLocalFileException(fileNotFoundException);
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
+                        fileNotFoundException);
 
-                throw new LocalFileDependencyValidationException(notFoundFileException);
+                throw CreateLocalFileDependencyValidationException(
+                    notFoundFileException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 var notFoundFileException =
-                    new NotFoundLocalFileException(directoryNotFoundException);
+                    new NotFoundLocalFileException(
+                        message: "Not found local file error occurred, fix error and try again.", 
+                        directoryNotFoundException);
 
-                throw new LocalFileDependencyValidationException(notFoundFileException);
+                throw CreateLocalFileDependencyValidationException(
+                    notFoundFileException);
             }
             catch (IOException ioException)
             {
                 var failedFileException =
-                    new FailedLocalFileDependencyException(ioException);
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
+                        ioException);
 
-                throw new LocalFileDependencyException(failedFileException);
+                throw CreateLocalFileDependencyException(
+                    failedFileException);
             }
             catch (NotSupportedException notSupportedException)
             {
                 var failedFileException =
-                    new FailedLocalFileDependencyException(notSupportedException);
+                    new FailedLocalFileDependencyException(
+                        message: "Failed local file error occurred, contact support.", 
+                        notSupportedException);
 
-                throw new LocalFileDependencyException(failedFileException);
+                throw CreateLocalFileDependencyException(
+                    failedFileException);
             }
             catch (Exception exception)
             {
                 var failedLocalFileServiceException =
-                    new FailedLocalFileServiceException(exception);
+                    new FailedLocalFileServiceException(
+                        message: "Failed local file service error occurred, contact support.", 
+                        exception);
 
-                throw new LocalFileServiceException(failedLocalFileServiceException);
+                throw CreateLocalFileServiceException(failedLocalFileServiceException);
             }
+        }
+
+        private static LocalFileValidationException CreateLocalFileValidationException(Xeption innerException)
+        {
+            return new LocalFileValidationException(
+                message: "Local file validation error occurred, fix error and try again.", 
+                innerException);
+        }
+        private static LocalFileDependencyValidationException CreateLocalFileDependencyValidationException(
+            Xeption innerException)
+        {
+            return new LocalFileDependencyValidationException(
+                message: "Local file dependency validation error occurred, fix the errors and try again.",
+                innerException);
+        }
+
+        private static LocalFileDependencyException CreateLocalFileDependencyException(Xeption innerException)
+        {
+            return new LocalFileDependencyException(
+                message: "Local file dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static LocalFileServiceException CreateLocalFileServiceException(Xeption innerException)
+        {
+            return new LocalFileServiceException(
+                message: "Local file service error occurred, contact support.", 
+                innerException);
         }
     }
 }

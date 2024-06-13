@@ -9,12 +9,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ImageGenerations.Except
 {
     public class FailedServerImageGenerationException : Xeption
     {
-        public FailedServerImageGenerationException(Exception innerException)
-            : base(
-                message: "Failed image generation server error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public FailedServerImageGenerationException(string message, Exception innerException)
             : base(message, innerException)
         { }

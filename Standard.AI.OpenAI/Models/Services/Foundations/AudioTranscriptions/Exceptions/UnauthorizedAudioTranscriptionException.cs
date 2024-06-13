@@ -10,12 +10,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AudioTranscriptions.Exc
 #pragma warning disable RCS1194 // Implement exception constructors.
     public class UnauthorizedAudioTranscriptionException : Xeption
     {
-        public UnauthorizedAudioTranscriptionException(Exception innerException)
-            : base(
-                message: "Unauthorized audio transcription request, fix errors and try again.",
-                    innerException: innerException)
-        { }
-
         public UnauthorizedAudioTranscriptionException(string message, Exception innerException)
             : base(message, innerException)
         { }

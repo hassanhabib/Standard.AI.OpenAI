@@ -26,60 +26,62 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (NullAIFileOrchestrationException nullAIFileOrchestrationException)
             {
-                throw new AIFileOrchestrationValidationException(
+                throw CreateAIFileOrchestrationValidationException(
                     nullAIFileOrchestrationException);
             }
             catch (InvalidAIFileOrchestrationException invalidAIFileOrchestrationException)
             {
-                throw new AIFileOrchestrationValidationException(invalidAIFileOrchestrationException);
+                throw CreateAIFileOrchestrationValidationException(
+                    invalidAIFileOrchestrationException);
             }
             catch (LocalFileValidationException localFileValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     localFileValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyValidationException localFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     localFileDependencyValidationException.InnerException as Xeption);
             }
             catch (LocalFileDependencyException localFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     localFileDependencyException.InnerException as Xeption);
             }
             catch (LocalFileServiceException localFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     localFileServiceException.InnerException as Xeption);
             }
             catch (AIFileValidationException aIFileValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileDependencyException aIFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
                     new FailedAIFileOrchestrationServiceException(
+                        message: "Failed AI file service error occurred, contact support.",
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
+                throw CreateAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
         }
@@ -92,28 +94,67 @@ namespace Standard.AI.OpenAI.Services.Orchestrations.AIFiles
             }
             catch (AIFileDependencyException aIFileDependencyException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     aIFileDependencyException.InnerException as Xeption);
             }
             catch (AIFileDependencyValidationException aIFileDependencyValidationException)
             {
-                throw new AIFileOrchestrationDependencyValidationException(
+                throw CreateAIFileOrchestrationDependencyValidationException(
                     aIFileDependencyValidationException.InnerException as Xeption);
             }
             catch (AIFileServiceException aIFileServiceException)
             {
-                throw new AIFileOrchestrationDependencyException(
+                throw CreateAIFileOrchestrationDependencyException(
                     aIFileServiceException.InnerException as Xeption);
             }
             catch (Exception exception)
             {
                 var failedAIFileOrchestrationServiceException =
                     new FailedAIFileOrchestrationServiceException(
+                        message: "Failed AI file service error occurred, contact support.",
                         exception);
 
-                throw new AIFileOrchestrationServiceException(
+                throw CreateAIFileOrchestrationServiceException(
                     failedAIFileOrchestrationServiceException);
             }
+        }
+
+        private static AIFileOrchestrationValidationException CreateAIFileOrchestrationValidationException(
+            Xeption innerException)
+        {
+            return new AIFileOrchestrationValidationException(
+                message: "AI file validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationDependencyValidationException
+            CreateAIFileOrchestrationDependencyValidationException(Xeption innerException)
+        {
+            return new AIFileOrchestrationDependencyValidationException(
+                message: "AI file dependency validation error occurred, fix errors and try again.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationDependencyException CreateAIFileOrchestrationDependencyException(
+            Xeption innerException)
+        {
+            return new AIFileOrchestrationDependencyException(
+                message: "AI File dependency error occurred, contact support.",
+                innerException);
+        }
+
+        private static AIFileOrchestrationServiceException CreateAIFileOrchestrationServiceException(
+            Xeption innerException)
+        {
+            return new AIFileOrchestrationServiceException(
+                message: "AI File error occurred, contact support.",
+                innerException);
+        }
+
+        private static NullAIFileOrchestrationException CreateNullAIFileOrchestrationException() 
+        {
+            return new NullAIFileOrchestrationException(
+                message: "AI file is null.");
         }
     }
 }

@@ -9,15 +9,8 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions.Excepti
 {
     public class InvalidChatCompletionException : Xeption
     {
-        public InvalidChatCompletionException()
-            : base(
-                message: "Chat completion is invalid.")
-        { }
-
-        public InvalidChatCompletionException(Exception innerException)
-            : base(
-                message: "Chat completion is invalid.",
-                    innerException: innerException)
+        public InvalidChatCompletionException(string message)
+            : base(message)
         { }
 
         public InvalidChatCompletionException(string message, Xeption innerException)

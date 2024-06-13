@@ -12,12 +12,6 @@ namespace Standard.AI.OpenAI.Models.Clients.FineTunes.Exceptions
     /// </summary>
     public class FineTuneClientDependencyException : Xeption
     {
-        public FineTuneClientDependencyException(Xeption innerException)
-            : base(
-                message: "Fine tune client dependency error occurred, contact support.",
-                    innerException: innerException)
-        { }
-
         public FineTuneClientDependencyException(string message, Xeption innerException)
             : base(message, innerException)
         { }
