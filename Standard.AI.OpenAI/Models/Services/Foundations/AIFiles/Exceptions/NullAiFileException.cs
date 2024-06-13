@@ -12,7 +12,6 @@ namespace Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions
         public NullAIFileException(String message)
             : base(message)
         { }
-
         public NullAIFileException(string message, Exception innerException)
             : base(message, innerException)
         { }
