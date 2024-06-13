@@ -59,7 +59,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             invalidChatCompletion.Request = null;
 
             var invalidChatCompletionException =
-                createInvalidChatCompletionException();
+                new InvalidChatCompletionException(
+                    message: "Chat completion is invalid."); ;
 
             invalidChatCompletionException.AddData(
                 key: nameof(ChatCompletion.Request),
@@ -107,7 +108,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
             };
 
             var invalidChatCompletionException =
-                createInvalidChatCompletionException();
+                new InvalidChatCompletionException(
+                    message: "Chat completion is invalid.");
 
             invalidChatCompletionException.AddData(
                 key: nameof(ChatCompletion.Request.Model),

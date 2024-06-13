@@ -156,11 +156,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ChatCompletions
 
             return filler;
         }
-
-        private static InvalidChatCompletionException createInvalidChatCompletionException()
-        {
-            return new InvalidChatCompletionException(
-                message: "Chat completion is invalid.");
-        }
     }
 }
