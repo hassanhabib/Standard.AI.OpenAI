@@ -108,11 +108,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
                 new HttpResponseForbiddenException()
             };
         }
-
-        private static InvalidImageGenerationException CreateInvalidImageGenerationException()
-        {
-            return new InvalidImageGenerationException(
-                message: "Invalid image generation error occurred, fix errors and try again.");
-        }
     }
 }

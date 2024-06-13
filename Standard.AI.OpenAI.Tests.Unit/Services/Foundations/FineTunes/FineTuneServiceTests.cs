@@ -187,11 +187,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.FineTunes
 
             return filler;
         }
-
-        private InvalidFineTuneException createInvalidFineTuneException()
-        {
-            return new InvalidFineTuneException(
-                message: "Fine tune is invalid.");
-        }
     }
 }
