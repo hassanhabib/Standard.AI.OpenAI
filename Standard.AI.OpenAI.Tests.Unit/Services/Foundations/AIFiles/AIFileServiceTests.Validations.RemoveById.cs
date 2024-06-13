@@ -24,7 +24,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             string invalidFileId = invalidId;
 
             var invalidFileException =
-                createInvalidAIFileException();
+                new InvalidAIFileException();
 
             invalidFileException.AddData(
                 key: nameof(AIFile.Response.Id),

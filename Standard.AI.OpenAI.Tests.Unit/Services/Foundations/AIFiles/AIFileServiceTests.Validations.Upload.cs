@@ -19,9 +19,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
         {
             // given
             AIFile nullAIFile = null;
-            var nullAIFileException = 
-                new NullAIFileException(
-                    message: "Ai file is null.");
+            var nullAIFileException = new NullAIFileException();
 
             var expectedAIFileValidationException =
                 new AIFileValidationException(
@@ -54,7 +52,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             invalidAIFile.Request = null;
 
             var invalidAIFileException =
-                createInvalidAIFileException();
+                new InvalidAIFileException();
 
             invalidAIFileException.AddData(
                 key: nameof(AIFile.Request),
@@ -101,7 +99,7 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
             };
 
             var invalidAIFileException =
-                createInvalidAIFileException();
+                new InvalidAIFileException();
 
             invalidAIFileException.AddData(
                 key: nameof(AIFileRequest.Name),

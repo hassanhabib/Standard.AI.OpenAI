@@ -14,7 +14,6 @@ using RESTFulSense.Exceptions;
 using Standard.AI.OpenAI.Brokers.DateTimes;
 using Standard.AI.OpenAI.Brokers.OpenAIs;
 using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles;
-using Standard.AI.OpenAI.Models.Services.Foundations.AIFiles.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.ExternalAIFiles;
 using Standard.AI.OpenAI.Services.Foundations.AIFiles;
 using Tynamix.ObjectFiller;
@@ -155,12 +154,6 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.AIFiles
                 .OnType<Stream>().Use(CreateRandomStream);
 
             return filler;
-        }
-
-        private static InvalidAIFileException createInvalidAIFileException()
-        {
-            return new InvalidAIFileException(
-                message: "Invalid AI file error occurred, fix errors and try again.");
         }
     }
 }
