@@ -142,11 +142,5 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.Completions
 
             return filler;
         }
-
-        private static InvalidCompletionException CreateInvalidCompletionException()
-        {
-            return new InvalidCompletionException(
-                message: "Invalid completion error occurred, fix errors and try again.");
-        }
     }
 }
