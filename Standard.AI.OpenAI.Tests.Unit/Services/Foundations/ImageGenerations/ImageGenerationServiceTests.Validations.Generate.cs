@@ -59,7 +59,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             invalidImageGeneration.Request = null;
 
             var invalidImageGenerationException =
-                CreateInvalidImageGenerationException();
+                new InvalidImageGenerationException(
+                    message: "Invalid image generation error occurred, fix errors and try again.");
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request),
@@ -107,7 +108,8 @@ namespace Standard.AI.OpenAI.Tests.Unit.Services.Foundations.ImageGenerations
             };
 
             var invalidImageGenerationException =
-                CreateInvalidImageGenerationException();
+                new InvalidImageGenerationException(
+                    message: "Invalid image generation error occurred, fix errors and try again.");
 
             invalidImageGenerationException.AddData(
                 key: nameof(ImageGeneration.Request.Prompt),
